@@ -1,0 +1,19 @@
+= html_head_title_extend! :administrators
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_title
+    Administrators
+
+.arl_administrators_index
+  %table.arl_administrators_index_administrators
+    %tr.arl_administrators_index_administrator_headings
+    - @administrators.sort{ |a,b| a.name.downcase <=> b.name.downcase }.each do |administrator|
+      %tr.arl_administrators_index_administrator
+        %td.arl_administrators_index_administrator_buttons
+          - if administrator == current_administrator
+            = button_admin_to_edit(edit_administrator_registration_path)
+        %td.arl_administrators_index_administrator_value
+          .arl_administrators_index_administrator_value_name= administrator.name
+          .arl_administrators_index_administrator_value_email= administrator.email
+          - if administrator.has_authority_to_write
+            .arl_administrators_index_administrator_value_authority Has authority to write

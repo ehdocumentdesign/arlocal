@@ -1,0 +1,45 @@
+.arl_form_title
+  = event_statement_pictures_count(event)
+- if event.does_have_pictures
+  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_blocks
+        = f.label :event_pictures_sorter_id, 'Sort pictures by:', class: :arl_form_data_label_block
+        = f.select :event_pictures_sorter_id, selectable.event_pictures_sorters, {selected: f.object.event_pictures_sorter_id}, {class: :arl_form_data_select}
+      %table.arl_form_data_resource_gallery
+        = f.fields_for :event_pictures do |ep|
+          %tr.arl_form_data_resource_gallery_item
+            %td.arl_form_data_resource_gallery_thumbnail= render 'admin/shared/form_picture_thumbnail', form: ep
+            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_metadata', form: ep, picture_sorter: event.event_pictures_sorter, resource_order: event_order
+            -# = render 'admin/shared/form_picture_label', form: ep
+            -# = render 'admin/shared/form_picture_coverpicture_select', form: ep
+            -# - case event.event_pictures_sorter.symbol
+            -#   - when :cover_datetime_asc, :cover_datetime_desc
+            -#     = render 'admin/shared/form_picture_datetime', form: ap
+            -#   - when :cover_manual_asc, :cover_manual_desc
+            -#     = render 'admin/shared/form_picture_order', form: ap, resource_order: :event_order
+            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_remove', form: ep
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        = "will also detach any pictures with the #{icon_remove} box checked"
+
+- if selectable.pictures.count >= 2
+  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+    .arl_form_title
+      Add picture
+    .arl_form_data
+      = f.fields_for :event_pictures, event.event_pictures.build do |ep|
+        = render 'admin/shared/form_picture_selector', form: ep, picture_options: selectable.pictures
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- if selectable.keywords.count >= 1
+  = form_with(model: [:admin, event], url: admin_event_add_pictures_by_keyword_path(event, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+    .arl_form_title
+      Add picture(s) by keyword
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_center
+        = f.collection_select :keywords, selectable.keywords, :id, :title_with_pictures_count, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

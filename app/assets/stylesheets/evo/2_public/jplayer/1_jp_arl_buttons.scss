@@ -1,0 +1,42 @@
+.jp_arl_buttons_playlist {
+  @include layout-flex-row-centered-spaced;
+  height: 4rem;
+  padding: 1.5rem 1.75rem;
+}
+
+.jp_arl_button.jp-next {
+  @include jp_button_next;
+}
+
+.jp_arl_button.jp-pause {
+  @include jp_button_pause;
+}
+
+.jp_arl_button.jp-play {
+  @include jp_button_play;
+}
+
+.jp_arl_button.jp-previous {
+  @include jp_button_previous;
+}
+
+.jp_arl_button.jp-repeat {
+  @include jp_button_repeat;
+}
+
+.jp_arl_button.jp-repeat-off {
+  @include jp_button_repeat_off;
+}
+
+.jp_arl_button.jp-shuffle {
+  @include jp_button_shuffle;
+}
+
+.jp_arl_button.jp-shuffle-off {
+  @include jp_button_shuffle_off;
+}     
+
+.jp_arl_button.jp-stop {
+  @include jp_button_stop;
+}
+

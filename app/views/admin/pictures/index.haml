@@ -1,0 +1,29 @@
+= html_head_title_extend! :pictures
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'pictures index'
+  .arl_admin_resource_header_buttons
+    = picture_admin_button_to_new
+    = picture_admin_button_to_new_import
+    = picture_admin_button_to_new_upload
+
+/= render 'shared/selector_list', selectors: @selectors, all_link: true, nil_link: false
+
+.arl_admin_pictures_index
+  .arl_pictures_select
+    = form_with model: @arlocal_settings, url: admin_arlocal_settings_update_and_return_path, local: true do |f|
+      = picture_admin_filter_select(f)
+      = f.submit 'make default', class: :arl_button_form_aux_submit
+
+%table.arl_admin_pictures_index_pictures
+  - @pictures.each do |picture|
+    %tr.arl_admin_pictures_index_picture.arl_active_link_container{data: {url: admin_picture_path(picture.id_admin)}}
+      %td.arl_admin_pictures_index_picture_image
+        = picture_preferred_tag picture, html_class: :arl_admin_pictures_index_picture_image_thumbnail
+      %td.arl_admin_pictures_index_picture_summary
+        .arl_admin_pictures_index_picture_summary_title= picture_title_link picture, admin_picture_path(picture.id_admin), html_class: :arl_admin_pictures_index_picture_summary_title_link
+        .arl_admin_pictures_index_picture_summary_filepath= picture_file_path_with_indicator_classes(picture)
+        .arl_admin_pictures_index_picture_summary_datetime= picture.datetime
+
+  - if @page_nav_data
+    = render 'shared/nav_page', controller: 'pictures', page: @page_nav_data

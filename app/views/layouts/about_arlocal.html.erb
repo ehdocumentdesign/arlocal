@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+%head
+  %title= 'A&amp;R.local'
+  = html_head_javascripts
+  = html_head_stylesheets
+  = html_head_meta_viewport_tags
+  = csrf_meta_tags
+
+%body
+  - if administrator_signed_in?
+    = render 'layouts/administrator_widget' 
+  %section#arlocal
+    %header.arl_header
+      %h1= 'A&R.local'
+      %nav.arlocal_nav_artist
+        %a albums
+        %a articles
+        %a audio
+        %a events
+        %a info
+        %a links
+        %a pictures
+        %a tags
+    %main.arl_content
+      = yield
+    %footer.arl_footer
+      %p= "A&R.local uses Ruby on Rails and the jquery-based jPlayer media widget."
+      %p= "© #{@arlocal_metadata[:arlocal_copyright_year]} Eli Harrison, except as indicated."
+
+</html>

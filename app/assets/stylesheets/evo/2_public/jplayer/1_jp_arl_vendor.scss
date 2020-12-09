@@ -1,0 +1,19 @@
+.jp_arl_inset {
+  background-color: $color-bg-jp-link-vendor;
+  border-left: $border-jp-link-merchant;
+  border-bottom: $border-jp-link-merchant;
+  border-bottom-left-radius: $border-radius-wide;
+  box-shadow: $shadow;
+  font-family: $font-family-jp-link-vendor;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.5rem 0.875rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.jp_arl_inset_url {
+  color: $color-fg-exciting;
+  font-size: 0.8rem;
+}

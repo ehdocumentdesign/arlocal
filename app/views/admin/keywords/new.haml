@@ -1,0 +1,10 @@
+= html_head_title_extend! 'new keyword'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'new keyword'
+  .arl_admin_resource_header_buttons
+    = keyword_admin_button_to_index
+  = render '/admin/shared/form_errors', resource: @keyword
+
+.arl_admin_keywords_new
+  = render 'form', keyword: @keyword, selectable: @form_metadata.selectables

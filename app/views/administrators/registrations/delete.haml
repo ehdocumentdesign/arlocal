@@ -1,0 +1,6 @@
+%h3 Destroy account
+%form#delete-account
+  %section.data-input
+    = resource.email
+  %section.actions
+    = button_to 'Cancel my account', administrator_registration_path(resource), data: { confirm: 'Are you sure?' }, method: :delete

@@ -1,0 +1,26 @@
+= form_with(model: [:admin, audio], url: admin_audio_refresh_id3_path(audio, pane: :id3), local: true, method: :patch, class: :arl_form) do |f|
+  .arl_form_data
+    .arl_form_title
+      Audio ID3
+    .arl_form_data_attr.arl_form_data_blocks
+      %aside.arl_form_data_attr_explanation
+        Press "Refresh" to reload the following information using the audio recording file.
+      %aside.arl_form_data_attr_explanation
+        %em This cannot be undone.
+    
+    .arl_metadata
+      .arl_metdata_pair
+        .arl_metadata_key Artist
+        .arl_metadata_value= audio.artist
+      .arl_metdata_pair
+        .arl_metadata_key Duration
+        .arl_metadata_value= audio.duration_as_text
+      .arl_metdata_pair
+        .arl_metadata_key Artist
+        .arl_metadata_value= audio.artist
+      .arl_metdata_pair
+        .arl_metadata_key Date
+        .arl_metadata_value= audio.year
+    
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

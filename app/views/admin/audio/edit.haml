@@ -1,0 +1,23 @@
+= html_head_title_extend! "editing audio '#{@audio.title}'"
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "editing audio"
+  .arl_admin_resource_header_buttons
+    = audio_admin_button_to_new
+    = audio_admin_button_to_new_import
+    = audio_admin_button_to_new_upload
+    = audio_admin_button_to_index
+  .arl_admin_resource_header_title= "#{@audio.title}"
+  .arl_admin_resource_header_buttons
+    = audio_admin_button_to_edit_previous(@audio_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = audio_admin_button_to_done_editing(@audio)
+    = audio_admin_button_to_edit_next(@audio_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+  = render '/admin/audio/admin_audio_stats', audio: @audio
+  = render '/admin/shared/form_errors', resource: @audio
+
+.arl_admin_resource_edit_nav
+  - @form_metadata.nav_categories.each do |category|
+    = audio_admin_edit_nav_button(audio: @audio, category: category, current_pane: @form_metadata.tab_name)
+
+.arl_admin_audio_edit
+  = render @form_metadata.partial_name, audio: @audio, selectable: @form_metadata.selectables

@@ -1,0 +1,19 @@
+%section.arl_admin_console_as_admin
+
+  .arl_admin_console_text
+    .arl_admin_console_text_heading
+      = link_to "A&R.local", admin_about_arlocal_path, class: :arl_admin_console_text_url
+      = " admin user"
+    .arl_admin_console_text_username=# current_administrator.display_name
+    .arl_admin_console_text_messages
+      - if notice
+        .arl_admin_console_text_messages_notice
+          = "#{Time.zone.now} - #{notice}"
+      - if alert
+        .arl_admin_console_text_messages_alert
+          = "#{Time.zone.now} - #{alert}"
+
+  .arl_admin_console_actions
+    = button_admin_to_toggle_viewing_role(params)
+    = button_admin_to_log_out
+    

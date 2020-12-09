@@ -1,0 +1,4 @@
+- if audio.does_have_attachment
+  = render 'form_attachment_purge', audio: @audio
+- elsif audio.does_not_have_attachment
+  = render 'form_attachment_upload', audio: @audio

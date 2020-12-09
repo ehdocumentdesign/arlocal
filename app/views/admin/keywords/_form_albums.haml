@@ -1,0 +1,30 @@
+.arl_form_title
+  = keyword_statement_albums_count(keyword)
+- if keyword.does_have_albums
+  /= button_to 'unkeyword albums', admin_unkeyword_albums_path(keyword.id, pane: :albums), method: :delete, class: :arl_button_unkeyword
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :albums), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_attr.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading album title
+          %th.arl_form_data_resource_heading= icon_remove
+        = f.fields_for :album_keywords do |ak|
+          %tr
+            %td.arl_form_data_resource_value= album_reference_admin_link(ak.object.album)
+            %td.arl_form_data_resource_remove= ak.check_box :_destroy, class: :arl_form_data_checkbox
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        = "will detach any albums with the #{icon_remove} box checked."
+
+-if selectable.albums.count >= 1
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :albums), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Keyword an album
+    .arl_form_data
+      = f.fields_for :album_keywords, keyword.album_keywords.build do |at|
+        .arl_form_data_attr.arl_form_layout_center
+          = at.label :album_keyword, 'Album', class: :arl_form_data_label
+          = at.collection_select :album_id, selectable.albums, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

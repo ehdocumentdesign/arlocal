@@ -1,0 +1,31 @@
+// inital height units
+// $arl-var-height-line is the line-height of text and the margin between paragraphs
+// $arl-var-height-wide is the intended space between block elements.
+
+$arl-base-height: 1.0em;
+
+
+$arl-var-height-line: ($arl-base-height * 1.25);
+$arl-var-height-narrow: ($arl-base-height);
+$arl-var-height-wide: ($arl-base-height * 1.5);
+$arl-var-height-wider: ($arl-base-height * 1.75);
+
+
+
+$arl-line-height: $arl-var-height-line;
+
+
+// When margins don't collapse, each element declares one half of the margin.
+$arl-margin:        $arl-var-height-line/2;
+$arl-margin-narrow: $arl-var-height-narrow/2;
+$arl-margin-wide:   $arl-var-height-wide/2;
+$arl-margin-wider:  $arl-var-height-wider/2;
+
+// When a single element specifies margin and/or padding, or when margins do collapse,
+// one or both elements can declare the entire margin or padding distance.
+// And sometimes it's a shortcut for an extra-wide value.
+$arl-spacing:         $arl-var-height-line;
+$arl-spacing-narrow:  $arl-var-height-narrow;
+$arl-spacing-wide:    $arl-var-height-wide;
+$arl-spacing-wider:   $arl-var-height-wider;
+

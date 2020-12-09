@@ -1,0 +1,20 @@
+= html_head_title_extend! :audio
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'audio index'
+  .arl_admin_resource_header_buttons
+    = audio_admin_button_to_new
+    = audio_admin_button_to_new_import
+    = audio_admin_button_to_new_upload
+
+.arl_audio_index
+  .arl_audio_select
+    = form_with model: @arlocal_settings, url: admin_arlocal_settings_update_and_return_path, local: true do |f|
+      = audio_admin_filter_select(f)
+      = f.submit 'make default', class: :arl_button_form_aux_submit
+
+  %table.arl_audio_index_audios
+    - @audio.each do |audio|
+      %tr
+        %td.arl_audio_index_audio
+          = render 'index_audio_details', audio: audio

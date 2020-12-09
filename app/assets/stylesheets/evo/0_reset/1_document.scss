@@ -1,0 +1,33 @@
+/*
+Content-box is the preferred box-sizing for most elements in A&R.local.
+Border-box and padding-box cause accessibility issues in browsers that resize
+to zoom: the content box will shrink to accommodate the padding/border.
+
+Some other application-wide directives reside here for now.
+
+see also `__reset/elements.scss`
+*/
+
+
+*, * * {
+  border: none;
+  box-sizing: content-box;
+  line-height: $arl-line-height;
+  margin: 0;
+  padding: 0;
+  text-index: 0;
+}
+
+html {
+  font-size: 1rem;
+}
+
+hr {
+  border-top: 1px black solid;
+  margin: $arl-line-height 0em;
+}
+
+ul, ol, li {
+  margin-left: 1em;
+}
+

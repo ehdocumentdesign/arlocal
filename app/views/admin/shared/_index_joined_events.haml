@@ -1,0 +1,8 @@
+.arl_admin_resource_joined
+  .arl_admin_resource_joined_heading
+    = resource_joined_events_count_statement(resource)
+  - if resource.does_have_events
+    .arl_admin_resource_joined_others
+      - resource.events.each do |event|
+        .arl_admin_resource_joined_other
+          = event.datetime

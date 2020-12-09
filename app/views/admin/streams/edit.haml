@@ -1,0 +1,18 @@
+= html_head_title_extend! 'editing Stream page'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_title= "editing stream metadata"
+  .arl_admin_resource_header_buttons
+    = stream_admin_button_to_new
+    -# stream_admin_button_to_edit_previous(@stream_neighbors.previous)
+    = stream_admin_button_to_done_editing(@stream)
+    -# stream_admin_button_to_edit_next(@stream_neighbors.next)
+    = stream_admin_button_to_index
+  = render '/admin/shared/form_errors', resource: @stream
+
+%nav.arl_admin_resource_edit_nav
+  - @form_metadata.nav_categories.each do |category|
+    = stream_admin_edit_nav_button(stream: @stream, category: category, current_pane: @form_metadata.tab_name)
+  
+.arl_admin_links_edit
+  = render @form_metadata.partial_name, stream: @stream, selectable: @form_metadata.selectables

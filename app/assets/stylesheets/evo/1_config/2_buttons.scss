@@ -1,0 +1,147 @@
+@mixin buttonize_admin_input {
+  background-color: $color-bg-lightest;
+//  border: $border-form-button-admin-console;
+  border: $border-light;
+  border-radius: $border-radius-wide;
+  margin: 1px;
+  &:focus, &:active {
+    border: $border-form-button-admin-console-active;
+    box-shadow: $shadow-button-active;
+    margin: 0px;
+    outline: none;
+  }
+}
+
+@mixin buttonize_anchor {
+  background-color: $color-bg-lightest;
+  border: $border-light;
+  border-radius: $border-radius-wide;
+  color: $color-fg-link-nav;
+  display: inline-block;
+  margin: 0rem 0.5rem;
+  padding: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+//  width: 1.75rem;
+  &:focus, &:active {
+    border: $border;
+    box-shadow: $shadow-button-nav-active;
+    outline: none;    
+  }
+}
+
+@mixin buttonize_file_upload {
+  background-color: $color-bg-file-upload;
+  border: $border-light;
+  border-radius: $border-radius-wide;
+  color: $color-fg-link-nav;
+  content-box: border-box;
+  display: inline-block;
+  margin: $arl-margin-wide $arl-margin;
+  padding: $arl-margin;
+  text-align: center;
+  text-decoration: none;
+  &:focus, &:active {
+    border: $border;
+    box-shadow: $shadow-button-nav-active;
+    outline: none;    
+  }
+}
+
+@mixin buttonize_select {
+  background-color: $color-bg-lighter;
+  border: $border-filter-select;
+  font-family: $font-family-filter-select;
+  font-size: 0.9em;
+  box-shadow: $shadow;
+  text-align: center;
+  padding: ($arl-spacing-narrow / 4) ($arl-spacing-narrow / 2);
+}
+
+@mixin buttonize_submit {
+  border: $border-form-button;
+  border-radius: $border-radius-wide;
+  color: $color-fg;
+  &:focus, &:active {
+    border: $border-form-button-active;
+    box-shadow: $shadow-button-active;
+    outline: none;
+  }
+}
+
+
+.arl_button_admin_console {
+  @include buttonize_admin_input;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.25rem;
+}
+
+.arl_button_admin_resource {
+  @include buttonize_admin_input;
+  border: $border-admin-header-button;
+  color: $color-fg-link;
+  display: block;
+  font-family: $font-family-admin-data-button;
+  font-size: 1rem;
+  min-width: 1.0rem;
+  padding: $arl-margin-narrow;
+  text-align: center;
+  text-decoration: none;
+  width: 1.0rem;
+}
+.arl_button_admin_resource_spacing {
+  margin-left: $arl-margin-narrow;
+  margin-right: $arl-margin-narrow;
+}
+
+.arl_button_file_upload {
+  @include layout-flex-column-center;
+  @include buttonize_file_upload;
+  font-family: $font-family-admin-data-button;
+  font-size: 1rem;
+}
+
+.arl_button_filter_select {
+  @include buttonize_select;
+}
+
+.arl_button_form_submit_destroy {
+  @include buttonize_submit;
+  background-color: $color-bg-form-button;
+  border-color: $color-fg;
+  color: $color-fg-exciting;
+  font-family: $font-family-admin-data-button;
+  font-size: 1em;
+  font-weight: bold;
+  padding: $arl-margin-narrow;
+  min-width: 3rem;
+}
+
+.arl_button_form_submit {
+  @include buttonize_submit;
+  background-color: $color-bg-form-button;
+  font-family: $font-family-admin-data-button;
+  font-size: 1em;
+  padding: $arl-margin-narrow;
+}
+
+.arl_button_form_aux_submit {
+  background-color: transparent;
+  font-family: $font-family-admin-data-button;
+  margin: 0rem $arl-margin;
+  text-decoration: underline;
+}
+
+.arl_button_nav_next {
+  @include buttonize_anchor;
+  padding: 0.5rem 1rem;
+}
+
+.arl_button_nav_previous {
+  @include buttonize_anchor;
+  padding: 0.5rem 1rem;
+}
+
+.arl_button_select {
+  @include buttonize_select;
+}

@@ -1,0 +1,56 @@
+/*
+A&R.local attempts to accommodate several different markup processors for
+resources that have text attributes. Setting some application-wide default
+style properties ensures that the layout of processed _text_parkup renders
+consistently
+
+see also `../_config/parser.scss`
+*/
+
+
+blockquote {
+  margin: $arl-line-height;
+}
+
+h1 {
+  font-size: 1.5em;
+  margin: $arl-line-height 0em;
+}
+
+h2 {
+  font-size: 1.25em;
+  margin: $arl-line-height 0em;
+}
+
+h3 {
+  font-size: 1em;
+  margin: $arl-line-height 0em;
+}
+
+h4 {
+  font-size: 1em;
+  margin: $arl-line-height 0em;
+}
+
+h5, {
+  font-size: 1em;
+  margin: $arl-line-height 0em;
+}
+
+h6 {
+  font-size: 1em;
+  margin: $arl-line-height 0em;
+}
+
+img {
+  display: block;
+}
+
+p {
+  margin: $arl-line-height 0em;
+}
+
+table {
+  border-collapse: collapse;
+}
+

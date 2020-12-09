@@ -1,0 +1,26 @@
+= html_head_title_extend! :events, @event.date_and_venue
+
+- if @event.show_will_cycle_pictures
+  = resource_script_picture_cycler(@event)
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "event"
+  .arl_admin_resource_header_title= sanitize "#{@event.datetime}<br>#{@event.title}"
+  .arl_admin_resource_header_buttons
+    = event_admin_button_to_new
+    = event_admin_button_to_previous(@event_neighbors.previous)
+    = event_admin_button_to_edit(@event)
+    = event_admin_button_to_next(@event_neighbors.next)
+    = event_admin_button_to_index
+  = render '/admin/events/admin_event_stats', event: @event
+
+.arl_events_show
+  .arl_events_show_coverpicture
+    = render 'show_event_coverpicture', event: @event
+  .arl_events_show_info
+    = render 'show_event_info_datetime', event: @event
+    = render 'show_event_info_title', event: @event
+    = render 'show_event_info_alert', event: @event
+    = render 'show_event_info_location', event: @event
+    = render 'show_event_info_links', event: @event
+    = render 'show_event_info_details', event: @event

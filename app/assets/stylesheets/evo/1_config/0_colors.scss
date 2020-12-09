@@ -1,0 +1,54 @@
+// Initial color variables
+
+$var-color-bg: #EED;
+$var-color-bg-admin-console: #F00;
+$var-color-bg-admin-resource-header: #FD9;
+$var-color-bg-marquee: #444;
+$var-color-bg-darkest: #AAA;
+$var-color-bg-exciting: #FF4;
+$var-color-bg-lightest: #FFF;
+$var-color-bg-null: #776;
+$var-color-bg-form-button: #CFE;
+
+$var-color-fg: #000;
+$var-color-fg-exciting: #F00;
+$var-color-fg-link: #05A;
+
+$var-color-jp-progress-bar-bg: #7CE;
+
+
+
+// Generalized semantic colors
+
+$color-bg: $var-color-bg;
+$color-bg-darker: transparentize($var-color-bg-darkest, 0.667);
+$color-bg-darkest: $var-color-bg-darkest;
+$color-bg-exciting: $var-color-bg-exciting;
+$color-bg-highlighted: transparentize($var-color-bg-exciting, 0.5);
+$color-bg-lighter: transparentize($var-color-bg-lightest, 0.4);
+$color-bg-lighter2: transparentize($var-color-bg-lightest, 0.2);
+$color-bg-lightest: $var-color-bg-lightest;
+
+$color-fg: $var-color-fg;
+$color-fg-link: mix($var-color-fg, $var-color-fg-link, 37.5);
+$color-fg-exciting: mix($var-color-fg, $var-color-fg-exciting, 37.5);
+
+
+// Specific element colors
+
+$color-bg-admin-console: mix($color-bg, $var-color-bg-admin-console, 62.5);
+$color-bg-admin-console_public_role: mix($color-bg-darkest, $var-color-bg-admin-console, 75);
+$color-bg-admin-resource-header: $var-color-bg-admin-resource-header;
+$color-bg-arlocal-base: $var-color-bg-null;
+$color-bg-marquee: $var-color-bg-marquee;
+$color-bg-file-upload: $color-bg-highlighted;
+$color-bg-form-button: $var-color-bg-form-button;
+$color-bg-jp-link-vendor: transparentize($var-color-bg-exciting, 0.375);
+$color-bg-jp-media-current: transparentize(mix($var-color-fg-exciting, $var-color-bg-exciting, 33), 0.25);
+$color-bg-jp-progress-bar: $var-color-jp-progress-bar-bg;
+
+$color-fg-admin: $color-fg-exciting;
+$color-fg-header-artist-name: $color-fg-link;
+$color-fg-header-nav: $color-fg-link;
+$color-fg-link-address: $var-color-fg-link;
+$color-fg-link-nav: $var-color-fg-link;

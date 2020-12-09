@@ -1,0 +1,17 @@
+%header.arl_header
+  %h1.arl_header_artist
+    = link_to @arlocal_settings.artist_name_downcase, admin_root_path, class: :arl_header_artist_name
+  .arl_header_nav
+    %nav.arl_header_nav_global
+      = link_to 'A&R.local',   edit_admin_arlocal_settings_path, class: :arl_header_nav_category_admin
+      = link_to 'administrators', admin_administrators_path,           class: :arl_header_nav_category_admin
+    %nav.arl_header_nav_artist
+      = link_to 'albums',   admin_albums_path,      class: :arl_header_nav_category_admin
+      = link_to 'articles', admin_articles_path,    class: :arl_header_nav_category_admin
+      = link_to 'audio',    admin_audio_index_path, class: :arl_header_nav_category_admin
+      = link_to 'events',   admin_events_path,      class: :arl_header_nav_category_admin
+      = link_to 'info',     admin_info_path,        class: :arl_header_nav_category_admin
+      = link_to 'keywords', admin_keywords_path,    class: :arl_header_nav_category_admin
+      = link_to 'links',    admin_links_path,       class: :arl_header_nav_category_admin
+      = link_to 'pictures', admin_pictures_path,    class: :arl_header_nav_category_admin
+      = link_to 'stream',   admin_streams_path,     class: :arl_header_nav_category_admin

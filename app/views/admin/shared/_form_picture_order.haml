@@ -1,0 +1,9 @@
+- if form.object.is_coverpicture
+  .arl_form_resource_picture_order.arl_form_layout_inline.arl_form_data_attr_not_applicable
+    = form.label 'order', class: :arl_form_data_resource_value
+    = form.text_field resource_order, class: :arl_form_data_number_field
+
+- else
+  .arl_form_resource_picture_order.arl_form_layout_inline
+    = form.label 'order', class: :arl_form_data_resource_value
+    = form.text_field resource_order, class: :arl_form_data_number_field

@@ -1,0 +1,74 @@
+$var-border-color: $color-fg;
+$var-border-color-active: $color-fg-exciting;
+$var-border-color-admin-header: mix($var-border-color, $var-color-bg-admin-resource-header, 33);
+$var-border-color-exciting: mix($color-bg-exciting, $color-fg, 85);
+$var-border-color-img: transparentize($color-fg, 0.425);
+$var-border-color-img-rounded: transparentize($color-fg, 0.667);
+$var-border-color-jp-progress-bar: mix($var-border-color, $var-color-jp-progress-bar-bg, 42.5);
+$var-border-color-light: transparentize($color-fg, 0.625);
+$var-border-color-lighter: transparentize($color-fg, 0.75);
+$var-border-color-transparent: transparentize($color-fg, 1);
+$var-border-radius: 0.4rem;
+$var-border-style: solid;
+$var-border-width: 1px;
+$var-border-width-wider: ($var-border-width * 2);
+
+$border: $var-border-color $var-border-style $var-border-width;
+$border-light: $var-border-color-light $var-border-style $var-border-width;
+$border-lighter: $var-border-color-lighter $var-border-style $var-border-width;
+$border-transparent: $var-border-color-transparent $var-border-style $var-border-width;
+
+$border-admin-console: $var-border-color-active $var-border-style $var-border-width;
+$border-admin-header-button: $var-border-color-admin-header $var-border-style $var-border-width;
+$border-filter-select: $var-border-color-light $var-border-style $var-border-width;
+$border-form-button: $var-border-color-light $var-border-style $var-border-width-wider;
+$border-form-button-active: $var-border-color-active $var-border-style $var-border-width-wider;
+$border-form-button-admin-console: $var-border-color $var-border-style $var-border-width;
+$border-form-button-admin-console-active: $var-border-color-active $var-border-style $var-border-width-wider;
+$border-form-input: $var-border-color-light $var-border-style $var-border-width;
+$border-jp-link-merchant: $var-border-color-exciting $var-border-style $var-border-width;
+$border-jp-progress-bar: $var-border-color-jp-progress-bar $var-border-style $var-border-width;
+$border-img: $var-border-color-img $var-border-style $var-border-width;
+
+$border-test: purple 1px dashed;
+
+$border-radius-img: $var-border-radius;
+$border-radius-thumbnail: $var-border-radius;
+$border-radius-wide: $var-border-radius;
+
+
+@mixin border-pseudo-vertical {
+  margin-left: $var-border-width;
+  margin-right: $var-border-width;
+}
+
+@mixin border-rounded-img {
+  background-color: $var-border-color-img-rounded;
+  border: $var-border-color-img-rounded $var-border-style $var-border-width;
+  border-radius: $border-radius-img;
+}
+
+@mixin border-rounded-img-albums-index {
+  background-color: $var-border-color-img-rounded;
+  border: $var-border-color-img-rounded $var-border-style $var-border-width;
+  border-radius: ($border-radius-img / 2);
+}
+
+@mixin border-rounded-img-albums-show {
+  background-color: $var-border-color-img-rounded;
+  border: $var-border-color-img-rounded $var-border-style $var-border-width;
+  border-radius: ($border-radius-img / 2);
+}
+
+@mixin border-rounded-thumbnail {
+  background-color: $var-border-color-img-rounded;
+  border: $var-border-color-img-rounded $var-border-style $var-border-width;
+  border-radius: $border-radius-thumbnail;
+}
+
+.arl_border_bottom {
+  border-bottom: $border;
+}
+.arl_border_top {
+  border-top: $border;
+}

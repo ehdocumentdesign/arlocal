@@ -1,0 +1,27 @@
+/
+/ Are you looking for public/administrators/* instead?
+/
+
+.arl_administrator_new
+  .arl_administrator_new_header
+    Administrator
+  .arl_administrator_new_prompt
+    = app_logo html_class: :arl_administrator_new_prompt_logo
+    .arl_administrator_new_prompt_form
+      = form_for(resource, as: resource_name, html: { class: [:arl_form, :arl_layout_narrow] }, url: session_path(resource_name)) do |f|
+        .arl_form_data
+          .arl_form_data_attr.arl_form_layout_blocks
+            = f.label :email, class: :arl_form_data_label_block
+            = f.email_field :email, autocomplete: 'email', autofocus: true, class: :arl_form_data_text_field
+          .arl_form_data_attr.arl_form_layout_blocks
+            = f.label :password, class: :arl_form_data_label_block
+            = f.password_field :password, autocomplete: 'current_password', class: :arl_form_data_text_field
+          - if devise_mapping.rememberable?
+            .arl_form_layout_inline
+              = f.check_box :remember_me, class: :arl_form_data_checkbox
+              = f.label :remember_me, class: :arl_form_data_label_inline
+        .arl_form_actions
+          .arl_form_action_submit
+            = f.submit "Log in", class: :arl_button_form_submit
+        .arl_form_links
+          =# render 'administrators/shared/links'

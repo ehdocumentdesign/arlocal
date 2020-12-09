@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang='en'>
+<!-- powered with A&R.Local and jPlayer -->
+
+%head
+  = html_head_title(@arlocal_settings, yield(:html_head_title_subtitle))
+  = html_head_favicon_tags(@arlocal_settings)
+  = html_head_javascripts
+  = html_head_stylesheets
+  = html_head_meta_charset_tag
+  = html_head_meta_viewport_tags
+  = csrf_meta_tags
+  = yield(:html_head_meta_description)
+
+%body.arlocal
+  - if role_is_administrator(params)
+    = render 'layouts/admin_console'
+
+  %section.arl_base
+    = render 'layouts/header'
+    = render 'layouts/marquee'
+    = render 'layouts/content'
+    = render 'layouts/footer'
+
+  %script
+    $(document).on('ready', Arlocal.FrontEnd._onReady.initialize());
+
+</html>

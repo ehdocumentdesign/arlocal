@@ -1,0 +1,23 @@
+%section#selector-links
+  %nav
+    - if all_link || (controller_name == 'events')
+      %ul
+        - if controller_name == 'events'
+          %li= link_to 'upcoming', admin_events_upcoming_path
+          %li= link_to 'all future', admin_events_future_path
+        - elsif (controller_name != 'events') && (all_link)
+          %li= link_to "all #{controller_name}", {controller: controller_path, action: :index, selection: :all}
+  %nav
+    - selectors_hash.each_pair do |selector_type, selectors|
+      - if selectors_hash.keys.count > 1
+        %h1= selector_type.to_s
+      %ul
+        - selectors.each do |selector|
+          - if (selector.class.to_s == "Keyword") && (selector.is_public_selector == false)
+            %li.admin
+              = resource_selector_link_to(controller_path, selector_type, selector: selector)
+          - else
+            %li.public
+              = resource_selector_link_to(controller_path, selector_type, selector: selector)
+        - if nil_link
+          %li= resource_selector_link_to(controller_path, selector_type, selector: nil)

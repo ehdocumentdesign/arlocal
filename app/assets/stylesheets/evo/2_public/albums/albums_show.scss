@@ -1,0 +1,149 @@
+.arl_albums_show {}
+.arl_albums_show_nav_neighbors {
+  text-align: center;
+  width: 100%;
+}
+.arl_albums_show_picture {}
+.arl_albums_show_picture_img {}
+.arl_albums_show_player {}
+.arl_albums_show_text {
+  font-family: $font-family-album-details;
+  font-weight: normal;
+}
+.arl_albums_show_text_album_artist {
+  font-family: $font-family-album-title;
+}
+.arl_albums_show_text_copyright {
+  font-size: 0.8em;
+}
+.arl_albums_show_text_description {
+  font-size: 1em;
+}
+.arl_albums_show_text_description_attr {
+  font-weight: bold;
+}
+.arl_albums_show_text_duration {
+  font-size: 0.8em;
+}
+.arl_albums_show_text_date_released {
+  font-size: 0.8em;
+}
+.arl_albums_show_text_title {
+  font-family: $font-family-album-title;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+.arl_albums_show_vendor_button {
+  @include layout-flex-column-stretch;
+  width: 100%;
+}
+
+
+@media #{$media-screen-1} {
+  .arl_albums_show {
+    @include layout-flex-column-stretch;
+  }
+  .arl_albums_show_nav_neighbors {
+    margin: 0rem 0rem 1.5rem 0rem;
+    order: 4;
+  }
+  .arl_albums_show_text {
+    @include layout-flex-column-stretch;
+    font-size: 0.9rem;
+    order: 3;
+    padding: 1rem 1.25rem;
+  }
+  .arl_albums_show_picture {
+    order: 1;
+  }
+  .arl_albums_show_picture_img {
+    height: 20rem;
+    width: 20rem;
+  }
+
+  // see .jp-type-playlist for border-bottom.
+  // TODO: figure out why .jp_audio doesn't render borders for this @media type
+  .arl_albums_show_player {
+    order: 2;
+    border-top: $border;
+  }
+  .arl_albums_show_text_copyright {
+    padding-top: $arl-spacing;
+  }
+  .arl_albums_show_text_title {
+  }
+}
+
+
+@media #{$media-screen-2} {
+  .arl_albums_show {
+    @include layout-flex-column-center;
+    padding: $arl-spacing-wide;
+  }
+  .arl_albums_show_nav_neighbors {
+    margin-top: 1.75rem;
+    order: 4;
+  }
+  .arl_albums_show_picture {
+    order: 1;
+  }
+  .arl_albums_show_picture_img {
+    @include border-rounded-img-albums-show;
+    box-shadow: $shadow-img;
+    height: 22rem;
+    width: 22rem;
+  }
+  .arl_albums_show_player {
+    margin: $arl-spacing-wide 0rem $arl-margin-wide 0rem;
+    order: 2;
+  }
+  .arl_albums_show_text {
+    @include layout-flex-column-stretch;
+    order: 3;
+    text-align: center;
+    width: 22rem;
+  }
+  .arl_albums_show_text_copyright {
+    padding-top: 1.25em;
+  }
+}
+
+
+@media #{$media-screen-3} {
+  .arl_albums_show {
+    margin-bottom: $arl-margin-wide;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: $arl-margin-wide;
+    position: relative;
+    width: 44rem;
+    padding: $arl-margin-wide;
+  }
+  .arl_albums_show_nav_neighbors {
+    margin-top: 1.75rem;
+  }
+  .arl_albums_show_picture {
+    margin-bottom: $arl-margin;
+  }
+  .arl_albums_show_picture_img {
+    @include border-rounded-img-albums-show;
+    box-shadow: $shadow-img;
+    box-sizing: border-box;
+    height: 22rem;
+    width: 22rem;
+  }
+  .arl_albums_show_player {
+    left: 24.5rem;
+    position: absolute;
+    top: $arl-margin-wide;
+  }
+  .arl_albums_show_text {
+    @include layout-flex-column-stretch;
+    border: $border-transparent;
+    box-sizing: border-box;
+    width: 22rem;
+  }
+  .arl_albums_show_text_copyright {
+    padding-top: $arl-spacing;
+  }
+}

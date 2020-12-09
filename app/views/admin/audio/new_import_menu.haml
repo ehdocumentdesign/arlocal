@@ -1,0 +1,17 @@
+= html_head_title_extend! :audio
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'audio import'
+  .arl_admin_resource_header_buttons
+    = audio_admin_button_to_new
+    = audio_admin_button_to_new_import
+    = audio_admin_button_to_new_upload
+    = audio_admin_button_to_index
+    
+.arl_audio_new_import_menu
+  .arl_audio_new_import_menu_option
+    = link_to "import single", admin_audio_new_import_single_path, class: :arl_button_form_submit
+  .arl_audio_new_import_menu_option
+    = link_to "import to album", admin_audio_new_import_to_album_path, class: :arl_button_form_submit
+  .arl_audio_new_import_menu_option
+    = link_to "import to event", admin_audio_new_import_to_event_path, class: :arl_button_form_submit

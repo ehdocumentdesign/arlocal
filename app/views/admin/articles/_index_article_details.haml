@@ -1,0 +1,4 @@
+.arl_articles_index_article_metadata
+  = link_to article.title, admin_article_path(article.id_public), class: :arl_articles_index_article_title
+.arl_articles_index_article_excerpt
+  = parser_div(article.text_props)

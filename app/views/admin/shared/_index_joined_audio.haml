@@ -1,0 +1,8 @@
+.arl_admin_resource_joined
+  .arl_admin_resource_joined_heading
+    = resource_joined_audio_count_statement(resource)
+  - if resource.does_have_audio
+    .arl_admin_resource_joined_others
+      - resource.audio.order_by_title_asc.each do |album|
+        .arl_admin_resource_joined_other
+          = audio.title

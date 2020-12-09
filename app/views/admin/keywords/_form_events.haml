@@ -1,0 +1,30 @@
+.arl_form_title
+  = keyword_statement_events_count(keyword)
+- if keyword.does_have_events
+  /= button_to 'unkeyword events', admin_unkeyword_events_path(keyword.id, pane: :events), method: :delete, class: :arl_button_unkeyword
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :events), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading event title
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :event_keywords do |ek|
+          %tr
+            %td.arl_form_data_resource_value= event_reference_admin_link(ek.object.event)
+            %td.arl_form_data_resource_remove= ek.check_box :_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        = "will detach any albums with the #{icon_remove} box checked."
+
+- if selectable.events.count >= 1
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :events), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Keyword an event
+    .arl_form_data
+      = f.fields_for :event_keywords, keyword.event_keywords.build do |et|
+        .arl_form_data_attr.arl_form_layout_center
+          = et.label :event_keyword, 'Event', class: :arl_form_data_label
+          = et.collection_select :event_id, selectable.events, :id, :datetime_and_title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

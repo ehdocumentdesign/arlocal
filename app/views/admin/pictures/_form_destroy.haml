@@ -1,0 +1,14 @@
+= form_with(model: [:admin, picture], local: true, class: :arl_form) do |f|
+  .arl_form_title
+    Destroy picture?
+    .arl_form_data_label_destroy= tag.i picture.title
+  .arl_form_data
+    .arl_form_data_attr.arl_form_data_blocks
+      %ul.arl_form_data_attr_destroy_explanation
+        %li.arl_form_data_attr_destroy_explanation_caveat Image file(s) will remain in the filesystem.
+      %ul.arl_form_data_attr_destroy_explanation
+        %li.arl_form_data_attr_destroy_explanation_caveat This action can not be undone.
+  
+  .arl_form_actions
+    = button_admin_submit_to_destroy admin_picture_path(picture.id), data: { confirm:  'Are you sure?' }
+    

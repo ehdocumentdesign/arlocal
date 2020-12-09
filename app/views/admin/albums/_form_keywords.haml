@@ -1,0 +1,28 @@
+.arl_form_title
+  = album_statement_keywords_count(album)
+- if album.does_have_keywords
+  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :keywords), local: true, class: :arl_form, method: :patch) do |f|
+    .arl_form_data
+      %table.arl_form_data_attr.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading title
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :album_keywords do |ak|
+          %tr
+            %td.arl_form_data_resource_value= ak.label :keyword_title, keyword_reference_admin_link(ak.object.keyword), class: :arl_form_data_resource_value
+            %td.arl_form_data_resource_value= ak.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation= "will also detatch any keywords with '#{icon_destroy}' box checked"
+
+- if selectable.keywords.count >= 1
+  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :keywords), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+    .arl_form_title
+      Add a keyword
+    .arl_form_data
+      = f.fields_for :album_keywords, album.album_keywords.build do |ak|
+        .arl_form_data_attr.arl_form_layout_center
+          =# at.label :keyword_id
+          = ak.collection_select :keyword_id, selectable.keywords, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

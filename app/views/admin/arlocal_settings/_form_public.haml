@@ -1,0 +1,49 @@
+= form_with(model: [:admin, arlocal_settings], url: admin_arlocal_settings_path(arlocal_settings, pane: :public), local: true, class: :arl_form, method: :patch) do |f|
+  .arl_form_title Public view settings
+
+  .arl_form_data
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.label :public_index_albums_sorter_id, 'Public Index – Albums – sort by', class: :arl_form_data_label
+      = f.select :public_index_albums_sorter_id, selectable.albums_index_sorters, {selected: f.object.public_index_albums_sorter_id}, {class: :arl_form_data_select}
+
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.label :public_index_audio_sorter_id, 'Public Index – Audio – sort by', class: :arl_form_data_label
+      = f.select :public_index_audio_sorter_id, selectable.audio_index_sorters, {selected: f.object.public_index_audio_sorter_id}, {class: :arl_form_data_select} 
+
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.label :public_index_events_sorter_id, 'Public Index – Events – sort by', class: :arl_form_data_label
+      = f.select :public_index_events_sorter_id, selectable.events_index_sorters, {selected: f.object.public_index_events_sorter_id}, {class: :arl_form_data_select} 
+      
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.label :public_index_pictures_sorter_id, 'Public Index – Pictures – sort by', class: :arl_form_data_label
+      = f.select :public_index_pictures_sorter_id, selectable.pictures_index_sorters, {selected: f.object.public_index_pictures_sorter_id}, {class: :arl_form_data_select}
+      %aside.arl_form_data_attr_explanation
+        The 'date &amp; time cascade' option will order pictures based on the first available data, choosing from
+        1) a manually entered date/time, 2) the date/time from EXIF metadata, 3) the date/time from the picture file.
+
+    .arl_form_data_attr.arl_form_layout_inline
+      = f.check_box :public_nav_can_include_albums, checked: f.object.public_nav_can_include_albums, class: :arl_form_data_checkbox
+      = f.label :public_nav_can_include_albums, class: :arl_form_data_label
+    
+    .arl_form_data_attr.arl_form_layout_inline.arl_nyi
+      = f.check_box :public_nav_can_include_audio, checked: f.object.public_nav_can_include_audio, class: :arl_form_data_checkbox
+      = f.label :public_nav_can_include_audio, class: :arl_form_data_label
+
+    .arl_form_data_attr.arl_form_layout_inline
+      = f.check_box :public_nav_can_include_events, checked: f.object.public_nav_can_include_events, class: :arl_form_data_checkbox
+      = f.label :public_nav_can_include_events, class: :arl_form_data_label
+
+    .arl_form_data_attr.arl_form_layout_inline
+      = f.check_box :public_nav_can_include_info, checked: f.object.public_nav_can_include_info, class: :arl_form_data_checkbox
+      = f.label :public_nav_can_include_info, class: :arl_form_data_label
+
+    .arl_form_data_attr.arl_form_layout_inline
+      = f.check_box :public_nav_can_include_pictures, checked: f.object.public_nav_can_include_pictures, class: :arl_form_data_checkbox
+      = f.label :public_nav_can_include_pictures, class: :arl_form_data_label
+
+    .arl_form_data_attr.arl_form_layout_inline
+      = f.check_box :public_nav_can_include_stream, checked: f.object.public_nav_can_include_stream, class: :arl_form_data_checkbox
+      = f.label :public_nav_can_include_stream, class: :arl_form_data_label
+
+  .arl_form_actions
+    = f.submit 'Update A&R.Local settings', class: :arl_button_form_submit

@@ -1,0 +1,14 @@
+= html_head_title_extend! 'editing A&R.local settings'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_title= "A&R.local application settings"
+  = render '/admin/arlocal_settings/admin_arlocal_settings_stats', arlocal_settings: @arlocal_settings
+  = render '/admin/shared/form_errors', resource: @arlocal_settings
+
+%nav.arl_admin_resource_edit_nav
+  - @form_metadata.nav_categories.each do |category|
+    = arlocal_settings_admin_edit_nav_button(arlocal_settings: @arlocal_settings, category: category, current_pane: @form_metadata.tab_name)
+  
+.arl_admin_arlocal_settings_edit
+  = render @form_metadata.partial_name, arlocal_settings: @arlocal_settings, selectable: @form_metadata.selectables
+    

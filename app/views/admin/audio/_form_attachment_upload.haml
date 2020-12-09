@@ -1,0 +1,17 @@
+= html_head_title_extend! :audio
+
+.arl_admin_audio_edit
+  = form_with(model: [:admin, audio], url: admin_audio_attachment_add_path(audio, pane: :attachment), local: true, method: :patch) do |f|
+
+    - if audio.file_source_type_is_catalog
+      .arl_form_data.arl_form_layour_blocks
+        .arl_form_data_resource_heading currently using catalog file
+        .arl_form_data_resource_value= audio.catalog_file_path
+
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.file_field :recording, multiple: false, direct_upload: true, class: :arl_button_file_upload
+      = f.object.attachment_file_source_path
+
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+

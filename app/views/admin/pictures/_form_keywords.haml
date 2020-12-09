@@ -1,0 +1,29 @@
+.arl_form_title
+  = picture_statement_keywords_count(picture)
+- if picture.does_have_keywords
+  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :keywords), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading keyword title
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :picture_keywords do |pk|
+          %tr
+            %td.arl_form_data_resource_value= keyword_reference_admin_link(pk.object.keyword)
+            %td.arl_form_data_resource_remove= pk.check_box :_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        will also unjoin any keywords with 'remove' box checked
+
+- if selectable.keywords.count >= 1
+  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :keywords), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Add a keyword
+    = f.fields_for :picture_keywords, picture.picture_keywords.build do |pt|
+      .arl_form_data
+        .arl_form_data_attr.arl_form_layout_center
+          =# et.label :keyword_id
+          = pt.collection_select :keyword_id, selectable.keywords, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

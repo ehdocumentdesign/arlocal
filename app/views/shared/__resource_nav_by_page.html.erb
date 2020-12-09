@@ -1,0 +1,13 @@
+<div id='nav-page' class='prevcurrentnext'>
+  <span class='prev'>
+    <%= link_to "|&lt;".html_safe, { controller: controller, action: :index, page: 1 } %>
+    <%= link_to "&lt;".html_safe, { controller: controller, action: :index, page: page[:prev] } %>
+  </span>
+  <span class='summary'>
+    <%= page[:current] %> of <%= page[:last] %>
+  </span>
+  <span class='next'>
+    <%= link_to "&gt;".html_safe, { controller: controller, action: :index, page: page[:next] } %>
+    <%= link_to "&gt;|".html_safe, { controller: controller, action: :index, page: page[:last] } %>
+  </span>
+</div>

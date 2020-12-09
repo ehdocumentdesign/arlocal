@@ -1,0 +1,31 @@
+.arl_administrators_index {
+  max-width: 18rem;
+  margin: 1rem;
+}
+.arl_administrators_index_administrator {
+}
+.arl_administrators_index_administrator_value {
+  padding: $arl-margin;
+  text-align: left;
+}
+.arl_administrators_index_administrator_value_authority {
+  font-family: $font-family-admin-data-entry;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+.arl_administrators_index_administrator_value_email {
+  font-family: $font-family-admin-data-entry;
+  font-size: 0.8rem;
+}
+.arl_administrators_index_administrator_value_name {
+  font-family: $font-family-admin-data-entry;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+@media #{$media-screen-1} {
+  .arl_administrators_index_administrator_value {
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+}

@@ -1,0 +1,38 @@
+.arl_articles_index {}
+.arl_articles_index_articles {
+  margin: $arl-margin 0rem;
+}
+.arl_articles_index_article {}
+.arl_articles_index_article_admin_actions {}
+.arl_articles_index_article_details {
+  padding: $arl-margin;
+}
+.arl_articles_index_article_excerpt {
+  font-family: $font-family-article-text;
+  font-size: 0.85em;
+  max-height: 5rem;
+  overflow-y: scroll;
+}
+.arl_articles_index_article_title {
+  color: $color-fg-link;
+  font-family: $font-family-article-title;
+  font-weight: bold;
+}
+
+@media #{$media-screen-1} {
+  .arl_articles_index {
+    width: 20rem;
+  }
+}
+
+@media #{$media-screen-2} {
+  .arl_articles_index {
+    max-width: 30rem;
+  }
+}
+
+@media #{$media-screen-3} {
+  .arl_articles_index {
+    max-width: 35rem;
+  }
+}

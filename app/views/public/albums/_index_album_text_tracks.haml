@@ -1,0 +1,5 @@
+- if album.index_will_display_tracklist
+  %ol.arl_albums_index_album_text_tracks
+    - album.album_audio_published.each do |aa|
+      %li.arl_albums_index_album_text_track(value="#{aa.album_order}")
+        = aa.display_title

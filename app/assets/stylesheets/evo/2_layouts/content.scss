@@ -1,0 +1,25 @@
+.arl_content {
+  @include layout-flex-column-center;
+  background-color: $color-bg-lighter;
+}
+
+
+@media #{$media-screen-1} {
+  .arl_content {
+    border-bottom: $border;
+  }
+}
+
+@media #{$media-screen-2} {
+  .arl_content {
+    border-bottom: $border;
+//    padding: $arl-spacing-narrow;
+  }
+}
+
+@media #{$media-screen-3} {
+  .arl_content {
+    border-bottom: $border;
+//    padding: $arl-spacing-narrow;
+  }
+}

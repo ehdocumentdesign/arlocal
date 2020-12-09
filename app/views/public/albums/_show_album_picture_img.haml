@@ -1,0 +1,9 @@
+
+- if album.show_will_cycle_pictures
+  = resource_coverpicture_tag(album, html_class: [:arl_albums_show_picture_img, :arl_active_picture_viewer])
+  = resource_script_picture_cycler(album, view: :published)
+- else
+  = resource_coverpicture_tag(album, html_class: [:arl_albums_show_picture_img])
+
+- if album.show_will_have_more_pictures_link
+  = render 'shared/show_more_pictures', path: public_album_pictures_path(album.id_public)

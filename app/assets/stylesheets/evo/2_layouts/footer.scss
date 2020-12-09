@@ -1,0 +1,25 @@
+.arl_footer {
+  @include layout-flex-column-center;
+  padding: $arl-margin-wide $arl-spacing-narrow;
+  text-align: center;
+}
+
+.arl_footer_app {
+  font-family: $font-family-footer-app;
+  font-size: 0.7rem;
+  margin: $arl-margin 0rem;
+}
+
+.arl_footer_app_tech {
+  font-size: 0.625rem;
+}
+
+.arl_footer_artist {
+  font-family: $font-family-footer-artist;
+  margin: $arl-margin 0rem;
+}
+
+.arl_footer_artist_copyright {
+  font-size: 0.75rem;  
+}
+

@@ -1,0 +1,10 @@
+= html_head_title_extend! 'new event'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'new event'
+  .arl_admin_resource_header_buttons
+    = event_admin_button_to_index
+  = render '/admin/shared/form_errors', resource: @event
+
+.arl_admin_events_new
+  = render 'form', event: @event, selectable: @form_metadata.selectables

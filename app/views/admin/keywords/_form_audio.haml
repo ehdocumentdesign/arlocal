@@ -1,0 +1,29 @@
+.arl_form_title
+  = keyword_statement_audio_count(keyword)
+- if keyword.does_have_audio
+  /= button_to 'unkeyword audio', admin_unkeyword_audio_path(keyword.id, pane: :audio), method: :delete, class: :arl_button_unkeyword
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :audio), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_attr.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading audio title
+          %th.arl_form_data_resource_heading= icon_remove
+        = f.fields_for :audio_keywords do |ak|
+          %tr
+            %td.arl_form_data_resource_value= audio_reference_admin_link(ak.object.audio)
+            %td.arl_form_data_resource_remove= ak.check_box :_destroy, class: :arl_form_data_checkbox
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation= "will detach any albums with the #{icon_remove} box checked."
+
+- if selectable.audio.count >= 1
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :audio), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Keyword an audio
+    .arl_form_data
+      = f.fields_for :audio_keywords, keyword.audio_keywords.build do |at|
+        .arl_form_data_attr.arl_form_layout_center
+          = at.label :audio_keyword, 'Audio', class: :arl_form_data_label
+          = at.collection_select :audio_id, selectable.audio, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

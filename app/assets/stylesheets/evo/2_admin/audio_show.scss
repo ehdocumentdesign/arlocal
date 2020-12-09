@@ -1,0 +1,33 @@
+.arl_audio_show {
+  @include layout-flex-column-center
+  padding: $arl-spacing-wide;
+}
+.arl_audio_show_title {
+  color: $color-fg-link;
+  font-family: $font-family-article-title;
+  font-weight: bold;
+  margin-bottom: $arl-margin;
+  text-align: center;
+}
+.arl_audio_show_details {
+  margin: $arl-margin-wide 0rem;
+  width: 20rem;
+}
+.arl_audio_show_metadatum {
+  margin: $arl-spacing;  width: 20rem;
+  
+}
+.arl_audio_show_player {
+//  margin-bottom: $arl-margin;
+}
+
+
+
+//.arl_audio_show_metadatum_key {
+//  font-family: $font-family-admin-data-label;
+//  font-weight: bold;
+//}
+//.arl_audio_show_metadatum_value {
+//  font-family: $font-family-admin-data-entry;
+//  min-height: 1.25rem;
+//}

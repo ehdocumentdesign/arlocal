@@ -1,0 +1,8 @@
+.arl_admin_resource_joined
+  .arl_admin_resource_joined_heading
+    = resource_joined_pictures_count_statement(resource)
+  - if resource.does_have_pictures
+    .arl_admin_resource_joined_others
+      - resource.pictures.order_by_slug_asc.each do |picture|
+        .arl_admin_resource_joined_other
+          = picture.slug

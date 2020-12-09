@@ -1,0 +1,16 @@
+%dl.arl_admin_links_show_metadata
+  .arl_admin_links_show_metadatum
+    %dt.arl_admin_links_show_metadatum_key Name
+    %dd.arl_admin_links_show_metadatum_value= link.name
+  .arl_admin_links_show_metadatum
+    %dt.arl_admin_links_show_metadatum_key address_href
+    %dd.arl_admin_links_show_metadatum_value= link.address_href
+  .arl_admin_links_show_metadatum
+    %dt.arl_admin_links_show_metadatum_key address inline text
+    %dd.arl_admin_links_show_metadatum_value= link.address_inline_text
+  .arl_admin_links_show_metadatum
+    %dt.arl_admin_links_show_metadatum_key address type
+    %dd.arl_admin_links_show_metadatum_value= link.address_type
+  .arl_admin_links_show_metadatum
+    %dt.arl_admin_links_show_metadatum_key details
+    %dd.arl_admin_links_show_metadatum_value= parser_div(link.details_props)

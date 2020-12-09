@@ -1,0 +1,21 @@
+= html_head_title_extend! :stream
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "stream"
+  .arl_admin_resource_header_title= "#{@stream.title}"
+  .arl_admin_resource_header_buttons
+    = stream_admin_button_to_new
+    -# stream_admin_button_to_previous(@stream_neighbors.previous)
+    = stream_admin_button_to_edit(@stream)
+    -# stream_admin_button_to_next(@stream_neighbors.next)
+    = stream_admin_button_to_index
+  = render '/admin/streams/admin_stream_stats', stream: @stream
+
+.arl_streams_show
+  .arl_streams_show_title
+    = @stream.title
+  .arl_streams_show_html_element
+    = @stream.html_element
+  .arl_streams_show_description
+    = parser_div @stream.description
+

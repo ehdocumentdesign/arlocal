@@ -1,0 +1,77 @@
+@mixin jp_var_button_position {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+};
+
+
+@mixin jp_button_next {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.next.svg');
+  height: 2rem;
+  margin-top: 2rem;
+  width: 1.75rem;
+}
+
+@mixin jp_button_pause {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.pause.svg');
+  height: 4rem;
+  width: 3rem;
+}
+
+@mixin jp_button_play {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.play.svg');
+  height: 4rem;
+  width: 3rem;
+}
+
+@mixin jp_button_previous {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.prev.svg');
+  height: 2rem;
+  margin-top: 2rem;
+  width: 1.75rem;
+}
+
+@mixin jp_button_repeat {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.repeat.svg');
+  height: 1.25rem;
+  margin-top: 2rem;
+  width: 1.25rem;
+}
+
+@mixin jp_button_repeat_off {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.repeat_off.svg');
+  height: 1.25rem;
+  margin-top: 2rem;
+  width: 1.25rem;
+}
+
+@mixin jp_button_shuffle {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.shuffle.svg');
+  height: 1.25rem;
+  margin-top: 2rem;
+  width: 1.25rem;
+}
+
+@mixin jp_button_shuffle_off {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.shuffle_off.svg');
+  height: 1.25rem;
+  margin-top: 2rem;
+  width: 1.25rem;
+}     
+
+@mixin jp_button_stop {
+  @include jp_var_button_position;
+  background-image: image_url('jplaytable_turq/turq.stop.svg');
+  height: 1.6rem;
+  margin-top: 2rem;
+  width: 1.75rem;
+}

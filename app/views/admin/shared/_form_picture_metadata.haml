@@ -1,0 +1,7 @@
+= render 'admin/shared/form_picture_label', form: form
+= render 'admin/shared/form_picture_coverpicture_select', form: form
+- case picture_sorter.symbol
+  - when :cover_datetime_asc, :cover_datetime_desc
+    = render 'admin/shared/form_picture_datetime', form: form
+  - when :cover_manual_asc, :cover_manual_desc
+    = render 'admin/shared/form_picture_order', form: form, resource_order: resource_order

@@ -1,0 +1,13 @@
+= html_head_title_extend! 'new audio'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'new audio'
+  .arl_admin_resource_header_buttons
+    = button_admin_to_new new_admin_audio_path
+    = button_admin_to_new_import admin_audio_new_import_menu_path
+    = button_admin_to_new_upload admin_audio_new_upload_menu_path
+    = button_admin_to_index admin_audio_index_path
+  = render '/admin/shared/form_errors', resource: @audio
+
+.arl_admin_audio_edit
+  = render 'form', audio: @audio, selectable: @form_metadata.selectables

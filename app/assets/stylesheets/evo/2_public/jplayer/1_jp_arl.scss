@@ -1,0 +1,53 @@
+.jp_arl_playlist_controls {
+  background-color: $color-bg-lighter2;
+  position: relative;
+}
+
+
+
+.jp_arl_single_column {
+  @include layout-flex-column-stretch;
+  width: 100%;
+}
+.jp_arl_single_buttons {
+  height: 4rem;
+  margin: 0.5rem 0rem 1.5rem 1.75rem;
+}
+.jp_arl_single_metadata {
+  @include layout-flex-column-stretch;
+  margin: $arl-margin-narrow 0rem;
+  padding: 0rem 1.75rem;
+}
+.jp_arl_single_metadata_title {
+  align-self: flex-start;
+  font-family: $font-family-title;
+  font-weight: bold;
+}
+.jp_arl_single_metadata_subtitle {
+  align-self: flex-start;
+  font-family: $font-family-title;
+  font-weight: normal;
+  font-size: 0.8em;
+  margin: $arl-margin-narrow 0rem;
+  text-align: left;
+}
+.jp_arl_single_row {
+  @include layout-flex-row-stretch;
+}
+.jp_arl_resources {
+  padding: 0rem 1.75rem;
+}
+.jp_arl_resources_count {
+  font-family: $font-family-audio-heading;
+  font-size: 0.75em;
+  text-align: right;
+}
+.jp_arl_resources_title {
+  font-family: $font-family-audio-album-title;
+  font-size: 0.75em;
+  font-style: italic;
+  text-align: right;
+}
+.jp_arl_resources_title_url {
+  color: $color-fg-link;
+}

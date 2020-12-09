@@ -1,0 +1,55 @@
+.arl_form_title
+  Picture date and time information
+
+.arl_form_data
+  .arl_form_data_attr.arl_form_layout_blocks_wide
+    %label.arl_form_data_label Date/time for ordering:
+    .arl_form_layout_inline_inset
+      %span.arl_form_data_resource_value= picture.datetime_effective_value
+      %aside.arl_form_data_attr_explanation= "(#{picture.datetime_effective_method})"
+
+= form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :datetime), local: true, method: :patch, class: :arl_form) do |f|
+  .arl_form_data
+    .arl_form_data_attr.arl_form_layout_blocks_wide
+      %label.arl_form_data_label Date/time from manual entry:
+      .arl_form_layout_inline_wrap
+        .arl_form_layout_datetime
+          .arl_form_layout_blocks
+            = f.label :datetime_from_manual_entry_year, 'year', class: :arl_form_data_label_dependent
+            = f.select :datetime_from_manual_entry_year, 2000..Time.zone.now.year, {selected: picture.datetime_from_manual_entry_year, include_blank: true}, {class: :arl_form_data_select}
+          .arl_form_layout_time_separator= '-'
+          .arl_form_layout_blocks
+            = f.label :datetime_from_manual_entry_month, 'month', class: :arl_form_data_label_dependent
+            = f.select :datetime_from_manual_entry_month, 01..12, {selected: picture.datetime_from_manual_entry_month, include_blank: true}, {class: :arl_form_data_select}
+          .arl_form_layout_time_separator= '-'
+          .arl_form_layout_blocks
+            = f.label :datetime_from_manual_entry_day, 'day', class: :arl_form_data_label_dependent
+            = f.select :datetime_from_manual_entry_day, 01..31, {selected: picture.datetime_from_manual_entry_day, include_blank: true}, {class: :arl_form_data_select}
+        .arl_form_layout_datetime
+          .arl_form_layout_blocks
+            = f.label :datetime_from_manual_entry_hour, 'hr', class: :arl_form_data_label_dependent
+            = f.select :datetime_from_manual_entry_hour, 0...10, {selected: picture.datetime_from_manual_entry_hour, include_blank: true}, {class: :arl_form_data_select}
+          .arl_form_layout_time_separator= ':'
+          .arl_form_layout_blocks
+            = f.label :datetime_from_manual_entry_minute, 'min', class: :arl_form_data_label_dependent
+            = f.select :datetime_from_manual_entry_minute, 0..59, {selected: picture.datetime_from_manual_entry_minute, include_blank: true}, {class: :arl_form_data_select}
+          .arl_form_layout_time_separator= ':'
+          .arl_form_layout_blocks
+            = f.label :datetime_from_manual_entry_second, 'sec', class: :arl_form_data_label_dependent
+            = f.select :datetime_from_manual_entry_second, 00..59, {selected: picture.datetime_from_manual_entry_second, include_blank: true}, {class: :arl_form_data_select}
+  .arl_form_actions
+    = f.submit class: :arl_button_form_submit
+
+= form_with(model: [:admin, picture], url: admin_picture_refresh_exif_path(picture, pane: :datetime), local: true, method: :patch, class: :arl_form) do |f|
+  .arl_form_data
+    .arl_form_data_attr.arl_form_layout_blocks_wide
+      %label.arl_form_data_label Date/time from image exif:
+      %span.arl_form_layout_inline_inset.arl_form_data_resource_value= f.object.datetime_from_exif
+
+  .arl_form_data
+    .arl_form_data_attr.arl_form_layout_blocks_wide
+      %label.arl_form_data_label Date/from from filesystem:
+      %span.arl_form_layout_inline_inset.arl_form_data_resource_value= picture.datetime_from_file
+
+  .arl_form_actions
+    = f.submit 'Refresh date/time', class: :arl_button_form_submit

@@ -1,0 +1,2 @@
+.arl_admin_whats_new
+  = sanitize(CommonMarker.render_html(IO.read(File.join(Rails.root + 'WHATSNEW.md'))))

@@ -1,0 +1,14 @@
+.arl_albums_show
+  .arl_albums_show_picture
+    = app_logo html_class: :arl_albums_show_picture_img
+  .arl_albums_show_text
+    .arl_layout_section_text
+      .arl_albums_show_text_title
+        A&amp;R.local
+      .arl_albums_show_text_credits
+        = sanitize "version #{ArlocalEnv.app_version}"
+      .arl_albums_show_text_copyright
+        = sanitize "core &copy; #{ArlocalEnv.app_copyright_year} Eli Harrison<br>except where indicated"
+
+  .arl_albums_show_player
+    = render 'index_playlist_filler'

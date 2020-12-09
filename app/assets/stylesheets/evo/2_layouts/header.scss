@@ -1,0 +1,47 @@
+.arl_header {
+  @include layout-flex-column-center;
+  border-bottom: $border;
+  padding: $arl-margin-wide $arl-spacing-narrow;
+}
+
+.arl_header_artist {
+  margin-top: $arl-margin-narrow;
+  margin-bottom: 0rem;
+}
+
+.arl_header_artist_name {
+  color: $color-fg-header-artist-name;
+  font-family: $font-family-header-artist-name;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 2rem;
+  padding: 0rem $arl-margin;
+  text-decoration: none;
+}
+
+.arl_header_nav {
+  font-family: $font-family-header-nav;
+  margin: $arl-margin-narrow;
+  text-align: center;
+}
+
+.arl_header_nav_global {
+}
+.arl_header_nav_public {
+}
+
+.arl_header_nav_category {
+  color: $color-fg-header-nav;
+  display: inline-block;
+  font-family: $font-family-header-nav;
+  line-height: 2em;
+  padding: 0rem $arl-margin;
+}
+
+.arl_header_nav_category_admin {
+  color: $color-fg-admin;
+  display: inline-block;
+  line-height: 2em;
+  padding: 0rem $arl-margin;
+}
+

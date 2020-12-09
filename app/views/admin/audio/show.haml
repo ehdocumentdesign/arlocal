@@ -1,0 +1,24 @@
+= html_head_title_extend! :audio, @audio.title
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "audio"
+  .arl_admin_resource_header_buttons
+    = audio_admin_button_to_new
+    = audio_admin_button_to_new_import
+    = audio_admin_button_to_new_upload
+    = audio_admin_button_to_index
+  .arl_admin_resource_header_title= "#{@audio.title}"
+  .arl_admin_resource_header_buttons
+    = audio_admin_button_to_previous(@audio_neighbors.previous)
+    = audio_admin_button_to_edit(@audio)
+    = audio_admin_button_to_next(@audio_neighbors.next)
+  = render '/admin/audio/admin_audio_stats', audio: @audio
+
+.arl_audio_show
+  .arl_audio_show_title
+    = @audio.title
+    = @audio.subtitle
+  .arl_audio_show_player
+    = render 'public/jplayer_single/jplayer_audio', audio: @audio
+  .arl_audio_show_details
+    = render 'show_details', audio: @audio

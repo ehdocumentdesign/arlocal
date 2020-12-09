@@ -1,0 +1,69 @@
+.arl_administrator_new {
+  font-family: $font-family-admin;
+  padding: $arl-margin-wide;
+}
+
+.arl_administrator_new_header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: $arl-margin;
+}
+
+.arl_administrator_new_prompt {
+  margin: $arl-margin;
+}
+
+.arl_administrator_new_prompt_form {
+  margin-bottom: 0rem;
+  margin-left: $arl-margin-wide;
+  margin-right: $arl-margin-wide;
+  margin-top: -($arl-margin-wide);
+}
+
+.arl_administrator_new_prompt_logo {
+  box-sizing: border-box;
+  border: $border;
+  height: 10rem;
+  margin: $arl-margin-wide;
+  width: 10rem;
+}
+
+
+
+@media #{$media-screen-1} {
+  .arl_administrator_new_header {
+    text-align: center;
+  }
+  .arl_administrator_new_prompt {
+    @include layout-flex-column-center;
+  }
+  .arl_administrator_new_prompt_form {
+  }
+}
+
+
+@media #{$media-screen-2} {
+  .arl_administrator_new_header {
+    text-align: center;
+  }
+  .arl_administrator_new_prompt {
+    @include layout-flex-column-center;
+  }
+  .arl_administrator_new_prompt_form {
+    width: 25rem;
+  }
+}
+
+
+@media #{$media-screen-3} {
+  .arl_administrator_new_header {
+    margin-left: $arl-margin-wide;
+    text-align: left;
+  }
+  .arl_administrator_new_prompt {
+    @include layout-flex-row-top;
+  }
+  .arl_administrator_new_prompt_form {
+    width: 25rem;
+  }
+}

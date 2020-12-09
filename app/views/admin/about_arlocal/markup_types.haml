@@ -1,0 +1,20 @@
+.arl_admin_markup_types
+  .arl_admin_markup_types_heading_title
+    A&amp;R.local markup types
+  .arl_admin_markup_types_heading_summary
+    A&amp;R.local includes several possible ways to format and display text such as album credits, event details, articles, and more. The following tables show how to use the available options.
+
+  - @markup_examples.each_pair do |parser, details|
+    %table.arl_admin_markup_types_example
+      %caption
+        .arl_admin_markup_types_example_title= details[:title]
+        .arl_admin_markup_types_example_details= details[:desc]
+      %tr
+        %th.arl_admin_markup_types_example_heading entered text
+        %th.arl_admin_markup_types_example_heading displayed
+        %th.arl_admin_markup_types_example_heading resulting HTML code
+      - details[:examples].each_pair do |html_tag, text_markup|
+        %tr
+          %td.arl_admin_markup_types_example_value_entered= text_markup
+          %td.arl_admin_markup_types_example_value_displayed= parser_result({parser_id: parser, text_markup: text_markup})
+          %td.arl_admin_markup_types_example_value_html_source= sanitize CGI::escape_html(parser_result({parser_id: parser, text_markup: text_markup}))

@@ -1,0 +1,28 @@
+= html_head_title_extend! :albums, @album.title
+= album_html_head_meta_description(@arlocal_settings, :show, album: @album)
+= album_html_head_meta_og_basics(@arlocal_settings, :show, album: @album)
+  
+- if @album.show_will_cycle_pictures
+  = resource_script_picture_cycler(@album) 
+
+- if @album.show_will_use_native_media_player
+  .arl_albums_show
+    .arl_albums_show_coverpicture
+      = render 'show_album_coverpicture', album: @album
+    .arl_albums_show_details
+      = render 'show_album_artist', album: @album
+      = render 'show_album_title'
+      = render 'show_album_credits'
+      = render 'show_album_statement_date_released'
+      = render 'show_album_duration'
+    .arl_albums_show_media
+      = render 'show_media_player_native', album: @album, widget: @media_player
+    .arl_albums_show_nav
+      = render 'show_album_neighbor_nav', album: @album, album_neighbors: (@album_neighbors || nil)
+      
+
+- if @album.show_will_use_external_media_player
+  .arl_albums_show
+    = render 'show_media_player_other', widget: @album.external_media_player
+    = render 'show_album_details', album: @album
+    = render 'show_album_neighbor_nav', album: @album, album_neighbors: (@album_neighbors || nil)

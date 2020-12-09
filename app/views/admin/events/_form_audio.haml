@@ -1,0 +1,44 @@
+.arl_form_title
+  = event_statement_audio_count(event)
+- if event.does_have_audio
+  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: :arl_form, method: :patch) do |f|
+    .arl_form_data
+      %table.arl_form_data_attr.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading title
+          %th.arl_form_data_resource_heading order
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :event_audio do |ea|
+          %tr
+            %td.arl_form_data_resource_value= audio_reference_admin_link(ea.object.audio)
+            %td.arl_form_data_resource_value= ea.text_field :event_order, size: 4, class: :arl_form_data_number_field
+            %td.arl_form_data_resource_remove= ea.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation= "will also detach any audio with '#{icon_destroy}' box checked"
+
+- if selectable.audio.count >= 1
+  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+    .arl_form_title
+      Add audio
+    .arl_form_data
+      = f.fields_for :event_audio, event.event_audio.build do |ea|
+        .arl_form_data_attr
+          .arl_form_layout_blocks
+            = ea.label :audio_id, 'Title', class: :arl_form_data_label
+            = ea.collection_select :audio_id, selectable.audio, :id, :full_title, {include_blank: true}, {class: :arl_form_data_select}
+          .arl_form_layout_inline
+            = ea.label :event_order, 'order', class: :arl_form_data_label
+            = ea.text_field :event_order, size: 4, class: :arl_form_data_number_field
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- if selectable.keywords.count >= 1
+  = form_with(model: [:admin, event], url: admin_event_add_audio_by_keyword_path(event, pane: :audio), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+    .arl_form_title
+      Add audio by keyword
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_center
+        = f.collection_select :keywords, selectable.keywords, :id, :title_with_audio_count, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

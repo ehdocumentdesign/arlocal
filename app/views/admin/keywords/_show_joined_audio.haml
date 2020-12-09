@@ -1,0 +1,9 @@
+%dl.arl_keywords_show_joins
+  .arl_metadata_pair
+    %dt.arl_metadata_key.arl_metadata_block= keyword_statement_audio_count(keyword)
+    - if keyword.does_have_audio
+      %dd.arl_metadata_value.arl_metadata_block
+        %ul.arl_metadata_value_list
+          - keyword.audio.order_by_title_asc.each do |audio|
+            %li.arl_metadata_value_list_item
+              = link_to audio.title, admin_audio_path(audio.id_public), class: :arl_link_resource

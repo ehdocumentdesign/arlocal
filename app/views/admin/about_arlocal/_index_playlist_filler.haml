@@ -1,0 +1,34 @@
+#jquery_jplayer_1.jp-jplayer
+
+#jp_container_1.jp-audio.jp-type-playlist
+  .jp_arl_playlist_controls
+    .jp_arl_inset with jPlayer 2.9.2!
+    .jp_arl_buttons_playlist
+      .jp_arl_button.jp-play{tabindex: 0}
+      .jp_arl_button.jp-previous{tabindex: 0}
+      .jp_arl_button.jp-stop{tabindex: 0}
+      .jp_arl_button.jp-next{tabindex: 0}
+      .jp_arl_button.jp-repeat{tabindex: 0}
+      .jp_arl_button.jp-shuffle{tabindex: 0}
+    .jp_arl_progress
+      .jp_arl_progress_bar.jp-seek
+        .jp_arl_progress_bar.jp-seek-bar
+          .jp_arl_progress_bar.jp-play-bar
+      .jp_arl_progress_time.jp-current-time 0:00
+  .jp_arl_playlist_tracks
+    .jp-playlist
+      %table.jp-playlist-items
+        %tr.jp-playlist-item.jp-playlist-current
+          %td.jp-playlist-item-about-arlocal
+            A&amp;R.local is a content management and delivery application for musicians.
+        %tr.jp-playlist-item
+          %td.jp-playlist-item-about-arlocal
+            %span= link_to 'Release notes', admin_about_arlocal_release_notes_path
+            %span for version
+            %span= ArlocalEnv.app_version
+        %tr.jp-playlist-item
+          %td.jp-playlist-item-about-arlocal
+            %span= link_to 'Revision log', admin_about_arlocal_revision_log_path
+        %tr.jp-playlist-item
+          %td.jp-playlist-item-about-arlocal
+            %span= link_to 'Markup types explained', admin_about_arlocal_markup_types_path

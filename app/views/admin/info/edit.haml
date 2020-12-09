@@ -1,0 +1,17 @@
+= html_head_title_extend! 'editing Info page'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_title= "editing info page"
+  .arl_admin_resource_header_buttons
+    = button_admin_to_done_editing admin_info_path
+  = render '/admin/info/admin_info_stats', info_page: @info_page
+  = render '/admin/shared/form_errors', resource: @info_page
+
+%nav.arl_admin_resource_edit_nav
+  - @form_metadata.nav_categories.each do |category|
+    = info_admin_edit_nav_button(info_page: @info_page, category: category, current_pane: @form_metadata.tab_name)
+
+.arl_admin_info_edit
+  = render @form_metadata.partial_name, info_page: @info_page, selectable: @form_metadata.selectables
+
+    

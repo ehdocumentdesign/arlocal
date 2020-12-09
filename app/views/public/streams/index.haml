@@ -1,0 +1,8 @@
+= html_head_title_extend! :streams
+
+.arl_admin_streams_index
+  %table.arl_admin_streams_index
+    - @streams.each do |stream|
+      %tr.arl_admin_streams_index_stream
+        %td.arl_admin_streams_index_stream_title
+          = stream.title

@@ -1,0 +1,17 @@
+@media #{$media-screen-1} {
+  // TODO: figure out why this doesn't render border-bottom or border-top
+  // see .jp-type-playlist for border-bottom.
+  // see .arl_albums_show_player for border-top.
+  .jp_audio {
+  }
+}
+@media #{$media-screen-2} {
+  .jp_audio {
+    box-shadow: $shadow-img;
+  }
+}
+@media #{$media-screen-3} {
+  .jp_audio {
+    box-shadow: $shadow-img;
+  }
+}

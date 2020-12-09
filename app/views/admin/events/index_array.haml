@@ -1,0 +1,19 @@
+= html_head_title_extend! :events
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'events index'
+  .arl_admin_resource_header_buttons
+    = event_admin_button_to_new
+
+.arl_events_select
+  = events_admin_filter_select
+.arl_events_index
+  %table.arl_events_index_table
+    - @events.each do |event|
+      %tr.arl_events_index_event.arl_active_link_container{data: {url: public_event_path(event.id_public)}}
+        = render 'index_event_coverpicture', event: event
+        = render 'index_event_info', event: event
+    
+    
+    
+    

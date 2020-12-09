@@ -1,0 +1,51 @@
+.arlocal {
+  color: $color-fg;
+  background-color: $color-bg;
+}
+
+.arl_base {
+  background-color: $color-bg;
+  min-height: 100vh;
+}
+
+
+@media #{$media-screen-1} {
+  .arlocal {
+    @include layout-flex-column-center;
+    background-color: $color-bg-arlocal-base;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+  }
+
+  .arl_base {
+    border-left: $border;
+    border-right: $border;
+    width: 20rem;
+    box-shadow: $shadow-media-1-arl-base;
+  }
+}
+
+
+@media #{$media-screen-2} {
+  .arlocal {
+    width: 100%;
+  }
+
+  .arl_base {
+    width: 100%;
+  }
+}
+
+
+@media #{$media-screen-3} {
+  .arlocal {
+    width: 100%;
+  }
+
+  .arl_base {
+    width: 100%;
+  }
+}
+
+

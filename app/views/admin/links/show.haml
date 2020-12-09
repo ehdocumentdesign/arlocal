@@ -1,0 +1,17 @@
+= html_head_title_extend! :links
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "link"
+  .arl_admin_resource_header_title= "#{@link.title}"
+  .arl_admin_resource_header_buttons
+    = link_admin_button_to_new
+    = link_admin_button_to_previous(@link_neighbors.previous)
+    = link_admin_button_to_edit(@link)
+    = link_admin_button_to_next(@link_neighbors.next)
+    = link_admin_button_to_index
+  = render '/admin/links/admin_link_stats', link: @link
+
+.arl_admin_links_show
+  .arl_admin_links_show_inline
+    = link_parse(@link)
+  = render 'show_link_details', link: @link

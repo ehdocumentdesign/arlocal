@@ -1,0 +1,12 @@
+= html_head_title_extend! :pictures
+
+.arl_pictures_index
+  =# render 'shared/selector_list', selectors: @selectors, all_link: true, nil_link: false
+
+  .arl_pictures_index_pictures
+    - @pictures.each do |picture|
+      %figure.arl_pictures_index_picture.arl_active_link_container{data: {url: public_picture_path(picture.id_public)}}
+        = picture_thumbnail_link(picture, html_class: :arl_pictures_index_picture_thumbnail)
+
+  - if @page_nav_data
+    = render 'shared/_resource_nav_by_page', controller: 'pictures', page: @page_nav_data

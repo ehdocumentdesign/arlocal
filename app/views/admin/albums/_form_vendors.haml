@@ -1,0 +1,14 @@
+= form_with(model: [:admin, album], url: admin_album_path(album, pane: :vendors), local: true, class: :arl_form) do |f|
+  .arl_form_title
+    Album Details
+  .arl_form_data
+    .arl_form_data_attr.arl_form_layout_inline
+      = f.check_box :show_can_have_vendor_widget_gumroad, class: :arl_form_data_checkbox
+      = f.label :show_can_have_vendor_widget_gumroad, class: :arl_form_data_label_inline
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.label :vendor_widget_gumroad, class: :arl_form_data_label
+      ~ f.text_area :vendor_widget_gumroad, class: :arl_form_data_text_area
+
+  .arl_form_actions
+    .arl_form_action_submit
+      = f.submit class: :arl_button_form_submit

@@ -1,0 +1,9 @@
+%dl.arl_keywords_show_joins
+  .arl_metadata_pair
+    %dt.arl_metadata_key.arl_metadata_block= keyword_statement_events_count(keyword)
+    - if keyword.does_have_events
+      %dd.arl_metadata_value.arl_metadata_block
+        %ul.arl_metadata_value_list
+          - keyword.events.each do |event|
+            %li.arl_metadata_value_list_item
+              = link_to event.title, admin_event_path(event.id_admin), class: :arl_link_resource

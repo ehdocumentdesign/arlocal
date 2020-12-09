@@ -1,0 +1,18 @@
+= html_head_title_extend! @album.title, :pictures, @picture.slug
+
+%div#admin-resource-header
+  = render 'show_admin_header_title', picture: @picture
+  = render 'show_admin_header_buttons', picture: @picture
+
+%p.title
+  %span
+    = link_to 'Pictures from', album_pictures_path(@album.id_public)
+  %span.album
+    = link_to @album.title, album_path(@album.id_public)
+    
+%div#pictures-show
+  %section.picture
+    = render 'show_picture', picture: @picture, picture_neighbors: @picture_neighbors
+  %section.details
+    = render 'show_picture_details', picture: @picture
+

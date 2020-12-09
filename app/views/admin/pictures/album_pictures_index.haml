@@ -1,0 +1,20 @@
+= html_head_title_extend! :albums, @album.title, :pictures
+
+%div#admin-resource-header
+  = render 'index_admin_header_title'
+  = render 'index_admin_header_buttons'
+  = render 'filesystem_path_base'
+
+%div#pictures-index
+  = render 'shared/selector_list', selectors_hash: @selectors, all_link: true, nil_link: false
+
+  %section.album_title
+    = render 'album_pictures_index_heading', album: @album
+  %section.pictures.resource-index
+    - @pictures_page_hash[:pictures].each do |picture|
+      %figure.picture.listening{data: {url: picture_path(picture.id_public)}}
+        = link_to picture_image_tag_for(picture), picture_path(picture.id_public)
+        = tag.figcaption(picture.title)
+  
+  - if @pictures_page_hash[:page_nav_data][:current] != :all
+    = render 'shared/nav_page', controller: 'pictures', page: @pictures_page_hash[:page_nav_data]

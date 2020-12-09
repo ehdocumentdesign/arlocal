@@ -1,0 +1,13 @@
+.arl_marquee {
+  @include layout-flex-column-center;
+  border-bottom: $border;
+  color: white;
+  background-color: $color-bg-marquee;
+  font-family: $font-family-marquee;
+  padding: $arl-margin-narrow;
+  text-align: center;
+  text-shadow: $shadow-text-close;
+}
+.arl_marquee a {
+  color: yellow;
+}

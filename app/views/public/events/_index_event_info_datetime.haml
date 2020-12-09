@@ -1,0 +1,6 @@
+.arl_events_index_event_info_datetime
+  %a{href: public_event_path(event.id_public), class: :arl_events_index_event_info_url, title: event.title}
+    %span.arl_events_index_date
+      = event.datetime_formatted(:day_month_date_year) + ', '
+    %span.arl_events_index_time
+      = event.datetime_formatted(:hour12_min_ampm)

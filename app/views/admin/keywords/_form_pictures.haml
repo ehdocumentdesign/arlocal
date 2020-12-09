@@ -1,0 +1,27 @@
+.arl_form_title
+  = keyword_statement_pictures_count(keyword)
+- if keyword.does_have_pictures
+  /= button_to 'unkeyword pictures', admin_unkeyword_pictures_path(keyword.id, pane: :pictures), method: :delete, class: :arl_button_unkeyword
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :pictures), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_resource_gallery
+        = f.fields_for :picture_keywords do |pt|
+          %tr.arl_form_data_resource_gallery_item
+            %td.arl_form_data_resource_gallery_thumbnail= render 'admin/shared/form_picture_thumbnail', form: pt
+            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_label', form: pt
+            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_remove', form: pt
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        = "will detach any picture with the #{icon_remove} box checked."
+
+- if selectable.pictures.count >= 2
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :pictures), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title Keyword a picture
+    .arl_form_data
+      = f.fields_for :picture_keywords, keyword.picture_keywords.build do |pt|
+        .arl_form_data_attr.arl_form_layout_center
+          = pt.label :picture_keyword, 'Picture', class: :arl_form_data_label
+          = render 'admin/shared/form_picture_selector', form: pt, picture_options: selectable.pictures
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

@@ -1,0 +1,10 @@
+= html_head_title_extend! 'new album'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'new album'
+  .arl_admin_resource_header_buttons
+    = album_admin_button_to_index
+  = render '/admin/shared/form_errors', resource: @album
+
+.arl_admin_albums_new
+  = render 'form', album: @album, selectable: @form_metadata.selectables

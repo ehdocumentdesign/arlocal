@@ -1,0 +1,21 @@
+= html_head_title_extend! "editing article '#{@article.title}'"
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "editing article"
+  .arl_admin_resource_header_title= "#{@article.title}"
+  .arl_admin_resource_header_buttons
+    = article_admin_button_to_new
+    = article_admin_button_to_edit_previous(@article_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = article_admin_button_to_done_editing(@article)
+    = article_admin_button_to_edit_next(@article_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = article_admin_button_to_index
+  = render '/admin/articles/admin_article_stats', article: @article
+  = render '/admin/shared/form_errors', resource: @article
+
+.arl_admin_resource_edit_nav
+  - @form_metadata.nav_categories.each do |category|
+    = article_admin_edit_nav_button(article: @article, category: category, current_pane: @form_metadata.tab_name)
+
+.arl_admin_articles_edit
+  = render @form_metadata.partial_name, article: @article, selectable: @form_metadata.selectables
+

@@ -1,0 +1,56 @@
+.jp-playlist {
+  // The transparent border will ensure that the margins for the first and last playlist-items do not collapse
+  background-color: $color-bg-darker;
+  border-bottom: $border-transparent;
+  border-top: $border;
+}
+
+.jp-playlist-items {
+  margin: 0.25rem 0rem;
+}
+
+.jp-playlist-current {
+  @include font-pseudo-bold($color-fg);
+  background-color: $color-bg-jp-media-current;
+  color: $color-fg;
+}
+
+.jp-playlist-item {
+  cursor: pointer;
+  font-family: $font-family-jp-media-item;
+  font-size: 0.8rem;
+}
+
+.jp-playlist-item-duration {
+  padding: 0.25rem 0.75rem;
+  text-align: right;
+  vertical-align: top;
+}
+
+.jp-playlist-item-number {
+  padding: 0.25rem 0.75rem;
+  text-align: right;
+  vertical-align: top;
+}
+
+.jp-playlist-item-number-value:after {
+  content: '.'; 
+}
+
+.jp-playlist-item-title {
+  margin-left: 1em;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 0.25rem;
+  padding-top: 0.25rem;
+  text-indent: -0.75rem;
+  vertical-align: top;
+  width: 100%;
+}
+
+.jp-playlist-item-about-arlocal {
+  padding: 0.25rem 1.5rem;
+  vertical-align: top;
+  width: 100%;
+}
+

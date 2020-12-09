@@ -1,0 +1,5 @@
+- if event.does_have_coverpicture
+  .arl_events_show_coverpicture
+    = resource_coverpicture_tag(event, html_class: [:arl_events_show_coverpicture_img, :arl_listening])
+    - if event.show_will_have_more_pictures_link
+      = render 'shared/show_more_pictures', path: public_event_pictures_path(event.id_public) 

@@ -1,0 +1,5 @@
+.arl_events_index_event_info_links
+  - if event.does_have_map_url
+    = link_to('map', event.map_url, class: :arl_events_index_event_info_link, target: '_blank')
+  - if event.does_have_venue_url
+    = link_to('venue', event.venue_url, class: :arl_events_index_event_info_link, target: '_blank')

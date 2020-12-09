@@ -1,0 +1,20 @@
+= html_head_title_extend! :keywords, @keyword.title
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "keyword"
+  .arl_admin_resource_header_title= "#{@keyword.title}"
+  .arl_admin_resource_header_buttons
+    = keyword_admin_button_to_new
+    = keyword_admin_button_to_previous(@keyword_neighbors.previous)
+    = keyword_admin_button_to_edit(@keyword)
+    = keyword_admin_button_to_next(@keyword_neighbors.next)
+    = keyword_admin_button_to_index
+  = render '/admin/keywords/admin_keyword_stats', keyword: @keyword
+
+.arl_keywords_show
+  = render 'show_title', keyword: @keyword
+  = render 'show_joined_albums', keyword: @keyword
+  = render 'show_joined_audio', keyword: @keyword
+  = render 'show_joined_events', keyword: @keyword
+  = render 'show_joined_pictures', keyword: @keyword
+  

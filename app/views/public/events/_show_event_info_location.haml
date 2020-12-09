@@ -1,0 +1,8 @@
+.arl_events_show_info_location
+  %span.arl_events_show_venue
+    = event_linkable_venue(event)
+  - if event.does_have_city_and_venue
+    %span
+      –
+  %span.arl_events_show_city
+    = event_linkable_city(event)

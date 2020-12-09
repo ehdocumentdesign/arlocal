@@ -1,0 +1,24 @@
+.jp-type-playlist {
+  width: 20rem;
+}
+
+@media #{$media-screen-1} {
+  // see .arl_albums_show_player for border-top.
+  // TODO: figure out why .jp_audio doesn't render borders for this @media type
+  .jp-type-playlist {
+    border-bottom: $border;
+  }
+}
+
+@media #{$media-screen-2} {
+  .jp-type-playlist {
+    border: $border;
+  }
+}
+
+@media #{$media-screen-3} {
+  .jp-type-playlist {
+    border: $border;
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,17 @@
+.arl_streams_show {
+  @include layout-flex-column-center;
+}
+.arl_streams_show_description {
+  font-family: $font-family-stream-description;
+  margin: $arl-margin;
+  text-align: center;
+}
+.arl_streams_show_html_element {
+  margin: $arl-margin;
+}
+.arl_streams_show_title {
+  font-family: $font-family-stream-title;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: $arl-margin;
+}

@@ -1,0 +1,6 @@
+.arl_admin_resource_header_stats
+  .arl_admin_resource_header_stat_url
+    = url_for public_event_path(event.id_public)
+  .arl_admin_resource_header_stat_update
+    Last updated:
+    = event.updated_at

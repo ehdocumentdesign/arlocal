@@ -1,0 +1,2 @@
+.arl_admin_release_notes
+  = sanitize(CommonMarker.render_html(IO.read(File.join(Rails.root + 'readme.md'))))

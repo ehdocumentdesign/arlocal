@@ -1,0 +1,46 @@
+.arl_admin_pictures_index {
+  margin: $arl-margin-wide;  
+}
+
+.arl_admin_pictures_index_pictures {
+  margin: $arl-margin-wide;
+}
+.arl_admin_pictures_index_picture {}
+.arl_admin_pictures_index_picture_image {
+  padding: $arl-spacing-narrow $arl-margin;
+  vertical-align: top;
+  width: 7rem;
+  height: 7rem;
+}
+.arl_admin_pictures_index_picture_image_thumbnail {
+  border: $border-light;
+  box-shadow: $shadow;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 7rem;
+  max-width: 7rem;
+}
+.arl_admin_pictures_index_picture_image_missing {
+  height: 7rem;
+  width: 7rem;
+}
+.arl_admin_pictures_index_picture_metadata {}
+.arl_admin_pictures_index_picture_summary {
+  padding: $arl-spacing-narrow $arl-margin;
+}
+.arl_admin_pictures_index_picture_summary_filepath {
+  font-family: $font-family-admin-data-entry;
+}
+.arl_admin_pictures_index_picture_summary_title {}
+.arl_admin_pictures_index_picture_summary_title_link {
+  color: $color-fg-link;
+  font-family: $font-family-picture-title;
+  font-weight: bold;
+}
+.arl_admin_pictures_index_picture_summary_url {
+  font-family: $font-family-admin-data-entry;
+}
+.arl_admin_pictures_index_picture_summary_datetime {
+  font-family: $font-family-admin-data-entry;
+}

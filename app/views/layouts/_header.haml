@@ -1,0 +1,4 @@
+- if routing_controller_is_adminy(params)
+  = render 'layouts/header_admin'
+- elsif routing_controller_is_publicy(params)
+  = render 'layouts/header_public'

@@ -1,0 +1,101 @@
+.arl_events_index {
+  @include layout-flex-column-stretch;
+  padding: $arl-margin;
+}
+.arl_events_index_act {}
+.arl_events_index_city {}
+.arl_events_index_coverpicture {
+  padding: $arl-margin-wide $arl_margin-narrow;
+}
+.arl_events_index_date {}
+.arl_events_index_empty {}
+.arl_events_index_event {
+}
+.arl_events_index_event_info {
+  padding: $arl-margin-wide $arl_margin-narrow;
+}
+.arl_events_index_event_info_alert {
+  font-family: $font-family-event-alert;
+  margin-bottom: ($arl-margin-narrow / 2);
+}
+.arl_events_index_event_info_datetime {
+  font-family: $font-family-title;
+  font-weight: bold;
+}
+.arl_events_index_event_info_link {
+  color: $color-fg-link;
+  font-family: $font-family-link-address;
+  margin: 0em 0.5em;
+}
+.arl_events_index_event_info_links {}
+.arl_events_index_event_info_location {
+  font-family: $font-family-event-etc;
+}
+.arl_events_index_event_info_title {
+  font-family: $font-family-event-title;
+  font-weight: bold;
+  margin-bottom: ($arl-margin-narrow / 2);
+}
+.arl_events_index_event_info_url {
+  color: $color-fg-link;
+}
+.arl_events_index_filter {
+  margin-top: $arl-spacing-wide;
+}
+.arl_events_index_heading {
+  text-align: center;
+  font-family: $font-family-title;
+  font-weight: bold;
+  margin: $arl-margin-wide;
+}
+.arl_events_index_link {}
+.arl_events_index_none {
+  font-family: $font-family-event-index-heading;
+  margin: $arl-spacing;
+}
+.arl_events_index_table {
+  margin: $arl-margin 0rem;
+}
+.arl_events_index_thumbnail {
+  border: $border-img;
+  box-shadow: $shadow-img;
+}
+.arl_events_index_time {}
+.arl_events_index_by_year {
+  background-color: $color-bg-darker;
+  font-family: $font-family-event-index-heading;
+  font-weight: bold;
+  border: $border-light;
+}
+
+@media #{$media-screen-1} {
+  .arl_events_index_event_info {
+    font-size: 0.875em;
+  }
+  .arl_events_index_table {
+  }
+  .arl_events_index_thumbnail {
+    max-height: 5em;
+    max-width: 5em;
+  }  
+}
+@media #{$media-screen-2} {
+  .arl_events_index_event_info {
+  }
+  .arl_events_index_table {
+  }
+  .arl_events_index_thumbnail {
+    max-height: 7em;
+    max-width: 7em;
+  }  
+}
+@media #{$media-screen-3} {
+  .arl_events_index_event_info {
+  }
+  .arl_events_index_table {
+  }
+  .arl_events_index_thumbnail {
+    max-height: 7em;
+    max-width: 7em;
+  }  
+}

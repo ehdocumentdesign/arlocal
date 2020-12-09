@@ -1,0 +1,41 @@
+.arl_metadata_key {
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
+}
+
+.arl_metadata_layout_block {
+  display: flex;
+  flex-direction: column;
+  margin: $arl-spacing 0rem;
+}
+.arl_metadata_layout_inline {
+  display: flex;
+  flex-direction: row;
+}
+
+.arl_metadata_layout_inline .arl_metadata_key:after {
+  content: ': ';
+  margin-right: 0.5em;
+}
+
+
+.arl_metadata_pair {
+  margin: $arl-spacing 0rem;
+}
+
+
+.arl_metadata_value {
+  font-family: $font-family-admin-data-entry;
+}
+
+.arl_metadata_value {
+  display: inline;
+  font-family: $font-family-admin-data-entry;
+  margin-right: 1em;
+}
+
+.arl_metadata_value_list {
+  margin-left: 0rem;
+}
+.arl_metadata_value_list_item {
+}

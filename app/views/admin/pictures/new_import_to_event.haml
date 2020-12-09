@@ -1,0 +1,33 @@
+= html_head_title_extend! :picture
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'picture import to event'
+  .arl_admin_resource_header_buttons
+    = picture_admin_button_to_new
+    = picture_admin_button_to_new_import
+    = picture_admin_button_to_new_upload
+    = picture_admin_button_to_index
+
+.arl_admin_picture_edit
+  = form_with(model: [:admin, Picture.new], local: true, method: :post, url: admin_picture_create_from_import_to_event_path) do |f|
+
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_blocks
+        = f.label :catalog_file_path, class: :arl_form_data_label
+        %aside.arl_form_data_attr_explanation
+          Name of file on server.
+        %aside.arl_form_data_attr_explanation
+          = "#{catalog_picture_filesystem_dirname}/"
+        = f.text_field :catalog_file_path, class: :arl_form_data_text_field
+
+    = f.fields_for :event_pictures, f.object.event_pictures.build do |ep|
+      .arl_form_data_attr.arl_form_layout_blocks
+        = ep.label :event_id, 'Event', class: :arl_form_data_label
+        = ep.collection_select :event_id, @events, :id, :datetime_and_title, {include_blank: true}, {class: :arl_form_data_select}
+
+    - if @auto_keyword
+      = f.fields_for :picture_keywords, f.object.picture_keywords.build do |pk|
+        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: pk
+
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

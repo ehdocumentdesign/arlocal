@@ -1,0 +1,4 @@
+- if picture.does_have_attachment
+  = render 'form_attachment_purge', picture: picture
+- elsif picture.does_not_have_attachment
+  = render 'form_attachment_upload', picture: picture

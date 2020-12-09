@@ -1,0 +1,9 @@
+- if resource.errors.any?
+  .arl_admin_resource_errors
+    .arl_admin_resource_errors_count
+      = pluralize(resource.errors.count, "error")
+      prohibited this post from being saved
+    %ul.arl_admin_resource_errors_list
+      - resource.errors.full_messages.each do |msg|
+        %li.arl_admin_resource_errors_error
+          = msg

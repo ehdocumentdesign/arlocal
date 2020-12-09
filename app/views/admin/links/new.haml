@@ -1,0 +1,11 @@
+= html_head_title_extend! 'new link'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'new link'
+  .arl_admin_resource_header_buttons
+    = link_admin_button_to_index
+    = render '/admin/shared/form_errors', resource: @link
+
+.arl_admin_links_new
+  = render 'form', link: @link, selectable: @form_metadata.selectables
+  

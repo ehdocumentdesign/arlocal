@@ -1,0 +1,55 @@
+.jp_arl_progress {
+  padding: 0rem 1.5rem 1rem 1.5rem;
+}
+
+.jp_arl_progress_single {
+  padding: 1.75rem 1.5rem 0rem 1.5rem;
+}
+
+.jp_arl_progress_bar.jp-seek {
+  background-color: $color-bg-jp-progress-bar;
+  border: $border-jp-progress-bar;
+  cursor: pointer;
+  height: 1rem;
+  overflow: hidden;
+}
+
+.jp_arl_progress_bar.jp-seek-bar {
+  background-color: #7CE;
+  height: 100%;
+}
+
+.jp_arl_progress_bar.jp-play-bar {
+  background-image: image_url('jplaytable_turq/turq.seek_bar.svg');
+  background-repeat: repeat-x;
+  background-size: cover;
+  border-right: $border-jp-progress-bar; /* border-right serves as current-time indicator */
+  height: 100%;
+  clear: both;
+}
+
+.jp_arl_progress_time.jp-current-time {
+  font-family: $font-family-jp-gui-progress-time;
+  font-size: 0.8em;
+  margin-top: 0.25em;
+}
+
+
+/*
+@media #{$media-screen-1} {
+  .jp_arl_progress {
+  }
+}
+
+
+@media #{$media-screen-2} {
+  .jp_arl_progress {
+  }
+}
+
+
+@media #{$media-screen-3} {
+  .jp_arl_progress {
+  }
+}
+*/

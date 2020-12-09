@@ -1,0 +1,7 @@
+-# `include_blank` has been set to `false` because
+-# because `picture_options` already includes an option for `nil`
+-# through its declaration in the `pictures_controller`
+
+.arl_form_data_selector_pictures
+  = form.select :picture_id, picture_options_for_select(picture_options, form), { include_blank: false }, { class: [:arl_form_data_select, :arl_listening] }
+  = picture_preferred_tag(form.object.picture, html_class: :arl_form_data_select_thumbnail_image)

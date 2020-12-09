@@ -1,0 +1,9 @@
+.arl_events_show_info_links
+  - if event.does_have_map_url
+    .arl_metadata_layout_block
+      .arl_metadata_key Map URL
+      .arl_metadata_value= link_to(event.map_url, event.map_url, class: :arl_events_show_info_link, target: '_blank')
+  - if event.does_have_venue_url
+    .arl_metadata_layout_block
+      .arl_metadata_key Venue URL
+      .arl_metadata_value= link_to(event.venue_url, event.venue_url, class: :arl_events_show_info_link, target: '_blank')

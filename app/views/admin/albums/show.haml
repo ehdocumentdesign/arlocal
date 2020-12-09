@@ -1,0 +1,30 @@
+= html_head_title_extend! :albums, @album.title
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "album"
+  .arl_admin_resource_header_title= "#{@album.title}"
+  .arl_admin_resource_header_buttons
+    = album_admin_button_to_new
+    = album_admin_button_to_previous(@album_neighbors.previous)
+    = album_admin_button_to_edit(@album)
+    = album_admin_button_to_next(@album_neighbors.next)
+    = album_admin_button_to_index
+  = render '/admin/albums/admin_album_stats', album: @album
+
+.arl_albums_show
+  .arl_albums_show_picture
+    = render 'show_album_picture_img', album: @album
+  .arl_albums_show_text
+    .arl_layout_section_text
+      = render 'show_album_text_album_artist', album: @album
+      = render 'show_album_text_title', album: @album
+    = render 'show_album_text_description', album: @album
+    = render 'show_album_text_musicians', album: @album
+    = render 'show_album_text_involved_people', album: @album
+    .arl_layout_section_text
+      = render 'show_album_text_date_released', album: @album
+      = render 'show_album_text_duration', album: @album
+      = render 'show_album_text_copyright', album: @album
+  .arl_albums_show_player
+    = render 'public/jplayer_multiple/jplayer_album', album: @album, view: :all
+    = render 'public/albums/show_album_vendor_buttons', album: @album

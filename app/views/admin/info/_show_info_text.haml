@@ -1,0 +1,5 @@
+.arl_info_show_text
+  - if @info_page.has_article
+    = render 'show_info_text_article', info_page: @info_page
+  - if @info_page.has_links 
+    = render 'show_info_text_links', info_page: @info_page

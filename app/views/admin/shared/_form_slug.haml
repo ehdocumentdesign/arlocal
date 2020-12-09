@@ -1,0 +1,5 @@
+%aside.arl_form_data_attr_explanation
+  = resource_slug_form_explanation(form.object)
+%aside.arl_form_data_attr_explanation
+  May contain: <code>[a-z] [A-Z] [0-9] _ -</code>
+= form.text_field :slug, size: 30, class: :arl_form_data_text_field

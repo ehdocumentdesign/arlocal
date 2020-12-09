@@ -1,0 +1,9 @@
+.arl_keywords_index_keyword_title
+  = link_to keyword.title, admin_keyword_path(keyword.id_public), class: :arl_keywords_index_keyword_title_link
+
+.arl_keywords_index_keyword_joined
+  .arl_keywords_index_keyword_joined_resource= keyword_statement_albums_count(keyword)
+  .arl_keywords_index_keyword_joined_resource= keyword_statement_audio_count(keyword)
+  .arl_keywords_index_keyword_joined_resource= keyword_statement_events_count(keyword)
+  .arl_keywords_index_keyword_joined_resource= keyword_statement_pictures_count(keyword)
+  

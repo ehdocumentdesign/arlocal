@@ -1,0 +1,58 @@
+.arl_admin_markup_types {
+  @include layout-flex-column-stretch;
+  font-family: $font-family-admin;
+  padding: 1rem;
+}
+.arl_admin_markup_types_example {
+  margin: $arl-spacing-wide 0rem;
+  width: 100%;
+}
+.arl_admin_markup_types_example_details {}
+.arl_admin_markup_types_example_heading {
+  background-color: $color-bg-darker;
+  border: $border;
+  padding: $arl-margin-narrow $arl-margin;
+  width: 33%;
+}
+.arl_admin_markup_types_example_title {
+//  background-color: $color-bg-lightest;
+  font-family: $font-family-title;
+  font-size: 1.5em;
+  margin-top: $arl-margin;
+}
+.arl_admin_markup_types_example_value_entered {
+  background-color: $color-bg-lighter;
+  border: $border;
+  font-family: $font-family-admin-markup-example;
+  padding: $arl-margin-narrow $arl-margin;
+//  vertical-align: top;
+  white-space: pre-wrap;
+  width: 33%;
+}
+.arl_admin_markup_types_example_value_displayed {
+  background-color: $color-bg-lighter;
+  border: $border;
+  padding: $arl-margin-narrow $arl-margin;
+//  vertical-align: top;
+  width: 33%;
+}
+.arl_admin_markup_types_example_value_html_source {
+  background-color: $color-bg-lighter;
+  border: $border;
+  font-family: monospace;
+  font-size: 0.9em;
+  padding: $arl-margin-narrow $arl-margin;
+//  vertical-align: top;
+  white-space: pre-wrap;
+  width: 33%;
+}
+.arl_admin_markup_types_heading_summary {
+  font-family: $font-family-admin-data-entry;
+  margin-bottom: $arl-margin;
+}
+.arl_admin_markup_types_heading_title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: $arl-margin;
+  text-align: center;
+}

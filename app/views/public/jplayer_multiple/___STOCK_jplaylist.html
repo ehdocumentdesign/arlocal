@@ -1,0 +1,46 @@
+<div id="jquery_jplayer_1" class="jp-jplayer">
+</div>
+
+<div id="jp_container_1" class="jp-audio">
+	<div class="jp-type-playlist">
+    <div id='jp-arl-audiopanel'>
+      <% if album.show_will_display_vendor_link %>
+        <div id=''>
+          buy from somewhere online!
+        </div>
+      <% end %>
+      <div id='jp-arl-playcontrols'>
+        <div id='jp-arl-buttons'>
+          <div class='jp-play'></div>
+          <div class='jp-pause'></div>
+          <div class='jp-previous'></div>
+          <div class='jp-stop'></div>
+          <div class='jp-next'></div>
+          <div class='jp-repeat'></div>
+          <div class='jp-repeat-off'></div>
+          <div class='jp-shuffle'></div>
+          <div class='jp-shuffle-off'></div>
+        </div>
+        <div id='jp-arl-progress'>
+          <div class='jp-seek'>
+            <div class='jp-seek-bar'>
+              <div class='jp-play-bar'>
+              </div>
+            </div>
+          </div>
+          <div id='jp-arl-time'>
+            <div class='jp-current-time'>0:00</div>
+            <!-- <div class='jp-duration'>3:29</div> -->
+            <!-- <div class='jp-arl-seeking'>...</div> -->
+          </div>
+        </div>
+      </div>
+      <div class="jp-playlist">
+        <table id="jp-arl-playlist-table">
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= album_script_jPlayer_playlist(album) %>

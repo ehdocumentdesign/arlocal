@@ -1,0 +1,15 @@
+#jquery_jplayer_1.jp-jplayer
+
+#jp_container_1.jp-audio.jp-type-playlist
+  .jp_arl_playlist_controls
+    -# TODO: Add db attributes for event.vendor_url, .will_display_vendor_link; add method for vendor_url_host (?)
+    -# TODO: previously-named "vendor" has been renamed to 'inset'
+    -#  because third-party vendor button was better off independent of the player
+    -#  the 'inset' attribute is not yet fully defined in neither the model nor database
+    -# = render 'public/jplayer_multiple/jp_arl_inset', event: event
+    = render 'public/jplayer_multiple/jp_arl_buttons_playlist'
+    = render 'public/jplayer_multiple/jp_arl_progress'
+  .jp_arl_playlist_tracks
+    = render 'public/jplayer_multiple/jp_playlist'
+
+= event_script_jPlayer_playlist(event)

@@ -1,0 +1,56 @@
+.arl_admin_console_as_admin {
+  @include layout-flex-row-stretch;
+  background-color: $color-bg-admin-console;
+  border-bottom: $border-admin-console;
+  font-family: $font-family-admin;
+}
+.arl_admin_console_as_public {
+  @include layout-flex-column-right;
+  background-color: $color-bg-admin-console-public-role;
+  border-bottom: $border-admin-console;
+  font-family: $font-family-admin;
+}
+.arl_admin_console_action {
+  margin: 0.25rem 0rem;
+}
+.arl_admin_console_action:first-child {
+  margin-top: 0rem;
+}
+.arl_admin_console_action:last-child {
+  margin-bottom: 0rem;
+}
+.arl_admin_console_actions {
+  @include layout-flex-column-right;
+  margin: $arl-margin-wide;
+}
+.arl_admin_console_text {
+  @include layout-flex-column-left;
+  margin: $arl-margin-wide;
+}
+.arl_admin_console_text_heading {
+  font-weight: bold;
+}
+.arl_admin_console_text_url {
+  color: inherit;
+}
+.arl_admin_console_text_username {}
+.arl_admin_console_text_messages {
+  margin-top: $arl-margin-wide;
+}
+//.arl_admin_console_text_messages_alert:before {
+//  content: '➤ ';
+//}
+//.arl_admin_console_text_messages_notice:before {
+//  content: '• ';
+//}
+
+@media #{$media-screen-1} {
+  .arl_admin_console_as_admin {
+    position: relative;
+    width: 100%;
+  }
+  .arl_admin_console_as_public {
+    position: relative;
+    width: 100%;
+  }
+}

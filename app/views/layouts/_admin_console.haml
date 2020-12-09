@@ -1,0 +1,4 @@
+- if routing_controller_is_adminy(params)
+  = render 'layouts/admin_console_admin_view'
+- elsif routing_controller_is_public(params)
+  = render 'layouts/admin_console_public_view'

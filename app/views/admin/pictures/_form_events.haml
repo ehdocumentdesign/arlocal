@@ -1,0 +1,28 @@
+.arl_form_title
+  = picture_statement_events_count(picture)
+- if picture.does_have_events
+  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :events), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading event
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :event_pictures do |ep|
+          %tr
+            %td.arl_form_data_resource_value= event_reference_admin_link(ep.object.event)
+            %td.arl_form_data_resource_remove= ep.check_box :_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        will also unjoin any events with 'remove' box checked
+
+-if selectable.events.count >= 1
+  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :events), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Add picture to event
+    = f.fields_for :event_pictures, picture.event_pictures.build do |ep|
+      .arl_form_data_attr.arl_form_layout_center
+        .arl_form_layout_blocks
+        = ep.collection_select :event_id, selectable.events, :id, :datetime_and_title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

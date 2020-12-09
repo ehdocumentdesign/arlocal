@@ -1,0 +1,28 @@
+= html_head_title_extend! :audio
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'audio upload to album'
+  .arl_admin_resource_header_buttons
+    = audio_admin_button_to_new
+    = audio_admin_button_to_new_import
+    = audio_admin_button_to_new_upload
+    = audio_admin_button_to_index
+
+.arl_admin_audio_edit
+  = form_with(model: [:admin, Audio.new], local: true, method: :post, url: admin_audio_create_from_upload_to_album_path) do |f|
+
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.file_field :recording, multiple: false, direct_upload: true, class: :arl_button_file_upload
+      = f.object.recording_file_name
+
+    = f.fields_for :album_audio, f.object.album_audio.build do |aa|
+      .arl_form_data_attr.arl_form_layout_blocks
+        = aa.label :album_id, 'Album title', class: :arl_form_data_label
+        = aa.collection_select :album_id, @albums, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+
+    - if @auto_keyword
+      = f.fields_for :audio_keywords, f.object.audio_keywords.build do |at|
+        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: at
+
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

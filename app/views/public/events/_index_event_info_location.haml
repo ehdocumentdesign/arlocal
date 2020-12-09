@@ -1,0 +1,8 @@
+.arl_events_index_event_info_location
+  %span.arl_events_index_venue
+    = event.venue
+  - if event.does_have_city_and_venue
+    %span
+      –
+  %span.arl_events_index_city
+    = event.city

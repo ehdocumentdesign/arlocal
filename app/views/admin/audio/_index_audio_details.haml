@@ -1,0 +1,10 @@
+.arl_audio_index_audio_title
+  = audio_title_link_with_indicator(audio, html_class: :arl_audio_index_audio_title_url)
+  = audio_file_source_path_with_indicators(audio, html_class: :arl_audio_index_audio_title_path)
+%dl.arl_audio_index_audio_metadata
+  .arl_metadata_layout_inline
+    .arl_metadata_value= audio.duration_as_text(precision: :milliseconds)
+    .arl_metadata_value= audio.isrc_hyphenated
+    .arl_metadata_value= audio.date_released
+  
+  

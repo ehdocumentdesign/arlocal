@@ -1,0 +1,21 @@
+%dl.arl_metadata
+  .arl_metadata_pair.arl_metadata_block
+  -# Title and subtitle are in the player
+  .arl_metadata_pair.arl_metadata_block
+    -# %dt.arl_metadata_key catalog file path
+    -# %dd.arl_metadata_value= audio_file_path_with_indicator_classes(audio)
+    %dt.arl_metadata_key filename
+    %dd.arl_metadata_value= audio_file_path_with_indicator_classes(audio)
+  .arl_metadata_pair.arl_metadata_block
+    %dt.arl_metadata_key audio artist
+    %dd.arl_metadata_value= audio.audio_artist
+  .arl_metadata_pair.arl_metadata_block
+    %dt.arl_metadata_key date released
+    %dd.arl_metadata_value= audio.date_released
+  .arl_metadata_pair.arl_metadata_block
+    %dt.arl_metadata_key duration
+    %dd.arl_metadata_value= audio.duration_as_text(precision: :cents)
+  .arl_metadata_pair.arl_metadata_block
+    %dt.arl_metadata_key ISRC
+    %dd.arl_metadata_value= audio.isrc_hyphenated
+  

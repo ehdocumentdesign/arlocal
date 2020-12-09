@@ -1,0 +1,28 @@
+= html_head_title_extend! :picture
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'picture upload to album'
+  .arl_admin_resource_header_buttons
+    = picture_admin_button_to_new
+    = picture_admin_button_to_new_import
+    = picture_admin_button_to_new_upload
+    = picture_admin_button_to_index
+
+.arl_admin_picture_edit
+  = form_with(model: [:admin, Picture.new], local: true, method: :post, url: admin_picture_create_from_upload_to_album_path) do |f|
+
+    .arl_form_data_attr.arl_form_layout_blocks
+      = f.file_field :image, multiple: false, direct_upload: true, class: :arl_button_file_upload
+      = f.object.image_file_name
+
+    = f.fields_for :album_pictures, f.object.album_pictures.build do |ap|
+      .arl_form_data_attr.arl_form_layout_blocks
+        = ap.label :album_id, 'Album title', class: :arl_form_data_label
+        = ap.collection_select :album_id, @albums, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+
+    - if @auto_keyword
+      = f.fields_for :picture_keywords, f.object.picture_keywords.build do |pk|
+        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: pk
+
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

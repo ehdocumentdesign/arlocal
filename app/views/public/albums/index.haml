@@ -1,0 +1,14 @@
+= html_head_title_extend! :albums
+/= album_html_head_meta_description(@arlocal_settings, :index)
+
+.arl_albums_index
+  %table.arl_albums_index_albums
+    - @albums.each do |album|
+      %tr.arl_albums_index_album.arl_active_link_container{data: {url: public_album_path(album.id_public)}}
+        %td.arl_albums_index_album_picture
+          = render 'index_album_picture_img', album: album
+        %td.arl_albums_index_album_text
+          = render 'index_album_text_album_artist', album: album
+          = render 'index_album_text_title', album: album
+          = render 'index_album_text_tracks', album: album
+          = render 'index_album_text_year', album: album

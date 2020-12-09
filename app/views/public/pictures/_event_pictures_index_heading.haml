@@ -1,0 +1,7 @@
+%p#heading
+  %span
+    Pictures from
+  %span.title
+    = link_to event_path(event.id_public) do
+      = event.when(format: :year_month_day)
+      = event.venue

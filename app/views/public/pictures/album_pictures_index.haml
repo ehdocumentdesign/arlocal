@@ -1,0 +1,14 @@
+= html_head_title_extend! :albums, @album.title, :pictures
+
+.arl_pictures_index
+  =# render 'shared/selector_list', selectors_hash: @selectors, all_link: true, nil_link: false
+
+  = render 'album_pictures_index_heading', album: @album
+
+  .arl_pictures_index_pictures
+    - @pictures_page_hash[:pictures].each do |picture|
+      %figure.arl_pictures_index_picture.arl_active_link_container{data: {url: public_picture_path(picture.id_public)}}
+        = picture_thumbnail_link(picture, html_class: :arl_pictures_index_picture_thumbnail)
+
+  - if @pictures_page_hash[:page_nav_data][:current] != :all
+    = render 'shared/nav_page', controller: 'pictures', page: @pictures_page_hash[:page_nav_data]

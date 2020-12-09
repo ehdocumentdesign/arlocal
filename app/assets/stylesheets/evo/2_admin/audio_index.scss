@@ -1,0 +1,23 @@
+.arl_audio_index {
+  @include layout-flex-column-center;
+  padding: $arl-spacing-wide;
+}
+.arl_audio_index_audios {}
+.arl_audio_index_audio {
+  padding: $arl-margin-wide 0rem;
+}
+.arl_audio_index_audio_title {
+}
+.arl_audio_index_audio_title_path {
+  font-family: $font-family-admin-data-entry;
+}
+.arl_audio_index_audio_title_url {
+  color: $color-fg-link;
+  font-family: $font-family-admin-data-entry;
+  font-weight: bold;
+}
+.arl_audio_index_audio_metadata {
+}
+.arl_audio_index_filter {
+  margin: $arl-margin-wide 0rem;
+}

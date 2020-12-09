@@ -1,0 +1,29 @@
+.arl_form_title
+  = audio_statement_events_count(audio)
+- if audio.does_have_events
+  = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :events), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading event
+          %th.arl_form_data_resource_heading order
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :event_audio do |ea|
+          %tr
+            %td.arl_form_data_resource_value= event_reference_admin_link(ea.object.event)
+            %td.arl_form_data_resource_value= ea.text_field :event_order, size: 4, class: :arl_form_data_number_field
+            %td.arl_form_data_resource_remove= ea.check_box :_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation= "will also unjoin any events with '#{icon_destroy}' box checked"
+
+-if selectable.events.count >= 1
+  = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :events), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Add audio to event
+    = f.fields_for :event_audio, audio.event_audio.build do |ea|
+      .arl_form_data_attr.arl_form_layout_center
+        .arl_form_layout_blocks
+        = ea.collection_select :event_id, selectable.events, :id, :datetime_and_title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

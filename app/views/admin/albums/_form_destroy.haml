@@ -1,0 +1,16 @@
+= form_with(model: [:admin, album], local: true, class: :arl_form) do |f|
+  .arl_form_title
+    Destroy album?
+    .arl_form_data_label_destroy= tag.i album.title
+  .arl_form_data
+    .arl_form_data_attr.arl_form_data_blocks
+      %ul.arl_form_data_attr_destroy_explanation
+        %li.arl_form_data_attr_destroy_explanation_caveat Tracklist will be destroyed.
+        %li.arl_form_data_attr_destroy_explanation_caveat Audio entries will remain in the database.
+        %li.arl_form_data_attr_destroy_explanation_caveat Audio files will remain in the filesystem.
+      %ul.arl_form_data_attr_destroy_explanation
+        %li.arl_form_data_attr_destroy_explanation_caveat This action can not be undone.
+  
+  .arl_form_actions
+    = button_admin_submit_to_destroy admin_album_path(album.id), data: { confirm:  'Are you sure?' }
+    

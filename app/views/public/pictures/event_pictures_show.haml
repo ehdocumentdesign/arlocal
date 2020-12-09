@@ -1,0 +1,13 @@
+= html_head_title_extend! @event.title, :pictures, @picture.slug
+
+%p.title
+  %span
+    = link_to 'Pictures from', event_pictures_path(@event.id_public)
+  %span.album
+    = link_to @event.date_and_venue, event_path(@event.id_public)
+    
+%div#pictures_show
+  %section.picture
+    = render 'show_picture', picture: @picture, picture_neighbors: @picture_neighbors
+  %section.details
+    = render 'show_picture_details'

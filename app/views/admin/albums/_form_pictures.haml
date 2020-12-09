@@ -1,0 +1,38 @@
+.arl_form_title
+  = album_statement_pictures_count(album)
+- if album.does_have_pictures
+  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: :arl_form) do |f|
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_blocks
+        = f.label :album_pictures_sorter_id, 'Sort pictures by:', class: :arl_form_data_label_block
+        = f.select :album_pictures_sorter_id, selectable.album_pictures_sorters, {selected: f.object.album_pictures_sorter_id}, {class: :arl_form_data_select}
+      %table.arl_form_data_resource_gallery
+        = f.fields_for :album_pictures do |ap|
+          %tr.arl_form_data_resource_gallery_item
+            %td.arl_form_data_resource_gallery_thumbnail= render 'admin/shared/form_picture_thumbnail', form: ap
+            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_metadata', form: ap, picture_sorter: album.album_pictures_sorter, resource_order: :album_order
+            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_remove', form: ap
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        = "will also detatch any pictures with the #{icon_remove} box checked"
+
+- if selectable.pictures.count >= 2
+  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Add picture
+    .arl_form_data
+      = f.fields_for :album_pictures, album.album_pictures.build do |ap|
+        = render 'admin/shared/form_picture_selector', form: ap, picture_options: selectable.pictures
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- if selectable.keywords.count >= 1
+  = form_with(model: [:admin, album], url: admin_album_add_pictures_by_keyword_path(album, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], namespace: :add_pictures) do |f|
+    .arl_form_title
+      Add picture(s) by keyword
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_center
+        = f.collection_select :keywords, selectable.keywords, :id, :title_with_pictures_count, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

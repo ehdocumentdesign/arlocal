@@ -1,0 +1,18 @@
+%section#selector-links
+  %nav
+    - if all_link || (controller_name == 'events')
+      %ul
+        - if controller_name == 'events'
+          %li= link_to 'upcoming', events_upcoming_path
+          %li= link_to 'all future', events_future_path
+        - elsif (controller_name != 'events') && (all_link)
+          %li= link_to "all #{controller_name}", {controller: controller_path, action: :index, selection: :all}
+  %nav
+    - selectors.instance_variables.each do |type|
+      - if type.count > 1
+        %h1= selector_name_from_sym(type)
+      %ul
+        - selectors.instance_variable_get(type).each do |selector|
+          %li= resource_selector_link_to(controller_path, selector_name_from_sym(type), selector: selector)
+        - if nil_link
+          %li= resource_selector_link_to(controller_path, selector_name_from_sym(type), selector: nil)

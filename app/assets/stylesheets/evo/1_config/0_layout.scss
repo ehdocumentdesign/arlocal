@@ -1,0 +1,108 @@
+@mixin layout-flex-column-center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@mixin layout-flex-column-left {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@mixin layout-flex-column-right {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@mixin layout-flex-column-stretch {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@mixin layout-flex-row {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@mixin layout-flex-row-top {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@mixin layout-flex-row-centered-spaced {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+@mixin layout-flex-row-inline {
+  align-items: center;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@mixin layout-flex-row-stretch {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@mixin layout-flex-row-left {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+@mixin layout-flex-row-right {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+@mixin layout-flex-row-left-top {
+  align-items: top;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+@mixin layout-list-item-inline {
+  display: inline;
+  &:after {
+    content: ' / ';
+  }
+  &:last-child:after {
+    content: '';
+  }
+}
+
+
+.arl_layout_narrow {
+  max-width: 20rem;
+  width: 20rem;
+}
+
+.arl_layout_section {}
+.arl_layout_section_text {
+  margin: $arl-margin-wide 0rem;
+}
+
+.arl_layout_section_wide {
+  margin: $arl-margin-wide 0rem;
+}

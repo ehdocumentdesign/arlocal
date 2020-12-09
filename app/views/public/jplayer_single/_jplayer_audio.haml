@@ -1,0 +1,24 @@
+#jquery_jplayer_1.jp-jplayer
+
+#jp_container_1.jp-audio.jp-type-single
+  .jp_arl_single_row
+    .jp_arl_single_buttons
+      .jp_arl_button.jp-play{tabindex: 0}
+      .jp_arl_button.jp-pause{tabindex: 0}
+    .jp_arl_single_column
+      / .jp_arl_single_metadata
+      /   .jp_arl_single_metadata_title= audio.title
+      /   - if audio.does_have_subtitle
+      /     .jp_arl_single_metadata_subtitle= audio.subtitle
+      .jp_arl_progress_single
+        .jp_arl_progress_bar.jp-seek
+          .jp_arl_progress_bar.jp-seek-bar
+            .jp_arl_progress_bar.jp-play-bar
+        .jp_arl_progress_time.jp-current-time 0:00
+      .jp_arl_resources
+        - if audio.does_have_albums
+          .jp_arl_resources_count= "from #{resource_joined_albums_count_statement(audio)}"
+          - audio.albums.each do |aa|
+            .jp_arl_resources_title= link_to aa.title, public_album_path(aa.id_public), class: :jp_arl_resources_title_url
+          
+= audio_script_jPlayer_single(audio)

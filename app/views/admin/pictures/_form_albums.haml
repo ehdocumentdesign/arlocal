@@ -1,0 +1,28 @@
+.arl_form_title
+  = picture_statement_albums_count(picture)
+- if picture.does_have_albums
+  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :albums), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading album title
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :album_pictures do |ap|
+          %tr
+            %td.arl_form_data_resource_value= album_reference_admin_link(ap.object.album)
+            %td.arl_form_data_resource_remove= ap.check_box :_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        will also unjoin any albums with 'remove' box checked
+
+- if selectable.albums.count >= 1
+  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :albums), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Add picture to album
+    = f.fields_for :album_pictures, picture.album_pictures.build do |ap|
+      .arl_form_data_attr.arl_form_layout_center
+        = ap.label 'Album', class: :arl_form_data_label
+        = ap.collection_select :album_id, selectable.albums, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

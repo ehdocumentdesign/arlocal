@@ -1,0 +1,15 @@
+= html_head_title_extend! :articles
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'articles index'
+  .arl_admin_resource_header_buttons
+    = article_admin_button_to_new
+
+.arl_articles_index
+  %table.arl_articles_index_articles
+    - @articles.each do |article|
+      %tr.arl_articles_index_article
+        / %td.arl_articles_index_article_admin_actions
+        / = render 'index_article_admin_buttons', article: article
+        %td.arl_articles_index_article_details
+          = render 'index_article_details', article: article

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700;');
+@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:400,400i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
+
+$var-font-action: 'Source Sans Pro', sans-serif;
+$var-font-application: 'Roboto', sans-serif;
+$var-font-description: 'Lato', serif;
+$var-font-exciting: 'Merriweather Sans', serif;
+$var-font-logo: 'Open Sans', sans-serif;
+$var-font-monospace: monospace;
+$var-font-title: 'Open Sans', sans-serif;
+
+$font-family-admin: $var-font-application;
+$font-family-admin-data-button: $var-font-application;
+$font-family-admin-data-entry: $var-font-action;
+$font-family-admin-data-label: $var-font-description;
+$font-family-admin-data-value: $var-font-action;
+$font-family-admin-markup-example: $var-font-monospace;
+$font-family-album-details: $var-font-description;
+$font-family-album-title: $var-font-title;
+$font-family-article-text: $var-font-description;
+$font-family-article-title: $var-font-title;
+$font-family-audio-title: $var-font-title;
+$font-family-audio-heading: $var-font-description;
+$font-family-audio-album-title: $var-font-action;
+$font-family-marquee: $var-font-exciting;
+$font-family-data-value: $var-font-action;
+$font-family-event-index-heading: $var-font-description;
+$font-family-event-alert: $var-font-exciting;
+$font-family-event-details: $var-font-description;
+$font-family-event-etc: $var-font-description;
+$font-family-event-title: $var-font-title;
+$font-family-filter-select: $var-font-exciting;
+$font-family-header-artist-name: $var-font-logo;
+$font-family-header-nav: $var-font-action;
+$font-family-info-article: $var-font-description;
+$font-family-footer-artist: $var-font-application;
+$font-family-footer-app: $var-font-application;
+$font-family-jp-gui-progress-time: $var-font-monospace;
+$font-family-jp-link-vendor: $var-font-exciting;
+$font-family-jp-media-item: $var-font-application;
+$font-family-link-address: $var-font-action;
+$font-family-link-details: $var-font-description;
+$font-family-link-heading: $var-font-title;
+$font-family-picture-details: $var-font-description;
+$font-family-picture-heading: $var-font-description;
+$font-family-picture-title: $var-font-title;
+$font-family-stream-description: $var-font-description;
+$font-family-stream-title: $var-font-title;
+$font-family-title: $var-font-title;
+
+@mixin font-pseudo-bold($this-color-fg) {
+  text-shadow: 0.0125em 0em 0em $this-color-fg, -0.0125em 0em 0em $this-color-fg;
+}
+
