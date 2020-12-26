@@ -1,0 +1,30 @@
+<%= html_head_title_extend! [:videos, @video.title] %>
+
+<div class='arl_video_show'>
+
+  <!-- div class='arl_video_player'>
+    <video class="video-js" controls data-setup="{}" height="264" id="my-video" poster="MY_VIDEO_POSTER.jpg" preload="auto" width="640" >
+      <source src="MY_VIDEO.mp4" type="video/mp4" />
+      <source src="MY_VIDEO.webm" type="video/webm" />
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank">
+          supports HTML5 video
+        </a>
+      </p>
+    </video>
+  </div -->
+
+  <div class='arl_video_title'>
+    <%= @video.title %>
+  </div>
+
+  <div class='arl_video_description'>
+    <%= parser_div(@video.description_props) %>
+    <%= @video.source_type %>
+    <%= @video.source_file_extension %>
+    <%= @video.source_file_path %>
+    <%= @video.source_file_mime_type %>
+  </div>
+
+  <!-- script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script -->
