@@ -12,7 +12,7 @@ gem 'exiftool_vendored', '~> 12.11'
 gem 'haml', '~> 5.2'
 gem 'jquery-rails', '~> 4.4'   # jPlayer requires jquery
 gem 'puma', '~> 5.0'
-gem 'rails', '~> 6'
+gem 'rails', '~> 6.1'
 gem 'rb-readline', '~> 0.5'
 gem 'sassc-rails', '~> 2.1'
 # A&R.Local still uses Sprockets for javascript asset compilation. There is not enough front-end javascript to justify webpacker.
