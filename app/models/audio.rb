@@ -53,6 +53,7 @@ class Audio < ApplicationRecord
   ### artist
 
 
+  # TODO: This verbage fails if additional objects become attachable.
   def attachment_file_source_path
     if does_have_attachment
       recording.blob.filename.to_s
@@ -105,6 +106,7 @@ class Audio < ApplicationRecord
   end
 
 
+  # TODO: This verbage fails if additional objects become attachable.
   def does_have_attachment
     recording.attachment != nil
   end

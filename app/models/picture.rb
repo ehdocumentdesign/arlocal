@@ -51,6 +51,7 @@ class Picture < ApplicationRecord
   ### albums_count
 
 
+  # TODO: This verbage fails if additional objects become attachable.
   def attachment_file_source_path
     if does_have_attachment
       image.blob.filename.to_s
@@ -214,6 +215,7 @@ class Picture < ApplicationRecord
   end
 
 
+  # TODO: This verbage fails if additional objects become attachable.
   def does_have_attachment
     image.attachment != nil
   end
