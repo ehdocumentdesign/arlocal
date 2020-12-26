@@ -1,0 +1,7 @@
+.arl_form_data_attr.arl_form_layout_blocks
+  %label.arl_form_data_label ISRC
+  .arl_form_layout_inline
+    = f.text_field :isrc_country_code, size: 3, maxlength: 2, class: [:arl_form_data_text_field, :arl_form_margin_right]
+    = f.text_field :isrc_registrant_code, size: 4, maxlength: 3, class: [:arl_form_data_text_field, :arl_form_margin_right]
+    = f.text_field :isrc_year_of_reference, size: 3, maxlength: 2, class: [:arl_form_data_text_field, :arl_form_margin_right]
+    = f.text_field :isrc_designation_code, size: 6, maxlength: 5, class: [:arl_form_data_text_field, :arl_form_margin_right]

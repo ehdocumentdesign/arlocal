@@ -3,101 +3,21 @@
     Audio Details
 
   .arl_form_data
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :title, class: :arl_form_data_label
-      = f.text_field :title, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :published, class: :arl_form_data_checkbox
-      = f.label :published, class: :arl_form_data_label_inline
-      
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :indexed, class: :arl_form_data_checkbox
-      = f.label :indexed, class: :arl_form_data_label_inline
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :subtitle, class: :arl_form_data_label
-      = f.text_field :subtitle, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :catalog_file_path, class: :arl_form_data_label
-      %aside.arl_form_data_attr_explanation
-        Name of file on server. Must be m4a audio. (m4a/mp4/aac)
-      %aside.arl_form_data_attr_explanation
-        = "#{catalog_path_suffix_audio}/"
-      = f.text_field :catalog_file_path, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :audio_artist, class: :arl_form_data_label
-      = f.text_field :audio_artist, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :composer, class: :arl_form_data_label
-      = f.text_field :composer, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks.arl_nyi
-      .arl_form_layout_dependent_attr
-        = f.label :copyright_text_markup, 'Copyright notice', class: :arl_form_data_label_margin_right
-        = f.select :copyright_parser_id, selectable.markup_parsers, {selected: f.object.copyright_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :copyright_text_markup, class: :arl_form_data_text_area_shorter
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :date_released, class: :arl_form_data_label_block
-      .arl_form_layout_multifield
-        = f.date_select :date_released, { include_blank: true, selected: f.object.date_released || Date.current, start_year: (Date.current.year - 10) }, {class: :arl_form_data_select}
-    
-    .arl_form_data_attr.arl_form_layout_blocks.arl_nyi
-      .arl_form_layout_dependent_attr
-        = f.label :description_text_markup, 'Description', class: :arl_form_data_label_margin_right
-        = f.select :description_parser_id, selectable.markup_parsers, {selected: f.object.description_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :description_text_markup, class: :arl_form_data_text_area
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      %label.arl_form_data_label Duration
-      .arl_form_layout_inline
-        .arl_form_layout_blocks
-          = f.label :duration_hrs, 'hrs', class: :arl_form_data_attr_explanation
-          = f.text_field :duration_hrs, size: 3, class: :arl_form_data_text_field
-          =# f.select :duration_hrs, 0...10, {selected: f.object.duration_hrs}, {class: :arl_form_data_select}
-        .arl_form_layout_time_separator= ':'
-        .arl_form_layout_blocks
-          = f.label :duration_mins, 'mins', class: :arl_form_data_attr_explanation
-          = f.text_field :duration_mins, size: 4, maxlength: 3, class: :arl_form_data_text_field
-          =# f.select :duration_mins, 0..59, {selected: f.object.duration_mins}, {class: :arl_form_data_select}
-        .arl_form_layout_time_separator= ':'
-        .arl_form_layout_blocks
-          = f.label :duration_secs, 'secs', class: :arl_form_data_attr_explanation
-          = f.text_field :duration_secs, size: 4, maxlength: 3, class: :arl_form_data_text_field
-          =# f.select :duration_secs, 00..59, {selected: f.object.duration_secs}, {class: :arl_form_data_select}
-        .arl_form_layout_time_separator= '.'
-        .arl_form_layout_blocks
-          = f.label :duration_mils, 'mils', class: :arl_form_data_attr_explanation
-          = f.text_field :duration_mils, size: 4, maxlength: 3, class: :arl_form_data_text_field
-          =# f.select :duration_cents, 00..99, {selected: f.object.duration_cents}, {class: :arl_form_data_select}
-
-    .arl_form_data_attr.arl_form_layout_blocks.arl_nyi
-      .arl_form_layout_dependent_attr
-        = f.label :involved_people_text_markup, 'Involved people', class: :arl_form_data_label_margin_right
-        = f.select :involved_people_parser_id, selectable.markup_parsers, {selected: f.object.involved_people_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :involved_people_text_markup, class: :arl_form_data_text_area
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      %label.arl_form_data_label ISRC
-      .arl_form_layout_inline
-        = f.text_field :isrc_country_code, size: 3, maxlength: 2, class: [:arl_form_data_text_field, :arl_form_margin_right]
-        = f.text_field :isrc_registrant_code, size: 4, maxlength: 3, class: [:arl_form_data_text_field, :arl_form_margin_right]
-        = f.text_field :isrc_year_of_reference, size: 3, maxlength: 2, class: [:arl_form_data_text_field, :arl_form_margin_right]
-        = f.text_field :isrc_designation_code, size: 6, maxlength: 5, class: [:arl_form_data_text_field, :arl_form_margin_right]
-
-    .arl_form_data_attr.arl_form_layout_blocks.arl_nyi
-      .arl_form_layout_dependent_attr
-        = f.label :musicians_text_markup, 'Musicians', class: :arl_form_data_label_margin_right
-        = f.select :musicians_parser_id, selectable.markup_parsers, {selected: f.object.musicians_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :musicians_text_markup, class: :arl_form_data_text_area
-
-    - if @auto_keyword
-      = f.fields_for :audio_keywords do |at|
-        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: at
+    = render 'form_elements/text_field',      attribute: :title,              form: f
+    = render 'form_elements/check_box',       attribute: :published,          form: f
+    = render 'form_elements/check_box',       attribute: :indexed,            form: f
+    = render 'form_elements/text_field',      attribute: :subtitle,           form: f
+    = render 'form_elements/text_field',      attribute: :catalog_file_path,  form: f, aside_before: "#{catalog_path_suffix_audio}"
+    = render 'form_elements/text_field',      attribute: :audio_artist,       form: f
+    = render 'form_elements/text_field',      attribute: :composer,           form: f
+    = render 'form_elements/parseable_field', attribute: :copyright,          form: f, selectable: selectable
+    = render 'form_elements/date_select',     attribute: :date_released,      form: f, default_date: Date.current
+    = render 'form_elements/parseable_field', attribute: :description,        form: f, selectable: selectable
+    = render 'form_elements/duration',        attribute: :duration,           form: f
+    = render 'form_elements/parseable_field', attribute: :involved_people,    form: f, selectable: selectable
+    = render 'form_elements/isrc',            attribute: :isrc,               from: f
+    = render 'form_elements/parseable_field', attribute: :musicians,          form: f, selectable: selectable
+    = render 'form_elements/auto_keyword',    attribute: :audio_keywords,     form: f, auto_keyword: @auto_keyword
 
   .arl_form_actions
     = f.submit class: :arl_button_form_submit
