@@ -7,16 +7,16 @@
     = render 'form_elements/check_box',       attribute: :published,          form: f
     = render 'form_elements/check_box',       attribute: :indexed,            form: f
     = render 'form_elements/text_field',      attribute: :subtitle,           form: f
-    = render 'form_elements/text_field',      attribute: :catalog_file_path,  form: f, aside_before: "#{catalog_path_suffix_audio}"
+    = render 'form_elements/text_field',      attribute: :catalog_file_path,  form: f, aside_before: "catalog/#{catalog_path_suffix_audio}/"
     = render 'form_elements/text_field',      attribute: :audio_artist,       form: f
     = render 'form_elements/text_field',      attribute: :composer,           form: f
-    = render 'form_elements/parseable_field', attribute: :copyright,          form: f, selectable: selectable
+    = render 'form_elements/parseable_area',  attribute: :copyright,          form: f, selectable: selectable
     = render 'form_elements/date_select',     attribute: :date_released,      form: f, default_date: Date.current
-    = render 'form_elements/parseable_field', attribute: :description,        form: f, selectable: selectable
+    = render 'form_elements/parseable_area',  attribute: :description,        form: f, selectable: selectable
     = render 'form_elements/duration',        attribute: :duration,           form: f
-    = render 'form_elements/parseable_field', attribute: :involved_people,    form: f, selectable: selectable
-    = render 'form_elements/isrc',            attribute: :isrc,               from: f
-    = render 'form_elements/parseable_field', attribute: :musicians,          form: f, selectable: selectable
+    = render 'form_elements/parseable_area',  attribute: :involved_people,    form: f, selectable: selectable
+    = render 'form_elements/isrc',            attribute: :isrc,               form: f
+    = render 'form_elements/parseable_area',  attribute: :musicians,          form: f, selectable: selectable
     = render 'form_elements/auto_keyword',    attribute: :audio_keywords,     form: f, auto_keyword: @auto_keyword
 
   .arl_form_actions

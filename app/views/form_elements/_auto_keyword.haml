@@ -1,5 +1,5 @@
-- if auto_keyword
-  = form.fields_for attribute do |joined_keyword| 
+- if local_assigns[:auto_keyword]
+  = form.fields_for attribute do |joined_keyword|
     .arl_form_data_attr
       .arl_form_layout_inline
         = form.check_box :keyword_id, {class: :arl_form_data_checkbox, checked: true}, auto_keyword.keyword_id
