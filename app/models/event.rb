@@ -8,6 +8,7 @@ class Event < ApplicationRecord
 
   before_validation :strip_whitespace_edges_from_entered_text
   before_validation :ensure_critical_attributes_have_default_values
+  before_validation :create_attr_title_without_markup
 
   validates :details_parser_id, presence: true
   validates :event_pictures_sorter_id, presence: true
@@ -15,6 +16,7 @@ class Event < ApplicationRecord
   validates :datetime_year, presence: true
   validates :datetime_month, presence: true
   validates :datetime_day, presence: true
+  validates :title_parser_id, presence: true
   validates :title_text_markup, presence: true
   validates :venue, presence: true
 
@@ -85,6 +87,9 @@ class Event < ApplicationRecord
     datetime_formatted(:year_month_day) + ' @ ' + venue
   end
 
+
+  # event.datetime has several attributes instead of a single Datetime attribute
+  # to allow for varying precision.
 
   def datetime
     Time.new(
@@ -315,11 +320,22 @@ class Event < ApplicationRecord
 
 
   def title
-    title_text_markup
+    title_without_markup
   end
 
 
+  def title_props
+    { parser_id: title_parser_id, text_markup: title_text_markup }
+  end
+
+
+  ### title_parser_id
+
+
   ### title_text_markup
+
+
+  ### title_without_markup
 
 
   ### updated_at
@@ -342,6 +358,11 @@ class Event < ApplicationRecord
 
 
   private
+
+
+  def create_attr_title_without_markup
+    self.title_without_markup = ApplicationController.helpers.parser_remove_markup(self.title_props)
+  end
 
 
   def convert_datetime_to_utc

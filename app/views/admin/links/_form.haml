@@ -1,32 +1,10 @@
 = form_with(model: [:admin, link], local: true, class: :arl_form) do |f|
   .arl_form_title
     Link details
-
   .arl_form_data
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :name, class: :arl_form_data_label
-      = f.text_field :name, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :address_href, class: :arl_form_data_label
-      = f.text_field :address_href, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :address_inline_text, class: :arl_form_data_label
-      = f.text_field :address_inline_text, class: :arl_form_data_text_field
-      %aside.arl_form_data_attr_explanation
-        Text entered here is used when a page link (such as on the info page) displays as address-only.
-        In such cases, the address itself will be used for the address inline text if this field remains blank.
-        
-    / .arl_form_data_attr.arl_form_layout_blocks
-    /   = f.label :address_type, class: :arl_form_data_label
-    /   = f.select :address_type, options_for_select(['email', 'web']), {selected: f.object.address_type}, {class: :arl_form_data_select}
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      .arl_form_layout_dependent_attr
-        = f.label :details_text_markup, 'Details', class: :arl_form_data_label_margin_right
-        = f.select :details_parser_id, selectable.markup_parsers, {selected: f.object.details_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :details_text_markup, class: :arl_form_data_text_area
-  
+    = render 'form_elements/text_field',      attribute: :name,                 form: f
+    = render 'form_elements/text_field',      attribute: :address_href,         form: f
+    = render 'form_elements/text_field',      attribute: :address_inline_text,  form: f, aside_before: form_message_link_inline_text
+    = render 'form_elements/parseable_area',  attribute: :details,              form: f, selectable: selectable
   .arl_form_actions
     = f.submit class: :arl_button_form_submit

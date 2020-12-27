@@ -1,22 +1,13 @@
 = form_with(model: [:admin, article], local: true, class: :arl_form) do |f|
   .arl_form_title
     Article Details
-
   .arl_form_data
-    = render 'form_elements/text_field',      attribute: :title,                                    form: f
-    = render 'form_elements/check_box',       attribute: :published,                                form: f
-    = render 'form_elements/check_box',       attribute: :indexed,                                  form: f
-    = render 'form_elements/text_field',      attribute: :author,                                   form: f
-    = render 'form_elements/date_select',     attribute: :date_released,                            form: f, default_date: Date.current
-    -#TODO: change to 'copyright' and migrate db.
-    = render 'form_elements/text_field',      attribute: :copyright_notice,                         form: f, selectable: selectable
-    = render 'form_elements/parseable_area',  attribute: :text, form: f, seleactable: selectable
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      .arl_form_layout_dependent_attr
-        = f.label :text_markup, 'Text', class: :arl_form_data_label_margin_right
-        = f.select :parser_id, selectable.markup_parsers, { selected: f.object.parser_id }, { class: :arl_form_data_select }
-      ~ f.text_area :text_markup, class: :arl_form_data_text_area
-
+    = render 'form_elements/text_field',      attribute: :title,            form: f
+    = render 'form_elements/check_box',       attribute: :published,        form: f
+    = render 'form_elements/check_box',       attribute: :indexed,          form: f
+    = render 'form_elements/text_field',      attribute: :author,           form: f
+    = render 'form_elements/parseable_field', attribute: :copyright,        form: f, selectable: selectable
+    = render 'form_elements/date_select',     attribute: :date_released,    form: f, default_date: Date.current
+    = render 'form_elements/parseable_area',  attribute: :text,             form: f, selectable: selectable
   .arl_form_actions
     = f.submit class: :arl_button_form_submit

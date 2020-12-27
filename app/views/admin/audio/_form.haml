@@ -1,7 +1,6 @@
 = form_with(model: [:admin, audio], local: true, class: :arl_form) do |f|
   .arl_form_title
     Audio Details
-
   .arl_form_data
     = render 'form_elements/text_field',      attribute: :title,              form: f
     = render 'form_elements/check_box',       attribute: :published,          form: f
@@ -18,6 +17,5 @@
     = render 'form_elements/isrc',            attribute: :isrc,               form: f
     = render 'form_elements/parseable_area',  attribute: :musicians,          form: f, selectable: selectable
     = render 'form_elements/auto_keyword',    attribute: :audio_keywords,     form: f, auto_keyword: @auto_keyword
-
   .arl_form_actions
     = f.submit class: :arl_button_form_submit

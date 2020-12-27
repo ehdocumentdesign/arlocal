@@ -98,6 +98,7 @@ class Admin::EventsController < AdminController
       :show_can_cycle_pictures,
       :show_can_have_more_pictures_link,
       :slug,
+      :title_parser_id,
       :title_text_markup,
       :venue,
       :venue_url,

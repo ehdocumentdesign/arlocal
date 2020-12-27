@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_233337) do
+ActiveRecord::Schema.define(version: 2020_12_27_061037) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -145,7 +145,8 @@ ActiveRecord::Schema.define(version: 2020_09_17_233337) do
 
   create_table "articles", force: :cascade do |t|
     t.string "author"
-    t.text "copyright_notice"
+    t.integer "copyright_parser_id"
+    t.text "copyright_text_markup"
     t.datetime "date_released"
     t.boolean "indexed"
     t.integer "parser_id"
@@ -249,6 +250,8 @@ ActiveRecord::Schema.define(version: 2020_09_17_233337) do
     t.boolean "visible_in_public_events_index"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "title_parser_id"
+    t.text "title_without_markup"
     t.index ["slug"], name: "index_events_on_slug"
   end
 
