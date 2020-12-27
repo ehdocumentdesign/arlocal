@@ -3,35 +3,12 @@
     .arl_form_title
       Stream details
     .arl_form_data
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :title, class: :arl_form_data_label_block
-      = f.text_field :title, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      .arl_form_data_attr.arl_form_layout_inline
-        = f.check_box :published, class: :arl_form_data_checkbox
-        = f.label :published, class: :arl_form_data_label_inline
-
-      .arl_form_data_attr.arl_form_layout_inline
-        = f.check_box :indexed, class: :arl_form_data_checkbox
-        = f.label :indexed, class: :arl_form_data_label_inline
-
-    - if @arlocal_settings.admin_forms_edit_slug_field
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :slug, class: :arl_form_data_label_block
-        = render 'admin/shared/form_slug', form: f
-
-      .arl_form_data_attr.arl_form_layout_blocks
-        .arl_form_layout_dependent_attr
-          = f.label :description_text_markup, 'Description', class: :arl_form_data_label_margin_right
-          = f.select :description_parser_id, selectable.markup_parsers, {selected: f.object.description_parser_id}, {class: :arl_form_data_select}
-        ~ f.text_area :description_text_markup, class: :arl_form_data_text_area
-
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :html_element, class: :arl_form_data_label_block
-        = f.text_area :html_element, class: :arl_form_data_text_area
-
+      = render 'form_elements/text_field',      attribute: :title,        form: f
+      = render 'form_elements/check_box',       attribute: :published,    form: f
+      = render 'form_elements/check_box',       attribute: :indexed,      form: f
+      = render 'form_elements/slug_field',      attribute: :slug,         form: f
+      = render 'form_elements/parseable_area',  attribute: :description,  form: f, selectable: selectable
+      = render 'form_elements/text_area',       attribute: :html_element, form: f
     .arl_form_actions
       .arl_form_action_submit
         = f.submit class: :arl_button_form_submit
