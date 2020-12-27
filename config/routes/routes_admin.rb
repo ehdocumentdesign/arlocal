@@ -109,7 +109,3 @@ namespace :admin do
 
 
 end
-
-
-# This must remain outside the :admin namespace in order to correctly assign devise's authentication resources.
-# devise_for :administrators, module: 'admin/administrators', skip: :sessions

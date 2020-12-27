@@ -5,7 +5,7 @@
 
 .arl_admin_resource_header
   .arl_admin_resource_header_class= "event"
-  .arl_admin_resource_header_title= sanitize "#{@event.datetime}<br>#{@event.title}"
+  .arl_admin_resource_header_title= sanitize "#{@event.datetime}<br>#{@event.title_text_markup}"
   .arl_admin_resource_header_buttons
     = event_admin_button_to_new
     = event_admin_button_to_previous(@event_neighbors.previous)

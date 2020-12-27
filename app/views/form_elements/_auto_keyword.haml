@@ -1,0 +1,11 @@
+- if local_assigns[:auto_keyword]
+  = form.fields_for attribute do |joined_keyword|
+    .arl_form_data_attr
+      .arl_form_layout_inline
+        = form.check_box :keyword_id, {class: :arl_form_data_checkbox, checked: true}, auto_keyword.keyword_id
+        = form.label :keyword_id, sanitize("Auto-keyword as <i>#{auto_keyword.keyword_title}</i>", keywords: %w(i)), class: :arl_form_data_label_inline
+      .arl_form_layout_inline_inset
+        %aside.arl_form_data_attr_explanation
+          = sanitize("Value can be changed in the #{link_to 'A&R.local control panel', edit_admin_arlocal_settings_path(pane: :admin), class: :arl_link_url}.")
+        %aside.arl_form_data_attr_explanation
+          If 'Create' returns errors, this value might change; double-check it. (known code flaw)

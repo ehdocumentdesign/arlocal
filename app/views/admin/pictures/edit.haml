@@ -13,7 +13,7 @@
     = picture_admin_button_to_done_editing(@picture)
     = picture_admin_button_to_edit_next(@picture_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
   = render '/admin/pictures/admin_picture_stats', picture: @picture
-  = render '/admin/shared/form_errors', resource: @picture  
+  = render '/admin/shared/form_errors', resource: @picture
 
 .arl_admin_resource_edit_nav
   - @form_metadata.nav_categories.each do |category|

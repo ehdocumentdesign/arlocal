@@ -66,7 +66,8 @@ class Admin::ArticlesController < AdminController
   def article_params
     params.require(:article).permit(
       :author,
-      :copyright_notice,
+      :copyright_parser_id,
+      :copyright_text_markup,
       :date_released,
       :indexed,
       :parser_id,

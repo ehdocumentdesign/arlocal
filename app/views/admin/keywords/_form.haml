@@ -1,18 +1,9 @@
 = form_with(model: [:admin, keyword], local: true, class: :arl_form) do |f|
   .arl_form_title
     Keyword Details
-
   .arl_form_data
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :title, class: :arl_form_data_label
-      = f.text_field :title, class: :arl_form_data_text_field
-    - if @arlocal_settings.admin_forms_edit_slug_field
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :slug, class: :arl_form_data_label
-        = render 'admin/shared/form_slug', form: f
-    .arl_form_data_attr.arl_form_layout_inline.arl_nyi
-      = f.check_box :can_select_pictures, class: :arl_form_data_checkbox
-      = f.label :can_select_pictures, class: :arl_form_data_label_inline
-
+    = render 'form_elements/text_field',  attribute: :title,                form: f
+    = render 'form_elements/slug_field',  attribute: :slug,                 form: f, arlocal_settings: @arlocal_settings
+    = render 'form_elements/check_box',   attribute: :can_select_pictures,  form: f
   .arl_form_actions
     = f.submit class: :arl_button_form_submit

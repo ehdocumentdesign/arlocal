@@ -28,5 +28,3 @@ get 'streams/:id', to: 'public/streams#show',  as: 'public_stream'
 get 'streams',     to: 'public/streams#index', as: 'public_streams'
 
 get 'video', to: 'public/videos#show', as: 'video'
-
-# devise_for :administrators, module: 'public/administrators', only: :sessions

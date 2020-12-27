@@ -2,78 +2,21 @@
   .arl_form_title
     Album Details
   .arl_form_data
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :title, class: :arl_form_data_label_block
-      = f.text_field :title, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :published, class: :arl_form_data_checkbox
-      = f.label :published, class: :arl_form_data_label_inline
-      
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :indexed, class: :arl_form_data_checkbox
-      = f.label :indexed, class: :arl_form_data_label_inline
-
-    - if @arlocal_settings.admin_forms_edit_slug_field
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :slug, class: :arl_form_data_label_block
-        = render 'admin/shared/form_slug', form: f
-        
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :album_artist, class: :arl_form_data_label_block
-      = f.text_field :album_artist, class: :arl_form_data_text_field
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      .arl_form_layout_dependent_attr
-        = f.label :copyright_text_markup, 'Copyright notice', class: :arl_form_data_label_margin_right
-        = f.select :copyright_parser_id, selectable.markup_parsers, {selected: f.object.copyright_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :copyright_text_markup, class: :arl_form_data_text_area_shorter
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :date_released, class: :arl_form_data_label_block
-      .arl_form_layout_multifield
-        = f.date_select :date_released, { include_blank: true, selected: f.object.date_released || Date.current }, {class: :arl_form_data_select}
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      .arl_form_layout_dependent_attr
-        = f.label :description_text_markup, 'Description', class: :arl_form_data_label_margin_right
-        = f.select :description_parser_id, selectable.markup_parsers, {selected: f.object.description_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :description_text_markup, class: :arl_form_data_text_area
-
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :index_can_display_tracklist, class: :arl_form_data_checkbox 
-      = f.label :index_can_display_tracklist, class: :arl_form_data_label_inline
-
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :index_tracklist_audio_includes_subtitles, class: :arl_form_data_checkbox
-      = f.label :index_tracklist_audio_includes_subtitles, class: :arl_form_data_label_inline
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      .arl_form_layout_dependent_attr
-        = f.label :involved_people_text_markup, 'Involved people', class: :arl_form_data_label_margin_right
-        = f.select :involved_people_parser_id, selectable.markup_parsers, {selected: f.object.involved_people_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :involved_people_text_markup, class: :arl_form_data_text_area
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      .arl_form_layout_dependent_attr
-        = f.label :musicians_text_markup, 'Musicians', class: :arl_form_data_label_margin_right
-        = f.select :musicians_parser_id, selectable.markup_parsers, {selected: f.object.musicians_parser_id}, {class: :arl_form_data_select}
-      ~ f.text_area :musicians_text_markup, class: :arl_form_data_text_area
-
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :show_can_cycle_pictures, class: :arl_form_data_checkbox
-      = f.label :show_can_cycle_pictures, class: :arl_form_data_label_inline
-
-    .arl_form_data_attr.arl_form_layout_inline.arl_nyi
-      = f.check_box :show_can_have_more_pictures_link, class: :arl_form_data_checkbox
-      = f.label :show_can_have_more_pictures_link, class: :arl_form_data_label_inline
-      
-    
-    - if @auto_keyword
-      = f.fields_for :album_keywords do |at| 
-        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: at
-
-
+    = render 'form_elements/text_field',      attribute: :title,                                    form: f
+    = render 'form_elements/check_box',       attribute: :published,                                form: f
+    = render 'form_elements/check_box',       attribute: :indexed,                                  form: f
+    = render 'form_elements/slug_field',      attribute: :slug,                                     form: f, arlocal_settings: @arlocal_settings
+    = render 'form_elements/text_field',      attribute: :album_artist,                             form: f
+    = render 'form_elements/parseable_field', attribute: :copyright,                                form: f, selectable: selectable
+    = render 'form_elements/date_select',     attribute: :date_released,                            form: f, default_date: Date.current
+    = render 'form_elements/parseable_area',  attribute: :description,                              form: f, selectable: selectable
+    = render 'form_elements/check_box',       attribute: :index_can_display_tracklist,              form: f
+    = render 'form_elements/check_box',       attribute: :index_tracklist_audio_includes_subtitles, form: f
+    = render 'form_elements/parseable_area',  attribute: :involved_people,                          form: f, selectable: selectable
+    = render 'form_elements/parseable_area',  attribute: :musicians,                                form: f, selectable: selectable
+    = render 'form_elements/check_box',       attribute: :show_can_cycle_pictures,                  form: f
+    =# render 'form_elements/check_box',       attribute: :show_can_have_more_pictures_link,         form: f
+    = render 'form_elements/auto_keyword',    attribute: :album_keywords,                           form: f, auto_keyword: @auto_keyword
   .arl_form_actions
     .arl_form_action_submit
-      = f.submit class: :arl_button_form_submit 
+      = f.submit class: :arl_button_form_submit
