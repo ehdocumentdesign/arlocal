@@ -1,0 +1,5 @@
+.arl_form_data_attr.arl_form_layout_blocks
+  = form.label attribute, class: :arl_form_data_label_block
+  - if local_assigns[:aside_before]
+    %aside.arl_form_data_attr_explanation= "#{aside_before}"
+  = form.text_area attribute, class: :arl_form_data_text_area

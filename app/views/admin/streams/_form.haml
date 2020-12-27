@@ -6,7 +6,7 @@
       = render 'form_elements/text_field',      attribute: :title,        form: f
       = render 'form_elements/check_box',       attribute: :published,    form: f
       = render 'form_elements/check_box',       attribute: :indexed,      form: f
-      = render 'form_elements/slug_field',      attribute: :slug,         form: f
+      = render 'form_elements/slug_field',      attribute: :slug,         form: f, arlocal_settings: @arlocal_settings
       = render 'form_elements/parseable_area',  attribute: :description,  form: f, selectable: selectable
       = render 'form_elements/text_area',       attribute: :html_element, form: f
     .arl_form_actions
