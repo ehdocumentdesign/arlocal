@@ -1,14 +1,14 @@
 class AdminController < ApplicationController
 
 
-  # before_action :authenticate_administrator!
-  # before_action :halt_updates_not_from_authorized_administrator,
-  #   except: [
-  #     :edit,
-  #     :index,
-  #     :new,
-  #     :show
-  #   ]
+  before_action :authenticate_administrator!
+  before_action :halt_updates_not_from_authorized_administrator,
+    except: [
+      :edit,
+      :index,
+      :new,
+      :show
+    ]
 
   rescue_from ActionController::MethodNotAllowed, with: :alert_action_not_authorized
 
