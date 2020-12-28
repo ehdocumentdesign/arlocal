@@ -4,17 +4,17 @@ module CatalogHelper
   module_function
 
 
-  def catalog_audio_filesystem_dirname
-    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_audio)
+  def catalog_video_filesystem_dirname
+    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_video)
   end
 
-  def catalog_audio_filesystem_path(audio)
-    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_audio, audio.catalog_file_path)
+  def catalog_video_filesystem_path(video)
+    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_video, video.catalog_file_path)
   end
 
 
-  def catalog_audio_url(audio)
-    asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_audio, audio.catalog_file_path), skip_pipeline: true
+  def catalog_video_url(video)
+    asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_video, video.catalog_file_path), skip_pipeline: true
   end
 
 
@@ -38,8 +38,8 @@ module CatalogHelper
   end
 
 
-  def catalog_path_suffix_audio
-    'audio'
+  def catalog_path_suffix_video
+    'video'
   end
 
 
@@ -50,6 +50,11 @@ module CatalogHelper
 
   def catalog_path_suffix_pictures
     'pictures'
+  end
+
+
+  def catalog_path_suffix_videos
+    'videos'
   end
 
 
@@ -66,6 +71,23 @@ module CatalogHelper
   def catalog_picture_url(picture)
     asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_pictures, picture.catalog_file_path), skip_pipeline: true
   end
+
+
+  def catalog_video_filesystem_dirname
+    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_videos)
+  end
+
+  def catalog_video_filesystem_path(video)
+    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_videos, video.source_catalog_file_path)
+  end
+
+
+  def catalog_video_url(video)
+    asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_videos, video.source_catalog_file_path), skip_pipeline: true
+  end
+
+
+
 
 
 end

@@ -25,7 +25,7 @@ class Video
 
 
   def source_catalog_file_path
-    'yourallgay.mkv'
+    'yourallgay.mp4'
   end
 
 
