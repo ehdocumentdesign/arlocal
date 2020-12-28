@@ -2,7 +2,6 @@
 
 <div class='arl_video_show'>
 
-
   <div class='arl_video_title'>
     <%= @video.title %>
   </div>
@@ -15,18 +14,8 @@
     <%= @video.source_file_mime_type %>
   </div>
 
-  <!-- script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script -->
-
-
-  <div class='arl_video_player'>
-    <!-- <video class="video-js" controls data-setup="{}" height="264" id="my-video" poster="MY_VIDEO_POSTER.jpg" preload="auto" width="640" > -->
-    <video class="video-js" controls data-setup="{}" height="264" id="my-video" preload="auto" width="640" >
-      <source src="<%= catalog_video_url(@video) %>" type="<%= @video.source_file_mime_type %>" />
-      <p class="vjs-no-js">
-        To view this video please enable JavaScript, and consider upgrading to a web browser that
-        <a href="https://videojs.com/html5-video-support/" target="_blank">
-          supports HTML5 video
-        </a>
-      </p>
-    </video>
-  </div>
+  <% if @video.source_is_file %>
+    <%= render 'show_videojs_file', video: @video %>
+  <% elsif @video.source_is_url %>
+    <%= render 'show_videojs_url', video: @video %>
+  <% end %>

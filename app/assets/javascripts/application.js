@@ -9,4 +9,4 @@
 //
 //= require_directory ./public
 //= require_directory ./jplayer
-//= require_directory ./videojs
+//= require ./videojs/index

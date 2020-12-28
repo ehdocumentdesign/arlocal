@@ -29,7 +29,8 @@ class Video
   end
 
 
-  def source_embed_url
+  def source_url
+    'https://www.youtube.com/embed/rmuPs0uCe3w'
   end
 
 
@@ -58,12 +59,34 @@ class Video
   end
 
 
+  def source_is_file
+    case source_type
+    when :attachment
+      true
+    when :catalog
+      true
+    else
+      false
+    end
+  end
+
+
+  def source_is_url
+    case source_type
+    when :url
+      true
+    else
+      false
+    end
+  end
+
+
   def source_type
     # :attachment
     # :catalog
-    # :embed
+    # :url
 
-    :catalog
+    :url
   end
 
 
