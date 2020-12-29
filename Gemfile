@@ -11,6 +11,7 @@ gem 'devise', '~> 4.7'
 gem 'exiftool_vendored', '~> 12.11'
 gem 'haml', '~> 5.2'
 gem 'jquery-rails', '~> 4.4'   # jPlayer requires jquery
+gem 'mediainfo', '~> 1.4'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1'
 gem 'rb-readline', '~> 0.5'
@@ -18,7 +19,6 @@ gem 'sassc-rails', '~> 2.1'
 # A&R.Local still uses Sprockets for javascript asset compilation. There is not enough front-end javascript to justify webpacker.
 gem 'sprockets', '~> 4.0'     # A&R.Local requires sprockets version 4
 gem 'sqlite3', '~> 1.4'
-gem 'taglib-ruby', '~> 1.0'
 gem 'turbolinks', '~> 5.2'
 gem 'uglifier', '~> 4.2'
 gem 'unicorn', '~> 5.7'
