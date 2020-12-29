@@ -1,17 +1,14 @@
 class Video
 
 
-  # add this last.
+  # add these last.
+  #
+  # has_one_coverpicture
   # has_one_attached :recording
 
 
   def description_props
     { parser_id: 4, text_markup: 'Description'}
-  end
-
-
-  def title
-    'Silverton'
   end
 
 
@@ -29,8 +26,13 @@ class Video
   end
 
 
-  def source_url
-    'https://www.youtube.com/embed/rmuPs0uCe3w'
+  def source_dimension_height
+    880
+  end
+
+
+  def source_dimension_width
+    956
   end
 
 
@@ -85,8 +87,21 @@ class Video
     # :attachment
     # :catalog
     # :url
+    :catalog
+  end
 
-    :url
+
+  def source_url
+    'https://www.youtube.com/embed/rmuPs0uCe3w'
+  end
+
+
+  def thumbnail
+  end
+
+
+  def title
+    'Silverton'
   end
 
 
