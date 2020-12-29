@@ -12,6 +12,16 @@ class Video
   end
 
 
+  def display_dimension_width
+    640
+  end
+
+
+  def display_dimension_height
+    (source_dimension_height * display_dimension_width) / source_dimension_width
+  end
+  
+
   def slug
     'silverton'
   end

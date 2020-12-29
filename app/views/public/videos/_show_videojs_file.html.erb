@@ -2,11 +2,12 @@
   <!-- <video class="video-js" controls data-setup="{}" height="264" id="my-video" poster="MY_VIDEO_POSTER.jpg" preload="auto" width="640" > -->
   <video
     class="video-js"
-    controls data-setup="{}"
-    height="<%= video.source_dimension_height %>"
+    controls
+    data-setup="{}"
+    height="<%= video.display_dimension_height %>"
     id="my-video"
     preload="auto"
-    width="<%= video.source_dimension_width %>" >
+    width="<%= video.display_dimension_width %>" >
     <source
       src="<%= catalog_video_url(video) %>"
       type="<%= video.source_file_mime_type %>" />
