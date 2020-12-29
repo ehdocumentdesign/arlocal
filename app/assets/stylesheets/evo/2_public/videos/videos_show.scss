@@ -1,19 +1,18 @@
 
 @media #{$media-screen-1} {
-  .video-js {
-    transform: scale(0.50, 0.50);
-    transform-origin: 50% 0%;
+  .arl_video_player {
+    width: 320px;
   }
 }
 
 @media #{$media-screen-2} {
-  .video-js {
-    transform: scale(0.75, 0.75);
-    transform-origin: 50% 0%;
+  .arl_video_player {
+    width: 480px;
   }
 }
 
 @media #{$media-screen-3} {
-  .video-js {
+  .arl_video_player {
+    width: 640px;
   }
 }
