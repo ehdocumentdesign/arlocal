@@ -4,14 +4,12 @@ class AudioId3Builder
   #TODO: Error handling if audio file path is invalid
 
 
-  require 'taglib'
-
+  require 'mediainfo'
 
   def initialize(audio)
     @action = nil
     @audio = audio
-    @audio_props = nil
-    @audio_tag = nil
+    @mediainfo = nil
   end
 
 
@@ -98,30 +96,19 @@ class AudioId3Builder
 
 
   def audio_taglib_read(path)
-    case @audio.file_type
-    when 'm4a'
-      audio_taglib_read_m4a(path)
-    end
-  end
-
-
-  def audio_taglib_read_m4a(path)
-    TagLib::MP4::File.open(path) do |m4a|
-      @audio_props = m4a.audio_properties
-      @audio_tag = m4a.tag
-      set_basics
-      set_conditionals
-    end
+    @mediainfo = MediaInfo.from(path)
+    set_basics
+    set_conditionals
   end
 
 
   def set_basics
-    @audio.artist = "#{@audio_tag.artist}"
-    @audio.copyright_text_markup = "© #{@audio_tag.year}"
-    @audio.title = "#{@audio_tag.title}"
-    @audio.duration_mins = @audio_props.length_in_milliseconds.divmod(1000)[0].divmod(60)[0]
-    @audio.duration_secs = @audio_props.length_in_milliseconds.divmod(1000)[0].divmod(60)[1]
-    @audio.duration_mils = @audio_props.length_in_milliseconds.divmod(1000)[1]
+    @audio.audio_artist = "#{@mediainfo.general.performer}"
+    @audio.copyright_text_markup = "© #{@mediainfo.general.recorded_date}"
+    @audio.title = "#{@mediainfo.general.track}"
+    @audio.duration_mins = @mediainfo.general.duration.divmod(1000)[0].divmod(60)[0]
+    @audio.duration_secs = @mediainfo.general.duration.divmod(1000)[0].divmod(60)[1]
+    @audio.duration_mils = @mediainfo.general.duration.divmod(1000)[1]
   end
 
 
@@ -139,21 +126,21 @@ class AudioId3Builder
 
 
   def set_conditionals_create_album_order
-    @audio.album_audio.first.album_order = @audio_tag.track
+    @audio.album_audio.first.album_order = @mediainfo.general.track_position
   end
 
 
   def set_conditionals_create_event_order
-    @audio.event_audio.first.event_order = @audio_tag.track
+    @audio.event_audio.first.event_order = @mediainfo.general.track_position
   end
 
 
   def set_conditionals_update_album_order
     if @audio.does_have_albums
-      album = Album.find_by_title(@audio_tag.album)
+      album = Album.find_by_title(@mediainfo.general.album)
       if album
         @audio.album_audio.where(album_id: album.id).each do |aa|
-          aa.album_order = @audio_tag.track
+          aa.album_order = @mediainfo.general.track_position
           aa.save
         end
       end
@@ -163,10 +150,10 @@ class AudioId3Builder
 
   def set_conditionals_update_event_order
     if @audio.does_have_events
-      event = Event.find_by_title(@audio_tag.album)
+      event = Event.find_by_title(@mediainfo.general.album)
       if event
         @audio.event_audio.where(event_id: event.id).each do |ea|
-          ea.event_order = @audio_tag.track
+          ea.event_order = @mediainfo.general.track_position
           ea.save
         end
       end
@@ -175,8 +162,3 @@ class AudioId3Builder
 
 
 end
-
-
-
-# NOTE: Obsolete, how to find duration_cents
-# audio.duration_cents = m4a.audio_properties.length_in_milliseconds.divmod(1000)[1].fdiv(10).round
