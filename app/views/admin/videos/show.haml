@@ -1,0 +1,26 @@
+= html_head_title_extend! :video
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "video"
+  .arl_admin_resource_header_title= "#{@video.title}"
+  .arl_admin_resource_header_buttons
+    = video_admin_button_to_new
+    -# video_admin_button_to_previous(@video_neighbors.previous)
+    = video_admin_button_to_edit(@video)
+    -# video_admin_button_to_next(@video_neighbors.next)
+    = video_admin_button_to_index
+  -#= render '/admin/videos/admin_video_stats', video: @video
+
+.arl_videos_show
+  .arl_video_description
+    = parser_div(@video.description_props)
+    %div= @video.source_type
+    %div= @video.source_file_extension
+    %div= @video.source_file_path
+    %div= @video.source_file_mime_type
+
+  .arl_video_content
+    - if @video.source_is_file
+      = render 'show_videojs_file', video: @video
+    - elsif @video.source_is_url
+      = render 'show_videojs_url', video: @video

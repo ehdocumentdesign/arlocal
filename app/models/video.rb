@@ -1,4 +1,4 @@
-class Video
+class Video < ApplicationRecord
 
 
   # add these last.
@@ -7,8 +7,39 @@ class Video
   # has_one_attached :recording
 
 
+  def copyright_parser_id
+    4
+  end
+
+
+  def copyright_props
+    { parser_id: copyright_parser_id, text_markup: copyright_text_markup }
+  end
+
+
+  def copyright_text_markup
+    'Copyright'
+  end
+
+
+  def date_released
+    Date.current
+  end
+
+
+  def description_parser_id
+    4
+  end
+
+
   def description_props
-    { parser_id: 4, text_markup: 'Description'}
+    { parser_id: description_parser_id, text_markup: description_text_markup }
+  end
+
+
+
+  def description_text_markup
+    'Description'
   end
 
 
@@ -20,10 +51,49 @@ class Video
   def display_dimension_height
     (source_dimension_height * display_dimension_width) / source_dimension_width
   end
-  
+
+
+  def errors
+    nil
+  end
+
+
+  def id
+    1
+  end
+
+
+  def id_admin
+    id
+  end
+
+
+  def id_public
+    id
+  end
+
+
+  def involved_people_parser_id
+    4
+  end
+
+
+  def involved_people_props
+    { parser_id: involved_people_parser_id, text_markup: involved_people_text_markup }
+  end
+
+
+  def involved_people_text_markup
+  end
+
 
   def slug
-    'silverton'
+    'title'
+  end
+
+
+  def slug_source
+    :title
   end
 
 
@@ -111,7 +181,7 @@ class Video
 
 
   def title
-    'Silverton'
+    'Title'
   end
 
 

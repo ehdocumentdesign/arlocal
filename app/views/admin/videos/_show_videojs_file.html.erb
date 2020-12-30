@@ -1,0 +1,21 @@
+<div class='arl_video_player'>
+  <!-- <video class="video-js" controls data-setup="{}" height="264" id="my-video" poster="MY_VIDEO_POSTER.jpg" preload="auto" width="640" > -->
+  <video
+    class="video-js vjs-fluid"
+    controls
+    data-setup="{}"
+    height="<%= video.display_dimension_height %>"
+    id="my-video"
+    preload="auto"
+    width="<%= video.display_dimension_width %>" >
+    <source
+      src="<%= catalog_video_url(video) %>"
+      type="<%= video.source_file_mime_type %>" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+        supports HTML5 video
+      </a>
+    </p>
+  </video>
+</div>

@@ -107,5 +107,6 @@ namespace :admin do
 
   resources :streams
 
+  resources :videos
 
 end
