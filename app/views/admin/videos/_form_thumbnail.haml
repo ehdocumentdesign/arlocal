@@ -1,0 +1,9 @@
+-# TODO: define what 'selectable.pictures.count >= 2' means semantically, refactor logic into model.
+- if selectable.pictures.count >= 2
+  = form_with(model: [:admin, video], url: admin_video_path(video, pane: :thumbnail), local: true, class: :arl_form) do |f|
+    .arl_form_title
+      Add thumbnail picture
+    .arl_form_data
+      = render 'form_elements/picture_select', attribute: :picture_id, form: f, selectable: selectable
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

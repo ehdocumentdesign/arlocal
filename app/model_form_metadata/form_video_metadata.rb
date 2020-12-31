@@ -4,12 +4,12 @@ class FormVideoMetadata
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
 
 
-  def initialize(pane: :video)
+  def initialize(pane: :video, settings: nil)
     pane = ((pane == nil) ? :video : pane.to_sym.downcase)
 
     @nav_categories = FormVideoMetadata.categories
     @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane)
+    @selectables = determine_selectables(pane, settings)
     @tab_name = determine_tab_name(pane)
   end
 
@@ -20,8 +20,8 @@ class FormVideoMetadata
   def self.categories
     [
       :video,
-      :thumbnail,
       :source,
+      :thumbnail,
       :destroy
     ]
   end
@@ -34,10 +34,10 @@ class FormVideoMetadata
     case pane
     when :video
       'form'
-    when :thumbnail
-      'form_thumbnail'
     when :source
       'form_source'
+    when :thumbnail
+      'form_thumbnail'
     when :destroy
       'form_destroy'
     else
@@ -46,8 +46,8 @@ class FormVideoMetadata
   end
 
 
-  def determine_selectables(pane)
-    FormVideoMetadata::Selectables.new(pane)
+  def determine_selectables(pane, settings)
+    FormVideoMetadata::Selectables.new(pane, settings)
   end
 
 
@@ -62,12 +62,18 @@ class FormVideoMetadata
 
   class Selectables
     attr_reader(
-      :markup_parsers
+      :markup_parsers,
+      :pictures,
+      :source_types
     )
-    def initialize(pane)
+    def initialize(pane, settings)
       case pane
       when :video
         @markup_parsers = MarkupParser.options_for_select
+      when :source
+        @source_types = Video.source_type_options_for_select
+      when :thumbnail
+        @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures
       end
     end
   end

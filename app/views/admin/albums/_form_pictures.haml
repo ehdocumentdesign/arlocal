@@ -17,6 +17,7 @@
       %aside.arl_form_action_explanation
         = "will also detatch any pictures with the #{icon_remove} box checked"
 
+-# TODO: define what 'selectable.pictures.count >= 2' means semantically, refactor logic into model.
 - if selectable.pictures.count >= 2
   = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title

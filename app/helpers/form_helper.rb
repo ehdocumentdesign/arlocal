@@ -6,4 +6,10 @@ module FormHelper
   end
 
 
+  def form_label_without_top_level(symbol)
+    symbol.to_s.split('_')[1..-1].join('_').to_sym
+  end
+
+
+
 end

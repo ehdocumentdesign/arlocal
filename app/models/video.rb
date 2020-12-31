@@ -3,8 +3,27 @@ class Video < ApplicationRecord
 
   # add these last.
   #
-  # has_one_coverpicture
+
+  belongs_to :picture
+
   # has_one_attached :recording
+
+
+  protected
+
+
+  def self.source_type_options
+    [:attachment, :catalog, :url]
+  end
+
+
+  def self.source_type_options_for_select
+    Video.source_type_options.map{ |option| [option, option] }
+  end
+
+
+
+  public
 
 
   def copyright_parser_id
@@ -84,6 +103,11 @@ class Video < ApplicationRecord
 
 
   def involved_people_text_markup
+    'Involved people'
+  end
+
+
+  def picture_id
   end
 
 
