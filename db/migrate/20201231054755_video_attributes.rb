@@ -1,0 +1,30 @@
+class VideoAttributes < ActiveRecord::Migration[6.1]
+
+
+  def change
+    change_table :videos do |t|
+      t.integer :copyright_parser_id
+      t.text :copyright_text_markup
+      t.date :date_released
+      t.integer :description_parser_id
+      t.text :description_text_markup
+      t.boolean :indexed
+      t.integer :involved_people_parser_id
+      t.text :involved_people_text_markup
+      t.boolean :published
+      t.string :slug
+      t.string :source_catalog_file_path
+      t.integer :source_dimension_height
+      t.integer :source_dimension_width
+      t.string :source_type
+      t.string :source_url
+      t.string :title
+
+      t.index :slug
+      t.reference :picture
+      t.timestamps
+    end
+  end
+
+
+end

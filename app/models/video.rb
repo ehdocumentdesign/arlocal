@@ -26,6 +26,7 @@ class Video < ApplicationRecord
   public
 
 
+  #############
   def copyright_parser_id
     4
   end
@@ -36,16 +37,19 @@ class Video < ApplicationRecord
   end
 
 
+  ##################
   def copyright_text_markup
     'Copyright'
   end
 
 
+  ##############
   def date_released
     Date.current
   end
 
 
+  ####################
   def description_parser_id
     4
   end
@@ -56,7 +60,7 @@ class Video < ApplicationRecord
   end
 
 
-
+  ####################
   def description_text_markup
     'Description'
   end
@@ -72,11 +76,13 @@ class Video < ApplicationRecord
   end
 
 
+  # XXXXXXXXXXXXXXXXXXXXXXXXXX
   def errors
     nil
   end
 
 
+  # iiiiiiiiiiiiiiiiiiiiiii
   def id
     1
   end
@@ -92,6 +98,13 @@ class Video < ApplicationRecord
   end
 
 
+  ###################
+  def indexed
+    true
+  end
+
+
+  ######################
   def involved_people_parser_id
     4
   end
@@ -102,15 +115,23 @@ class Video < ApplicationRecord
   end
 
 
+  ######################
   def involved_people_text_markup
     'Involved people'
   end
 
-
+  #############
   def picture_id
   end
 
 
+  #####################
+  def published
+    true
+  end
+
+
+  ######################
   def slug
     'title'
   end
@@ -121,20 +142,24 @@ class Video < ApplicationRecord
   end
 
 
+  # ?????????????????
   def source_attachment_file_path
   end
 
 
+  ######################
   def source_catalog_file_path
     'yourallgay.mp4'
   end
 
 
+  ######################
   def source_dimension_height
     880
   end
 
 
+  ###################
   def source_dimension_width
     956
   end
@@ -161,6 +186,8 @@ class Video < ApplicationRecord
       source_attachment_file_path
     when :catalog
       source_catalog_file_path
+    when :url
+      false
     end
   end
 
@@ -187,6 +214,7 @@ class Video < ApplicationRecord
   end
 
 
+  ###################
   def source_type
     # :attachment
     # :catalog
@@ -195,6 +223,7 @@ class Video < ApplicationRecord
   end
 
 
+  ###################
   def source_url
     'https://www.youtube.com/embed/rmuPs0uCe3w'
   end
@@ -204,6 +233,7 @@ class Video < ApplicationRecord
   end
 
 
+  ###################
   def title
     'Title'
   end
