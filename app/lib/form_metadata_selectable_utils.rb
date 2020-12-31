@@ -19,7 +19,7 @@ module FormMetadataSelectablesUtils
       false
     elsif (@pictures.length == 1) && (@pictures[0].id == nil)
       false
-    elsif (@pictures.length == 1) && (Integer == @pictures[0].id)
+    elsif (@pictures.length == 1) && (Integer === @pictures[0].id)
       true
     elsif (@pictures.length >= 2)
       true
