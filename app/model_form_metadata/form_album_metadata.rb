@@ -68,6 +68,8 @@ class FormAlbumMetadata
 
 
   class Selectables
+    include FormMetadataSelectablesUtils
+
     attr_reader(
       :album_pictures_sorters,
       :audio,
@@ -76,6 +78,7 @@ class FormAlbumMetadata
       :pictures_order_methods,
       :pictures
     )
+
     def initialize(pane, settings)
       case pane
       when :album

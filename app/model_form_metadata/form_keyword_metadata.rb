@@ -2,22 +2,22 @@ class FormKeywordMetadata
 
 
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
-  
-  
+
+
   def initialize(pane: :keyword, settings: nil)
     pane = ((pane == nil) ? :keyword : pane.to_sym.downcase)
-    
+
     @nav_categories = FormKeywordMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane, settings)
     @tab_name = determine_tab_name(pane)
   end
-  
-  
-  
+
+
+
   protected
-  
-  
+
+
   def self.categories
     [
       :keyword,
@@ -28,12 +28,12 @@ class FormKeywordMetadata
       :destroy
     ]
   end
-  
-  
-  
+
+
+
   private
-  
-  
+
+
   def determine_partial_name(pane)
     case pane
     when :keyword
@@ -52,13 +52,13 @@ class FormKeywordMetadata
       'form'
     end
   end
-  
-  
+
+
   def determine_selectables(pane, settings)
     FormKeywordMetadata::Selectables.new(pane, settings)
   end
-  
-  
+
+
   def determine_tab_name(pane)
     if FormKeywordMetadata.categories.include?(pane)
       pane
@@ -70,6 +70,7 @@ class FormKeywordMetadata
 
 
   class Selectables
+    include FormMetadataSelectablesUtils
     attr_reader(
       :albums,
       :audio,
@@ -89,7 +90,7 @@ class FormKeywordMetadata
       end
     end
   end
-    
-  
-  
+
+
+
 end

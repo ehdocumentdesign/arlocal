@@ -1,23 +1,23 @@
 class FormAudioMetadata
-  
-  
+
+
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
-  
-  
+
+
   def initialize(pane: :audio)
     pane = ((pane == nil) ? :audio : pane.to_sym.downcase)
-    
+
     @nav_categories = FormAudioMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane)
     @tab_name = determine_tab_name(pane)
   end
-  
-  
-  
+
+
+
   protected
-  
-  
+
+
   def self.categories
     [
       :audio,
@@ -29,12 +29,12 @@ class FormAudioMetadata
       :destroy
     ]
   end
-  
-  
+
+
 
   private
-  
-  
+
+
   def determine_partial_name(pane)
     case pane
     when :audio
@@ -55,13 +55,13 @@ class FormAudioMetadata
       'form'
     end
   end
-  
-  
+
+
   def determine_selectables(pane)
     FormAudioMetadata::Selectables.new(pane)
   end
-  
-  
+
+
   def determine_tab_name(pane)
     if FormAudioMetadata.categories.include?(pane)
       pane
@@ -69,10 +69,11 @@ class FormAudioMetadata
       :audio
     end
   end
-  
-  
-  
+
+
+
   class Selectables
+    include FormMetadataSelectablesUtils
     attr_reader(
       :albums,
       :events,
@@ -89,11 +90,11 @@ class FormAudioMetadata
         @events = QueryEvents.new.order_by_start_time_asc
       when :keywords
         @keywords = QueryKeywords.new.order_by_title_asc
-      else 
+      else
         @markup_parsers = MarkupParser.options_for_select
       end
     end
-  end  
+  end
 
 
   # class Selectors
@@ -106,6 +107,6 @@ class FormAudioMetadata
   #     @keywords = QueryKeywords.new.all_that_select_audio
   #   end
   # end
-  
-  
+
+
 end

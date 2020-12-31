@@ -1,4 +1,4 @@
-- if selectable.pictures.count >= 2
+- if selectable.has_pictures >= 2
   = form_with(model: [:admin, info_page], url: admin_info_path(pane: :picture), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_title info page picture
     .arl_form_data

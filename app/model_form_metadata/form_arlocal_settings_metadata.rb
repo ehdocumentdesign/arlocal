@@ -2,21 +2,21 @@ class FormArlocalSettingsMetadata
 
 
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
-  
-  
+
+
   def initialize(pane: :admin)
     pane = ((pane == nil) ? :admin : pane.to_sym.downcase)
-    
+
     @nav_categories = FormArlocalSettingsMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane)
     @tab_name = determine_tab_name(pane)
   end
-  
-  
+
+
   protected
-  
-  
+
+
   def self.categories
     [
       :admin,
@@ -27,12 +27,12 @@ class FormArlocalSettingsMetadata
       :public
     ]
   end
-  
-  
-  
+
+
+
   private
-  
-  
+
+
   def determine_partial_name(pane)
     case pane
     when :admin
@@ -51,13 +51,13 @@ class FormArlocalSettingsMetadata
       'form_admin'
     end
   end
-  
-  
+
+
   def determine_selectables(pane)
     FormArlocalSettingsMetadata::Selectables.new(pane)
   end
-  
-  
+
+
   def determine_tab_name(pane)
     if FormArlocalSettingsMetadata.categories.include?(pane)
       pane
@@ -65,9 +65,10 @@ class FormArlocalSettingsMetadata
       :admin
     end
   end
-  
-  
+
+
   class Selectables
+    include FormMetadataSelectablesUtils
     attr_reader(
       :albums_index_sorters,
       :audio_index_sorters,
@@ -85,7 +86,7 @@ class FormArlocalSettingsMetadata
         @events_index_sorters = SorterIndexAdminEvents.options_for_select
         @keywords = QueryKeywords.new.order_by_title_asc
         @pictures_index_sorters = SorterIndexAdminPictures.options_for_select
-        @selectable_pictures_sorters = SorterFormSelectablePictures.options_for_select        
+        @selectable_pictures_sorters = SorterFormSelectablePictures.options_for_select
       when :marquee
         @markup_parsers = MarkupParser.options_for_select
       when :public

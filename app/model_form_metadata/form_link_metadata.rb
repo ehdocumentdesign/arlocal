@@ -2,11 +2,11 @@ class FormLinkMetadata
 
 
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
-  
-  
+
+
   def initialize(pane: :link)
     pane = ((pane == nil) ? :link : pane.to_sym.downcase)
-    
+
     @nav_categories = FormLinkMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane)
@@ -15,19 +15,19 @@ class FormLinkMetadata
 
 
   protected
-  
-  
+
+
   def self.categories
     [
       :link,
       :destroy
     ]
   end
-  
-  
+
+
   private
-  
-  
+
+
   def determine_partial_name(pane)
     case pane
     when :link
@@ -38,13 +38,13 @@ class FormLinkMetadata
       'form'
     end
   end
-  
-  
+
+
   def determine_selectables(pane)
     FormLinkMetadata::Selectables.new(pane)
   end
-  
-  
+
+
   def determine_tab_name(pane)
     if FormLinkMetadata.categories.include?(pane)
       pane
@@ -52,9 +52,10 @@ class FormLinkMetadata
       :link
     end
   end
-  
-  
+
+
   class Selectables
+    include FormMetadataSelectablesUtils
     attr_reader(
       :markup_parsers
     )
@@ -65,7 +66,7 @@ class FormLinkMetadata
       end
     end
   end
-  
+
 
 
 end

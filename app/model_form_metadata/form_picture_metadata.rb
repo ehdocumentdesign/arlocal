@@ -2,22 +2,22 @@ class FormPictureMetadata
 
 
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
-  
-  
+
+
   def initialize(pane: :picture)
     pane = ((pane == nil) ? :picture : pane.to_sym.downcase)
-    
+
     @nav_categories = FormPictureMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane)
     @tab_name = determine_tab_name(pane)
   end
-  
-  
-  
+
+
+
   protected
-  
-  
+
+
   def self.categories
     [
       :picture,
@@ -29,12 +29,12 @@ class FormPictureMetadata
       :destroy
     ]
   end
-  
-  
-  
+
+
+
   private
-  
-  
+
+
   def determine_partial_name(pane)
     case pane
     when :picture
@@ -55,13 +55,13 @@ class FormPictureMetadata
       'form'
     end
   end
-  
-  
+
+
   def determine_selectables(pane)
     FormPictureMetadata::Selectables.new(pane)
   end
-  
-  
+
+
   def determine_tab_name(pane)
     if FormPictureMetadata.categories.include?(pane)
       pane
@@ -69,10 +69,11 @@ class FormPictureMetadata
       :picture
     end
   end
-  
-  
-  
+
+
+
   class Selectables
+    include FormMetadataSelectablesUtils
     attr_reader(
       :albums,
       :events,
@@ -94,9 +95,9 @@ class FormPictureMetadata
       end
     end
   end
-  
-  
-  
+
+
+
   # class Selectors
   #   attr_reader(
   #     :keywords
@@ -105,6 +106,6 @@ class FormPictureMetadata
   #     @keywords = QueryKeywords.new.all_that_select_admin_pictures
   #   end
   # end
-  
+
 
 end

@@ -24,7 +24,7 @@
       %aside.arl_form_action_explanation
         = "will also detach any pictures with the #{icon_remove} box checked"
 
-- if selectable.pictures.count >= 2
+- if selectable.has_pictures
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
     .arl_form_title
       Add picture
@@ -34,7 +34,7 @@
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
 
-- if selectable.keywords.count >= 1
+- if selectable.has_keywords
   = form_with(model: [:admin, event], url: admin_event_add_pictures_by_keyword_path(event, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
     .arl_form_title
       Add picture(s) by keyword

@@ -6,17 +6,17 @@ class FormEventMetadata
 
   def initialize(pane: :event, settings: nil)
     pane = ((pane == nil) ? :event : pane.to_sym.downcase)
-    
+
     @nav_categories = FormEventMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane, settings)
     @tab_name = determine_tab_name(pane)
   end
-  
-  
+
+
   protected
-  
-  
+
+
   def self.categories
     [
       :event,
@@ -26,11 +26,11 @@ class FormEventMetadata
       :destroy
     ]
   end
-  
-  
+
+
   private
-  
-  
+
+
   def determine_partial_name(pane)
     case pane
     when :event
@@ -47,13 +47,13 @@ class FormEventMetadata
       'form'
     end
   end
-  
-  
+
+
   def determine_selectables(pane, settings)
     FormEventMetadata::Selectables.new(pane, settings)
   end
-  
-  
+
+
   def determine_tab_name(pane)
     if FormEventMetadata.categories.include?(pane)
       pane
@@ -61,10 +61,11 @@ class FormEventMetadata
       :event
     end
   end
-  
-  
-  
+
+
+
   class Selectables
+    include FormMetadataSelectablesUtils
     attr_reader(
       :audio,
       :event_picture_sorters,
@@ -88,7 +89,7 @@ class FormEventMetadata
       else
         @markup_parsers = MarkupParser.options_for_select
       end
-    end    
+    end
   end
 
 

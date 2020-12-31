@@ -2,21 +2,21 @@ class FormInfoMetadata
 
 
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
-  
-  
+
+
   def initialize(pane: :article, settings: nil)
     pane = ((pane == nil) ? :article : pane.to_sym.downcase)
-    
+
     @nav_categories = FormInfoMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane, settings)
     @tab_name = determine_tab_name(pane)
   end
-  
-  
+
+
   protected
-  
-  
+
+
   def self.categories
     [
       :article,
@@ -24,12 +24,12 @@ class FormInfoMetadata
       :picture
     ]
   end
-  
-  
-  
+
+
+
   private
-  
-  
+
+
   def determine_partial_name(pane)
     case pane
     when :article
@@ -42,13 +42,13 @@ class FormInfoMetadata
       'form_article'
     end
   end
-  
-  
+
+
   def determine_selectables(pane, settings)
     FormInfoMetadata::Selectables.new(pane, settings)
   end
-  
-  
+
+
   def determine_tab_name(pane)
     if FormInfoMetadata.categories.include?(pane)
       pane
@@ -57,9 +57,10 @@ class FormInfoMetadata
     end
   end
 
-  
-  
+
+
   class Selectables
+    include FormMetadataSelectablesUtils
     attr_reader(
       :articles,
       :links,
@@ -78,7 +79,7 @@ class FormInfoMetadata
       end
     end
   end
-  
+
 
 
 
