@@ -5,14 +5,16 @@ class Video < ApplicationRecord
   before_validation :ensure_critical_attributes_have_default_values
 
 
-  belongs_to :picture
-
   has_many :video_keywords, dependent: :destroy
   has_many :keywords, through: :video_keywords
+
+  has_one :video_picture, dependent: :destroy
+  has_one :picture, through: :video_picture
 
   has_one_attached :recording
 
   accepts_nested_attributes_for :video_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
+  accepts_nested_attributes_for :video_picture
 
 
 

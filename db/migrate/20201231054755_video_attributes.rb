@@ -21,7 +21,6 @@ class VideoAttributes < ActiveRecord::Migration[6.1]
       t.string :title
 
       t.index :slug
-      t.reference :picture
       t.timestamps
     end
 
@@ -30,8 +29,15 @@ class VideoAttributes < ActiveRecord::Migration[6.1]
       t.integer :public_index_videos_sorter_id
     end
 
-    create_join_table :videos, :keywords, table_name: :video_keywords
+    create_table :video_keywords do |t|
+      t.references :keyword
+      t.references :video
+    end
 
+    create_table :video_picture do |t|
+      t.references :video
+      t.references :picture
+    end
   end
 
 

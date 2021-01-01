@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_30_045459) do
+ActiveRecord::Schema.define(version: 2020_12_31_054755) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(version: 2020_12_30_045459) do
     t.boolean "public_nav_can_include_stream"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "admin_index_videos_sorter_id"
+    t.integer "public_index_videos_sorter_id"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -350,7 +352,40 @@ ActiveRecord::Schema.define(version: 2020_12_30_045459) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "video_keywords", force: :cascade do |t|
+    t.integer "keyword_id"
+    t.integer "video_id"
+    t.index ["keyword_id"], name: "index_video_keywords_on_keyword_id"
+    t.index ["video_id"], name: "index_video_keywords_on_video_id"
+  end
+
+  create_table "video_picture", force: :cascade do |t|
+    t.integer "video_id"
+    t.integer "picture_id"
+    t.index ["picture_id"], name: "index_video_picture_on_picture_id"
+    t.index ["video_id"], name: "index_video_picture_on_video_id"
+  end
+
   create_table "videos", force: :cascade do |t|
+    t.integer "copyright_parser_id"
+    t.text "copyright_text_markup"
+    t.date "date_released"
+    t.integer "description_parser_id"
+    t.text "description_text_markup"
+    t.boolean "indexed"
+    t.integer "involved_people_parser_id"
+    t.text "involved_people_text_markup"
+    t.boolean "published"
+    t.string "slug"
+    t.string "source_catalog_file_path"
+    t.integer "source_dimension_height"
+    t.integer "source_dimension_width"
+    t.string "source_type"
+    t.string "source_url"
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_videos_on_slug"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
