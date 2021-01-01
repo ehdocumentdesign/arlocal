@@ -1,13 +1,18 @@
 class Video < ApplicationRecord
 
 
-  # add these last.
-  #
+  before_validation :strip_whitespace_edges_from_entered_text
+  before_validation :ensure_critical_attributes_have_default_values
+
 
   belongs_to :picture
-  has_and_belongs_to_many :keywords
+
+  has_many :video_keywords, dependent: :destroy
+  has_many :keywords, through: :video_keywords
 
   has_one_attached :recording
+
+  accepts_nested_attributes_for :video_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
 
 
 
@@ -239,6 +244,28 @@ class Video < ApplicationRecord
   def title
     'Title'
   end
+
+
+
+  private
+
+
+  def ensure_critical_attributes_have_default_values
+    if self.slug.to_s == ''
+      self.slug = self.title.to_s.parameterize
+    end
+  end
+
+
+  def strip_whitespace_edges_from_entered_text
+    [ self.copyright_text_markup,
+      self.description_text_markup,
+      self.involved_people_text_markup,
+      self.slug,
+      self.title,
+    ].select{ |a| a.to_s != '' }.each { |a| a.to_s.strip! }
+  end
+
 
 
 end

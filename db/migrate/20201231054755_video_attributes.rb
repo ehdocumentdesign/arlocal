@@ -30,6 +30,8 @@ class VideoAttributes < ActiveRecord::Migration[6.1]
       t.integer :public_index_videos_sorter_id
     end
 
+    create_join_table :videos, :keywords, table_name: :video_keywords
+
   end
 
 
