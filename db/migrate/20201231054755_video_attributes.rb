@@ -24,6 +24,12 @@ class VideoAttributes < ActiveRecord::Migration[6.1]
       t.reference :picture
       t.timestamps
     end
+
+    change_table :arlocal_settings do |t|
+      t.integer :admin_index_videos_sorter_id
+      t.integer :public_index_videos_sorter_id
+    end
+
   end
 
 

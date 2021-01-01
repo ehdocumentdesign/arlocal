@@ -76,6 +76,7 @@ class FormArlocalSettingsMetadata
       :keywords,
       :markup_parsers,
       :pictures_index_sorters,
+      :videos_index_sorters,
       :selectable_pictures_sorters
     )
     def initialize(pane)
@@ -86,6 +87,7 @@ class FormArlocalSettingsMetadata
         @events_index_sorters = SorterIndexAdminEvents.options_for_select
         @keywords = QueryKeywords.new.order_by_title_asc
         @pictures_index_sorters = SorterIndexAdminPictures.options_for_select
+        @videos_index_sorters = SorterIndexAdminVideos.options_for_select
         @selectable_pictures_sorters = SorterFormSelectablePictures.options_for_select
       when :marquee
         @markup_parsers = MarkupParser.options_for_select
@@ -94,6 +96,7 @@ class FormArlocalSettingsMetadata
         @audio_index_sorters = SorterIndexPublicAudio.options_for_select
         @events_index_sorters = SorterIndexPublicEvents.options_for_select
         @pictures_index_sorters = SorterIndexPublicPictures.options_for_select
+        @videos_index_sorters = SorterIndexPublicVideos.options_for_select
         @selectable_pictures_sorters = SorterFormSelectablePictures.options_for_select
       end
     end

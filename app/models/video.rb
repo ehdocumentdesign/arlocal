@@ -5,8 +5,10 @@ class Video < ApplicationRecord
   #
 
   belongs_to :picture
+  has_and_belongs_to_many :keywords
 
-  # has_one_attached :recording
+  has_one_attached :recording
+
 
 
   protected
