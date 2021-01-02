@@ -24,7 +24,10 @@ class Admin::AudioController < AdminController
 
 
   def create
-    @audio = AudioBuilder.new.default_with(audio_params)
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+    end
     if @audio.save
       flash[:notice] = 'Audio was successfully created.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -40,23 +43,32 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import
-    @audio = AudioBuilder.new.prepare_from_import(audio_params)
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+    end
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
     else
+      flash[:notice] = 'Audio could not be imported.'
       @form_metadata = FormAudioMetadata.new
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      flash[:notice] = 'Audio could not be imported.'
       render 'new'
     end
   end
 
 
   def create_from_import_to_album
-    @audio = AudioBuilder.new.prepare_from_import_for_album(audio_params)
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.set_new_album_order
+    end
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -72,7 +84,12 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import_to_event
-    @audio = AudioBuilder.new.prepare_from_import_for_event(audio_params)
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.set_new_event_order
+    end
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -88,7 +105,11 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload
-    @audio = AudioBuilder.new.prepare_from_upload(audio_params)
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+    end
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -103,7 +124,12 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_album
-    @audio = AudioBuilder.new.prepare_from_upload_for_album(audio_params)
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.set_new_album_order
+    end
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -119,7 +145,12 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_event
-    @audio = AudioBuilder.new.prepare_from_upload_for_event(audio_params)
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.set_new_event_order
+    end
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -185,7 +216,7 @@ class Admin::AudioController < AdminController
 
 
   def new
-    @audio = AudioBuilder.new(@arlocal_settings).default
+    @audio = AudioBuilder.build(arlocal_settings: @arlocal_settings) { |b| b.assign_default_attributes }
     @form_metadata = FormAudioMetadata.new
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -199,7 +230,7 @@ class Admin::AudioController < AdminController
 
 
   def new_import_single
-    @audio = AudioBuilder.new.default
+    @audio = AudioBuilder.build(arlocal_settings: @arlocal_settings) { |b| b.assign_default_attributes }
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
     end
@@ -207,7 +238,7 @@ class Admin::AudioController < AdminController
 
 
   def new_import_to_album
-    @audio = AudioBuilder.new.default
+    @audio = AudioBuilder.build(arlocal_settings: @arlocal_settings) { |b| b.assign_default_attributes }
     @albums = QueryAlbums.new.order_by_title_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -216,7 +247,7 @@ class Admin::AudioController < AdminController
 
 
   def new_import_to_event
-    @audio = AudioBuilder.new.default
+    @audio = AudioBuilder.build(arlocal_settings: @arlocal_settings) { |b| b.assign_default_attributes }
     @events = QueryEvents.new.order_by_start_time_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -229,7 +260,7 @@ class Admin::AudioController < AdminController
 
 
   def new_upload_single
-    @audio = AudioBuilder.new.default
+    @audio = AudioBuilder.build(arlocal_settings: @arlocal_settings) { |b| b.assign_default_attributes }
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
     end
@@ -237,7 +268,7 @@ class Admin::AudioController < AdminController
 
 
   def new_upload_to_album
-    @audio = AudioBuilder.new.default
+    @audio = AudioBuilder.build(arlocal_settings: @arlocal_settings) { |b| b.assign_default_attributes }
     @albums = QueryAlbums.new.order_by_title_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -246,7 +277,7 @@ class Admin::AudioController < AdminController
 
 
   def new_upload_to_event
-    @audio = AudioBuilder.new.default
+    @audio = AudioBuilder.build(arlocal_settings: @arlocal_settings) { |b| b.assign_default_attributes }
     @events = QueryEvents.new.order_by_start_time_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -255,14 +286,19 @@ class Admin::AudioController < AdminController
 
 
   def refresh_id3
-    @audio = QueryAudio.new.find(params[:id])
-    if AudioBuilder.new.refresh_id3(@audio)
-      flash[:notice] = "Audio ID3 was successfully refreshed."
+    @audio = AudioBuilder.build do |b|
+      b.find_preexisting(params[:id])
+      b.read_metadata
+      b.update_joined_resources_order
+    end
+    # if @audio.update_and_recount_joined_resources(audio_params)
+    if @audio.update
+      flash[:notice] = "Audio was successfully updated."
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: 'id3')
     else
-      flash[:notice] = "Audio ID3 could not be refreshed."
       @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
       @form_metadata = FormAudioMetadata.new(pane: params[:pane])
+      flash[:notice] = "Audio could not be updated."
       render 'edit'
     end
   end
@@ -275,7 +311,10 @@ class Admin::AudioController < AdminController
 
 
   def update
-    @audio = QueryAudio.new.find(params[:id])
+    @audio = AudioBuilder.build do |b|
+      b.find_preexisting(params[:id])
+      b.assign_given_attributes(audio_params)
+    end
     if @audio.update_and_recount_joined_resources(audio_params)
       flash[:notice] = 'Audio was successfully updated.'
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: params[:pane])
@@ -306,7 +345,7 @@ class Admin::AudioController < AdminController
       :duration_hrs,
       :duration_mins,
       :duration_secs,
-# TODO: check this attribute
+# TODO: check this attribute # TODO: why does this attribute need to be checked, and what for?
       :duration_mils,
       :indexed,
       :involved_people_parser_id,

@@ -207,5 +207,4 @@ class Video < ApplicationRecord
   end
 
 
-
 end

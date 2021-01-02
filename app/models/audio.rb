@@ -315,6 +315,50 @@ class Audio < ApplicationRecord
   end
 
 
+  def source_catalog_file_path
+    catalog_file_path
+  end
+  
+
+  def source_file_path
+    case source_type.to_sym
+    when :attachment
+      source_attachment_file_path
+    when :catalog
+      source_catalog_file_path
+    when :url
+      false
+    end
+  end
+
+
+  def source_is_file
+    case source_type.to_sym
+    when :attachment
+      true
+    when :catalog
+      true
+    else
+      false
+    end
+  end
+
+
+  def source_is_url
+    case source_type.to_sym
+    when :url
+      true
+    else
+      false
+    end
+  end
+
+
+  def source_type
+    :catalog
+  end
+
+
   ### subtitle
 
 
