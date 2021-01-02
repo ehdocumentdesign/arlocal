@@ -35,10 +35,7 @@ class Video < ApplicationRecord
   public
 
 
-  #############
-  def copyright_parser_id
-    4
-  end
+  ### copyright_parser_id
 
 
   def copyright_props
@@ -46,22 +43,13 @@ class Video < ApplicationRecord
   end
 
 
-  ##################
-  def copyright_text_markup
-    'Copyright'
-  end
+  ### copyright_text_markup
 
 
-  ##############
-  def date_released
-    Date.current
-  end
+  ### date_released
 
 
-  ####################
-  def description_parser_id
-    4
-  end
+  ### description_parser_id
 
 
   def description_props
@@ -69,10 +57,7 @@ class Video < ApplicationRecord
   end
 
 
-  ####################
-  def description_text_markup
-    'Description'
-  end
+  ### description_text_markup
 
 
   def display_dimension_width
@@ -85,10 +70,7 @@ class Video < ApplicationRecord
   end
 
 
-  # iiiiiiiiiiiiiiiiiiiiiii
-  def id
-    1
-  end
+  ### id
 
 
   def id_admin
@@ -101,16 +83,10 @@ class Video < ApplicationRecord
   end
 
 
-  ###################
-  def indexed
-    true
-  end
+  ### indexed
 
 
-  ######################
-  def involved_people_parser_id
-    4
-  end
+  ### involved_people_parser_id
 
 
   def involved_people_props
@@ -118,26 +94,16 @@ class Video < ApplicationRecord
   end
 
 
-  ######################
-  def involved_people_text_markup
-    'Involved people'
-  end
-
-  #############
-  def picture_id
-  end
+  ### involved_people_text_markup
 
 
-  #####################
-  def published
-    true
-  end
+  ### picture_id
 
 
-  ######################
-  def slug
-    'title'
-  end
+  ### published
+
+
+  ### slug
 
 
   def slug_source
@@ -150,22 +116,13 @@ class Video < ApplicationRecord
   end
 
 
-  ######################
-  def source_catalog_file_path
-    'yourallgay.mp4'
-  end
+  ### source_catalog_file_path
 
 
-  ######################
-  def source_dimension_height
-    880
-  end
+  ### source_dimension_height
 
 
-  ###################
-  def source_dimension_width
-    956
-  end
+  ### source_dimension_width
 
 
   def source_file_extname
@@ -217,30 +174,17 @@ class Video < ApplicationRecord
   end
 
 
-  ###################
-  def source_type
-    # :attachment
-    # :catalog
-    # :url
-    :catalog
-  end
+  ### source_type
 
 
-  ###################
-  def source_url
-    'https://www.youtube.com/embed/rmuPs0uCe3w'
-  end
+  ### source_url
 
 
   def thumbnail
   end
 
 
-  ###################
-  def title
-    'Title'
-  end
-
+  ### title
 
 
   private
