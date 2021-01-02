@@ -1,0 +1,15 @@
+= html_head_title_extend! :videos
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'videos index'
+  .arl_admin_resource_header_buttons
+    = video_admin_button_to_new
+
+.arl_admin_videos_index
+  %table.arl_admin_videos_index
+    - @videos.each do |video|
+      %tr.arl_admin_videos_index_video.arl_active_link_container{data: {url: admin_video_path(video.id_admin)}}
+        %td.arl_admin_videos_index_video_title
+          = video.title
+        %td.arl_admin_videos_index_video_html_element
+          = video.source_type

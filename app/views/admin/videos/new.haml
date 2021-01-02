@@ -1,0 +1,10 @@
+= html_head_title_extend! 'new video'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'new video'
+  .arl_admin_resource_header_buttons
+    = video_admin_button_to_index
+    = render '/admin/shared/form_errors', resource: @video
+
+.arl_admin_video_new
+  = render 'form', video: @video, selectable: @form_metadata.selectables

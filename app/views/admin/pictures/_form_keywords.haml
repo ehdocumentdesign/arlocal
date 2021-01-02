@@ -20,10 +20,9 @@
   = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :keywords), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title
       Add a keyword
-    = f.fields_for :picture_keywords, picture.picture_keywords.build do |pt|
+    = f.fields_for :picture_keywords, picture.picture_keywords.build do |pk|
       .arl_form_data
         .arl_form_data_attr.arl_form_layout_center
-          =# et.label :keyword_id
-          = pt.collection_select :keyword_id, selectable.keywords, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+          = pk.collection_select :keyword_id, selectable.keywords, :id, :title, {include_blank: true}, { class: :arl_form_data_select }
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

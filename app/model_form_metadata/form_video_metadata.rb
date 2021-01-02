@@ -23,6 +23,7 @@ class FormVideoMetadata
   def self.categories
     [
       :video,
+      :keywords,
       :source,
       :thumbnail,
       :destroy
@@ -37,6 +38,8 @@ class FormVideoMetadata
     case pane
     when :video
       'form'
+    when :keywords
+      'form_keywords'
     when :source
       'form_source'
     when :thumbnail
@@ -67,6 +70,7 @@ class FormVideoMetadata
     include FormMetadataSelectablesUtils
     attr_reader(
       :markup_parsers,
+      :keywords,
       :pictures,
       :source_types
     )
@@ -74,6 +78,8 @@ class FormVideoMetadata
       case pane
       when :video
         @markup_parsers = MarkupParser.options_for_select
+      when :keywords
+        @keywords = QueryKeywords.new.order_by_title_asc
       when :source
         @source_types = Video.source_type_options_for_select
       when :thumbnail

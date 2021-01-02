@@ -85,12 +85,6 @@ class Video < ApplicationRecord
   end
 
 
-  # XXXXXXXXXXXXXXXXXXXXXXXXXX
-  def errors
-    nil
-  end
-
-
   # iiiiiiiiiiiiiiiiiiiiiii
   def id
     1

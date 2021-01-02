@@ -60,5 +60,9 @@ module VideosHelper
   end
 
 
+  def video_statement_keywords_count(video)
+    pluralize video.keywords_count.to_i, 'keyword'
+  end
+
 
 end

@@ -1,0 +1,28 @@
+.arl_form_title
+  = video_statement_keywords_count(video)
+- if video.does_have_keywords
+  = form_with(model: [:admin, video], url: admin_video_path(video, pane: :keywords), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading keyword title
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :video_keywords do |vk|
+          %tr
+            %td.arl_form_data_resource_value= keyword_reference_admin_link(pk.object.keyword)
+            %td.arl_form_data_resource_remove= vk.check_box :_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        will also unjoin any keywords with 'remove' box checked
+
+- if selectable.has_keywords
+  = form_with(model: [:admin, video], url: admin_video_path(video, pane: :keywords), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Add a keyword
+    = f.fields_for :video_keywords, video.video_keywords.build do |vk|
+      .arl_form_data
+        .arl_form_data_attr.arl_form_layout_center
+          = vk.collection_select :keyword_id, selectable.keywords, :id, :title, { include_blank: true }, { class: :arl_form_data_select }
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
