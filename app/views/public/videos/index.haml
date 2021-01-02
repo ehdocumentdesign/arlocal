@@ -1,0 +1,12 @@
+= html_head_title_extend! :videos
+/= video_html_head_meta_description(@arlocal_settings, :index)
+
+.arl_videos_index
+  %table.arl_videos_index_videos
+    - @videos.each do |video|
+      %tr.arl_videos_index_video.arl_active_link_container{data: {url: public_video_path(video.id_public)}}
+        %td.arl_videos_index_video_picture
+          %div= video.source_type
+          %div= video.source_file_extension
+          %div= video.source_file_path
+          %div= video.source_file_mime_type

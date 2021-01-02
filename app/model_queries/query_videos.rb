@@ -34,7 +34,7 @@ class QueryVideos
 
 
   def action_public_show
-    Video.where(indexed: true, published: true).find_by_slug!(@params[:id])
+    Video.where(indexed: true, published: true).find_by_id!(@params[:id])
   end
 
 

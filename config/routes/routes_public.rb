@@ -27,4 +27,5 @@ get 'stream',      to: 'public/streams#show',  as: 'stream'
 get 'streams/:id', to: 'public/streams#show',  as: 'public_stream'
 get 'streams',     to: 'public/streams#index', as: 'public_streams'
 
-get 'video', to: 'public/videos#show', as: 'video'
+get 'videos', to: 'public/videos#index', as: 'public_videos'
+get 'videos/:id', to: 'public/videos#show', as: 'public_video'
