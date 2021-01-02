@@ -14,7 +14,7 @@ class QueryVideos
 
 
   def action_admin_edit
-    Video.find_by_slug(@params[:id])
+    Video.find(@params[:id])
   end
 
 
@@ -24,7 +24,7 @@ class QueryVideos
 
 
   def action_admin_show
-    Video.find_by_slug(@params[:id])
+    Video.find(@params[:id])
   end
 
 
@@ -35,6 +35,11 @@ class QueryVideos
 
   def action_public_show
     Video.where(indexed: true, published: true).find_by_slug!(@params[:id])
+  end
+
+
+  def find
+    Video.find(@params[:id])
   end
 
 

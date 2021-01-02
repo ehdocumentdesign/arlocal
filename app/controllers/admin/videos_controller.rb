@@ -2,7 +2,8 @@ class Admin::VideosController < AdminController
 
 
   def create
-    @video = VideoBuilder.new.default_with(video_params)
+    @video = VideoBuilder.default_with(video_params)
+    @video = VideoBuilder.read_source_dimensions(@video)
     if @video.save
       flash[:notice] = 'Video was successfully created.'
       redirect_to edit_admin_video_path(@video.id_admin)
@@ -37,7 +38,7 @@ class Admin::VideosController < AdminController
 
 
   def new
-    @video = VideoBuilder.new.default
+    @video = VideoBuilder.default
     @form_metadata = FormVideoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -52,8 +53,10 @@ class Admin::VideosController < AdminController
 
 
   def update
-    @video = QueryVideos.new.find(params[:id])
-    if @video.update_and_recount_joined_resources(video_params)
+    @video = QueryVideos.new(params: params).find
+    @video = VideoBuilder.read_source_dimensions(@video)
+    # if @video.update_and_recount_joined_resources(video_params)
+    if @video.update(video_params)
       flash[:notice] = 'Video was successfully updated.'
       redirect_to edit_admin_video_path(@video.id_admin, pane: params[:pane])
     else

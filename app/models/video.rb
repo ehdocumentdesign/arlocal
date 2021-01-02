@@ -1,10 +1,6 @@
 class Video < ApplicationRecord
 
 
-  before_validation :strip_whitespace_edges_from_entered_text
-  before_validation :ensure_critical_attributes_have_default_values
-
-
   has_many :video_keywords, dependent: :destroy
   has_many :keywords, through: :video_keywords
 
@@ -15,6 +11,10 @@ class Video < ApplicationRecord
 
   accepts_nested_attributes_for :video_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :video_picture
+
+
+  before_validation :ensure_critical_attributes_have_default_values
+  before_validation :strip_whitespace_edges_from_entered_text
 
 
 
@@ -141,7 +141,7 @@ class Video < ApplicationRecord
 
 
   def source_file_path
-    case source_type
+    case source_type.to_sym
     when :attachment
       source_attachment_file_path
     when :catalog
@@ -153,7 +153,7 @@ class Video < ApplicationRecord
 
 
   def source_is_file
-    case source_type
+    case source_type.to_sym
     when :attachment
       true
     when :catalog
@@ -165,7 +165,7 @@ class Video < ApplicationRecord
 
 
   def source_is_url
-    case source_type
+    case source_type.to_sym
     when :url
       true
     else
