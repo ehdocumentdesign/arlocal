@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_31_054755) do
+ActiveRecord::Schema.define(version: 2021_01_02_235135) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 2020_12_31_054755) do
     t.string "artist"
     t.string "audio_artist"
     t.integer "albums_count"
-    t.string "catalog_file_path"
+    t.string "source_catalog_file_path"
     t.string "composer"
     t.integer "copyright_parser_id"
     t.text "copyright_text_markup"
@@ -190,7 +190,8 @@ ActiveRecord::Schema.define(version: 2020_12_31_054755) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["catalog_file_path"], name: "index_audio_on_catalog_file_path"
+    t.string "source_type"
+    t.index ["source_catalog_file_path"], name: "index_audio_on_source_catalog_file_path"
   end
 
   create_table "audio_keywords", force: :cascade do |t|

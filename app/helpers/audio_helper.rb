@@ -83,24 +83,23 @@ module AudioHelper
   def audio_file_source_path_with_indicators(audio, html_class: [])
     filename = ''
     html_class = [html_class].flatten
-    case audio.file_source_type
-    when :attachment
-      filename = audio.file_source_path
+
+    case audio.source_type
+    when 'attachment'
+      filename = audio.source_attachment_file_path
       path_to_file = ActiveStorage::Blob.service.send(:path_for, audio.recording.key)
       if File.exist?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
-      filename = "#{filename}"
-    when :catalog
-      filename = audio.file_source_path
+    when 'catalog'
+      filename = audio.source_catalog_file_path
       path_to_file = catalog_audio_filesystem_path(audio)
       if File.exists?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
-      # TODO: delete the next line; using the entire pathname seemed like overkill
-      # filename = path_to_file
     end
-    tag.div filename, class: html_class
+
+    tag.div "#{filename}", class: html_class
   end
 
 
@@ -110,10 +109,10 @@ module AudioHelper
 
 
   def audio_preferred_url(audio)
-    case audio.file_source_type
-    when :attachment
+    case audio.source_type.to_sym
+    when 'attachment'
       url_for(audio.recording)
-    when :catalog
+    when 'catalog'
       catalog_audio_url(audio)
     end
   end

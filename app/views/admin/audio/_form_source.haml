@@ -1,7 +1,7 @@
-= form_with(model: [:admin, video], local: true, class: :arl_form) do |f|
-  .arl_form_video
+= form_with(model: [:admin, audio], local: true, class: :arl_form) do |f|
+  .arl_form_audio
     .arl_form_title
-      video source
+      audio source
     .arl_form_data
       = render 'form_elements/source_select',    attribute: :source_type,               form: f, selectable: selectable
       = render 'form_elements/file_field',       attribute: :source_attachment,         form: f
@@ -11,8 +11,7 @@
       .arl_form_action_submit
         = f.submit class: :arl_button_form_submit
 
--# TODO: This needs a route/path
-= form_with(model: [:admin, @video], url: root_path(@video, pane: :source), local: true, class: :arl_form) do |f|
-  .arl_form_video
+= form_with(model: [:admin, audio], url: admin_audio_attachment_purge_path(audio, pane: :source), local: true, class: :arl_form) do |f|
+  .arl_form_audio
     .arl_form_action_submit
       = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }

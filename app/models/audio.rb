@@ -47,27 +47,30 @@ class Audio < ApplicationRecord
 
 
 
+  protected
+
+
+  def self.source_type_options
+    [:attachment, :catalog]
+  end
+
+
+  def self.source_type_options_for_select
+    Audio.source_type_options.map{ |option| [option, option] }
+  end
+
+
+
   public
 
 
   ### artist
 
 
-  # TODO: This verbage fails if additional objects become attachable.
-  def attachment_file_source_path
-    if does_have_attachment
-      recording.blob.filename.to_s
-    end
-  end
-
-
   ### audio_artist
 
 
   ### albums_count
-
-
-  ### catalog_file_path
 
 
   ### composer
@@ -106,17 +109,6 @@ class Audio < ApplicationRecord
   end
 
 
-  # TODO: This verbage fails if additional objects become attachable.
-  def does_have_attachment
-    recording.attachment != nil
-  end
-
-
-  def does_have_catalog_file_path
-    catalog_file_path.to_s.length > 0
-  end
-
-
   def does_have_events
     events_count.to_i > 0
   end
@@ -129,16 +121,6 @@ class Audio < ApplicationRecord
 
   def does_have_subtitle
     subtitle.to_s.length > 0
-  end
-
-
-  def does_not_have_attachment
-    recording.attachment == nil
-  end
-
-
-  def does_not_have_catalog_file_path
-    catalog_file_path.to_s == ''
   end
 
 
@@ -185,44 +167,6 @@ class Audio < ApplicationRecord
 
 
   ### duration_mils
-
-
-  def file_source_type
-    if does_have_attachment
-      :attachment
-    elsif does_have_catalog_file_path
-      :catalog
-    else
-      nil
-    end
-  end
-
-
-  def file_source_type_is_attachment
-    file_source_type == :attachment
-  end
-
-
-  def file_source_type_is_catalog
-    file_source_type == :catalog
-  end
-
-
-  def file_source_path
-    case file_source_type
-    when :attachment
-      recording.blob.filename.to_s
-    when :catalog
-      catalog_file_path
-    end
-  end
-
-
-  def file_type
-    if file_source_path
-      File.extname(file_source_path).gsub(/\A./,'')
-    end
-  end
 
 
   # combines and formats title, subtitle
@@ -308,35 +252,46 @@ class Audio < ApplicationRecord
   ### published
 
 
-  def recording_file_name
-    if does_have_attachment
-      recording.filename
-    end
+  def source_attachment_file_path
+    recording.blob.filename.to_s
   end
 
 
-  def source_catalog_file_path
-    catalog_file_path
+  ### source_catalog_file_path
+
+
+  def source_file_extname
+    File::extname(source_file_path.to_s)
   end
-  
+
+
+  def source_file_extension
+    source_file_extname.to_s.gsub(/\A./,'')
+  end
+
+
+  def source_file_mime_type
+    Mime::Type.lookup_by_extension(source_file_extension)
+  end
+
 
   def source_file_path
-    case source_type.to_sym
-    when :attachment
+    case source_type
+    when 'attachment'
       source_attachment_file_path
-    when :catalog
+    when 'catalog'
       source_catalog_file_path
-    when :url
+    when 'url'
       false
     end
   end
 
 
   def source_is_file
-    case source_type.to_sym
-    when :attachment
+    case source_type
+    when 'attachment'
       true
-    when :catalog
+    when 'catalog'
       true
     else
       false
@@ -345,8 +300,8 @@ class Audio < ApplicationRecord
 
 
   def source_is_url
-    case source_type.to_sym
-    when :url
+    case source_type
+    when 'url'
       true
     else
       false
@@ -354,9 +309,7 @@ class Audio < ApplicationRecord
   end
 
 
-  def source_type
-    :catalog
-  end
+  ### source_type
 
 
   ### subtitle
@@ -390,12 +343,12 @@ class Audio < ApplicationRecord
 
   def strip_whitespace_edges_from_entered_text
     [ self.audio_artist,
-      self.catalog_file_path,
       self.composer,
       self.copyright_text_markup,
       self.description_text_markup,
       self.involved_people_text_markup,
       self.musicians_text_markup,
+      self.source_catalog_file_path,
       self.subtitle,
       self.title
     ].select { |a| String === a }.each { |a| a.strip! }

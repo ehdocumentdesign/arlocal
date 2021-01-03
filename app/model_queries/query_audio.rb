@@ -101,12 +101,12 @@ class QueryAudio
 
 
   def order_by_filepath_asc
-    @audio.order(catalog_file_path: :asc)
+    @audio.order(source_file_path: :asc)
   end
 
 
   def order_by_filepath_desc
-    @audio.order(catalog_file_path: :desc)
+    @audio.order(source_file_path: :desc)
   end
 
 

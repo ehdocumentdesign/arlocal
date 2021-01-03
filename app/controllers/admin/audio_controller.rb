@@ -335,7 +335,6 @@ class Admin::AudioController < AdminController
     params.require(:audio).permit(
       :artist,
       :audio_artist,
-      :catalog_file_path,
       :composer,
       :copyright_parser_id,
       :copyright_text_markup,
@@ -358,6 +357,8 @@ class Admin::AudioController < AdminController
       :musicians_text_markup,
       :published,
       :recording,
+      :source_catalog_file_path,
+      :source_type,
       :subtitle,
       :title,
       album_audio_attributes: [

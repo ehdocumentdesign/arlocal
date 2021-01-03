@@ -9,12 +9,12 @@ module CatalogHelper
   end
 
   def catalog_audio_filesystem_path(audio)
-    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_audio, audio.catalog_file_path)
+    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_audio, audio.source_catalog_file_path)
   end
 
 
   def catalog_audio_url(audio)
-    asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_audio, audio.catalog_file_path), skip_pipeline: true
+    asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_audio, audio.source_catalog_file_path), skip_pipeline: true
   end
 
 

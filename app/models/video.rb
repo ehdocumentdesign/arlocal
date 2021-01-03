@@ -111,8 +111,8 @@ class Video < ApplicationRecord
   end
 
 
-  # ?????????????????
   def source_attachment_file_path
+    recording.blob.filename.to_s
   end
 
 
@@ -141,22 +141,22 @@ class Video < ApplicationRecord
 
 
   def source_file_path
-    case source_type.to_sym
-    when :attachment
+    case source_type
+    when 'attachment'
       source_attachment_file_path
-    when :catalog
+    when 'catalog'
       source_catalog_file_path
-    when :url
+    when 'url'
       false
     end
   end
 
 
   def source_is_file
-    case source_type.to_sym
-    when :attachment
+    case source_type
+    when 'attachment'
       true
-    when :catalog
+    when 'catalog'
       true
     else
       false
@@ -165,8 +165,8 @@ class Video < ApplicationRecord
 
 
   def source_is_url
-    case source_type.to_sym
-    when :url
+    case source_type
+    when 'url'
       true
     else
       false

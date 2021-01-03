@@ -25,7 +25,7 @@ class FormAudioMetadata
       :events,
       :keywords,
       :id3,
-      :attachment,
+      :source,
       :destroy
     ]
   end
@@ -47,8 +47,8 @@ class FormAudioMetadata
       'form_keywords'
     when :id3
       'form_id3'
-    when :attachment
-      'form_attachment'
+    when :source
+      'form_source'
     when :destroy
       'form_destroy'
     else
@@ -78,7 +78,8 @@ class FormAudioMetadata
       :albums,
       :events,
       :keywords,
-      :markup_parsers
+      :markup_parsers,
+      :source_types
     )
     def initialize(pane)
       case pane
@@ -90,6 +91,8 @@ class FormAudioMetadata
         @events = QueryEvents.new.order_by_start_time_asc
       when :keywords
         @keywords = QueryKeywords.new.order_by_title_asc
+      when :source
+        @source_types = Audio.source_type_options_for_select
       else
         @markup_parsers = MarkupParser.options_for_select
       end

@@ -14,7 +14,7 @@
       = f.submit 'make default', class: :arl_button_form_aux_submit
 
   %table.arl_audio_index_audios
-    - @audio.each do |audio|
+    - @audio.each do |a|
       %tr
         %td.arl_audio_index_audio
-          = render 'index_audio_details', audio: audio
+          = render 'index_audio_details', audio: a
