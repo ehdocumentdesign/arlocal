@@ -1,0 +1,9 @@
+- if selectable.has_pictures
+  = form_with(model: [:admin, video], url: admin_video_path(pane: :picture), local: true, class: :arl_form, method: :patch) do |f|
+    .arl_form_title video thumbnail picture
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_center
+        = f.label :picture_id, class: :arl_form_data_label
+        = render 'admin/shared/form_picture_selector', form: f, picture_options: selectable.pictures
+    .arl_form_actions
+      = f.submit 'Update Picture', class: :arl_button_form_submit

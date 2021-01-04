@@ -16,3 +16,5 @@
           = link_to 'pictures', public_pictures_path, class: :arl_header_nav_category
         - if @arlocal_settings.public_nav_can_include_stream
           = link_to 'stream', public_streams_path, class: :arl_header_nav_category
+        - if @arlocal_settings.public_nav_can_include_videos
+          = link_to 'videos', public_videos_path, class: :arl_header_nav_category          

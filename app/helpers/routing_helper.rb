@@ -42,7 +42,7 @@ module RoutingHelper
 
 
   def routing_public_allowed_controllers
-    [ 'albums', 'audio', 'events', 'info', 'pictures', 'streams' ]
+    [ 'albums', 'audio', 'events', 'info', 'pictures', 'streams', 'videos' ]
   end
 
 

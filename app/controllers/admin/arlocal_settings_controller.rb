@@ -69,7 +69,8 @@ class Admin::ArlocalSettingsController < AdminController
       :public_nav_can_include_events,
       :public_nav_can_include_info,
       :public_nav_can_include_pictures,
-      :public_nav_can_include_stream
+      :public_nav_can_include_stream,
+      :public_nav_can_include_videos
      )
    end
 

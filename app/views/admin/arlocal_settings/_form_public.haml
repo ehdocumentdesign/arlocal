@@ -49,5 +49,9 @@
       = f.check_box :public_nav_can_include_stream, checked: f.object.public_nav_can_include_stream, class: :arl_form_data_checkbox
       = f.label :public_nav_can_include_stream, class: :arl_form_data_label
 
+    .arl_form_data_attr.arl_form_layout_inline
+      = f.check_box :public_nav_can_include_videos, checked: f.object.public_nav_can_include_videos, class: :arl_form_data_checkbox
+      = f.label :public_nav_can_include_videos, class: :arl_form_data_label
+
   .arl_form_actions
     = f.submit 'Update A&R.Local settings', class: :arl_button_form_submit
