@@ -8,6 +8,7 @@
   %section.pictures.resource_index
     - @pictures_page_hash.each do |picture|
       %figure.picture.listening{data: {url: picture_path(picture.id_public)}}
+        -# TODO: Obsolete.
         = link_to picture_image_tag_for(picture), picture_path(picture.id_public)
         = tag.figcaption(picture.title)
 

@@ -20,7 +20,7 @@ class QueryPictures
 
 
   def action_admin_edit
-    find_by_slug!(@params[:id])
+    find(@params[:id])
   end
 
 
@@ -44,10 +44,10 @@ class QueryPictures
       @pictures.sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
       # order_by_filepath_asc
-      @pictures.sort_by{ |p| [p.file_source_type, p.file_source_path] }
+      @pictures.sort_by{ |p| [p.source_type, p.source_file_path] }
     when 'filepath_desc'
       # order_by_filepath_desc
-      @pictures.sort_by{ |p| [p.file_source_type, p.file_source_path] }.reverse
+      @pictures.sort_by{ |p| [p.source_type, p.source_file_path] }.reverse
     when 'title_asc'
       # order_by_title_asc
       @pictures.sort_by{ |p| p.title_without_markup.downcase }
@@ -77,7 +77,7 @@ class QueryPictures
 
 
   def action_admin_show
-    find_by_slug!(@params[:id])
+    find(@params[:id])
   end
 
 
@@ -87,7 +87,7 @@ class QueryPictures
 
 
   def action_admin_update
-    find_by_slug!(@params[:id])
+    find(@params[:id])
   end
 
 
@@ -112,10 +112,10 @@ class QueryPictures
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
       # order_by_filepath_asc.where(indexed: true, published: true)
-      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.file_source_type, p.file_source_path] }
+      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type, p.source_file_path] }
     when 'filepath_desc'
       # order_by_filepath_desc.where(indexed: true, published: true)
-      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.file_source_type, p.file_source_path] }.reverse
+      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type, p.source_file_path] }.reverse
     when 'title_asc'
       # order_by_title_asc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }
@@ -134,7 +134,7 @@ class QueryPictures
 
 
   def action_public_show
-    @pictures.where(published: true).find_by_slug!(@params[:id])
+    @pictures.where(published: true).find(@params[:id])
   end
 
 
@@ -171,7 +171,7 @@ class QueryPictures
 
 
   def find(id)
-    @pictures.find_by_id!(id)
+    @pictures.find(id)
   end
 
 

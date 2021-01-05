@@ -8,6 +8,7 @@
   .arl_pictures_index_pictures
     - @pictures_page_hash[:pictures].each do |picture|
       %figure.arl_pictures_index_picture.arl_active_link_container{data: {url: public_picture_path(picture.id_public)}}
+        -# TODO: Obsolete? Maybe not.
         = picture_thumbnail_link(picture, html_class: :arl_pictures_index_picture_thumbnail)
 
   - if @pictures_page_hash[:page_nav_data][:current] != :all

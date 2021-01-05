@@ -15,7 +15,8 @@ class Picture < ApplicationRecord
   validates :catalog_file_path, uniqueness: { allow_blank: true, case_sensitive: true }
   validates :credits_parser_id, presence: true
   validates :description_parser_id, presence: true
-  validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9\_\-]*\z/ }
+  # Slug gets weird when we add attachments and different source types.
+  # validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9\_\-]*\z/ }
   validates :title_parser_id, presence: true
 
   # before_save :get_datetime_metadata
@@ -48,23 +49,41 @@ class Picture < ApplicationRecord
 
 
 
+  protected
+
+
+  def self.source_type_options
+    [:attachment, :catalog]
+  end
+
+
+  def self.source_type_options_for_select
+    Picture.source_type_options.map{ |option| [option, option] }
+  end
+
+
+  public
+
+  
   ### albums_count
 
 
-  # TODO: This verbage fails if additional objects become attachable.
-  def attachment_file_source_path
-    if does_have_attachment
-      image.blob.filename.to_s
-    end
-  end
-
-
-  def catalog_file_basename
-    File.basename(catalog_file_path)
-  end
-
-
-  ### catalog_file_path
+  # # TODO: This verbage fails if additional objects become attachable.
+  # def attachment_file_source_path
+  #   if does_have_attachment
+  #     image.blob.filename.to_s
+  #   end
+  # end
+  #
+  #
+  # ### FIND & CHANGE
+  # def catalog_file_basename
+  #   File.basename(catalog_file_path)
+  # end
+  #
+  #
+  # ### RENAME
+  # ### catalog_file_path
 
 
   ### created_at
@@ -207,23 +226,22 @@ class Picture < ApplicationRecord
   ### events_count
 
 
-  ### filename
-
-
   def does_have_albums
     albums_count.to_i > 0
   end
 
 
-  # TODO: This verbage fails if additional objects become attachable.
-  def does_have_attachment
-    image.attachment != nil
-  end
-
-
-  def does_have_catalog_file_path
-    catalog_file_path.to_s.length > 0
-  end
+  # ### REMOVE
+  # # TODO: This verbage fails if additional objects become attachable.
+  # def does_have_attachment
+  #   image.attachment != nil
+  # end
+  #
+  #
+  # ### REMOVE
+  # def does_have_catalog_file_path
+  #   catalog_file_path.to_s.length > 0
+  # end
 
 
   def does_have_credits
@@ -256,14 +274,16 @@ class Picture < ApplicationRecord
   end
 
 
-  def does_not_have_attachment
-    image.attachment == nil
-  end
-
-
-  def does_not_have_catalog_file_path
-    catalog_file_path.to_s == ''
-  end
+  # ### REMOVE
+  # def does_not_have_attachment
+  #   image.attachment == nil
+  # end
+  #
+  #
+  # ### REMOVE
+  # def does_not_have_catalog_file_path
+  #   catalog_file_path.to_s == ''
+  # end
 
 
   def does_not_have_slug
@@ -276,55 +296,60 @@ class Picture < ApplicationRecord
   end
 
 
-  def file_source_type
-    if does_have_attachment
-      :attachment
-    elsif does_have_catalog_file_path
-      :catalog
-    else
-      nil
-    end
-  end
-
-
-  def file_source_type_is_attachment
-    file_source_type == :attachment
-  end
-
-
-  def file_source_type_is_catalog
-    file_source_type == :catalog
-  end
-
-
-  def file_source_path
-    case file_source_type
-    when :attachment
-      image.blob.filename.to_s
-    when :catalog
-      catalog_file_path
-    end
-  end
+  # ### RENAMED.
+  # def file_source_type
+  #   if does_have_attachment
+  #     :attachment
+  #   elsif does_have_catalog_file_path
+  #     :catalog
+  #   else
+  #     nil
+  #   end
+  # end
+  #
+  #
+  # ### RENAMED.
+  # def file_source_type_is_attachment
+  #   file_source_type == :attachment
+  # end
+  #
+  #
+  # ### RENAMED.
+  # def file_source_type_is_catalog
+  #   file_source_type == :catalog
+  # end
+  #
+  #
+  # ### RENAMED.
+  # def file_source_path
+  #   case file_source_type
+  #   when :attachment
+  #     image.blob.filename.to_s
+  #   when :catalog
+  #     catalog_file_path
+  #   end
+  # end
 
 
   ### id
 
 
   def id_admin
-    slug
+    id
   end
 
 
   def id_public
-    slug
+    id
   end
 
 
-  def image_file_name
-    if does_have_attachment
-      image.filename
-    end
-  end
+  # ### FIND AND CHANGE/REMOVE
+  # def image_file_name
+  #   if does_have_attachment
+  #     image.filename
+  #   end
+  # end
 
 
   ### indexed
@@ -353,6 +378,73 @@ class Picture < ApplicationRecord
   def slug_source
     :filename
   end
+
+
+  def source_attachment_file_path
+    recording.blob.filename.to_s
+  end
+
+
+  ### source_catalog_file_path
+
+
+  def source_file_extname
+    File::extname(source_file_path.to_s)
+  end
+
+
+  def source_file_extension
+    source_file_extname.to_s.gsub(/\A./,'')
+  end
+
+
+  def source_file_mime_type
+    Mime::Type.lookup_by_extension(source_file_extension)
+  end
+
+
+  def source_file_basename
+    if source_file_path
+      File.basename(source_file_path)
+    end
+  end
+
+
+  def source_file_path
+    case source_type
+    when 'attachment'
+      source_attachment_file_path
+    when 'catalog'
+      source_catalog_file_path
+    when 'url'
+      false
+    end
+  end
+
+
+  def source_is_file
+    case source_type
+    when 'attachment'
+      true
+    when 'catalog'
+      true
+    else
+      false
+    end
+  end
+
+
+  def source_is_url
+    case source_type
+    when 'url'
+      true
+    else
+      false
+    end
+  end
+
+
+  ### source_type
 
 
   def title
@@ -403,16 +495,24 @@ class Picture < ApplicationRecord
   end
 
 
+  # def affirm_critical_attributes_slug
+  #   if self.does_not_have_slug
+  #     slug = ''
+  #     case self.source_file_type
+  #     when :attachment
+  #       slug = "#{self.source_file_image_file_name} #{self.datetime.to_s}"
+  #     when :catalog
+  #       slug = File.basename(self.catalog_file_path, '.*')
+  #     end
+  #     self.slug = slug.to_s.parameterize
+  #   end
+  # end
+
+
+
   def affirm_critical_attributes_slug
     if self.does_not_have_slug
-      slug = ''
-      case self.file_source_type
-      when :attachment
-        slug = "#{self.image_file_name} #{self.datetime.to_s}"
-      when :catalog
-        slug = File.basename(self.catalog_file_path, '.*')
-      end
-      self.slug = slug.to_s.parameterize
+      self.slug = "#{self.source_file_basename} #{self.datetime.to_s}".parameterize
     end
   end
 
@@ -432,11 +532,11 @@ class Picture < ApplicationRecord
 
 
   def strip_whitespace_edges_from_entered_text
-    [ self.catalog_file_path,
-      self.credits_text_markup,
+    [ self.credits_text_markup,
       self.description_text_markup,
       self.title_text_markup,
-      self.slug
+      self.slug,
+      self.source_catalog_file_path
     ].each { |a| a.to_s.strip! }
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_054933) do
+ActiveRecord::Schema.define(version: 2021_01_05_064413) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -108,16 +108,15 @@ ActiveRecord::Schema.define(version: 2021_01_04_054933) do
   end
 
   create_table "arlocal_settings", force: :cascade do |t|
+    t.integer "admin_index_albums_sorter_id"
+    t.integer "admin_index_audio_sorter_id"
+    t.integer "admin_index_events_sorter_id"
     t.boolean "admin_forms_auto_keyword_enabled"
     t.integer "admin_forms_auto_keyword_id"
     t.boolean "admin_forms_edit_slug_field"
     t.boolean "admin_forms_retain_pane_for_neighbors"
     t.integer "admin_forms_selectable_pictures_sorter_id"
-    t.integer "admin_index_albums_sorter_id"
-    t.integer "admin_index_audio_sorter_id"
-    t.integer "admin_index_events_sorter_id"
     t.integer "admin_index_pictures_sorter_id"
-    t.integer "admin_index_videos_sorter_id"
     t.integer "artist_content_copyright_year_earliest"
     t.integer "artist_content_copyright_year_latest"
     t.string "artist_name"
@@ -134,16 +133,17 @@ ActiveRecord::Schema.define(version: 2021_01_04_054933) do
     t.integer "public_index_audio_sorter_id"
     t.integer "public_index_events_sorter_id"
     t.integer "public_index_pictures_sorter_id"
-    t.integer "public_index_videos_sorter_id"
     t.boolean "public_nav_can_include_albums"
     t.boolean "public_nav_can_include_audio"
     t.boolean "public_nav_can_include_events"
     t.boolean "public_nav_can_include_info"
     t.boolean "public_nav_can_include_pictures"
     t.boolean "public_nav_can_include_stream"
-    t.boolean "public_nav_can_include_videos"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "admin_index_videos_sorter_id"
+    t.integer "public_index_videos_sorter_id"
+    t.boolean "public_nav_can_include_videos"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -311,7 +311,6 @@ ActiveRecord::Schema.define(version: 2021_01_04_054933) do
 
   create_table "pictures", force: :cascade do |t|
     t.integer "albums_count"
-    t.string "catalog_file_path"
     t.integer "credits_parser_id"
     t.text "credits_text_markup"
     t.string "datetime_cascade_method"
@@ -334,6 +333,8 @@ ActiveRecord::Schema.define(version: 2021_01_04_054933) do
     t.boolean "show_can_display_title"
     t.boolean "show_credit_uses_label"
     t.string "slug"
+    t.string "source_catalog_file_path"
+    t.string "source_type"
     t.integer "title_parser_id"
     t.text "title_text_markup"
     t.string "title_without_markup"

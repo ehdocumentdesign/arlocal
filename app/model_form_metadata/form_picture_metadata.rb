@@ -25,7 +25,7 @@ class FormPictureMetadata
       :datetime,
       :events,
       :keywords,
-      :attachment,
+      :source,
       :destroy
     ]
   end
@@ -47,8 +47,8 @@ class FormPictureMetadata
       'form_events'
     when :keywords
       'form_keywords'
-    when :attachment
-      'form_attachment'
+    when :source
+      'form_source'
     when :destroy
       'form_destroy'
     else
@@ -78,6 +78,7 @@ class FormPictureMetadata
       :albums,
       :events,
       :keywords,
+      :source_types,
       :markup_parsers
     )
     def initialize(pane)
@@ -90,6 +91,8 @@ class FormPictureMetadata
         @events = QueryEvents.new.order_by_start_time_asc
       when :keywords
         @keywords = QueryKeywords.new.order_by_title_asc
+      when :source
+        @source_types = Picture.source_type_options_for_select
       else
         @markup_parsers = MarkupParser.options_for_select
       end

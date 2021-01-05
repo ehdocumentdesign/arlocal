@@ -95,23 +95,20 @@ module PicturesHelper
 
   #TODO: One of these should be deprecated. #2:
   def picture_file_source_path_with_indicators(picture, html_class: [])
-    filename = ''
     html_class = [html_class].flatten
-    case picture.file_source_type
+
+    filename = picture.source_file_path
+    case picture.source_type
     when :attachment
-      filename = picture.file_source_path
       path_to_file = ActiveStorage::Blob.service.send(:path_for, picture.image.key)
       if File.exist?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
-      filename = "#{filename}"
     when :catalog
-      filename = picture.file_source_path
       path_to_file = catalog_picture_filesystem_path(picture)
       if File.exists?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
-      # filename = path_to_file
     end
     tag.div filename, class: html_class
   end
@@ -151,10 +148,10 @@ module PicturesHelper
 
 
   def picture_preferred_url(picture)
-    case picture.file_source_type
-    when :attachment
+    case picture.source_type
+    when 'attachment'
       url_for(picture.image)
-    when :catalog
+    when 'catalog'
       catalog_picture_url(picture)
     when nil
       url_for(ArlocalEnv.app_nilpicture_file_path)

@@ -6,7 +6,7 @@
       = render 'form_elements/source_select',    attribute: :source_type,               form: f, selectable: selectable
       = render 'form_elements/file_field',       attribute: :source_attachment,         form: f
       = render 'form_elements/text_field',       attribute: :source_catalog_file_path,  form: f
-      = render 'form_elements/text_field',       attribute: :source_url,                form: f
+      = render 'form_elements/text_field',       attribute: :source_url,                form: f, aside_before: "catalog/#{catalog_path_suffix_audio}/"
     .arl_form_actions
       .arl_form_action_submit
         = f.submit class: :arl_button_form_submit
