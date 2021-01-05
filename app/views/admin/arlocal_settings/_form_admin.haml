@@ -2,59 +2,14 @@
   .arl_form_title
     Admin view settings
   .arl_form_data
-    .arl_form_data_attr
-      .arl_form_layout_inline
-        = f.check_box :admin_forms_auto_keyword_enabled, class: :arl_form_data_checkbox
-        = f.label :admin_forms_auto_keyword_enabled, class: :arl_form_data_label_inline
-      .arl_form_layout_inline_inset
-        %aside.arl_form_data_attr_explanation
-          Automatically add the following keyword to new resources
-        = f.collection_select :admin_forms_auto_keyword_id, selectable.keywords, :id, :title, {include_blank: false}, {class: :arl_form_data_select}
-
-    .arl_form_data_attr
-      .arl_form_layout_inline
-        = f.check_box :admin_forms_edit_slug_field, class: :arl_form_data_checkbox
-        = f.label :admin_forms_edit_slug_field, class: :arl_form_data_label_inline
-      .arl_form_layout_inline_inset
-        %aside.arl_form_data_attr_explanation
-          A&amp;R.local will automatically generate a URL-friendly 'slug' for albums, events, pictures, and keywords.
-          This option, when checked, will enable a text field to edit the 'slug' of a resource.
-
-    .arl_form_data_attr
-      .arl_form_layout_inline
-        = f.check_box :admin_forms_retain_pane_for_neighbors, class: :arl_form_data_checkbox
-        = f.label :admin_forms_retain_pane_for_neighbors, class: :arl_form_data_label_inline
-      .arl_form_layout_inline_inset
-        %aside.arl_form_data_attr_explanation
-          When editing a resource, the next/previous buttons will retain the current edit category pane.
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :admin_forms_selectable_pictures_sorter_id, 'Admin forms – selectable pictures', class: :arl_form_data_label
-      = f.select :admin_forms_selectable_pictures_sorter_id, selectable.selectable_pictures_sorters, {selected: f.object.admin_forms_selectable_pictures_sorter_id}, {class: :arl_form_data_select}
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :admin_index_albums_sorter_id, 'Admin Index – Albums – sort by', class: :arl_form_data_label
-      = f.select :admin_index_albums_sorter_id, selectable.albums_index_sorters, {selected: f.object.admin_index_albums_sorter_id}, {class: :arl_form_data_select}
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :admin_index_audio_sorter_id, 'Admin Index – Audio – sort by', class: :arl_form_data_label
-      = f.select :admin_index_audio_sorter_id, selectable.audio_index_sorters, {selected: f.object.admin_index_audio_sorter_id}, {class: :arl_form_data_select}
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :admin_index_events_sorter_id, 'Admin Index – Events – sort by', class: :arl_form_data_label
-      = f.select :admin_index_events_sorter_id, selectable.events_index_sorters, {selected: f.object.admin_index_events_sorter_id}, {class: :arl_form_data_select}
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :admin_index_pictures_sorter_id, 'Admin Index – Pictures – sort by', class: :arl_form_data_label
-      = f.select :admin_index_pictures_sorter_id, selectable.pictures_index_sorters, {selected: f.object.admin_index_pictures_sorter_id}, {class: :arl_form_data_select}
-      %aside.arl_form_data_attr_explanation
-        The 'date &amp; time cascade' option will order pictures based on available metadata, in order of preference:
-        1) a manually entered date/time, 2) the date/time from EXIF metadata, 3) the date/time from the picture file.
-
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :admin_index_videos_sorter_id, 'Admin Index – Videos – sort by', class: :arl_form_data_label
-      = f.select :admin_index_videos_sorter_id, selectable.videos_index_sorters, {selected: f.object.admin_index_videos_sorter_id}, {class: :arl_form_data_select} 
-
-
+    = render 'form_elements_arls/auto_keyword_enabler', form: f, selectable: selectable.keywords
+    = render 'form_elements/check_box', attribute: :admin_forms_edit_slug_field, form: f, aside: form_message_slug_description
+    = render 'form_elements/check_box', attribute: :admin_forms_retain_pane_for_neighbors, form: f, aside: 'When editing a resource, the next/previous buttons will retain the current edit category pane.'
+    = render 'form_elements/select', attribute: :admin_forms_selectable_pictures_sorter_id, form: f, label: 'Admin forms – selectable pictures', selectable: selectable.selectable_pictures_sorters
+    = render 'form_elements/select', attribute: :admin_index_albums_sorter_id, form: f, label: 'Admin Index – Albums – sort by', selectable: selectable.albums_index_sorters
+    = render 'form_elements/select', attribute: :admin_index_audio_sorter_id, form: f, label: 'Admin Index – Audio – sort by', selectable: selectable.audio_index_sorters
+    = render 'form_elements/select', attribute: :admin_index_events_sorter_id, form: f, label: 'Admin Index – Events – sort by', selectable: selectable.events_index_sorters
+    = render 'form_elements/select', attribute: :admin_index_pictures_sorter_id, form: f, label: 'Admin Index – Pictures – sort by', selectable: selectable.pictures_index_sorters
+    = render 'form_elements/select', attribute: :admin_index_videos_sorter_id, form: f, label: 'Admin Index – Videos – sort by', selectable: selectable.videos_index_sorters
   .arl_form_actions
     = f.submit 'Update A&R.Local settings', class: :arl_button_form_submit

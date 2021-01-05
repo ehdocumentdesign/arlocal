@@ -1,21 +1,9 @@
 = form_with(model: [:admin, arlocal_settings], url: admin_arlocal_settings_path(arlocal_settings, pane: :artist), local: true, class: :arl_form, method: :patch) do |f|
   .arl_form_title
     Artist settings
-
   .arl_form_data
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :artist_name, class: :arl_form_data_label
-      = f.text_field :artist_name, class: :arl_form_data_text_field
-    
-    .arl_form_data_attr.arl_form_layout_left
-      = f.label :artist_content_copyright_year_earliest, class: [:arl_form_data_label, :arl_form_margin_right]
-      = f.text_field :artist_content_copyright_year_earliest, size: 8, class: :arl_form_data_text_field
-    
-    .arl_form_data_attr.arl_form_layout_left
-      = f.label :artist_content_copyright_year_latest, class: [:arl_form_data_label, :arl_form_margin_right]
-      = f.text_field :artist_content_copyright_year_latest, size: 8, class: :arl_form_data_text_field
-      %aside.arl_form_data_attr_explanation
-        Leave blank to use year-of-moment.
-    
+    = render 'form_elements/text_field', attribute: :artist_name, form: f
+    = render 'form_elements/text_field_sized', attribute: :artist_content_copyright_year_earliest, form: f, size: 8
+    = render 'form_elements/text_field_sized', attribute: :artist_content_copyright_year_latest, form: f, size: 8, aside: 'Leave blank to use year-of-the-moment.'
   .arl_form_actions
     = f.submit 'Update A&R.local settings', class: :arl_button_form_submit

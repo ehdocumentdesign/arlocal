@@ -1,0 +1,9 @@
+.arl_form_data_attr
+  .arl_form_layout_inline
+    = form.check_box :audio_default_date_released_enabled, class: :arl_form_data_checkbox
+    = form.label :audio_default_date_released_enabled, class: :arl_form_data_label_inline
+  .arl_form_layout_inline_inset
+    %aside.arl_form_data_attr_explanation
+      Automatically slect the following date for new audio
+    .arl_form_layout_multifield
+      = form.date_select :audio_default_date_released, { include_blank: true, selected: form.object.audio_default_date_released || Time.zone.now, start_year: (Date.today.year - 10) }, {class: :arl_form_data_select}

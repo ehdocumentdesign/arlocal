@@ -1,5 +1,6 @@
 .arl_form_data_attr.arl_form_layout_blocks
   = form.label attribute, class: :arl_form_data_label_block
-  - if local_assigns[:aside_before]
-    %aside.arl_form_data_attr_explanation= "#{aside_before}"
+  - if local_assigns[:aside]
+    - [aside].flatten.each do |a|
+      %aside.arl_form_data_attr_explanation= "#{a}"
   = form.text_field attribute, class: :arl_form_data_text_field
