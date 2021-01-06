@@ -311,7 +311,6 @@ class Admin::PicturesController < AdminController
 
   def picture_params
     params.require(:picture).permit(
-      :catalog_file_path,
       :credits_parser_id,
       :credits_text_markup,
       :datetime_from_manual_entry_year,
@@ -329,6 +328,8 @@ class Admin::PicturesController < AdminController
       :title_parser_id,
       :title_text_markup,
       :slug,
+      :source_catalog_file_path,
+      :source_type,
       album_pictures_attributes: [
         :id,
         :album_id,
