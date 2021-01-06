@@ -37,8 +37,8 @@ class VideoBuilder
 
   def read_source_dimensions
     determine_mediainfo
-    @video.source_dimension_height = mediainfo.video.height
-    @video.source_dimension_width = mediainfo.video.width
+    @video.source_dimension_height = @mediainfo.video.height
+    @video.source_dimension_width = @mediainfo.video.width
   end
 
 

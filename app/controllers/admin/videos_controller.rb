@@ -99,6 +99,11 @@ class Admin::VideosController < AdminController
         :id,
         :keyword_id,
         :_destroy
+      ],
+      video_picture_attributes: [
+        :id,
+        :picture_id,
+        :_destroy
       ]
     )
   end

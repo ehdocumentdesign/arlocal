@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_064413) do
+ActiveRecord::Schema.define(version: 2021_01_06_063959) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -289,6 +289,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_064413) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "videos_count"
   end
 
   create_table "links", force: :cascade do |t|
@@ -333,13 +334,13 @@ ActiveRecord::Schema.define(version: 2021_01_05_064413) do
     t.boolean "show_can_display_title"
     t.boolean "show_credit_uses_label"
     t.string "slug"
-    t.string "source_catalog_file_path"
-    t.string "source_type"
     t.integer "title_parser_id"
     t.text "title_text_markup"
     t.string "title_without_markup"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "source_catalog_file_path"
+    t.string "source_type"
     t.index ["slug"], name: "index_pictures_on_slug"
   end
 
@@ -362,11 +363,11 @@ ActiveRecord::Schema.define(version: 2021_01_05_064413) do
     t.index ["video_id"], name: "index_video_keywords_on_video_id"
   end
 
-  create_table "video_picture", force: :cascade do |t|
+  create_table "video_pictures", force: :cascade do |t|
     t.integer "video_id"
     t.integer "picture_id"
-    t.index ["picture_id"], name: "index_video_picture_on_picture_id"
-    t.index ["video_id"], name: "index_video_picture_on_video_id"
+    t.index ["picture_id"], name: "index_video_pictures_on_picture_id"
+    t.index ["video_id"], name: "index_video_pictures_on_video_id"
   end
 
   create_table "videos", force: :cascade do |t|
@@ -378,6 +379,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_064413) do
     t.boolean "indexed"
     t.integer "involved_people_parser_id"
     t.text "involved_people_text_markup"
+    t.integer "keywords_count"
     t.boolean "published"
     t.string "slug"
     t.string "source_catalog_file_path"
