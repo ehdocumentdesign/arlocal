@@ -1,18 +1,117 @@
+.arl_videos_show {}
+.arl_videoss_show_nav_neighbors {
+  text-align: center;
+  width: 100%;
+}
+.arl_videos_show_text {
+  font-family: $font-family-video-details;
+  font-weight: normal;
+}
+.arl_videos_show_text_video_artist {
+  font-family: $font-family-video-title;
+}
+.arl_videos_show_text_copyright {
+  font-size: 0.8em;
+}
+.arl_videos_show_text_description {
+  font-size: 1em;
+}
+.arl_videos_show_text_duration {
+  font-size: 0.8em;
+}
+.arl_videos_show_text_date_released {
+  font-size: 0.8em;
+}
+.arl_videos_show_text_title {
+  font-family: $font-family-video-title;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
 
 @media #{$media-screen-1} {
+  .arl_videos_show {
+    @include layout-flex-column-stretch;
+  }
+  .arl_videos_show_nav_neighbors {
+    margin: 0rem 0rem 1.5rem 0rem;
+    order: 4;
+  }
+  .arl_videos_show_text {
+    @include layout-flex-column-stretch;
+    border-top: $border;
+    font-size: 0.9rem;
+    padding: 1rem 1.25rem;
+  }
+  .arl_videos_show_text_copyright {
+    padding-top: $arl-spacing;
+  }
+  .arl_videos_show_text_description {
+    padding-top: $arl-margin;
+  }
+  .arl_videos_show_text_title {
+  }
   .arl_video_player {
     width: 320px;
   }
 }
 
 @media #{$media-screen-2} {
+  .arl_videos_show {
+    @include layout-flex-column-center;
+    padding: $arl-spacing-wide;
+    width: 30rem;
+  }
+  .arl_videos_show_nav_neighbors {
+    margin-top: 1.75rem;
+  }
+  .arl_videos_show_player {
+    margin: $arl-spacing-wide 0rem $arl-margin-wide 0rem;
+  }
+.arl_videos_show_text {
+    @include layout-flex-column-stretch;
+    text-align: center;
+    margin: $arl-spacing-wide 0rem;
+  }
+  .arl_videos_show_text_copyright {
+    padding-top: $arl-spacing;
+  }
+  .arl_videos_show_text_description {
+    padding-top: $arl-margin;
+  }
   .arl_video_player {
     width: 480px;
+    box-shadow: $shadow-img;
   }
 }
 
 @media #{$media-screen-3} {
+  .arl_videos_show {
+    @include layout-flex-column-center;
+    padding: $arl-margin-wide;
+    width: 40rem;
+  }
+  .arl_videos_show_nav_neighbors {
+    margin-top: 1.75rem;
+  }
+  .arl_videos_show_player {
+    margin: $arl-spacing-wide 0rem $arl-margin-wide 0rem;
+  }
+  .arl_videos_show_text {
+    @include layout-flex-column-stretch;
+    // border: $border-transparent;
+    // box-sizing: border-box;
+    margin: $arl-spacing-wide 0rem;
+  }
+  .arl_videos_show_text_copyright {
+    padding-top: $arl-spacing;
+  }
+  .arl_videos_show_text_description {
+    padding-top: $arl-margin;
+  }
+
   .arl_video_player {
     width: 640px;
+    box-shadow: $shadow-img;
   }
 }

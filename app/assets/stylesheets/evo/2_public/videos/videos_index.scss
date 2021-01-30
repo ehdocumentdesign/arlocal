@@ -1,0 +1,113 @@
+.arl_videos_index {}
+.arl_videos_index_video {
+  cursor: pointer;
+}
+.arl_videos_index_video_picture {
+//  vertical-align: middle;
+}
+.arl_videos_index_video_picture_img {
+  @include border-rounded-img-videos-index;
+  box-shadow: $shadow-img;
+  box-sizing: border-box;
+}
+.arl_videos_index_video_text {
+}
+.arl_videos_index_video_text_video_artist {
+  font-family: $font-family-video-title;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: ($arl-margin-narrow / 2);
+}
+.arl_videos_index_video_text_title {
+  font-family: $font-family-video-title;
+  font-weight: bold;
+  margin-bottom: $arl-margin-narrow;
+}
+.arl_videos_index_video_text_title_link {
+  color: $color-fg-link;
+}
+.arl_videos_index_video_text_year {
+  font-family: $font-family-video-details;
+  font-size: 0.75rem;
+  margin-top: $arl-margin-narrow;
+}
+.arl_videos_index_videos {}
+
+
+
+@media #{$media-screen-1} {
+  .arl_videos_index {
+    padding: $arl-margin;
+  }
+  .arl_videos_index_video_picture {
+    padding-bottom: $arl-margin-wide;
+    padding-left: 0rem;
+    padding-right: $arl-margin-narrow;
+    padding-top: $arl-margin-wide;
+  }
+  .arl_videos_index_video_picture_img {
+    height: 5rem;
+    width: 5rem;
+  }
+  .arl_videos_index_video_text {
+    padding-bottom: $arl-margin;
+    padding-left: $arl-margin-narrow;
+    padding-right: 0rem;
+    padding-top: $arl-margin;
+    width: 100%;
+  }
+  .arl_videos_index_video_text_video_artist {
+    font-size: .75em;
+  }
+  .arl_videos_index_video_notice_alt_url {
+    display: none;
+  }
+  .arl_videos_index_video_text_tracks {
+    display: none;
+  }
+  .arl_videos_index_videos {
+    width: 18rem;
+  }
+  .arl_videos_index_video_notice_alt_url {
+    margin-bottom: $arl-margin-wide;
+  }
+
+}
+
+
+@media #{$media-screen-2} {
+  .arl_videos_index {
+    @include layout-flex-column-center;
+    max-width: 30rem;
+    padding: $arl-margin-wide;
+  }
+  .arl_videos_index_video_picture {
+    padding: $arl-margin-wider $arl-margin-narrow;
+  }
+  .arl_videos_index_video_picture_img {
+    height: 7rem;
+    width: 7rem;
+  }
+  .arl_videos_index_video_text {
+    padding: $arl-margin-wide $arl-margin-narrow;
+  }
+}
+
+
+@media #{$media-screen-3} {
+  .arl_videos_index {
+    @include layout-flex-column-center;
+    max-width: 35rem;
+    padding: $arl-margin-wide;
+  }
+  .arl_videos_index_video_picture {
+    padding: $arl-margin-wider $arl-margin-narrow;
+  }
+  .arl_videos_index_video_picture_img {
+    height: 7rem;
+    width: 7rem;
+  }
+  .arl_videos_index_video_text {
+    padding: $arl-margin-wide $arl-margin-narrow;
+  }
+}

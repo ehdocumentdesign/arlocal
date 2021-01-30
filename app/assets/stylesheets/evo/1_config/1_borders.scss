@@ -66,6 +66,18 @@ $border-radius-wide: $var-border-radius;
   border-radius: $border-radius-thumbnail;
 }
 
+@mixin border-rounded-img-videos-index {
+  background-color: $var-border-color-img-rounded;
+  border: $var-border-color-img-rounded $var-border-style $var-border-width;
+  border-radius: ($border-radius-img / 2);
+}
+
+@mixin border-rounded-img-videos-show {
+  background-color: $var-border-color-img-rounded;
+  border: $var-border-color-img-rounded $var-border-style $var-border-width;
+  border-radius: ($border-radius-img / 2);
+}
+
 .arl_border_bottom {
   border-bottom: $border;
 }

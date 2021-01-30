@@ -50,8 +50,9 @@ $font-family-picture-title: $var-font-title;
 $font-family-stream-description: $var-font-description;
 $font-family-stream-title: $var-font-title;
 $font-family-title: $var-font-title;
+$font-family-video-details: $var-font-description;
+$font-family-video-title: $var-font-title;
 
 @mixin font-pseudo-bold($this-color-fg) {
   text-shadow: 0.0125em 0em 0em $this-color-fg, -0.0125em 0em 0em $this-color-fg;
 }
-
