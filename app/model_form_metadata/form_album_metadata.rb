@@ -39,6 +39,14 @@ class FormAlbumMetadata
       'form'
     when :audio
       'form_audio'
+    when :audio_import
+      'form_audio_import'
+    when :audio_upload
+      'form_audio_upload'
+    when :audio_join_by_keyword
+      'form_audio_join_by_keyword'
+    when :audio_join_single
+      'form_audio_join_single'
     when :keywords
       'form_keywords'
     when :pictures
@@ -86,6 +94,10 @@ class FormAlbumMetadata
       when :audio
         @audio = QueryAudio.new.order_by_title_asc
         @keywords = QueryKeywords.new.order_by_title_asc
+      when :audio_join_by_keyword
+        @keywords = QueryKeywords.new.order_by_title_asc
+      when :audio_join_single
+        @audio = QueryAudio.new.order_by_title_asc
       when :pictures
         @album_pictures_sorters = SorterAlbumPictures.options_for_select
         @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures

@@ -54,10 +54,19 @@ module ButtonHelper
   end
 
 
+  def button_admin_to_new_join_by_keyword(path)
+    tag.div(tag.a(icon_new_join_by_keyword, href: path, class: :arl_button_admin_resource, method: :get, title: 'join by keyword'), class: :arl_button_admin_resource_spacing)
+  end
+
+
+  def button_admin_to_new_join_single(path)
+    tag.div(tag.a(icon_new_join_single, href: path, class: :arl_button_admin_resource, method: :get, title: 'join'), class: :arl_button_admin_resource_spacing)
+  end
+
+
   def button_admin_to_new_upload(path)
     tag.div(tag.a(icon_new_upload, href: path, class: :arl_button_admin_resource, method: :get, title: 'upload'), class: :arl_button_admin_resource_spacing)
   end
-
 
 
   def button_admin_to_next(path)

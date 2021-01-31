@@ -1,6 +1,17 @@
 module FormMetadataSelectablesUtils
 
 
+  def has_audio
+    if (@audio == nil)
+      false
+    elsif (@audio.length == 0)
+      false
+    elsif (@audio.length >= 1)
+      true
+    end
+  end
+
+  
   def has_keywords
     if (@keywords == nil)
       false

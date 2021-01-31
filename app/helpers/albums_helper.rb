@@ -61,12 +61,22 @@ module AlbumsHelper
 
 
   def album_audio_admin_button_to_new_import(album)
-    button_admin_to_new_import admin_album_edit_audio_import_path(album.id_admin)
+    button_admin_to_new_import admin_album_edit_audio_import_path(album.id_admin, pane: :audio_import)
+  end
+
+
+  def album_audio_admin_button_to_new_join_by_keyword(album)
+    button_admin_to_new_join_by_keyword edit_admin_album_path(album.id_admin, pane: :audio_join_by_keyword)
+  end
+
+
+  def album_audio_admin_button_to_new_join_single(album)
+    button_admin_to_new_join_single edit_admin_album_path(album.id_admin, pane: :audio_join_single)
   end
 
 
   def album_audio_admin_button_to_new_upload(album)
-    button_admin_to_new_upload admin_album_edit_audio_upload_path(album.id_admin)
+    button_admin_to_new_upload admin_album_edit_audio_upload_path(album.id_admin, pane: :audio_upload)
   end
 
 

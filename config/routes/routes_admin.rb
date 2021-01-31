@@ -23,6 +23,7 @@ namespace :admin do
   patch     'albums/:id/audio_with_keyword',    to: 'albums#add_audio_by_keyword',       as: :album_add_audio_by_keyword
   patch     'albums/:id/pictures_with_keyword', to: 'albums#add_pictures_by_keyword',    as: :album_add_pictures_by_keyword
   get       'albums/:id/audio_import',          to: 'albums#edit_audio_import',          as: :album_edit_audio_import
+  get       'albums/:id/audio_keyword_join',    to: 'albums#edit_audio_keyword_join',    as: :album_edit_audio_keyword_join
   get       'albums/:id/audio_upload',          to: 'albums#edit_audio_upload',          as: :album_edit_audio_upload
   resources :albums do
     get 'pictures',                to: 'pictures#album_pictures_index',     as: :pictures_pictures_index
