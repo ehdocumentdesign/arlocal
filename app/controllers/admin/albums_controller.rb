@@ -50,6 +50,16 @@ class Admin::AlbumsController < AdminController
   end
 
 
+  def edit_audio_import
+    @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
+  end
+
+
+  def edit_audio_upload
+    @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
+  end
+
+
   def index
     if params[:filter] == nil
       params[:filter] = SorterIndexAdminAlbums.find(@arlocal_settings.admin_index_albums_sorter_id).symbol
