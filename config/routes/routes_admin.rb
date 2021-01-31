@@ -22,6 +22,8 @@ namespace :admin do
 
   patch     'albums/:id/audio_with_keyword',    to: 'albums#add_audio_by_keyword',       as: :album_add_audio_by_keyword
   patch     'albums/:id/pictures_with_keyword', to: 'albums#add_pictures_by_keyword',    as: :album_add_pictures_by_keyword
+  get       'albums/:id/audio_import',          to: 'albums#audio_import',               as: :album_audio_import
+  get       'albums/:id/audio_upload',          to: 'albums#audio_upload',               as: :album_audio_upload
   resources :albums do
     get 'pictures',                to: 'pictures#album_pictures_index',     as: :pictures_pictures_index
     get 'pictures/:id(.:format)',  to: 'pictures#album_pictures_show',      as: :picture

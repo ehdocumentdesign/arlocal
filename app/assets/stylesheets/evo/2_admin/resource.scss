@@ -1,3 +1,11 @@
+.arl_admin_resource_alt_buttons {
+  @include layout-flex-row;
+  margin-bottom: $arl-margin;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $arl-margin;
+  max-width: 16rem;
+}
 .arl_admin_resource_errors {
   margin: 0rem $arl-spacing-wide;
 }
@@ -62,7 +70,7 @@
 .arl_admin_resource_edit_nav_item_current {
   background-color: $color-bg-highlighted;
   color: $color-fg-exciting;
-  font-family: $font-family-admin;  
+  font-family: $font-family-admin;
   font-weight: bold;
 }
 .arl_admin_resource_edit_nav_item_link {
@@ -138,7 +146,7 @@
     border-right: $border;
     display: table-cell;
     padding: $arl-margin-narrow $arl-margin;
-  }  
+  }
   .arl_admin_resource_edit_nav_item_current {
     border-bottom: $border;
     border-left: $border;

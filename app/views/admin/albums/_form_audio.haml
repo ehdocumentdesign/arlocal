@@ -21,6 +21,9 @@
   = form_with(model: [:admin, album], url: admin_album_path(album, pane: :audio), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
     .arl_form_title
       Add audio
+    .arl_admin_resource_alt_buttons
+      = album_audio_admin_button_to_new_import(album)
+      = album_audio_admin_button_to_new_upload(album)
     .arl_form_data
       = f.fields_for :album_audio, album.album_audio.build do |aa|
         .arl_form_data_attr
