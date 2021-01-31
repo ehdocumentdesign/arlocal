@@ -126,18 +126,6 @@ class Video < ApplicationRecord
   end
 
 
-  def source_any_locator
-    case source_type
-    when 'attachment'
-      source_file_path
-    when 'catalog'
-      source_file_path
-    when 'url'
-      source_url
-    end
-  end
-
-
   ### source_catalog_file_path
 
 
@@ -192,6 +180,18 @@ class Video < ApplicationRecord
       true
     else
       false
+    end
+  end
+
+
+  def source_location
+    case source_type
+    when 'attachment'
+      source_file_path
+    when 'catalog'
+      source_file_path
+    when 'url'
+      source_url
     end
   end
 

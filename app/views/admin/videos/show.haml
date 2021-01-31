@@ -20,6 +20,6 @@
 
   .arl_videos_show_text
     .arl_videos_show_text_title= @video.title
-    .arl_videos_show_text_description= "#{@video.source_type}: #{@video.source_any_locator}"
+    .arl_videos_show_text_description= "#{@video.source_type}: #{@video.source_location}"
     .arl_videos_show_text_description= parser_div @video.description_props
     .arl_videos_show_text_copyright= parser_div @video.copyright_props
