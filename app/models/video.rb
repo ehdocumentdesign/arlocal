@@ -46,6 +46,11 @@ class Video < ApplicationRecord
   ### copyright_text_markup
 
 
+  def coverpicture
+    picture
+  end
+
+
   ### date_released
 
 
@@ -67,6 +72,11 @@ class Video < ApplicationRecord
 
   def display_dimension_height
     (source_dimension_height * display_dimension_width) / source_dimension_width
+  end
+
+
+  def does_have_coverpicture
+    coverpicture != nil
   end
 
 
@@ -113,6 +123,18 @@ class Video < ApplicationRecord
 
   def source_attachment_file_path
     recording.blob.filename.to_s
+  end
+
+
+  def source_any_locator
+    case source_type
+    when 'attachment'
+      source_file_path
+    when 'catalog'
+      source_file_path
+    when 'url'
+      source_url
+    end
   end
 
 
@@ -185,6 +207,13 @@ class Video < ApplicationRecord
 
 
   ### title
+
+
+  def year
+    if date_released
+      date_released.year
+    end
+  end
 
 
   private

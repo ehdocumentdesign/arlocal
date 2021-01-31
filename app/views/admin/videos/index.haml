@@ -9,7 +9,8 @@
   %table.arl_admin_videos_index
     - @videos.each do |video|
       %tr.arl_admin_videos_index_video.arl_active_link_container{data: {url: admin_video_path(video.id_admin)}}
-        %td.arl_admin_videos_index_video_title
-          = video.title
-        %td.arl_admin_videos_index_video_html_element
-          = video.source_type
+        %td.arl_videos_index_video_picture
+          = render 'index_video_picture_img', video: video
+        %td.arl_videos_index_video_text
+          = render 'index_video_text_title', video: video
+          = render 'index_video_text_year', video: video
