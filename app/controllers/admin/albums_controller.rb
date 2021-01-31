@@ -19,6 +19,25 @@ class Admin::AlbumsController < AdminController
   end
 
 
+  def audio_create_from_import
+    @album = QueryAlbums.new.find(params[:id])
+    @audio = AudioBuilder.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(source_catalog_file_path: params[:album][:source_catalog_file_path], source_type: 'catalog')
+      b.read_metadata
+      b.join_to_album(@album)
+    end
+    if @audio.save
+      flash[:notice] = 'Audio was successfully imported.'
+      redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
+    else
+      @form_metadata = FormAlbumMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      flash[:notice] = 'Audio could not be imported.'
+      render 'edit'
+    end
+  end
+
+
   def create
     @album = AlbumBuilder.new.default_with(album_params)
     if @album.save

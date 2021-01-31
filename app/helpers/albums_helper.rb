@@ -61,7 +61,7 @@ module AlbumsHelper
 
 
   def album_audio_admin_button_to_new_import(album)
-    button_admin_to_new_import admin_album_edit_audio_import_path(album.id_admin, pane: :audio_import)
+    button_admin_to_new_import edit_admin_album_path(album.id_admin, pane: :audio_import)
   end
 
 

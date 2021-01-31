@@ -39,6 +39,14 @@ class AudioBuilder
   end
 
 
+  def join_to_album(album)
+    determine_mediainfo
+    album_id = album.id
+    album_order = @mediainfo.general.track_position
+    @audio.album_audio.build(album_id: album_id, album_order: album_order)
+  end
+
+
   def read_metadata
     determine_mediainfo
     @audio.audio_artist = "#{@mediainfo.general.performer}"
@@ -101,10 +109,10 @@ class AudioBuilder
 
   def determine_mediainfo
     if mediainfo_is_not_assigned
-      case @audio.source_type.to_sym
-      when :attachment
+      case @audio.source_type
+      when 'attachment'
         determine_mediainfo_from_attachment
-      when :catalog
+      when 'catalog'
         determine_mediainfo_from_catalog
       end
     end
@@ -186,45 +194,3 @@ class AudioBuilder
 
 
 end
-
-
-
-# def prepare_from_import(params_given)
-#   audio = AudioId3Builder.new(default_with(params_given)).import
-#   audio
-# end
-#
-#
-# def prepare_from_import_for_album(params_given)
-#   audio = AudioId3Builder.new(default_with(params_given)).import_to_album
-#   audio
-# end
-#
-#
-# def prepare_from_import_for_event(params_given)
-#   audio = AudioId3Builder.new(default_with(params_given)).import_to_event
-#   audio
-# end
-#
-#
-# def prepare_from_upload(params_given)
-#   audio = AudioId3Builder.new(default_with(params_given)).upload
-#   audio
-# end
-#
-#
-# def prepare_from_upload_for_album(params_given)
-#   audio = AudioId3Builder.new(default_with(params_given)).upload_to_album
-#   audio
-# end
-#
-#
-# def prepare_from_upload_for_event(params_given)
-#   audio = AudioId3Builder.new(default_with(params_given)).upload_to_event
-#   audio
-# end
-#
-#
-# def refresh_id3(audio)
-#   AudioId3Builder.new(audio).refresh
-# end
