@@ -4,7 +4,7 @@ class AudioBuilder
   require 'mediainfo'
 
 
-  attr_reader :audio
+  attr_reader :audio, :mediainfo
 
 
   def self.build(args={})
@@ -14,9 +14,128 @@ class AudioBuilder
   end
 
 
+  def self.create(audio_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+    end
+  end
+
+
+  def self.create_from_import(audio_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_source_type(audio_params)
+      b.read_metadata
+    end
+  end
+
+
+  def self.create_from_import_to_album(audio_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_source_type(audio_params)
+      b.read_metadata
+      b.set_new_album_order
+    end
+  end
+
+
+  def self.create_from_import_to_event(audio_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_source_type(audio_params)
+      b.read_metadata
+      b.set_new_event_order
+    end
+  end
+
+
+  def self.create_from_upload(audio_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_source_type(audio_params)
+      b.read_metadata
+    end
+  end
+
+
+  def self.create_from_upload_to_album(audio_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_source_type(audio_params)
+      b.read_metadata
+      b.set_new_album_order
+    end
+  end
+
+
+  def self.create_from_upload_to_event(audio_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_source_type(audio_params)
+      b.read_metadata
+      b.set_new_event_order
+    end
+  end
+
+
+  def self.create_on_album_from_import(album, params)
+    audio_params = {
+      source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
+      source_type: 'catalog'
+    }
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.join_to_album(album)
+    end
+  end
+
+
+  def self.create_on_album_from_upload(album, params)
+    audio_params = {
+      recording: params['audio_attributes']['0']['recording'],
+      source_type: 'attachment'
+    }
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.join_to_album(album)
+    end
+  end
+
+
+  def self.refresh_id3(audio_params)
+    audio = Audio.find(audio_params['id'])
+    self.build(audio: audio) do |b|
+      b.read_metadata
+    end
+  end
+
+
+  def self.update(audio_params)
+    audio = Audio.find(audio_params['id'])
+    self.build(audio: audio) do |b|
+      b.assign_given_attributes(audio_params)
+    end
+  end
+
+
   def initialize(args={})
-    @arlocal_settings = args[:arlocal_settings]
-    @audio = Audio.new
+    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
+    audio = (Audio === args[:audio]) ? args[:audio] : Audio.new
+
+    @arlocal_settings = arlocal_settings
+    @audio = audio
     @mediainfo = nil
   end
 
@@ -31,6 +150,15 @@ class AudioBuilder
 
   def assign_given_attributes(audio_params)
     @audio.assign_attributes(audio_params)
+  end
+
+
+  def assign_source_type(audio_params)
+    if audio_params.has_key?('recording')
+      @audio.source_type = 'attachment'
+    elsif audio_params.has_key?('source_catalog_file_path')
+      @audio.source_type = 'catalog'
+    end
   end
 
 
@@ -114,14 +242,20 @@ class AudioBuilder
         determine_mediainfo_from_attachment
       when 'catalog'
         determine_mediainfo_from_catalog
+      when nil
+        if @audio.recording.attached?
+          determine_mediainfo_from_attachment
+        end
       end
     end
   end
 
 
   def determine_mediainfo_from_attachment
-    if @audio.recording != nil
-      @mediainfo = MediaInfo.from(@audio.recording.blob)
+    if @audio.recording.attached?
+      @audio.recording.open do |a|
+        @mediainfo = MediaInfo.from(a.path)
+      end
     end
   end
 

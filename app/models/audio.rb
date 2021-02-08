@@ -17,7 +17,7 @@ class Audio < ApplicationRecord
   validates :isrc_designation_code, allow_blank: true, length: { is: 5 }, uniqueness: { scope: :isrc_year_of_reference }
   validates :isrc_registrant_code, allow_blank: true, length: { is: 3 }
   validates :isrc_year_of_reference, allow_blank: true, length: { is: 2 }
-  validates :title, presence: true
+  # validates :title, presence: true
 
 
   has_many :album_audio, dependent: :destroy
@@ -109,6 +109,11 @@ class Audio < ApplicationRecord
   end
 
 
+  def does_have_attached(attribute)
+    self.method(attribute).call.attached? == true
+  end
+
+
   def does_have_events
     events_count.to_i > 0
   end
@@ -121,6 +126,11 @@ class Audio < ApplicationRecord
 
   def does_have_subtitle
     subtitle.to_s.length > 0
+  end
+
+
+  def does_not_have_attached(attribute)
+    self.method(attribute).call.attached? == false
   end
 
 
@@ -252,8 +262,13 @@ class Audio < ApplicationRecord
   ### published
 
 
+  ### recording
+
+
   def source_attachment_file_path
-    recording.blob.filename.to_s
+    if recording.attached?
+      recording.blob.filename.to_s
+    end
   end
 
 
@@ -315,7 +330,13 @@ class Audio < ApplicationRecord
   ### subtitle
 
 
-  ### title
+  def title
+    if super.to_s == ''
+      '(untitled)'
+    else
+      super
+    end
+  end
 
 
   def title_downcase
@@ -333,7 +354,9 @@ class Audio < ApplicationRecord
 
 
   def year
-    date_released.year
+    if date_released
+      date_released.year
+    end
   end
 
 

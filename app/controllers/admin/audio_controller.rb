@@ -1,18 +1,19 @@
 class Admin::AudioController < AdminController
 
 
-  def attachment_add
-    @audio = QueryAudio.new.find(params[:id])
-    @audio.recording.attach(audio_params[:recording])
-    if @audio.save
-      flash[:notice] = 'Attachment added to audio.'
-      redirect_to edit_admin_audio_path(@audio.id, pane: params[:pane])
-    else
-      @form_metadata = FormAudioMetadata.new(pane: params[:pane])
-      flash[:notice] = 'Attachment could not be added to audio.'
-      render 'edit'
-    end
-  end
+  # def attachment_add
+  #   audio = QueryAudio.new.find(params[:id])
+  #   audio.recording.attach(audio_params[:recording])
+  #   @audio = AudioBuilder.update(audio)
+  #   if @audio.save
+  #     flash[:notice] = 'Attachment added to audio.'
+  #     redirect_to edit_admin_audio_path(@audio.id, pane: params[:pane])
+  #   else
+  #     @form_metadata = FormAudioMetadata.new(pane: params[:pane])
+  #     flash[:notice] = 'Attachment could not be added to audio.'
+  #     render 'edit'
+  #   end
+  # end
 
 
   def attachment_purge
@@ -24,10 +25,7 @@ class Admin::AudioController < AdminController
 
 
   def create
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-    end
+    @audio = AudioBuilder.create(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully created.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -43,11 +41,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.read_metadata
-    end
+    @audio = AudioBuilder.create_from_import(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -63,12 +57,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import_to_album
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.read_metadata
-      b.set_new_album_order
-    end
+    @audio = AudioBuilder.create_from_import_to_album(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -84,12 +73,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import_to_event
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.read_metadata
-      b.set_new_event_order
-    end
+    @audio = AudioBuilder.create_from_import_to_event(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -105,11 +89,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.read_metadata
-    end
+    @audio = AudioBuilder.create_from_upload(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -124,12 +104,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_album
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.read_metadata
-      b.set_new_album_order
-    end
+    @audio = AudioBuilder.create_from_upload_to_album(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -145,12 +120,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_event
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.read_metadata
-      b.set_new_event_order
-    end
+    @audio = AudioBuilder.create_from_upload_to_event(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -286,13 +256,8 @@ class Admin::AudioController < AdminController
 
 
   def refresh_id3
-    @audio = AudioBuilder.build do |b|
-      b.find_preexisting(params[:id])
-      b.read_metadata
-      b.update_joined_resources_order
-    end
-    # if @audio.update_and_recount_joined_resources(audio_params)
-    if @audio.update
+    @audio = AudioBuilder.refresh_id3(audio_params)
+    if @audio.save
       flash[:notice] = "Audio was successfully updated."
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: 'id3')
     else
@@ -311,10 +276,7 @@ class Admin::AudioController < AdminController
 
 
   def update
-    @audio = AudioBuilder.build do |b|
-      b.find_preexisting(params[:id])
-      b.assign_given_attributes(audio_params)
-    end
+    @audio = AudioBuilder.update(audio_params)
     if @audio.update_and_recount_joined_resources(audio_params)
       flash[:notice] = 'Audio was successfully updated.'
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: params[:pane])
@@ -359,6 +321,7 @@ class Admin::AudioController < AdminController
       :recording,
       :source_catalog_file_path,
       :source_type,
+      :source_url,
       :subtitle,
       :title,
       album_audio_attributes: [

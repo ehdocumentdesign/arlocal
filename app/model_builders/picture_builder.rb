@@ -27,7 +27,6 @@ class PictureBuilder
 
   def params_default
     {
-      catalog_file_path: '',
       credits_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
       credits_text_markup: '',
       description_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
@@ -35,6 +34,7 @@ class PictureBuilder
       indexed: true,
       published: false,
       show_can_display_title: true,
+      source_catalog_file_path: '',
       title_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id,
       title_text_markup: ''
     }

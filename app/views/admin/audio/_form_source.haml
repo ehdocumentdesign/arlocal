@@ -4,14 +4,15 @@
       audio source
     .arl_form_data
       = render 'form_elements/source_select',    attribute: :source_type,               form: f, selectable: selectable
-      = render 'form_elements/file_field',       attribute: :source_attachment,         form: f
+      = render 'form_elements/file_field',       attribute: :recording,                 form: f, label: :source_attachment
       = render 'form_elements/text_field',       attribute: :source_catalog_file_path,  form: f
       = render 'form_elements/text_field',       attribute: :source_url,                form: f, aside_before: "catalog/#{catalog_path_suffix_audio}/"
     .arl_form_actions
       .arl_form_action_submit
         = f.submit class: :arl_button_form_submit
 
-= form_with(model: [:admin, audio], url: admin_audio_attachment_purge_path(audio, pane: :source), local: true, class: :arl_form) do |f|
-  .arl_form_audio
-    .arl_form_action_submit
-      = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }
+- if audio.does_have_attached(:recording)
+  = form_with(model: [:admin, audio], url: admin_audio_attachment_purge_path(audio, pane: :source), local: true, class: :arl_form) do |f|
+    .arl_form_audio
+      .arl_form_action_submit
+        = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }

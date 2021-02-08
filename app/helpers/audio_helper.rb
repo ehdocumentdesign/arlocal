@@ -109,7 +109,7 @@ module AudioHelper
 
 
   def audio_preferred_url(audio)
-    case audio.source_type.to_sym
+    case audio.source_type
     when 'attachment'
       url_for(audio.recording)
     when 'catalog'

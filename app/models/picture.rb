@@ -12,7 +12,7 @@ class Picture < ApplicationRecord
   before_validation :strip_whitespace_edges_from_entered_text
   before_validation :create_attr_title_without_markup
 
-  validates :catalog_file_path, uniqueness: { allow_blank: true, case_sensitive: true }
+  validates :source_catalog_file_path, uniqueness: { allow_blank: true, case_sensitive: true }
   validates :credits_parser_id, presence: true
   validates :description_parser_id, presence: true
   # Slug gets weird when we add attachments and different source types.
@@ -64,7 +64,7 @@ class Picture < ApplicationRecord
 
   public
 
-  
+
   ### albums_count
 
 
@@ -381,7 +381,9 @@ class Picture < ApplicationRecord
 
 
   def source_attachment_file_path
-    recording.blob.filename.to_s
+    if image.attached?
+      image.blob.filename.to_s
+    end
   end
 
 
@@ -525,8 +527,8 @@ class Picture < ApplicationRecord
 
 
   def strip_any_leading_slash_from_catalog_file_path
-    if self.catalog_file_path[0] == '/'
-      self.catalog_file_path[0] = ''
+    if self.source_catalog_file_path[0] == '/'
+      self.source_catalog_file_path[0] = ''
     end
   end
 

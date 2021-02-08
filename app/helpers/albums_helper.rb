@@ -76,7 +76,7 @@ module AlbumsHelper
 
 
   def album_audio_admin_button_to_new_upload(album)
-    button_admin_to_new_upload admin_album_edit_audio_upload_path(album.id_admin, pane: :audio_upload)
+    button_admin_to_new_upload edit_admin_album_path(album.id_admin, pane: :audio_upload)
   end
 
 

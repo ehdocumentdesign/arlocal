@@ -13,7 +13,6 @@
 
     .arl_form_data_attr.arl_form_layout_blocks
       = f.file_field :recording, multiple: false, direct_upload: true, class: :arl_button_file_upload
-      = f.object.recording_file_name
 
     = f.fields_for :event_audio, f.object.event_audio.build do |ea|
       .arl_form_data_attr.arl_form_layout_blocks

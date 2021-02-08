@@ -13,12 +13,12 @@
 
     .arl_form_data
       .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :catalog_file_path, class: :arl_form_data_label
+        = f.label :source_catalog_file_path, class: :arl_form_data_label
         %aside.arl_form_data_attr_explanation
           Name of file on server. Must be m4a audio. (m4a/mp4/aac)
         %aside.arl_form_data_attr_explanation
           = "#{catalog_audio_filesystem_dirname}/"
-        = f.text_field :catalog_file_path, class: :arl_form_data_text_field
+        = f.text_field :source_catalog_file_path, class: :arl_form_data_text_field
 
     = f.fields_for :album_audio, f.object.album_audio.build do |aa|
       .arl_form_data_attr.arl_form_layout_blocks

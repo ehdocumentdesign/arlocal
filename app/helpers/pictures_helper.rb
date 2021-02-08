@@ -150,7 +150,9 @@ module PicturesHelper
   def picture_preferred_url(picture)
     case picture.source_type
     when 'attachment'
-      url_for(picture.image)
+      if picture.image.attached?
+        url_for(picture.image)
+      end
     when 'catalog'
       catalog_picture_url(picture)
     when nil

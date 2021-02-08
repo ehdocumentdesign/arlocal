@@ -20,19 +20,31 @@ class Admin::AlbumsController < AdminController
 
 
   def audio_create_from_import
-    @album = QueryAlbums.new.find(params[:id])
-    @audio = AudioBuilder.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(source_catalog_file_path: params[:album][:source_catalog_file_path], source_type: 'catalog')
-      b.read_metadata
-      b.join_to_album(@album)
-    end
+    @album = Album.find(params[:id])
+    @audio = AudioBuilder.create_on_album_from_import(@album, album_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
     else
       @form_metadata = FormAlbumMetadata.new(pane: :audio_import, settings: @arlocal_settings)
       flash[:notice] = 'Audio could not be imported.'
+      render 'edit'
+    end
+  end
+
+
+  def audio_create_from_upload
+    @album = Album.find(params[:id])
+    @audio = AudioBuilder.create_on_album_from_upload(@album, album_params)
+    if @audio.save
+      flash[:notice] = 'Audio was successfully uploaded.'
+      redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
+    else
+      if @arlocal_settings.admin_forms_auto_keyword_enabled
+        @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
+      end
+      @form_metadata = FormAlbumMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      flash[:notice] = 'Audio could not be uploaded.'
       render 'edit'
     end
   end
@@ -66,16 +78,6 @@ class Admin::AlbumsController < AdminController
     @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
     @album_neighbors = QueryAlbums.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@album)
     @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
-  end
-
-
-  def edit_audio_import
-    @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
-  end
-
-
-  def edit_audio_upload
-    @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
   end
 
 
@@ -162,6 +164,19 @@ class Admin::AlbumsController < AdminController
         :id,
         :keyword_id,
         :_destroy
+      ],
+      audio_attributes: [
+        :recording,
+        :source_catalog_file_path
+      ]
+    )
+  end
+
+
+  def audio_params
+    params.require(:album).permit(
+      audio_attributes: [
+        :recording
       ]
     )
   end

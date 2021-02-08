@@ -29,12 +29,12 @@ class Album < ApplicationRecord
     end
   end
   has_one :coverpicture, -> { where is_coverpicture: true }, class_name: 'AlbumPicture'
-  # has_one :coverpicture, -> { order(:album_order).first }, class_name: 'AlbumPicture'
 
 
   accepts_nested_attributes_for :album_audio, allow_destroy: true
   accepts_nested_attributes_for :album_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :album_pictures, allow_destroy: true
+  accepts_nested_attributes_for :audio
 
 
 

@@ -69,8 +69,6 @@ class FormAlbumMetadata
   def determine_tab_name(pane)
     if FormAlbumMetadata.categories.include?(pane)
       pane
-    else
-      :album
     end
   end
 
