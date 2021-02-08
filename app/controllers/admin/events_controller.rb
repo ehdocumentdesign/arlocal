@@ -9,6 +9,37 @@ class Admin::EventsController < AdminController
   end
 
 
+  def audio_create_from_import
+    @event = Event.find(params[:id])
+    @audio = AudioBuilder.create_on_event_from_import(@event, event_params)
+    if @audio.save
+      flash[:notice] = 'Audio was successfully imported.'
+      redirect_to edit_admin_event_path(@event.id_admin, pane: :audio)
+    else
+      @form_metadata = FormEventMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      flash[:notice] = 'Audio could not be imported.'
+      render 'edit'
+    end
+  end
+
+
+  def audio_create_from_upload
+    @event = Event.find(params[:id])
+    @audio = AudioBuilder.create_on_event_from_upload(@event, event_params)
+    if @audio.save
+      flash[:notice] = 'Audio was successfully uploaded.'
+      redirect_to edit_admin_event_path(@event.id_admin, pane: :audio)
+    else
+      if @arlocal_settings.admin_forms_auto_keyword_enabled
+        @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
+      end
+      @form_metadata = FormEventMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      flash[:notice] = 'Audio could not be uploaded.'
+      render 'edit'
+    end
+  end
+
+
   def create
     @event = EventBuilder.new.default_with(event_params)
     if @event.save
@@ -102,6 +133,10 @@ class Admin::EventsController < AdminController
       :title_text_markup,
       :venue,
       :venue_url,
+      audio_attributes: [
+        :recording,
+        :source_catalog_file_path
+      ],
       event_audio_attributes: [
         :audio_id,
         :event_order,
@@ -120,7 +155,7 @@ class Admin::EventsController < AdminController
         :is_coverpicture,
         :picture_id,
         :_destroy
-      ]
+      ],
     )
   end
 

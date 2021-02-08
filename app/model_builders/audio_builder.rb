@@ -114,6 +114,34 @@ class AudioBuilder
   end
 
 
+  def self.create_on_event_from_import(event, params)
+    audio_params = {
+      source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
+      source_type: 'catalog'
+    }
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.join_to_event(event)
+    end
+  end
+
+
+  def self.create_on_event_from_upload(event, params)
+    audio_params = {
+      recording: params['audio_attributes']['0']['recording'],
+      source_type: 'attachment'
+    }
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.read_metadata
+      b.join_to_event(event)
+    end
+  end
+
+
   def self.refresh_id3(audio_params)
     audio = Audio.find(audio_params['id'])
     self.build(audio: audio) do |b|
@@ -162,16 +190,19 @@ class AudioBuilder
   end
 
 
-  def find_preexisting(id)
-    @audio = Audio.find(id)
-  end
-
-
   def join_to_album(album)
     determine_mediainfo
     album_id = album.id
     album_order = @mediainfo.general.track_position
     @audio.album_audio.build(album_id: album_id, album_order: album_order)
+  end
+
+
+  def join_to_event(event)
+    determine_mediainfo
+    event_id = event.id
+    event_order = @mediainfo.general.track_position
+    @audio.event_audio.build(event_id: event_id, event_order: event_order)
   end
 
 

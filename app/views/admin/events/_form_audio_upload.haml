@@ -1,0 +1,9 @@
+.arl_form_title
+  Upload audio
+
+= form_with(model: [:admin, event], local: true, method: :post, url: admin_event_audio_create_from_upload_path(event)) do |f|
+  = f.fields_for :audio, f.object.audio.build do |e|
+    .arl_form_data_attr.arl_form_layout_blocks
+      = e.file_field :recording, multiple: false, direct_upload: true, class: :arl_button_file_upload
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

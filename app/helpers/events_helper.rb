@@ -60,6 +60,26 @@ module EventsHelper
   end
 
 
+  def event_audio_admin_button_to_new_import(event)
+    button_admin_to_new_import edit_admin_event_path(event.id_admin, pane: :audio_import)
+  end
+
+
+  def event_audio_admin_button_to_new_join_by_keyword(event)
+    button_admin_to_new_join_by_keyword edit_admin_event_path(event.id_admin, pane: :audio_join_by_keyword)
+  end
+
+
+  def event_audio_admin_button_to_new_join_single(event)
+    button_admin_to_new_join_single edit_admin_event_path(event.id_admin, pane: :audio_join_single)
+  end
+
+
+  def event_audio_admin_button_to_new_upload(event)
+    button_admin_to_new_upload edit_admin_event_path(event.id_admin, pane: :audio_upload)
+  end
+
+
   def event_linkable_city(event)
     if event.does_have_map_url
       event_linked_city(event)
