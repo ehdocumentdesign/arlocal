@@ -35,7 +35,7 @@ class Album < ApplicationRecord
   accepts_nested_attributes_for :album_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :album_pictures, allow_destroy: true
   accepts_nested_attributes_for :audio
-
+  accepts_nested_attributes_for :picture
 
 
   public
@@ -256,12 +256,12 @@ class Album < ApplicationRecord
 
 
   def id_admin
-    slug
+    id
   end
 
 
   def id_public
-    slug
+    id
   end
 
 

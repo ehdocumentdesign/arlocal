@@ -17,7 +17,7 @@ class QueryAlbums
 
 
   def action_admin_edit
-    find_by_slug!(@params[:id])
+    find(@params[:id])
   end
 
 
@@ -40,7 +40,7 @@ class QueryAlbums
 
 
   def action_admin_show
-    find_by_slug!(@params[:id])
+    find(@params[:id])
   end
 
 
@@ -68,7 +68,7 @@ class QueryAlbums
 
 
   def action_public_show
-    @albums.where(published: true).includes({audio: :recording_attachment}, :keywords, :pictures).find_by_slug!(@params[:id])
+    @albums.where(published: true).includes({audio: :recording_attachment}, :keywords, :pictures).find(@params[:id])
   end
 
 
@@ -83,33 +83,33 @@ class QueryAlbums
 
 
   def find(id)
-    @albums.find_by_id!(id)
+    @albums.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment}).find(id)
   end
 
 
-  def find!(id)
-    @albums.find_by_id!(id)
-  end
-
-
-  def find_by_slug(id)
-    @albums.find_by_slug!(id)
-  end
-
-
-  def find_by_slug!(id)
-    @albums.find_by_slug!(id)
-  end
-
-
-  def find_by_slug_with_includes(id)
-    @albums.includes({audio: :recording_attachment}, :keywords, :pictures).find_by_slug!(id)
-  end
-
-
-  def find_including_resources(id)
-    @albums.includes({audio: :recording_attachment}, :keywords, :pictures).find(id)
-  end
+  # def find!(id)
+  #   @albums.find_by_id!(id)
+  # end
+  #
+  #
+  # def find_by_slug(id)
+  #   @albums.find_by_slug!(id)
+  # end
+  #
+  #
+  # def find_by_slug!(id)
+  #   @albums.find_by_slug!(id)
+  # end
+  #
+  #
+  # def find_by_slug_with_includes(id)
+  #   @albums.includes({audio: :recording_attachment}, :keywords, :pictures).find_by_slug!(id)
+  # end
+  #
+  #
+  # def find_including_resources(id)
+  #   @albums.includes({audio: :recording_attachment}, :keywords, :pictures).find(id)
+  # end
 
 
   def order_by_datetime_asc
