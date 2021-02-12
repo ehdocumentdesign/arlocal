@@ -118,6 +118,26 @@ module EventsHelper
   end
 
 
+  def event_picture_admin_button_to_new_import(event)
+    button_admin_to_new_import edit_admin_event_path(event.id_admin, pane: :picture_import)
+  end
+
+
+  def event_picture_admin_button_to_new_join_by_keyword(event)
+    button_admin_to_new_join_by_keyword edit_admin_event_path(event.id_admin, pane: :picture_join_by_keyword)
+  end
+
+
+  def event_picture_admin_button_to_new_join_single(event)
+    button_admin_to_new_join_single edit_admin_event_path(event.id_admin, pane: :picture_join_single)
+  end
+
+
+  def event_picture_admin_button_to_new_upload(event)
+    button_admin_to_new_upload edit_admin_event_path(event.id_admin, pane: :picture_upload)
+  end
+
+
   def event_public_filter_select
     select(
       :events_index,

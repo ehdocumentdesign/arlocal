@@ -24,8 +24,10 @@ namespace :admin do
   patch     'albums/:id/audio_with_keyword',    to: 'albums#add_audio_by_keyword',       as: :album_add_audio_by_keyword
   patch     'albums/:id/pictures_with_keyword', to: 'albums#add_pictures_by_keyword',    as: :album_add_pictures_by_keyword
   patch     'albums/:id/audio_import',          to: 'albums#audio_create_from_import',   as: :album_audio_create_from_import
-  post      'albums/:id/audio_upload',          to: 'albums#audio_create_from_upload',   as: :album_audio_create_from_upload
+  patch     'albums/:id/audio_upload',          to: 'albums#audio_create_from_upload',   as: :album_audio_create_from_upload
   get       'albums/:id/audio_keyword_join',    to: 'albums#edit_audio_keyword_join',    as: :album_edit_audio_keyword_join
+  patch     'albums/:id/picture_import',        to: 'albums#picture_create_from_import', as: :album_picture_create_from_import
+  patch     'albums/:id/picture_upload',        to: 'albums#picture_create_from_upload', as: :album_picture_create_from_upload
   # resources :albums do
   #   get 'pictures',                to: 'pictures#album_pictures_index',     as: :pictures_pictures_index
   #   get 'pictures/:id(.:format)',  to: 'pictures#album_pictures_show',      as: :picture
@@ -62,7 +64,9 @@ namespace :admin do
   patch     'events/:id/audio_import',          to: 'events#audio_create_from_import',   as: :event_audio_create_from_import
   post      'events/:id/audio_upload',          to: 'events#audio_create_from_upload',   as: :event_audio_create_from_upload
   get       'events/:id/audio_keyword_join',    to: 'events#edit_audio_keyword_join',    as: :event_edit_audio_keyword_join
-  # resources :events do
+  patch     'events/:id/picture_import',        to: 'events#picture_create_from_import', as: :event_picture_create_from_import
+  patch     'events/:id/picture_upload',        to: 'events#picture_create_from_upload', as: :event_picture_create_from_upload
+# resources :events do
   #   get 'pictures',                to: 'pictures#event_pictures_index',   as: :pictures_pictures_index
   #   get 'pictures/:id(.:format)',  to: 'pictures#event_pictures_show',    as: :picture
   # end

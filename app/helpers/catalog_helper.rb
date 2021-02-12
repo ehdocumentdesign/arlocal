@@ -64,12 +64,12 @@ module CatalogHelper
 
 
   def catalog_picture_filesystem_path(picture)
-    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_pictures, picture.catalog_file_path)
+    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_pictures, picture.source_catalog_file_path)
   end
 
 
   def catalog_picture_url(picture)
-    asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_pictures, picture.catalog_file_path), skip_pipeline: true
+    asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_pictures, picture.source_catalog_file_path), skip_pipeline: true
   end
 
 

@@ -5,10 +5,11 @@
   .arl_form_data
     .arl_form_data_attr.arl_form_data_blocks
       %ul.arl_form_data_attr_destroy_explanation
-        %li.arl_form_data_attr_destroy_explanation_caveat Image file(s) will remain in the filesystem.
+        %li.arl_form_data_attr_destroy_explanation_caveat Picture will be removed from any albums or events.
+        %li.arl_form_data_attr_destroy_explanation_caveat <em>Imported</em> picture files will remain in the file system.
+        %li.arl_form_data_attr_destroy_explanation_caveat <em>Uploaded</em> picture attachment(s) will be purged.
       %ul.arl_form_data_attr_destroy_explanation
         %li.arl_form_data_attr_destroy_explanation_caveat This action can not be undone.
-  
+
   .arl_form_actions
     = button_admin_submit_to_destroy admin_picture_path(picture.id), data: { confirm:  'Are you sure?' }
-    

@@ -80,6 +80,26 @@ module AlbumsHelper
   end
 
 
+  def album_picture_admin_button_to_new_import(album)
+    button_admin_to_new_import edit_admin_album_path(album.id_admin, pane: :picture_import)
+  end
+
+
+  def album_picture_admin_button_to_new_join_by_keyword(album)
+    button_admin_to_new_join_by_keyword edit_admin_album_path(album.id_admin, pane: :picture_join_by_keyword)
+  end
+
+
+  def album_picture_admin_button_to_new_join_single(album)
+    button_admin_to_new_join_single edit_admin_album_path(album.id_admin, pane: :picture_join_single)
+  end
+
+
+  def album_picture_admin_button_to_new_upload(album)
+    button_admin_to_new_upload edit_admin_album_path(album.id_admin, pane: :picture_upload)
+  end
+
+
   def album_reference_admin_link(album)
     link_to(album.slug, admin_album_path(album.id_admin), class: :arl_link_url)
   end

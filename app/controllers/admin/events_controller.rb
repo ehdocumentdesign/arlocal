@@ -87,6 +87,37 @@ class Admin::EventsController < AdminController
   end
 
 
+  def picture_create_from_import
+    @event = Event.find(params[:id])
+    @picture = PictureBuilder.create_on_event_from_import(@event, event_params)
+    if @picture.save
+      flash[:notice] = 'Picture was successfully imported.'
+      redirect_to edit_admin_event_path(@event.id_admin, pane: :pictures)
+    else
+      @form_metadata = FormEventMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      flash[:notice] = 'Picture could not be imported.'
+      render 'edit'
+    end
+  end
+
+
+  def picture_create_from_upload
+    @event = Event.find(params[:id])
+    @picture = PictureBuilder.create_on_event_from_upload(@event, event_params)
+    if @picture.save
+      flash[:notice] = 'Picture was successfully uploaded.'
+      redirect_to edit_admin_event_path(@event.id_admin, pane: :pictures)
+    else
+      if @arlocal_settings.admin_forms_auto_keyword_enabled
+        @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
+      end
+      @form_metadata = FormEventMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      flash[:notice] = 'Picture could not be uploaded.'
+      render 'edit'
+    end
+  end
+
+
   def show
     @event = QueryEvents.new.find_by_slug(params[:id])
     @event_neighbors = QueryEvents.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@event)
@@ -156,6 +187,10 @@ class Admin::EventsController < AdminController
         :picture_id,
         :_destroy
       ],
+      pictures_attributes: [
+        :image,
+        :source_catalog_file_path
+      ]
     )
   end
 

@@ -17,12 +17,23 @@
       %aside.arl_form_action_explanation
         = "will also detatch any pictures with the #{icon_remove} box checked"
 
-.arl_form.arl_border_top
-  .arl_form_title
-    Add picture
-  .arl_form_actions
-    .arl_admin_resource_alt_buttons
-      = album_picture_admin_button_to_new_join_single(album)
-      = album_picture_admin_button_to_new_import(album)
-      = album_picture_admin_button_to_new_upload(album)
-      = album_picture_admin_button_to_new_join_by_keyword(album)
+- if selectable.has_pictures
+  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Add picture
+    .arl_form_data
+      = f.fields_for :album_pictures, album.album_pictures.build do |ap|
+        = render 'admin/shared/form_picture_selector', form: ap, picture_options: selectable.pictures
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+-# TODO: define what 'selectable.keywords.count >= 1' means semantically, refactor logic into model.
+- if selectable.has_keywords
+  = form_with(model: [:admin, album], url: admin_album_add_pictures_by_keyword_path(album, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], namespace: :add_pictures) do |f|
+    .arl_form_title
+      Add picture(s) by keyword
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_center
+        = f.collection_select :keywords, selectable.keywords, :id, :title_with_pictures_count, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

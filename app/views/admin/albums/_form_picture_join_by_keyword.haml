@@ -1,0 +1,9 @@
+- if selectable.has_keywords
+  = form_with(model: [:admin, album], url: admin_album_add_pictures_by_keyword_path(album, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], namespace: :add_pictures) do |f|
+    .arl_form_title
+      Add picture(s) by keyword
+    .arl_form_data
+      .arl_form_data_attr.arl_form_layout_center
+        = f.collection_select :keywords, selectable.keywords, :id, :title_with_pictures_count, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

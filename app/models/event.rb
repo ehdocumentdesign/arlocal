@@ -40,7 +40,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_audio, allow_destroy: true
   accepts_nested_attributes_for :event_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :event_pictures, allow_destroy: true
-
+  accepts_nested_attributes_for :pictures
 
 
   public

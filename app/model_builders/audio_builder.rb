@@ -158,17 +158,17 @@ class AudioBuilder
   end
 
 
+
+  public
+
+
   def initialize(args={})
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
     audio = (Audio === args[:audio]) ? args[:audio] : Audio.new
-
     @arlocal_settings = arlocal_settings
     @audio = audio
     @mediainfo = nil
   end
-
-
-  public
 
 
   def assign_default_attributes
@@ -273,10 +273,6 @@ class AudioBuilder
         determine_mediainfo_from_attachment
       when 'catalog'
         determine_mediainfo_from_catalog
-      when nil
-        if @audio.recording.attached?
-          determine_mediainfo_from_attachment
-        end
       end
     end
   end

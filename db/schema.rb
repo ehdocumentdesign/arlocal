@@ -194,11 +194,11 @@ ActiveRecord::Schema.define(version: 2021_02_04_052408) do
     t.integer "musicians_parser_id"
     t.text "musicians_text_markup"
     t.boolean "published"
+    t.string "source_type"
     t.string "subtitle"
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "source_type"
     t.index ["source_catalog_file_path"], name: "index_audio_on_source_catalog_file_path"
   end
 
@@ -341,13 +341,13 @@ ActiveRecord::Schema.define(version: 2021_02_04_052408) do
     t.boolean "show_can_display_title"
     t.boolean "show_credit_uses_label"
     t.string "slug"
+    t.string "source_catalog_file_path"
+    t.string "source_type"
     t.integer "title_parser_id"
     t.text "title_text_markup"
     t.string "title_without_markup"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "source_catalog_file_path"
-    t.string "source_type"
     t.index ["slug"], name: "index_pictures_on_slug"
   end
 

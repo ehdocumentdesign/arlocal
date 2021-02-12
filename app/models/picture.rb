@@ -8,11 +8,11 @@ class Picture < ApplicationRecord
 
 
   # before_validation :strip_any_leading_slash_from_catalog_file_path
-  before_validation :affirm_critical_attributes
-  before_validation :strip_whitespace_edges_from_entered_text
-  before_validation :create_attr_title_without_markup
+  # before_validation :affirm_critical_attributes
+  # before_validation :strip_whitespace_edges_from_entered_text
+  # before_validation :create_attr_title_without_markup
 
-  validates :source_catalog_file_path, uniqueness: { allow_blank: true, case_sensitive: true }
+  # validates :source_catalog_file_path, uniqueness: { allow_blank: true, case_sensitive: true }
   validates :credits_parser_id, presence: true
   validates :description_parser_id, presence: true
   # Slug gets weird when we add attachments and different source types.
@@ -231,6 +231,11 @@ class Picture < ApplicationRecord
   end
 
 
+  def does_have_attached(attribute)
+    self.method(attribute).call.attached? == true
+  end
+
+
   # ### REMOVE
   # # TODO: This verbage fails if additional objects become attachable.
   # def does_have_attachment
@@ -284,6 +289,11 @@ class Picture < ApplicationRecord
   # def does_not_have_catalog_file_path
   #   catalog_file_path.to_s == ''
   # end
+
+
+  def does_not_have_attached(attribute)
+    self.method(attribute).call.attached? == false
+  end
 
 
   def does_not_have_slug
@@ -383,6 +393,8 @@ class Picture < ApplicationRecord
   def source_attachment_file_path
     if image.attached?
       image.blob.filename.to_s
+    else
+      ''
     end
   end
 

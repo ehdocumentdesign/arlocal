@@ -1,24 +1,6 @@
 class Admin::AlbumsController < AdminController
 
 
-  def add_audio_by_keyword
-    @keyword = QueryKeywords.new.find(params[:album][:keywords])
-    @album = QueryAlbums.new.find(params[:id])
-    @album.audio << QueryAudio.new.find_by_keyword(@keyword)
-    flash[:notice] = 'Album was successfully updated.'
-    redirect_to edit_admin_album_path(@album, pane: params[:pane])
-  end
-
-
-  def add_pictures_by_keyword
-    @keyword = QueryKeywords.new.find(params[:album][:keywords])
-    @album = QueryAlbums.new.find(params[:id])
-    @album.pictures << QueryPictures.new.find_by_keyword(@keyword)
-    flash[:notice] = 'Album was successfully updated.'
-    redirect_to edit_admin_album_path(@album, pane: params[:pane])
-  end
-
-
   def audio_create_from_import
     @album = Album.find(params[:id])
     @audio = AudioBuilder.create_on_album_from_import(@album, album_params)
@@ -47,6 +29,15 @@ class Admin::AlbumsController < AdminController
       flash[:notice] = 'Audio could not be uploaded.'
       render 'edit'
     end
+  end
+
+
+  def audio_join_by_keyword
+    @keyword = QueryKeywords.new.find(params[:album][:keywords])
+    @album = QueryAlbums.new.find(params[:id])
+    @album.audio << QueryAudio.new.find_by_keyword(@keyword)
+    flash[:notice] = 'Album was successfully updated.'
+    redirect_to edit_admin_album_path(@album, pane: params[:pane])
   end
 
 
@@ -96,6 +87,46 @@ class Admin::AlbumsController < AdminController
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       @album.album_keywords.build(keyword_id: @auto_keyword.keyword_id)
     end
+  end
+
+
+  def picture_create_from_import
+    @album = Album.find(params[:id])
+    @picture = PictureBuilder.create_on_album_from_import(@album, album_params)
+    if @picture.save
+      flash[:notice] = 'Picture was successfully imported.'
+      redirect_to edit_admin_album_path(@album.id_admin, pane: :pictures)
+    else
+      @form_metadata = FormAlbumMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      flash[:notice] = 'Picture could not be imported.'
+      render 'edit'
+    end
+  end
+
+
+  def picture_create_from_upload
+    @album = Album.find(params[:id])
+    @picture = PictureBuilder.create_on_album_from_upload(@album, album_params)
+    if @picture.save
+      flash[:notice] = 'Picture was successfully uploaded.'
+      redirect_to edit_admin_album_path(@album.id_admin, pane: :pictures)
+    else
+      if @arlocal_settings.admin_forms_auto_keyword_enabled
+        @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
+      end
+      @form_metadata = FormAlbumMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      flash[:notice] = 'Picture could not be uploaded.'
+      render 'edit'
+    end
+  end
+
+
+  def pictures_join_by_keyword
+    @keyword = QueryKeywords.new.find(params[:album][:keywords])
+    @album = QueryAlbums.new.find(params[:id])
+    @album.pictures << QueryPictures.new.find_by_keyword(@keyword)
+    flash[:notice] = 'Album was successfully updated.'
+    redirect_to edit_admin_album_path(@album, pane: params[:pane])
   end
 
 
@@ -168,15 +199,10 @@ class Admin::AlbumsController < AdminController
       audio_attributes: [
         :recording,
         :source_catalog_file_path
-      ]
-    )
-  end
-
-
-  def audio_params
-    params.require(:album).permit(
-      audio_attributes: [
-        :recording
+      ],
+      pictures_attributes: [
+        :image,
+        :source_catalog_file_path
       ]
     )
   end
