@@ -3,7 +3,7 @@ class Admin::AlbumsController < AdminController
 
   def audio_create_from_import
     @album = Album.find(params[:id])
-    @audio = AudioBuilder.create_on_album_from_import(@album, album_params)
+    @audio = AudioBuilder.create_from_import_nested_within_album(@album, album_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
@@ -17,7 +17,7 @@ class Admin::AlbumsController < AdminController
 
   def audio_create_from_upload
     @album = Album.find(params[:id])
-    @audio = AudioBuilder.create_on_album_from_upload(@album, album_params)
+    @audio = AudioBuilder.create_from_upload_nested_within_album(@album, album_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
@@ -92,7 +92,7 @@ class Admin::AlbumsController < AdminController
 
   def picture_create_from_import
     @album = Album.find(params[:id])
-    @picture = PictureBuilder.create_on_album_from_import(@album, album_params)
+    @picture = PictureBuilder.create_from_import_nested_within_album(@album, album_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :pictures)
@@ -106,7 +106,7 @@ class Admin::AlbumsController < AdminController
 
   def picture_create_from_upload
     @album = Album.find(params[:id])
-    @picture = PictureBuilder.create_on_album_from_upload(@album, album_params)
+    @picture = PictureBuilder.create_from_upload_nested_within_album(@album, album_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :pictures)

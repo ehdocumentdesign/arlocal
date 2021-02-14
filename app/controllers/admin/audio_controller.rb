@@ -57,7 +57,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import_to_album
-    @audio = AudioBuilder.create_from_import_to_album(audio_params)
+    @audio = AudioBuilder.create_from_import_and_join_nested_album(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -73,7 +73,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import_to_event
-    @audio = AudioBuilder.create_from_import_to_event(audio_params)
+    @audio = AudioBuilder.create_from_import_and_join_nested_event(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -104,7 +104,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_album
-    @audio = AudioBuilder.create_from_upload_to_album(audio_params)
+    @audio = AudioBuilder.create_from_upload_and_join_nested_album(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -120,7 +120,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_event
-    @audio = AudioBuilder.create_from_upload_to_event(audio_params)
+    @audio = AudioBuilder.create_from_upload_and_join_nested_event(audio_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)

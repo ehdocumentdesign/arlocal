@@ -4,7 +4,19 @@ class PictureBuilder
   require 'exiftool'
 
 
-  attr_reader :metadata, :picture
+  attr_reader :picture
+
+
+  def initialize(args={})
+    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
+    picture = (Picture === args[:picture]) ? args[:picture] : Picture.new
+    @arlocal_settings = arlocal_settings
+    @metadata = nil
+    @picture = picture
+  end
+
+
+  protected
 
 
   def self.build(args={})
@@ -14,8 +26,15 @@ class PictureBuilder
   end
 
 
+  def self.build_with_defaults
+    self.build do |b|
+      b.assign_default_attributes
+    end
+  end
+
+
   def self.collection_with_leading_nil(collection)
-    [nil_picture].concat(collection.to_a)
+    [self.nil_picture].concat(collection.to_a)
   end
 
 
@@ -27,7 +46,25 @@ class PictureBuilder
   end
 
 
-  def self.create_on_album_from_import(album, params)
+  def self.create_from_import(params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(params)
+      b.assign_source_type(params)
+      b.assign_metadata
+    end
+  end
+
+
+  def self.create_from_import_and_join_nested_album(params)
+  end
+
+
+  def self.create_from_import_and_join_nested_event(params)
+  end
+
+
+  def self.create_from_import_nested_within_album(album, params)
     picture_params = {
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
@@ -41,21 +78,7 @@ class PictureBuilder
   end
 
 
-  def self.create_on_album_from_upload(album, params)
-    picture_params = {
-      image: params['pictures_attributes']['0']['image'],
-      source_type: 'attachment'
-    }
-    self.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
-      b.join_to_album(album)
-    end
-  end
-
-
-  def self.create_on_event_from_import(event, params)
+  def self.create_from_import_nested_within_event(event, params)
     picture_params = {
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
@@ -69,7 +92,33 @@ class PictureBuilder
   end
 
 
-  def self.create_on_event_from_upload(event, params)
+  def self.create_from_upload(params)
+  end
+
+
+  def self.create_from_upload_and_join_nested_album(params)
+  end
+
+
+  def self.create_from_upload_and_join_nested_event(params)
+  end
+
+
+  def self.create_from_upload_nested_within_album(album, params)
+    picture_params = {
+      image: params['pictures_attributes']['0']['image'],
+      source_type: 'attachment'
+    }
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(picture_params)
+      b.assign_metadata
+      b.join_to_album(album)
+    end
+  end
+
+
+  def self.create_from_upload_nested_within_event(event, params)
     picture_params = {
       image: params['pictures_attributes']['0']['image'],
       source_type: 'attachment'
@@ -81,18 +130,23 @@ class PictureBuilder
       b.join_to_event(event)
     end
   end
+
+
+  def self.nil_picture
+    Picture.new(
+      id: nil,
+      title_without_markup: '(none)'
+    )
+  end
+
 
 
   public
 
 
-  def initialize(args={})
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
-    picture = (Picture === args[:picture]) ? args[:picture] : Picture.new
-    @arlocal_settings = arlocal_settings
-    @metadata = nil
-    @picture = picture
-  end
+  # TODO: these should be singleton methods?
+
+  # TODO: these should be singleton methods?
 
 
   def assign_default_attributes
@@ -105,7 +159,6 @@ class PictureBuilder
   end
 
 
-
   def assign_metadata
     determine_metadata
     @picture.datetime_from_exif = determine_time_from_exif_formatting(@metadata.raw[:date_time_original])
@@ -113,25 +166,13 @@ class PictureBuilder
   end
 
 
-    # TODO: these should be singleton methods?
-
-        def default
-          Picture.new(params_default)
-        end
-
-        def default_with(params_given)
-          params = params_default.merge(params_given)
-          Picture.new(params)
-        end
-
-        def nil_picture
-          Picture.new(
-            id: nil,
-            title_without_markup: '(none)'
-          )
-        end
-
-
+  def assign_source_type(params)
+    if params.has_key?('recording')
+      @picture.source_type = 'attachment'
+    elsif params.has_key?('source_catalog_file_path')
+      @picture.source_type = 'catalog'
+    end
+  end
 
 
   def join_to_album(album)
@@ -144,6 +185,7 @@ class PictureBuilder
     event_id = event.id
     @picture.event_pictures.build(event_id: event_id)
   end
+
 
 
   private
@@ -189,12 +231,15 @@ class PictureBuilder
 
   def determine_time_from_exif_formatting(time_string_exif)
     if time_string_exif
-      time_array = /(\d+):(\d+):(\d+)\s(\d+):(\d+):(\d+)(-?\d*:?\d*)/.match(time_string_exif)
-      Time.new(*time_array[1..7].reject{ |t| t == '' })
+      time_match_data = /(\d+):(\d+):(\d+)\s(\d+):(\d+):(\d+)(-?\d*:?\d*)/.match(time_string_exif)
+      if time_match_data[7].to_s == ''
+        time_array = time_match_data[1..6]
+      else
+        time_array = time_match_data[1..7]
+      end
+      Time.new(*time_array)
     end
   end
-
-
 
 
   def params_default
@@ -212,25 +257,5 @@ class PictureBuilder
     }
   end
 
-
-  # def prepare_from_import(params_given)
-  #   picture = PictureExifBuilder.new(default_with(params_given)).prepare_from_import
-  #   picture.title_text_markup = "#{picture.catalog_basename} #{picture.datetime.to_s}"
-  #   picture
-  # end
-  #
-  #
-  # def prepare_from_upload(params_given)
-  #   picture = PictureExifBuilder.new(default_with(params_given)).prepare_from_upload
-  #   picture.title_text_markup = "#{picture.image_file_name} #{picture.datetime.to_s}"
-  #   picture
-  # end
-  #
-  #
-  # def refresh_exif(picture)
-  #   picture = PictureExifBuilder.new(picture).refresh
-  #   picture
-  # end
-  #
 
 end

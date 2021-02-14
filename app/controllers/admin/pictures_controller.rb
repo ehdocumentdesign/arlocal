@@ -66,7 +66,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_import
-    @picture = PictureBuilder.new.default_with(picture_params)
+    @picture = PictureBuilder.create_from_import(picture_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -82,7 +82,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_import_to_album
-    @picture = PictureBuilder.new.default_with(picture_params)
+    @picture = PictureBuilder.create_from_import_and_join_nested_album(picture_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -98,7 +98,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_import_to_event
-    @picture = PictureBuilder.new.default_with(picture_params)
+    @picture = PictureBuilder.create_from_import_and_join_nested_event(picture_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -114,7 +114,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_upload
-    @picture = PictureBuilder.new.default_with(picture_params)
+    @picture = PictureBuilder.create_from_upload(picture_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -129,7 +129,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_upload_to_album
-    @picture = PictureBuilder.new.default_with(picture_params)
+    @picture = PictureBuilder.create_from_upload_and_join_nested_album(picture_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -145,7 +145,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_upload_to_event
-    @picture = PictureBuilder.new.default_with(picture_params)
+    @picture = PictureBuilder.create_from_upload_and_join_nested_event(picture_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -204,7 +204,7 @@ class Admin::PicturesController < AdminController
 
 
   def new
-    @picture = PictureBuilder.new.default
+    @picture = PictureBuilder.build_with_defaults
     @form_metadata = FormPictureMetadata.new
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -218,7 +218,7 @@ class Admin::PicturesController < AdminController
 
 
   def new_import_single
-    @picture = PictureBuilder.new.default
+    @picture = PictureBuilder.build_with_defaults
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
     end
@@ -226,7 +226,7 @@ class Admin::PicturesController < AdminController
 
 
   def new_import_to_album
-    @picture = PictureBuilder.new.default
+    @picture = PictureBuilder.build_with_defaults
     @albums = QueryAlbums.new.order_by_title_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -235,7 +235,7 @@ class Admin::PicturesController < AdminController
 
 
   def new_import_to_event
-    @picture = PictureBuilder.new.default
+    @picture = PictureBuilder.build_with_defaults
     @events = QueryEvents.new.order_by_start_time_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -248,7 +248,7 @@ class Admin::PicturesController < AdminController
 
 
   def new_upload_single
-    @picture = PictureBuilder.new.default
+    @picture = PictureBuilder.build_with_defaults
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
     end
@@ -256,7 +256,7 @@ class Admin::PicturesController < AdminController
 
 
   def new_upload_to_album
-    @picture = PictureBuilder.new.default
+    @picture = PictureBuilder.build_with_defaults
     @albums = QueryAlbums.new.order_by_title_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -265,7 +265,7 @@ class Admin::PicturesController < AdminController
 
 
   def new_upload_to_event
-    @picture = PictureBuilder.new.default
+    @picture = PictureBuilder.build_with_defaults
     @events = QueryEvents.new.order_by_start_time_asc
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)

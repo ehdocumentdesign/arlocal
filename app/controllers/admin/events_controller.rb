@@ -11,7 +11,7 @@ class Admin::EventsController < AdminController
 
   def audio_create_from_import
     @event = Event.find(params[:id])
-    @audio = AudioBuilder.create_on_event_from_import(@event, event_params)
+    @audio = AudioBuilder.create_from_import_nested_within_event(@event, event_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :audio)
@@ -25,7 +25,7 @@ class Admin::EventsController < AdminController
 
   def audio_create_from_upload
     @event = Event.find(params[:id])
-    @audio = AudioBuilder.create_on_event_from_upload(@event, event_params)
+    @audio = AudioBuilder.create_from_upload_nested_within_event(@event, event_params)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :audio)
@@ -89,7 +89,7 @@ class Admin::EventsController < AdminController
 
   def picture_create_from_import
     @event = Event.find(params[:id])
-    @picture = PictureBuilder.create_on_event_from_import(@event, event_params)
+    @picture = PictureBuilder.create_from_import_nested_within_event(@event, event_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :pictures)
@@ -103,7 +103,7 @@ class Admin::EventsController < AdminController
 
   def picture_create_from_upload
     @event = Event.find(params[:id])
-    @picture = PictureBuilder.create_on_event_from_upload(@event, event_params)
+    @picture = PictureBuilder.create_from_upload_nested_within_event(@event, event_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :pictures)
