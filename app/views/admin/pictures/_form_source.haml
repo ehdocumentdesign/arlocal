@@ -1,4 +1,4 @@
-= form_with(model: [:admin, picture], local: true, class: :arl_form) do |f|
+= form_with(model: [:admin, picture], url: admin_audio_path(audio, pane: :source), local: true, class: :arl_form) do |f|
   .arl_form_picture
     .arl_form_title
       Picture source

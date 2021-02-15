@@ -292,7 +292,7 @@ class Admin::PicturesController < AdminController
 
 
   def update
-    @picture = QueryPictures.new.find(params[:id])
+    @picture = Picture.find(params[:id])
     if @picture.update_and_recount_joined_resources(picture_params)
       flash[:notice] = 'Picture was successfully updated.'
       redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
