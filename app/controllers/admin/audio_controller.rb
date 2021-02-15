@@ -276,7 +276,7 @@ class Admin::AudioController < AdminController
 
 
   def update
-    @audio = AudioBuilder.update(audio_params)
+    @audio = Audio.find(params[:id])
     if @audio.update_and_recount_joined_resources(audio_params)
       flash[:notice] = 'Audio was successfully updated.'
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: params[:pane])
