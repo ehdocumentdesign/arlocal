@@ -4,7 +4,20 @@ class AudioBuilder
   require 'mediainfo'
 
 
-  attr_reader :audio, :mediainfo
+  attr_reader :audio
+
+
+  def initialize(args={})
+    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
+    audio = (Audio === args[:audio]) ? args[:audio] : Audio.new
+    @arlocal_settings = arlocal_settings
+    @audio = audio
+    @metadata = nil
+  end
+
+
+
+  protected
 
 
   def self.build(args={})
@@ -14,107 +27,114 @@ class AudioBuilder
   end
 
 
-  def self.create(audio_params)
-    self.build do |b|
+  def self.build_with_defaults(args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+    end
+  end
+
+
+  def self.create(audio_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
     end
   end
 
 
-  def self.create_from_import(audio_params)
-    self.build do |b|
+  def self.create_from_import(audio_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.assign_source_type(audio_params)
-      b.read_metadata
+      b.assign_source_type('catalog')
+      b.assign_metadata
     end
   end
 
 
-  def self.create_from_import_and_join_nested_album(audio_params)
-    self.build do |b|
+  def self.create_from_import_and_join_nested_album(audio_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.assign_source_type(audio_params)
-      b.read_metadata
+      b.assign_source_type('catalog')
+      b.assign_metadata
       b.set_new_album_order
     end
   end
 
 
-  def self.create_from_import_and_join_nested_event(audio_params)
-    self.build do |b|
+  def self.create_from_import_and_join_nested_event(audio_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.assign_source_type(audio_params)
-      b.read_metadata
+      b.assign_source_type('catalog')
+      b.assign_metadata
       b.set_new_event_order
     end
   end
 
 
-  def self.create_from_import_nested_within_album(album, params)
+  def self.create_from_import_nested_within_album(album, params, args={})
     audio_params = {
       source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build do |b|
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.read_metadata
+      b.assign_metadata
       b.join_to_album(album)
     end
   end
 
 
-  def self.create_from_import_nested_within_event(event, params)
+  def self.create_from_import_nested_within_event(event, params, args={})
     audio_params = {
       source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build do |b|
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.read_metadata
+      b.assign_metadata
       b.join_to_event(event)
     end
   end
 
 
-  def self.create_from_upload(audio_params)
-    self.build do |b|
+  def self.create_from_upload(audio_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.assign_source_type(audio_params)
-      b.read_metadata
+      b.assign_source_type('attachment')
+      b.assign_metadata
     end
   end
 
 
-  def self.create_from_upload_and_join_nested_album(audio_params)
-    self.build do |b|
+  def self.create_from_upload_and_join_nested_album(audio_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.assign_source_type(audio_params)
-      b.read_metadata
+      b.assign_source_type('attachment')
+      b.assign_metadata
       b.set_new_album_order
     end
   end
 
 
-  def self.create_from_upload_and_join_nested_event(audio_params)
-    self.build do |b|
+  def self.create_from_upload_and_join_nested_event(audio_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.assign_source_type(audio_params)
-      b.read_metadata
+      b.assign_source_type('attachment')
+      b.assign_metadata
       b.set_new_event_order
     end
   end
 
 
-  def self.create_from_upload_nested_within_album(album, params)
+  def self.create_from_upload_nested_within_album(album, params, args={})
     audio_params = {
       recording: params['audio_attributes']['0']['recording'],
       source_type: 'attachment'
@@ -122,13 +142,13 @@ class AudioBuilder
     self.build do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.read_metadata
+      b.assign_metadata
       b.join_to_album(album)
     end
   end
 
 
-  def self.create_from_upload_nested_within_event(event, params)
+  def self.create_from_upload_nested_within_event(event, params, args={})
     audio_params = {
       recording: params['audio_attributes']['0']['recording'],
       source_type: 'attachment'
@@ -136,7 +156,7 @@ class AudioBuilder
     self.build do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
-      b.read_metadata
+      b.assign_metadata
       b.join_to_event(event)
     end
   end
@@ -145,30 +165,13 @@ class AudioBuilder
   def self.refresh_id3(audio_params)
     audio = Audio.find(audio_params['id'])
     self.build(audio: audio) do |b|
-      b.read_metadata
-    end
-  end
-
-
-  def self.update(audio_params)
-    audio = Audio.find(audio_params['id'])
-    self.build(audio: audio) do |b|
-      b.assign_given_attributes(audio_params)
+      b.assign_metadata
     end
   end
 
 
 
   public
-
-
-  def initialize(args={})
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
-    audio = (Audio === args[:audio]) ? args[:audio] : Audio.new
-    @arlocal_settings = arlocal_settings
-    @audio = audio
-    @mediainfo = nil
-  end
 
 
   def assign_default_attributes
@@ -181,61 +184,57 @@ class AudioBuilder
   end
 
 
-  def assign_source_type(audio_params)
-    if audio_params.has_key?('recording')
-      @audio.source_type = 'attachment'
-    elsif audio_params.has_key?('source_catalog_file_path')
-      @audio.source_type = 'catalog'
-    end
+  def assign_metadata
+    determine_metadata
+    @audio.audio_artist = "#{@metadata.general.performer}"
+    @audio.copyright_text_markup = "© #{@metadata.general.recorded_date}"
+    @audio.title = "#{@metadata.general.track}"
+    @audio.duration_mins = @metadata.general.duration.divmod(1000)[0].divmod(60)[0]
+    @audio.duration_secs = @metadata.general.duration.divmod(1000)[0].divmod(60)[1]
+    @audio.duration_mils = @metadata.general.duration.divmod(1000)[1]
+  end
+
+
+  def assign_source_type(source_type)
+    @audio.source_type = source_type
   end
 
 
   def join_to_album(album)
-    determine_mediainfo
+    determine_metadata
     album_id = album.id
-    album_order = @mediainfo.general.track_position
+    album_order = @metadata.general.track_position
     @audio.album_audio.build(album_id: album_id, album_order: album_order)
   end
 
 
   def join_to_event(event)
-    determine_mediainfo
+    determine_metadata
     event_id = event.id
-    event_order = @mediainfo.general.track_position
+    event_order = @metadata.general.track_position
     @audio.event_audio.build(event_id: event_id, event_order: event_order)
   end
 
 
-  def read_metadata
-    determine_mediainfo
-    @audio.audio_artist = "#{@mediainfo.general.performer}"
-    @audio.copyright_text_markup = "© #{@mediainfo.general.recorded_date}"
-    @audio.title = "#{@mediainfo.general.track}"
-    @audio.duration_mins = @mediainfo.general.duration.divmod(1000)[0].divmod(60)[0]
-    @audio.duration_secs = @mediainfo.general.duration.divmod(1000)[0].divmod(60)[1]
-    @audio.duration_mils = @mediainfo.general.duration.divmod(1000)[1]
-  end
-
-
   def set_new_album_order
-    determine_mediainfo
-    @audio.album_audio.first.album_order = @mediainfo.general.track_position
+    determine_metadata
+    @audio.album_audio.first.album_order = @metadata.general.track_position
   end
 
 
   def set_new_event_order
-    determine_mediainfo
-    @audio.event_audio.first.event_order = @mediainfo.general.track_position
+    determine_metadata
+    @audio.event_audio.first.event_order = @metadata.general.track_position
   end
 
 
   def update_joined_albums_order
-    determine_mediainfo
+    determine_metadata
     if @audio.does_have_albums
-      album = Album.find_by_title(@mediainfo.general.album)
+      album = Album.find_by_title(@metadata.general.album)
       if album
         @audio.album_audio.where(album_id: album.id).each do |aa|
-          aa.album_order = @mediainfo.general.track_position
+          aa.album_order = @metadata.general.track_position
           aa.save
         end
       end
@@ -245,10 +244,10 @@ class AudioBuilder
 
   def update_joined_events_order
     if @audio.does_have_events
-      event = Event.find_by_title(@mediainfo.general.album)
+      event = Event.find_by_title(@metadata.general.album)
       if event
         @audio.event_audio.where(event_id: event.id).each do |ea|
-          ea.event_order = @mediainfo.general.track_position
+          ea.event_order = @metadata.general.track_position
           ea.save
         end
       end
@@ -266,41 +265,41 @@ class AudioBuilder
   private
 
 
-  def determine_mediainfo
-    if mediainfo_is_not_assigned
+  def determine_metadata
+    if metadata_is_not_assigned
       case @audio.source_type
       when 'attachment'
-        determine_mediainfo_from_attachment
+        determine_metadata_from_attachment
       when 'catalog'
-        determine_mediainfo_from_catalog
+        determine_metadata_from_catalog
       end
     end
   end
 
 
-  def determine_mediainfo_from_attachment
+  def determine_metadata_from_attachment
     if @audio.recording.attached?
       @audio.recording.open do |a|
-        @mediainfo = MediaInfo.from(a.path)
+        @metadata = MediaInfo.from(a.path)
       end
     end
   end
 
 
-  def determine_mediainfo_from_catalog
+  def determine_metadata_from_catalog
     if File.exists?(CatalogHelper.catalog_audio_filesystem_path(@audio))
-      @mediainfo = MediaInfo.from(CatalogHelper.catalog_audio_filesystem_path(@audio))
+      @metadata = MediaInfo.from(CatalogHelper.catalog_audio_filesystem_path(@audio))
     end
   end
 
 
-  def mediainfo_is_assigned
-    MediaInfo::Tracks === @mediainfo
+  def metadata_is_assigned
+    MediaInfo::Tracks === @metadata
   end
 
 
-  def mediainfo_is_not_assigned
-    mediainfo_is_assigned == false
+  def metadata_is_not_assigned
+    metadata_is_assigned == false
   end
 
 
@@ -329,8 +328,6 @@ class AudioBuilder
   def params_default_date_released
     if params_default_date_released_enabled
       @arlocal_settings.audio_default_date_released
-    else
-      nil
     end
   end
 

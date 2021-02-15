@@ -13,7 +13,6 @@
 
     .arl_form_data_attr.arl_form_layout_blocks
       = f.file_field :image, multiple: false, direct_upload: true, class: :arl_button_file_upload
-      = f.object.image_file_name
 
     = f.fields_for :event_pictures, f.object.event_pictures.build do |ep|
       .arl_form_data_attr.arl_form_layout_blocks

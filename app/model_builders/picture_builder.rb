@@ -26,8 +26,8 @@ class PictureBuilder
   end
 
 
-  def self.build_with_defaults
-    self.build do |b|
+  def self.build_with_defaults(args={})
+    self.build(args) do |b|
       b.assign_default_attributes
     end
   end
@@ -38,38 +38,52 @@ class PictureBuilder
   end
 
 
-  def self.create(picture_params)
-    self.build do |b|
+  def self.create(picture_params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
     end
   end
 
 
-  def self.create_from_import(params)
-    self.build do |b|
+  def self.create_from_import(params, args={})
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
-      b.assign_source_type(params)
+      b.assign_source_type('catalog')
       b.assign_metadata
     end
   end
 
 
-  def self.create_from_import_and_join_nested_album(params)
+  def self.create_from_import_and_join_nested_album(params, args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(params)
+      b.assign_source_type('catalog')
+      b.assign_metadata
+      # b.set_new_album_order
+    end
   end
 
 
-  def self.create_from_import_and_join_nested_event(params)
+  def self.create_from_import_and_join_nested_event(params, args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(params)
+      b.assign_source_type('catalog')
+      b.assign_metadata
+      # b.set_new_event_order
+    end
   end
 
 
-  def self.create_from_import_nested_within_album(album, params)
+  def self.create_from_import_nested_within_album(album, params, args={})
     picture_params = {
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build do |b|
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata
@@ -78,12 +92,12 @@ class PictureBuilder
   end
 
 
-  def self.create_from_import_nested_within_event(event, params)
+  def self.create_from_import_nested_within_event(event, params, args={})
     picture_params = {
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build do |b|
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata
@@ -92,24 +106,44 @@ class PictureBuilder
   end
 
 
-  def self.create_from_upload(params)
+  def self.create_from_upload(params, args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(params)
+      b.assign_source_type('attachment')
+      b.assign_metadata
+    end
   end
 
 
-  def self.create_from_upload_and_join_nested_album(params)
+  def self.create_from_upload_and_join_nested_album(params, args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(params)
+      b.assign_source_type('attachment')
+      b.assign_metadata
+      # b.set_new_album_order
+    end
   end
 
 
-  def self.create_from_upload_and_join_nested_event(params)
+  def self.create_from_upload_and_join_nested_event(params, args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(params)
+      b.assign_source_type('attachment')
+      b.assign_metadata
+      # b.set_new_event_order
+    end
   end
 
 
-  def self.create_from_upload_nested_within_album(album, params)
+  def self.create_from_upload_nested_within_album(album, params, args={})
     picture_params = {
       image: params['pictures_attributes']['0']['image'],
       source_type: 'attachment'
     }
-    self.build do |b|
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata
@@ -118,12 +152,12 @@ class PictureBuilder
   end
 
 
-  def self.create_from_upload_nested_within_event(event, params)
+  def self.create_from_upload_nested_within_event(event, params, args={})
     picture_params = {
       image: params['pictures_attributes']['0']['image'],
       source_type: 'attachment'
     }
-    self.build do |b|
+    self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata
@@ -144,11 +178,6 @@ class PictureBuilder
   public
 
 
-  # TODO: these should be singleton methods?
-
-  # TODO: these should be singleton methods?
-
-
   def assign_default_attributes
     @picture.assign_attributes(params_default)
   end
@@ -166,12 +195,8 @@ class PictureBuilder
   end
 
 
-  def assign_source_type(params)
-    if params.has_key?('recording')
-      @picture.source_type = 'attachment'
-    elsif params.has_key?('source_catalog_file_path')
-      @picture.source_type = 'catalog'
-    end
+  def assign_source_type(source_type)
+    @picture.source_type = source_type
   end
 
 
@@ -185,6 +210,14 @@ class PictureBuilder
     event_id = event.id
     @picture.event_pictures.build(event_id: event_id)
   end
+
+
+  # def set_new_album_order
+  # end
+
+
+  # def set_new_event_order
+  # end
 
 
 

@@ -25,7 +25,7 @@ class QueryPictures
 
 
   def action_admin_forms_selectable_pictures
-    [PictureBuilder.new.nil_picture].concat(pictures_admin_forms_selectable)
+    [PictureBuilder.nil_picture].concat(pictures_admin_forms_selectable)
   end
 
 
@@ -44,10 +44,10 @@ class QueryPictures
       @pictures.sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
       # order_by_filepath_asc
-      @pictures.sort_by{ |p| [p.source_type, p.source_file_path] }
+      @pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
     when 'filepath_desc'
       # order_by_filepath_desc
-      @pictures.sort_by{ |p| [p.source_type, p.source_file_path] }.reverse
+      @pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
     when 'title_asc'
       # order_by_title_asc
       @pictures.sort_by{ |p| p.title_without_markup.downcase }
@@ -112,10 +112,10 @@ class QueryPictures
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
       # order_by_filepath_asc.where(indexed: true, published: true)
-      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type, p.source_file_path] }
+      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
     when 'filepath_desc'
       # order_by_filepath_desc.where(indexed: true, published: true)
-      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type, p.source_file_path] }.reverse
+      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
     when 'title_asc'
       # order_by_title_asc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }

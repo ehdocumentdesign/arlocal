@@ -3,7 +3,7 @@ class Admin::AlbumsController < AdminController
 
   def audio_create_from_import
     @album = Album.find(params[:id])
-    @audio = AudioBuilder.create_from_import_nested_within_album(@album, album_params)
+    @audio = AudioBuilder.create_from_import_nested_within_album(@album, album_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
@@ -17,7 +17,7 @@ class Admin::AlbumsController < AdminController
 
   def audio_create_from_upload
     @album = Album.find(params[:id])
-    @audio = AudioBuilder.create_from_upload_nested_within_album(@album, album_params)
+    @audio = AudioBuilder.create_from_upload_nested_within_album(@album, album_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)

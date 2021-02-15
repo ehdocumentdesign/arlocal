@@ -118,7 +118,7 @@ class Event < ApplicationRecord
 
 
   def datetime_and_title
-    "#{datetime_formatted(:year_month_day)} / #{title}"
+    "#{datetime_formatted(:year_month_day)} / #{title_without_markup}"
   end
 
 
