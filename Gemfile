@@ -9,6 +9,7 @@ gem 'coffee-rails', '~> 5.0'
 gem 'commonmarker', '~> 0.21'
 gem 'devise', '~> 4.7'
 gem 'exiftool_vendored', '~> 12.11'
+gem 'friendly_id', '~> 5.4', '>= 5.4.2'
 gem 'haml', '~> 5.2'
 gem 'jquery-rails', '~> 4.4'   # jPlayer requires jquery
 gem 'mediainfo', '~> 1.4'

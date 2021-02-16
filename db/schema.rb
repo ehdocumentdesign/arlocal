@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_04_052408) do
+ActiveRecord::Schema.define(version: 2021_02_16_044258) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -194,11 +194,11 @@ ActiveRecord::Schema.define(version: 2021_02_04_052408) do
     t.integer "musicians_parser_id"
     t.text "musicians_text_markup"
     t.boolean "published"
-    t.string "source_type"
     t.string "subtitle"
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "source_type"
     t.index ["source_catalog_file_path"], name: "index_audio_on_source_catalog_file_path"
   end
 
@@ -264,6 +264,17 @@ ActiveRecord::Schema.define(version: 2021_02_04_052408) do
     t.integer "title_parser_id"
     t.text "title_without_markup"
     t.index ["slug"], name: "index_events_on_slug"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "info_page", force: :cascade do |t|
@@ -341,13 +352,13 @@ ActiveRecord::Schema.define(version: 2021_02_04_052408) do
     t.boolean "show_can_display_title"
     t.boolean "show_credit_uses_label"
     t.string "slug"
-    t.string "source_catalog_file_path"
-    t.string "source_type"
     t.integer "title_parser_id"
     t.text "title_text_markup"
     t.string "title_without_markup"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "source_catalog_file_path"
+    t.string "source_type"
     t.index ["slug"], name: "index_pictures_on_slug"
   end
 
