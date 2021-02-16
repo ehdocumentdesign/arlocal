@@ -16,14 +16,6 @@ class Admin::AudioController < AdminController
   # end
 
 
-  def attachment_purge
-    @audio = QueryAudio.new.find(params[:id])
-    @audio.recording.purge
-    flash[:notice] = 'Attachment purged from audio.'
-    redirect_to edit_admin_audio_path(@audio.id, pane: params[:pane])
-  end
-
-
   def create
     @audio = AudioBuilder.create(audio_params, arlocal_settings: @arlocal_settings)
     if @audio.save
@@ -255,17 +247,25 @@ class Admin::AudioController < AdminController
   end
 
 
+  def purge_recording
+    @audio = QueryAudio.new.find(params[:id])
+    @audio.recording.purge
+    flash[:notice] = 'Attachment purged from audio.'
+    redirect_to edit_admin_audio_path(@audio.id, pane: :source)
+  end
+
+
   def refresh_id3
-    @audio = AudioBuilder.refresh_id3(audio_params)
-    if @audio.save
-      flash[:notice] = "Audio was successfully updated."
-      redirect_to edit_admin_audio_path(@audio.id_admin, pane: 'id3')
-    else
-      @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
-      @form_metadata = FormAudioMetadata.new(pane: params[:pane])
-      flash[:notice] = "Audio could not be updated."
-      render 'edit'
-    end
+    # @audio = AudioBuilder.refresh_id3(audio_params)
+    # if @audio.save
+    #   flash[:notice] = "Audio was successfully updated."
+    #   redirect_to edit_admin_audio_path(@audio.id_admin, pane: 'id3')
+    # else
+    #   @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
+    #   @form_metadata = FormAudioMetadata.new(pane: params[:pane])
+    #   flash[:notice] = "Audio could not be updated."
+    #   render 'edit'
+    # end
   end
 
 

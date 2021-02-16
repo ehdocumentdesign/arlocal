@@ -49,6 +49,8 @@ class FormAudioMetadata
       'form_id3'
     when :source
       'form_source'
+    when :source_attachment_purge
+      'form_source_attachment_purge'
     when :destroy
       'form_destroy'
     else

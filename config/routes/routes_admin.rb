@@ -36,22 +36,21 @@ namespace :admin do
 
   resources :audio
   patch 'audio_refresh_id3/:id',      to: 'audio#refresh_id3',                  as: 'audio_refresh_id3'
-  get  'audio_import_menu',           to: 'audio#new_import_menu',              as: 'audio_new_import_menu'
-  get  'audio_import_single',         to: 'audio#new_import_single',            as: 'audio_new_import_single'
-  post 'audio_import_single',         to: 'audio#create_from_import',           as: 'audio_create_from_import'
-  get  'audio_import_to_album',       to: 'audio#new_import_to_album',          as: 'audio_new_import_to_album'
-  post 'audio_import_to_album',       to: 'audio#create_from_import_to_album',  as: 'audio_create_from_import_to_album'
-  get  'audio_import_to_event',       to: 'audio#new_import_to_event',          as: 'audio_new_import_to_event'
-  post 'audio_import_to_event',       to: 'audio#create_from_import_to_event',  as: 'audio_create_from_import_to_event'
-  get  'audio_upload_menu',           to: 'audio#new_upload_menu',              as: 'audio_new_upload_menu'
-  get  'audio_upload_single',         to: 'audio#new_upload_single',            as: 'audio_new_upload_single'
-  post 'audio_upload_single',         to: 'audio#create_from_upload',           as: 'audio_create_from_upload'
-  get  'audio_upload_to_album',       to: 'audio#new_upload_to_album',          as: 'audio_new_upload_to_album'
-  post 'audio_upload_to_album',       to: 'audio#create_from_upload_to_album',  as: 'audio_create_from_upload_to_album'
-  get  'audio_upload_to_event',       to: 'audio#new_upload_to_event',          as: 'audio_new_upload_to_event'
-  post 'audio_upload_to_event',       to: 'audio#create_from_upload_to_event',  as: 'audio_create_from_upload_to_event'
-  patch 'audio/:id/attachment_add',   to: 'audio#attachment_add',               as: 'audio_attachment_add'
-  patch 'audio/:id/attachment_purge', to: 'audio#attachment_purge',             as: 'audio_attachment_purge'
+  get   'audio_import_menu',          to: 'audio#new_import_menu',              as: 'audio_new_import_menu'
+  get   'audio_import_single',        to: 'audio#new_import_single',            as: 'audio_new_import_single'
+  post  'audio_import_single',        to: 'audio#create_from_import',           as: 'audio_create_from_import'
+  get   'audio_import_to_album',      to: 'audio#new_import_to_album',          as: 'audio_new_import_to_album'
+  post  'audio_import_to_album',      to: 'audio#create_from_import_to_album',  as: 'audio_create_from_import_to_album'
+  get   'audio_import_to_event',      to: 'audio#new_import_to_event',          as: 'audio_new_import_to_event'
+  post  'audio_import_to_event',      to: 'audio#create_from_import_to_event',  as: 'audio_create_from_import_to_event'
+  get   'audio_upload_menu',          to: 'audio#new_upload_menu',              as: 'audio_new_upload_menu'
+  get   'audio_upload_single',        to: 'audio#new_upload_single',            as: 'audio_new_upload_single'
+  post  'audio_upload_single',        to: 'audio#create_from_upload',           as: 'audio_create_from_upload'
+  get   'audio_upload_to_album',      to: 'audio#new_upload_to_album',          as: 'audio_new_upload_to_album'
+  post  'audio_upload_to_album',      to: 'audio#create_from_upload_to_album',  as: 'audio_create_from_upload_to_album'
+  get   'audio_upload_to_event',      to: 'audio#new_upload_to_event',          as: 'audio_new_upload_to_event'
+  post  'audio_upload_to_event',      to: 'audio#create_from_upload_to_event',  as: 'audio_create_from_upload_to_event'
+  patch 'audio/:id/purge_recording',  to: 'audio#purge_recording',              as: 'audio_purge_recording'
 
 
 
@@ -101,8 +100,9 @@ namespace :admin do
   post      'picture_upload_to_album',      to: 'pictures#create_from_upload_to_album',   as: 'picture_create_from_upload_to_album'
   get       'picture_upload_to_event',      to: 'pictures#new_upload_to_event',           as: 'picture_new_upload_to_event'
   post      'picture_upload_to_event',      to: 'pictures#create_from_upload_to_event',   as: 'picture_create_from_upload_to_event'
-  patch     'picture/:id/attachment_add',   to: 'pictures#attachment_add',                as: 'picture_attachment_add'
-  patch     'picture/:id/attachment_purge', to: 'pictures#attachment_purge',              as: 'picture_attachment_purge'
+  patch     'picture/:id/purge_image',      to: 'pictures#purge_image',                   as: 'picture_purge_image'
+  # patch     'picture/:id/attachment_add',   to: 'pictures#attachment_add',                as: 'picture_attachment_add'
+  # patch     'picture/:id/attachment_purge', to: 'pictures#attachment_purge',              as: 'picture_attachment_purge'
 
 
   # toggles between admin and public view for currently-authenticated administrators

@@ -49,6 +49,8 @@ class FormPictureMetadata
       'form_keywords'
     when :source
       'form_source'
+    when :source_attachment_purge
+      'form_source_attachment_purge'
     when :destroy
       'form_destroy'
     else
@@ -65,8 +67,6 @@ class FormPictureMetadata
   def determine_tab_name(pane)
     if FormPictureMetadata.categories.include?(pane)
       pane
-    else
-      :picture
     end
   end
 

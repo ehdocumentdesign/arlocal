@@ -1,0 +1,16 @@
+.arl_admin_audio_edit
+  = form_with(model: [:admin, @picture], url: admin_picture_purge_image_path(@picture, pane: :source), local: true, class: :arl_form) do |f|
+    .arl_form_title
+      = @picture.image.filename
+    .arl_form_title
+      Remove attachment?
+    .arl_form_data
+      .arl_form_data_attr.arl_form_data_blocks
+        %ul.arl_form_data_attr_destroy_explanation
+          %li.arl_form_data_attr_destroy_explanation_caveat Attachment will be removed from picture entry.
+          %li.arl_form_data_attr_destroy_explanation_caveat Picture entry will remain in the database.
+        %ul.arl_form_data_attr_destroy_explanation
+          %li.arl_form_data_attr_destroy_explanation_caveat This action can not be undone.
+
+    .arl_form_actions
+      = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }

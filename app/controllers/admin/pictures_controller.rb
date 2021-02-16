@@ -27,28 +27,6 @@ class Admin::PicturesController < AdminController
   # end
 
 
-  def attachment_add
-    @picture = QueryPictures.new.find(params[:id])
-    @picture.image.attach(picture_params[:image])
-    if @picture.save
-      flash[:notice] = 'Attachment added to picture.'
-      redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
-    else
-      @form_metadata = FormPictureMetadata.new(pane: params[:pane])
-      flash[:notice] = 'Attachment could not be added to picture.'
-      render 'edit'
-    end
-  end
-
-
-  def attachment_purge
-    @picture = QueryPictures.new.find(params[:id])
-    @picture.image.purge
-    flash[:notice] = 'Attachment purged from picture.'
-    redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
-  end
-
-
   def create
     @picture = PictureBuilder.new.default_with(picture_params)
     if @picture.save
@@ -270,6 +248,14 @@ class Admin::PicturesController < AdminController
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
     end
+  end
+
+
+  def purge_image
+    @picture = QueryPictures.new.find(params[:id])
+    @picture.image.purge
+    flash[:notice] = 'Attachment purged from picture.'
+    redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
   end
 
 

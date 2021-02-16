@@ -1,5 +1,5 @@
 .arl_admin_audio_edit
-  = form_with(model: [:admin, @audio], url: admin_audio_attachment_purge_path(@audio, pane: :attachment), local: true, class: :arl_form) do |f|
+  = form_with(model: [:admin, @audio], url: admin_audio_purge_recording_path(@audio), local: true, class: :arl_form) do |f|
     .arl_form_title
       = @audio.recording.filename
     .arl_form_title
@@ -11,7 +11,6 @@
           %li.arl_form_data_attr_destroy_explanation_caveat Audio entry will remain in the database.
         %ul.arl_form_data_attr_destroy_explanation
           %li.arl_form_data_attr_destroy_explanation_caveat This action can not be undone.
-  
+
     .arl_form_actions
-      = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' } 
-    
+      = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }

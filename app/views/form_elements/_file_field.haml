@@ -1,8 +1,16 @@
 .arl_form_data_attr.arl_form_layout_blocks
   = form.label (local_assigns[:label] ? label : attribute), class: :arl_form_data_label_block
+
   - if local_assigns[:aside_before]
     %aside.arl_form_data_attr_explanation= "#{aside_before}"
+
   - if form.object.does_not_have_attached(attribute)
     = form.file_field attribute, class: :arl_form_data_text_field
+
   - if form.object.does_have_attached(attribute)
-    %p= form.object.method(attribute).call.blob.filename
+    .arl_form_data_attached_active_storage
+      .arl_form_data_attached_active_storage_filename
+        = form.object.method(attribute).call.blob.filename
+      - if local_assigns[:purge_path]
+        .arl_form_data_attached_active_storage_purge_link
+        = link_to 'purge attachment', purge_path
