@@ -1,11 +1,13 @@
 class Album < ApplicationRecord
 
 
+  extend FriendlyId
   extend MarkupParserUtils
   extend Neighborable
   extend Paginateable
   include Seedable
 
+  friendly_id :slug_candidates, use: :slugged
 
   before_validation :strip_whitespace_edges_from_entered_text
   before_validation :ensure_critical_attributes_have_default_values
@@ -13,8 +15,7 @@ class Album < ApplicationRecord
   validates :album_pictures_sorter_id, presence: true
   validates :description_parser_id, presence: true
   validates :date_released, presence: true
-  validates :title, presence: true, uniqueness: true
-  validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9\_\-]*\z/ }
+  validates :title, presence: true
 
   has_many :album_audio, -> { order(:album_order).includes(:audio) }, dependent: :destroy
   has_many :audio, through: :album_audio
@@ -30,12 +31,12 @@ class Album < ApplicationRecord
   end
   has_one :coverpicture, -> { where is_coverpicture: true }, class_name: 'AlbumPicture'
 
-
   accepts_nested_attributes_for :album_audio, allow_destroy: true
   accepts_nested_attributes_for :album_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :album_pictures, allow_destroy: true
   accepts_nested_attributes_for :audio
   accepts_nested_attributes_for :pictures
+
 
 
   public
@@ -256,12 +257,12 @@ class Album < ApplicationRecord
 
 
   def id_admin
-    id
+    friendly_id
   end
 
 
   def id_public
-    id
+    friendly_id
   end
 
 
@@ -403,8 +404,11 @@ class Album < ApplicationRecord
   ### slug
 
 
-  def slug_source
-    :title
+  def slug_candidates
+    [
+      [:title],
+      [:title, :year]
+    ]
   end
 
 

@@ -5,7 +5,7 @@
     = render 'form_elements/text_field',      attribute: :title,                                    form: f
     = render 'form_elements/check_box',       attribute: :published,                                form: f
     = render 'form_elements/check_box',       attribute: :indexed,                                  form: f
-    = render 'form_elements/slug_field',      attribute: :slug,                                     form: f, arlocal_settings: @arlocal_settings
+    -#= render 'form_elements/slug_field',      attribute: :slug,                                     form: f, arlocal_settings: @arlocal_settings
     = render 'form_elements/text_field',      attribute: :album_artist,                             form: f
     = render 'form_elements/parseable_field', attribute: :copyright,                                form: f, selectable: selectable
     = render 'form_elements/date_select',     attribute: :date_released,                            form: f, default_date: Date.current
@@ -15,7 +15,7 @@
     = render 'form_elements/parseable_area',  attribute: :involved_people,                          form: f, selectable: selectable
     = render 'form_elements/parseable_area',  attribute: :musicians,                                form: f, selectable: selectable
     = render 'form_elements/check_box',       attribute: :show_can_cycle_pictures,                  form: f
-    =# render 'form_elements/check_box',       attribute: :show_can_have_more_pictures_link,         form: f
+    -#= render 'form_elements/check_box',       attribute: :show_can_have_more_pictures_link,         form: f
     = render 'form_elements/auto_keyword',    attribute: :album_keywords,                           form: f, auto_keyword: @auto_keyword
   .arl_form_actions
     .arl_form_action_submit

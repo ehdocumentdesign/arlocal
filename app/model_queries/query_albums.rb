@@ -16,14 +16,18 @@ class QueryAlbums
   public
 
 
+  def action_admin_destroy
+    @albums.friendly.find(@params[:id])
+  end
+
+
   def action_admin_edit
-    find(@params[:id])
+    @albums.friendly.find(@params[:id])
   end
 
 
   def action_admin_index(arg = nil)
     filter_method = (arg) ? arg : @params[:filter]
-
     case filter_method.to_s.downcase
     when 'datetime_asc'
       order_by_datetime_asc
@@ -40,7 +44,7 @@ class QueryAlbums
 
 
   def action_admin_show
-    find(@params[:id])
+    @albums.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment}).friendly.find(@params[:id])
   end
 
 
@@ -68,7 +72,7 @@ class QueryAlbums
 
 
   def action_public_show
-    @albums.where(published: true).includes({audio: :recording_attachment}, :keywords, :pictures).find(@params[:id])
+    @albums.where(published: true).includes({audio: :recording_attachment}, :keywords, :pictures).friendly.find(@params[:id])
   end
 
 
@@ -83,7 +87,7 @@ class QueryAlbums
 
 
   def find(id)
-    @albums.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment}).find(id)
+    @albums.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment}).friendly.find(id)
   end
 
 
