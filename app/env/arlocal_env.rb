@@ -5,12 +5,12 @@ module ArlocalEnv
 
 
   def app_copyright_year
-    2020
+    2021
   end
 
 
   def app_version
-    '0.18.alpha'
+    '0.19'
   end
 
 
