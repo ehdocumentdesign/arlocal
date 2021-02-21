@@ -1,5 +1,4 @@
 module ArlocalMarkupExamples
-  # TODO: Markup Examples don't render correctly. see http://localhost:3000/admin/about_arlocal/markup_types
   MARKUP_EXAMPLES = {
     markdown_commonmarker: {
       title: 'markdown (commonmarker)',
