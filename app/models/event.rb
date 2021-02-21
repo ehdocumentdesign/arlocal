@@ -1,10 +1,12 @@
 class Event < ApplicationRecord
 
 
+  extend FriendlyId
   extend MarkupParserUtils
   extend Neighborable
   include Seedable
 
+  friendly_id :slug_candidates, use: :slugged
 
   before_validation :strip_whitespace_edges_from_entered_text
   before_validation :ensure_critical_attributes_have_default_values
@@ -12,7 +14,6 @@ class Event < ApplicationRecord
 
   validates :details_parser_id, presence: true
   validates :event_pictures_sorter_id, presence: true
-  validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9\_\-]*\z/ }
   validates :datetime_year, presence: true
   validates :datetime_month, presence: true
   validates :datetime_day, presence: true
@@ -241,12 +242,12 @@ class Event < ApplicationRecord
 
 
   def id_admin
-    slug
+    friendly_id
   end
 
 
   def id_public
-    slug
+    friendly_id
   end
 
 
@@ -296,6 +297,17 @@ class Event < ApplicationRecord
   ### published
 
 
+  def should_generate_new_friendly_id?
+    datetime_year_changed? ||
+    datetime_month_changed? ||
+    datetime_day_changed? ||
+    datetime_hour_changed? ||
+    datetime_min_changed? ||
+    venue_changed? ||
+    super
+  end
+
+
   ### show_can_cycle_pictures
 
 
@@ -315,8 +327,10 @@ class Event < ApplicationRecord
   ### slug
 
 
-  def slug_source
-    :start_time_and_venue
+  def slug_candidates
+    [
+      :start_time_and_venue
+    ]
   end
 
 
@@ -371,20 +385,12 @@ class Event < ApplicationRecord
   end
 
 
-  def ensure_critical_attributes_have_default_values
-    if self.slug.to_s == ''
-      self.slug = self.datetime.to_s(:year_month_day).parameterize + '-' + self.venue.parameterize
-    end
-  end
-
-
   def strip_whitespace_edges_from_entered_text
     [ self.alert,
       self.city,
       self.details_text_markup,
       self.map_url,
       self.title_text_markup,
-      self.slug,
       self.venue,
       self.venue_url
     ].each { |a| a.to_s.strip! }

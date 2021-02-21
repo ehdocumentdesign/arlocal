@@ -139,7 +139,7 @@ class Admin::PicturesController < AdminController
 
 
   def destroy
-    @picture = QueryPictures.new.find(params[:id])
+    @picture = Picture.find(params[:id])
     @picture.destroy
     flash[:notice] = 'Picture record was destroyed, file remains in filesystem.'
     redirect_to action: :index
@@ -278,7 +278,7 @@ class Admin::PicturesController < AdminController
 
 
   def update
-    @picture = Picture.find(params[:id])
+    @picture = Picture.friendly.find(params[:id])
     if @picture.update_and_recount_joined_resources(picture_params)
       flash[:notice] = 'Picture was successfully updated.'
       redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
@@ -313,7 +313,6 @@ class Admin::PicturesController < AdminController
       :show_can_display_title,
       :title_parser_id,
       :title_text_markup,
-      :slug,
       :source_catalog_file_path,
       :source_type,
       album_pictures_attributes: [

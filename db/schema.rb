@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_16_044258) do
+ActiveRecord::Schema.define(version: 2021_02_20_074218) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -165,6 +165,8 @@ ActiveRecord::Schema.define(version: 2021_02_16_044258) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "copyright_parser_id"
+    t.string "slug"
+    t.index ["slug"], name: "index_articles_on_slug"
   end
 
   create_table "audio", force: :cascade do |t|
@@ -199,6 +201,8 @@ ActiveRecord::Schema.define(version: 2021_02_16_044258) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "source_type"
+    t.string "slug"
+    t.index ["slug"], name: "index_audio_on_slug"
     t.index ["source_catalog_file_path"], name: "index_audio_on_source_catalog_file_path"
   end
 
@@ -308,6 +312,7 @@ ActiveRecord::Schema.define(version: 2021_02_16_044258) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "videos_count"
+    t.index ["slug"], name: "index_keywords_on_slug"
   end
 
   create_table "links", force: :cascade do |t|

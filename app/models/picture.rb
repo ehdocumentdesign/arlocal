@@ -1,26 +1,20 @@
 class Picture < ApplicationRecord
 
-
+  extend FriendlyId
   extend MarkupParserUtils
   extend Neighborable
   extend Paginateable
   include Seedable
 
+  friendly_id :slug_candidates, use: :slugged
 
-  # before_validation :strip_any_leading_slash_from_catalog_file_path
-  # before_validation :affirm_critical_attributes
-  # before_validation :strip_whitespace_edges_from_entered_text
-  # before_validation :create_attr_title_without_markup
+  before_validation :strip_whitespace_edges_from_entered_text
+  before_validation :strip_any_leading_slash_from_catalog_file_path
+  before_validation :create_attr_title_without_markup
 
-  # validates :source_catalog_file_path, uniqueness: { allow_blank: true, case_sensitive: true }
   validates :credits_parser_id, presence: true
   validates :description_parser_id, presence: true
-  # Slug gets weird when we add attachments and different source types.
-  # validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9\_\-]*\z/ }
   validates :title_parser_id, presence: true
-
-  # before_save :get_datetime_metadata
-
 
   has_many :album_pictures, dependent: :destroy
   has_many :albums, through: :album_pictures do
@@ -38,7 +32,6 @@ class Picture < ApplicationRecord
       order(Keyword.arel_table[:title].lower.asc)
     end
   end
-
 
   has_one_attached :image
 
@@ -66,24 +59,6 @@ class Picture < ApplicationRecord
 
 
   ### albums_count
-
-
-  # # TODO: This verbage fails if additional objects become attachable.
-  # def attachment_file_source_path
-  #   if does_have_attachment
-  #     image.blob.filename.to_s
-  #   end
-  # end
-  #
-  #
-  # ### FIND & CHANGE
-  # def catalog_file_basename
-  #   File.basename(catalog_file_path)
-  # end
-  #
-  #
-  # ### RENAME
-  # ### catalog_file_path
 
 
   ### created_at
@@ -236,19 +211,6 @@ class Picture < ApplicationRecord
   end
 
 
-  # ### REMOVE
-  # # TODO: This verbage fails if additional objects become attachable.
-  # def does_have_attachment
-  #   image.attachment != nil
-  # end
-  #
-  #
-  # ### REMOVE
-  # def does_have_catalog_file_path
-  #   catalog_file_path.to_s.length > 0
-  # end
-
-
   def does_have_credits
     credits_text_markup.to_s != ''
   end
@@ -279,18 +241,6 @@ class Picture < ApplicationRecord
   end
 
 
-  # ### REMOVE
-  # def does_not_have_attachment
-  #   image.attachment == nil
-  # end
-  #
-  #
-  # ### REMOVE
-  # def does_not_have_catalog_file_path
-  #   catalog_file_path.to_s == ''
-  # end
-
-
   def does_not_have_attached(attribute)
     self.method(attribute).call.attached? == false
   end
@@ -306,60 +256,22 @@ class Picture < ApplicationRecord
   end
 
 
-  # ### RENAMED.
-  # def file_source_type
-  #   if does_have_attachment
-  #     :attachment
-  #   elsif does_have_catalog_file_path
-  #     :catalog
-  #   else
-  #     nil
-  #   end
-  # end
-  #
-  #
-  # ### RENAMED.
-  # def file_source_type_is_attachment
-  #   file_source_type == :attachment
-  # end
-  #
-  #
-  # ### RENAMED.
-  # def file_source_type_is_catalog
-  #   file_source_type == :catalog
-  # end
-  #
-  #
-  # ### RENAMED.
-  # def file_source_path
-  #   case file_source_type
-  #   when :attachment
-  #     image.blob.filename.to_s
-  #   when :catalog
-  #     catalog_file_path
-  #   end
-  # end
+  def filename
+    source_file_path
+  end
 
 
   ### id
 
 
   def id_admin
-    id
+    friendly_id
   end
 
 
   def id_public
-    id
+    friendly_id
   end
-
-
-  # ### FIND AND CHANGE/REMOVE
-  # def image_file_name
-  #   if does_have_attachment
-  #     image.filename
-  #   end
-  # end
 
 
   ### indexed
@@ -374,6 +286,22 @@ class Picture < ApplicationRecord
   ### published
 
 
+  def should_generate_new_friendly_id?
+    datetime_from_exif_changed? ||
+    datetime_from_file_changed? ||
+    datetime_from_manual_entry_year_changed? ||
+    datetime_from_manual_entry_month_changed? ||
+    datetime_from_manual_entry_day_changed? ||
+    datetime_from_manual_entry_hour_changed? ||
+    datetime_from_manual_entry_minute_changed? ||
+    datetime_from_manual_entry_second_changed? ||
+    image.changed? ||
+    source_catalog_file_path_changed? ||
+    source_type_changed? ||
+    super
+  end
+
+
   ### show_can_display_title
 
 
@@ -385,8 +313,11 @@ class Picture < ApplicationRecord
   ### slug
 
 
-  def slug_source
-    :filename
+  def slug_candidates
+    [
+      [:source_file_basename],
+      [:source_file_basename, :datetime ]
+    ]
   end
 
 
@@ -400,6 +331,13 @@ class Picture < ApplicationRecord
 
 
   ### source_catalog_file_path
+
+
+  def source_file_basename
+    if source_file_path
+      File.basename(source_file_path, '.*')
+    end
+  end
 
 
   def source_file_extname
@@ -417,13 +355,6 @@ class Picture < ApplicationRecord
   end
 
 
-  def source_file_basename
-    if source_file_path
-      File.basename(source_file_path)
-    end
-  end
-
-
   def source_file_path
     case source_type
     when 'attachment'
@@ -431,7 +362,7 @@ class Picture < ApplicationRecord
     when 'catalog'
       source_catalog_file_path
     when 'url'
-      false
+      source_url
     end
   end
 
@@ -503,41 +434,6 @@ class Picture < ApplicationRecord
   end
 
 
-  def affirm_critical_attributes
-    affirm_critical_attributes_slug
-    affirm_critical_attributes_title
-  end
-
-
-  # def affirm_critical_attributes_slug
-  #   if self.does_not_have_slug
-  #     slug = ''
-  #     case self.source_file_type
-  #     when :attachment
-  #       slug = "#{self.source_file_image_file_name} #{self.datetime.to_s}"
-  #     when :catalog
-  #       slug = File.basename(self.catalog_file_path, '.*')
-  #     end
-  #     self.slug = slug.to_s.parameterize
-  #   end
-  # end
-
-
-
-  def affirm_critical_attributes_slug
-    if self.does_not_have_slug
-      self.slug = "#{self.source_file_basename} #{self.datetime.to_s}".parameterize
-    end
-  end
-
-
-  def affirm_critical_attributes_title
-    if self.does_not_have_title
-      self.title_text_markup = self.slug
-    end
-  end
-
-
   def strip_any_leading_slash_from_catalog_file_path
     if self.source_catalog_file_path[0] == '/'
       self.source_catalog_file_path[0] = ''
@@ -549,7 +445,6 @@ class Picture < ApplicationRecord
     [ self.credits_text_markup,
       self.description_text_markup,
       self.title_text_markup,
-      self.slug,
       self.source_catalog_file_path
     ].each { |a| a.to_s.strip! }
   end
@@ -557,77 +452,3 @@ class Picture < ApplicationRecord
 
 
 end
-
-
-
-### TODO: These obsolete methods can probably be removed entirely.
-# def ensure_critical_attributes_have_default_values
-  # omit the extension from self.filename to generate slug
-  # is there an easier way?
-  # if self.does_not_have_slug
-  #   path = File.dirname(self.catalog_file_path).to_s
-  #   file = File.basename(self.catalog_file_path, File.extname(self.catalog_file_path)).to_s
-  #   if path == '.'
-  #     self.slug = ''
-  #   else
-  #     self.slug = ''
-  #     # self.slug = path + '/'      # <-- uncomment to include full path name in slug
-  #   end
-  #   self.slug << file
-  #   self.slug = slug.parameterize
-
-
-  # def get_datetime_metadata
-  #   if self.catalog_file_path
-  #     catalog_filesystem_dirname = ArlocalEnv.artist_catalog_filesystem_dirname
-  #     path_to_file = File.join(catalog_filesystem_dirname, 'images', self.catalog_file_path)
-  #     if File.exists?(path_to_file)
-  #       self.datetime_from_file = File.ctime(path_to_file)
-  #       self.datetime_from_exif = Exiftool.new(path_to_file)[:date_time_original]
-  #     end
-  #     if self.datetime_from_manual_entry
-  #       self.datetime_cascade_value = self.datetime_from_manual_entry.to_s
-  #       self.datetime_cascade_method = 'manual entry'
-  #     elsif self.datetime_from_exif
-  #       d = self.datetime_from_exif.split(/\s/)
-  #       d[0].gsub!(':',"-")
-  #       self.datetime_cascade_value = d.join(' ')
-  #       self.datetime_cascade_method = 'picture EXIF metadata'
-  #     elsif self.datetime_from_file
-  #       self.datetime_cascade_value = self.datetime_from_file.to_s
-  #       self.datetime_cascade_method = 'file date/time'
-  #     end
-  #   end
-  # end
-
-  # TODO: DRY up the path_to_file File.join() method
-  # def get_datetime_metadata
-  #   # path_to_file = ''
-  #   # case self.file_source_type
-  #   # when :attachment
-  #   #   path_to_file =
-  #   # when :catalog
-  #   #   path_to_file = CatalogHelper.catalog_picture_filesystem_path(self)
-  #   # end
-  #   #
-  #   # if self.catalog_file_path
-  #   #   catalog_filesystem_dirname = ArlocalEnv.artist_catalog_filesystem_dirname
-  #   #   path_to_file = File.join(catalog_filesystem_dirname, 'images', self.catalog_file_path)
-  #   #   if File.exists?(path_to_file)
-  #   #     self.datetime_from_file = File.ctime(path_to_file)
-  #   #     self.datetime_from_exif = Exiftool.new(path_to_file)[:date_time_original]
-  #   #   end
-  #     if self.datetime_from_manual_entry
-  #       self.datetime_cascade_value = self.datetime_from_manual_entry.to_s
-  #       self.datetime_cascade_method = 'manual entry'
-  #     elsif self.datetime_from_exif
-  #       d = self.datetime_from_exif.split(/\s/)
-  #       d[0].gsub!(':',"-")
-  #       self.datetime_cascade_value = d.join(' ')
-  #       self.datetime_cascade_method = 'picture EXIF metadata'
-  #     elsif self.datetime_from_file
-  #       self.datetime_cascade_value = self.datetime_from_file.to_s
-  #       self.datetime_cascade_method = 'file date/time'
-  #     end
-  #   end
-  # end

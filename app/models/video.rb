@@ -1,6 +1,14 @@
 class Video < ApplicationRecord
 
 
+  extend FriendlyId
+  extend MarkupParserUtils
+  extend Neighborable
+  extend Paginateable
+  include Seedable
+
+  friendly_id :slug_candidates, use: :slugged
+
   has_many :video_keywords, dependent: :destroy
   has_many :keywords, through: :video_keywords
 
@@ -13,7 +21,6 @@ class Video < ApplicationRecord
   accepts_nested_attributes_for :video_picture, allow_destroy: true
 
 
-  before_validation :ensure_critical_attributes_have_default_values
   before_validation :strip_whitespace_edges_from_entered_text
 
 
@@ -84,12 +91,12 @@ class Video < ApplicationRecord
 
 
   def id_admin
-    id
+    friendly_id
   end
 
 
   def id_public
-    id
+    friendly_id
   end
 
 
@@ -113,11 +120,19 @@ class Video < ApplicationRecord
   ### published
 
 
+  def should_generate_new_friendly_id?
+    title_changed? ||
+    super
+  end
+
+
   ### slug
 
 
-  def slug_source
-    :title
+  def slug_candidates
+    [
+      [:title]
+    ]
   end
 
 
@@ -209,6 +224,12 @@ class Video < ApplicationRecord
   ### title
 
 
+  def update_and_recount_joined_resources(video_params)
+    Video.reset_counters(id, :keywords)
+    update(video_params)
+  end
+
+
   def year
     if date_released
       date_released.year
@@ -219,18 +240,10 @@ class Video < ApplicationRecord
   private
 
 
-  def ensure_critical_attributes_have_default_values
-    if self.slug.to_s == ''
-      self.slug = self.title.to_s.parameterize
-    end
-  end
-
-
   def strip_whitespace_edges_from_entered_text
     [ self.copyright_text_markup,
       self.description_text_markup,
       self.involved_people_text_markup,
-      self.slug,
       self.title,
     ].select{ |a| a.to_s != '' }.each { |a| a.to_s.strip! }
   end

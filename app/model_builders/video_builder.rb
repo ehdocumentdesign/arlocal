@@ -7,17 +7,40 @@ class VideoBuilder
   attr_reader :video
 
 
-  def self.build
+  def initialize
+    @mediainfo = nil
+    @video = Video.new
+  end
+
+
+
+  protected
+
+
+  def self.build(args={})
     builder = new
     yield(builder)
     builder.video
   end
 
 
-  def initialize
-    @mediainfo = nil
-    @video = Video.new
+  def self.build_with_defaults(args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+    end
   end
+
+
+  def self.create(video_params, args={})
+    self.build(args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(video_params)
+    end
+  end
+
+
+
+  public
 
 
   def assign_default_attributes

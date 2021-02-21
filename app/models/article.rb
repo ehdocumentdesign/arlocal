@@ -1,11 +1,13 @@
 class Article < ApplicationRecord
 
 
+  extend FriendlyId
   extend MarkupParserUtils
   extend Neighborable
   extend Paginateable
   include Seedable
 
+  friendly_id :slug_candidates, use: :slugged
 
   validates :copyright_parser_id, presence: true
   validates :parser_id, presence: true
@@ -35,12 +37,12 @@ class Article < ApplicationRecord
 
 
   def id_admin
-    id
+    friendly_id
   end
 
 
   def id_public
-    id
+    friendly_id
   end
 
 
@@ -51,6 +53,22 @@ class Article < ApplicationRecord
 
 
   ### date_released
+
+
+  def should_generate_new_friendly_id?
+    title_changed? ||
+    super
+  end
+
+
+  ### slug
+
+
+  def slug_candidates
+    [
+      [:title]
+    ]
+  end
 
 
   def text_props

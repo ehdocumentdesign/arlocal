@@ -10,7 +10,6 @@ class Album < ApplicationRecord
   friendly_id :slug_candidates, use: :slugged
 
   before_validation :strip_whitespace_edges_from_entered_text
-  before_validation :ensure_critical_attributes_have_default_values
 
   validates :album_pictures_sorter_id, presence: true
   validates :description_parser_id, presence: true
@@ -345,6 +344,13 @@ class Album < ApplicationRecord
   ### published
 
 
+  def should_generate_new_friendly_id?
+    title_changed? ||
+    year_changed? ||
+    super
+  end
+
+
   ### show_can_cycle_pictures
 
 
@@ -384,6 +390,17 @@ class Album < ApplicationRecord
   end
 
 
+  ### slug
+
+
+  def slug_candidates
+    [
+      [:title],
+      [:title, :year]
+    ]
+  end
+
+
   ### title
 
 
@@ -401,17 +418,6 @@ class Album < ApplicationRecord
   ### updated_at
 
 
-  ### slug
-
-
-  def slug_candidates
-    [
-      [:title],
-      [:title, :year]
-    ]
-  end
-
-
   def year
     date_released.year
   end
@@ -421,20 +427,12 @@ class Album < ApplicationRecord
   private
 
 
-  def ensure_critical_attributes_have_default_values
-    if self.slug.to_s == ''
-      self.slug = self.title.to_s.parameterize
-    end
-  end
-
-
   def strip_whitespace_edges_from_entered_text
     [ self.album_artist,
       self.copyright_text_markup,
       self.description_text_markup,
       self.involved_people_text_markup,
       self.musicians_text_markup,
-      self.slug,
       self.title,
       self.vendor_widget_gumroad
     ].select{ |a| a.to_s != '' }.each { |a| a.to_s.strip! }

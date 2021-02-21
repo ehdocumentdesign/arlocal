@@ -128,7 +128,7 @@ class Admin::AudioController < AdminController
 
 
   def destroy
-    @audio = QueryAudio.new.find(params[:id])
+    @audio = Audio.find(params[:id])
     @audio.recording.purge
     @audio.destroy
     flash[:notice] = 'Audio was destroyed.'
@@ -276,7 +276,7 @@ class Admin::AudioController < AdminController
 
 
   def update
-    @audio = Audio.find(params[:id])
+    @audio = Audio.friendly.find(params[:id])
     if @audio.update_and_recount_joined_resources(audio_params)
       flash[:notice] = 'Audio was successfully updated.'
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: params[:pane])

@@ -10,7 +10,7 @@ class Admin::EventsController < AdminController
 
 
   def audio_create_from_import
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
     @audio = AudioBuilder.create_from_import_nested_within_event(@event, event_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
@@ -24,7 +24,7 @@ class Admin::EventsController < AdminController
 
 
   def audio_create_from_upload
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
     @audio = AudioBuilder.create_from_upload_nested_within_event(@event, event_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
@@ -88,7 +88,7 @@ class Admin::EventsController < AdminController
 
 
   def picture_create_from_import
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
     @picture = PictureBuilder.create_from_import_nested_within_event(@event, event_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
@@ -102,7 +102,7 @@ class Admin::EventsController < AdminController
 
 
   def picture_create_from_upload
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
     @picture = PictureBuilder.create_from_upload_nested_within_event(@event, event_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
@@ -159,7 +159,6 @@ class Admin::EventsController < AdminController
       :published,
       :show_can_cycle_pictures,
       :show_can_have_more_pictures_link,
-      :slug,
       :title_parser_id,
       :title_text_markup,
       :venue,

@@ -71,12 +71,12 @@ class QueryAudio
 
 
   def find(id)
-    @audio.find_by_id!(id)
+    @audio.friendly.find(id)
   end
 
 
   def find!(id)
-    @audio.find_by_id!(id)
+    @audio.friendly.find(id)
   end
 
 

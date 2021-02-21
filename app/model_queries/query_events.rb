@@ -64,7 +64,7 @@ class QueryEvents
 
 
   def action_public_show
-    @events.where(published: true).find_by_slug!(@params[:id])
+    @events.where(published: true).friendly.find(@params[:id])
   end
 
 
@@ -94,17 +94,17 @@ class QueryEvents
 
 
   def find(id)
-    @events.find_by_id!(id)
+    @events.friendly.find(id)
   end
 
 
   def find_by_slug(slug)
-    @events.find_by_slug!(slug)
+    @events.friendly.find(slug)
   end
 
 
   def find_including_resources(id)
-    @events.includes(:pictures, :keywords).find!(id)
+    @events.includes(:pictures, :keywords).friendly.find(id)
   end
 
 

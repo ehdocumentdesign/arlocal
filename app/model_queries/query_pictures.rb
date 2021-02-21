@@ -30,29 +30,20 @@ class QueryPictures
 
 
   def action_admin_index(arg = nil)
-    # many of the ordering methods for pictures call upon object instance methods
-    # however, originally, ordering methods relied on database attributes.
-    # the commented-methods in the following case statement might be obsolete and deprecated.
     filter_method = (arg) ? arg : @params[:filter]
 
     case filter_method.to_s.downcase
     when 'datetime_asc'
-      # order_by_datetime_asc
       @pictures.sort_by{ |p| p.datetime_effective_value }
     when 'datetime_desc'
-      # order_by_datetime_desc
       @pictures.sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
-      # order_by_filepath_asc
       @pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
     when 'filepath_desc'
-      # order_by_filepath_desc
       @pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
     when 'title_asc'
-      # order_by_title_asc
       @pictures.sort_by{ |p| p.title_without_markup.downcase }
     when 'title_desc'
-      # order_by_title_desc
       @pictures.sort_by{ |p| p.title_without_markup.downcase }.reverse
     else
       all
@@ -77,7 +68,7 @@ class QueryPictures
 
 
   def action_admin_show
-    find(@params[:id])
+    Picture.friendly.find(@params[:id])
   end
 
 
@@ -87,7 +78,7 @@ class QueryPictures
 
 
   def action_admin_update
-    find(@params[:id])
+    Picture.friendly.find(@params[:id])
   end
 
 
@@ -105,22 +96,16 @@ class QueryPictures
 
     case filter_method.to_s.downcase
     when 'datetime_asc'
-      # order_by_datetime_asc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }
     when 'datetime_desc'
-      # order_by_datetime_desc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
-      # order_by_filepath_asc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
     when 'filepath_desc'
-      # order_by_filepath_desc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
     when 'title_asc'
-      # order_by_title_asc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }
     when 'title_desc'
-      # order_by_title_desc.where(indexed: true, published: true)
       @pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }.reverse
     else
       @pictures.where(indexed: true, published: true)
@@ -134,7 +119,7 @@ class QueryPictures
 
 
   def action_public_show
-    @pictures.where(published: true).find(@params[:id])
+    @pictures.where(published: true).friendly.find(@params[:id])
   end
 
 
@@ -171,17 +156,17 @@ class QueryPictures
 
 
   def find(id)
-    @pictures.find(id)
+    @pictures.friendly.find(id)
   end
 
 
   def find_by_slug(slug)
-    @pictures.find_by_slug!(slug)
+    @pictures.friendly.find(id)
   end
 
 
   def find_by_slug!(slug)
-    @pictures.find_by_slug!(slug)
+    @pictures.friendly.find(id)
   end
 
 
@@ -215,42 +200,42 @@ class QueryPictures
   end
 
 
-  def order_by_datetime_asc
-    # possibly obsolete
-    # datetime_effective_value is an object instance method rather than a database attribute
-    @pictures.order(datetime_effective_value: :asc)
-  end
-
-
-  def order_by_datetime_desc
-    # possibly obsolete
-    # datetime_effective_value is an object instance method rather than a database attribute
-    @pictures.order(datetime_effective_value: :desc)
-  end
-
-
-  def order_by_filepath_asc
-    # possibly obsolete
-    @pictures.order(catalog_file_path: :asc)
-  end
-
-
-  def order_by_filepath_desc
-    # possibly obsolete
-    @pictures.order(catalog_file_path: :desc)
-  end
-
-
-  def order_by_title_asc
-    # possibly deprecated
-    @pictures.order(Picture.arel_table[:title_without_markup].lower.asc)
-  end
-
-
-  def order_by_title_desc
-    # possibly deprecated
-    @pictures.order(Picture.arel_table[:title_without_markup].lower.desc)
-  end
+  # def order_by_datetime_asc
+  #   # possibly obsolete
+  #   # datetime_effective_value is an object instance method rather than a database attribute
+  #   @pictures.order(datetime_effective_value: :asc)
+  # end
+  #
+  #
+  # def order_by_datetime_desc
+  #   # possibly obsolete
+  #   # datetime_effective_value is an object instance method rather than a database attribute
+  #   @pictures.order(datetime_effective_value: :desc)
+  # end
+  #
+  #
+  # def order_by_filepath_asc
+  #   # possibly obsolete
+  #   @pictures.order(catalog_file_path: :asc)
+  # end
+  #
+  #
+  # def order_by_filepath_desc
+  #   # possibly obsolete
+  #   @pictures.order(catalog_file_path: :desc)
+  # end
+  #
+  #
+  # def order_by_title_asc
+  #   # possibly deprecated
+  #   @pictures.order(Picture.arel_table[:title_without_markup].lower.asc)
+  # end
+  #
+  #
+  # def order_by_title_desc
+  #   # possibly deprecated
+  #   @pictures.order(Picture.arel_table[:title_without_markup].lower.desc)
+  # end
 
 
 

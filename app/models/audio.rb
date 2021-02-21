@@ -1,11 +1,13 @@
 class Audio < ApplicationRecord
 
 
+  extend FriendlyId
   extend MarkupParserUtils
   extend Neighborable
   extend Paginateable
   include Seedable
 
+  friendly_id :slug_candidates, use: :slugged
 
   before_validation :strip_whitespace_edges_from_entered_text
 
@@ -17,8 +19,6 @@ class Audio < ApplicationRecord
   validates :isrc_designation_code, allow_blank: true, length: { is: 5 }, uniqueness: { scope: :isrc_year_of_reference }
   validates :isrc_registrant_code, allow_blank: true, length: { is: 3 }
   validates :isrc_year_of_reference, allow_blank: true, length: { is: 2 }
-  # validates :title, presence: true
-
 
   has_many :album_audio, dependent: :destroy
   has_many :albums, through: :album_audio do
@@ -36,7 +36,6 @@ class Audio < ApplicationRecord
 
   has_many :event_audio, dependent: :destroy
   has_many :events, through: :event_audio
-
 
   has_one_attached :recording
 
@@ -200,12 +199,12 @@ class Audio < ApplicationRecord
 
 
   def id_admin
-    id
+    friendly_id
   end
 
 
   def id_public
-    id
+    friendly_id
   end
 
 
@@ -264,6 +263,21 @@ class Audio < ApplicationRecord
 
   ### recording
 
+
+  def should_generate_new_friendly_id?
+    date_released_changed? ||
+    recording.changed? ||
+    title_changed? ||
+    super
+  end
+
+
+  def slug_candidates
+    [
+      [:title],
+      [:title, :year]
+    ]
+  end
 
   def source_attachment_file_path
     if recording.attached?

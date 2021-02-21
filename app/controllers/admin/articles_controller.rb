@@ -15,7 +15,7 @@ class Admin::ArticlesController < AdminController
 
 
   def destroy
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
     @article.destroy
     flash[:notice] = 'Article was destroyed.'
     redirect_to action: :index
@@ -23,7 +23,7 @@ class Admin::ArticlesController < AdminController
 
 
   def edit
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
     @article_neighbors = QueryArticles.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@article)
     @form_metadata = FormArticleMetadata.new(pane: params[:pane])
   end
@@ -41,13 +41,13 @@ class Admin::ArticlesController < AdminController
 
 
   def show
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
     @article_neighbors = QueryArticles.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@article)
   end
 
 
   def update
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
     if @article.update(article_params)
       flash[:notice] = 'Article was successfully created.'
       redirect_to edit_admin_article_path(@article)
