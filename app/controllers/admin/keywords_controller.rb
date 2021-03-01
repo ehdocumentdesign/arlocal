@@ -120,6 +120,11 @@ class Admin::KeywordsController < AdminController
         :id,
         :picture_id,
         :_destroy
+      ],
+      video_keywords_attributes: [
+        :id,
+        :video_id,
+        :_destroy
       ]
     )
   end

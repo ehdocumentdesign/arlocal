@@ -1,0 +1,30 @@
+.arl_form_title
+  = keyword_statement_videos_count(keyword)
+- if keyword.does_have_videos
+  /= button_to 'unkeyword videos', admin_unkeyword_videos_path(keyword.id, pane: :videos), method: :delete, class: :arl_button_unkeyword
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :videos), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      %table.arl_form_data_attr.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading video title
+          %th.arl_form_data_resource_heading= icon_remove
+        = f.fields_for :video_keywords do |vk|
+          %tr
+            %td.arl_form_data_resource_value= video_reference_admin_link(vk.object.video)
+            %td.arl_form_data_resource_remove= vk.check_box :_destroy, class: :arl_form_data_checkbox
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation
+        = "will detach any video with the #{icon_remove} box checked."
+
+-if selectable.has_videos
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :videos), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
+    .arl_form_title
+      Keyword a video
+    .arl_form_data
+      = f.fields_for :video_keywords, keyword.video_keywords.build do |vk|
+        .arl_form_data_attr.arl_form_layout_center
+          = vk.label :video_keyword, 'Video', class: :arl_form_data_label
+          = vk.collection_select :video_id, selectable.videos, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

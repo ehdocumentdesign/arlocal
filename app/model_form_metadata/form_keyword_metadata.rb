@@ -25,6 +25,7 @@ class FormKeywordMetadata
       :audio,
       :events,
       :pictures,
+      :videos,
       :destroy
     ]
   end
@@ -46,6 +47,8 @@ class FormKeywordMetadata
       'form_events'
     when :pictures
       'form_pictures'
+    when :videos
+      'form_videos'
     when :destroy
       'form_destroy'
     else
@@ -62,8 +65,6 @@ class FormKeywordMetadata
   def determine_tab_name(pane)
     if FormKeywordMetadata.categories.include?(pane)
       pane
-    else
-      :keyword
     end
   end
 
@@ -75,7 +76,8 @@ class FormKeywordMetadata
       :albums,
       :audio,
       :events,
-      :pictures
+      :pictures,
+      :videos
     )
     def initialize(pane, settings)
       case pane
@@ -87,6 +89,8 @@ class FormKeywordMetadata
         @events = QueryEvents.new.order_by_start_time_asc
       when :pictures
         @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures
+      when :videos
+        @videos = QueryVideos.new.order_by_title_asc
       end
     end
   end

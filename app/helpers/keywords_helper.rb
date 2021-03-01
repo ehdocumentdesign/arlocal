@@ -85,4 +85,9 @@ module KeywordsHelper
   end
 
 
+  def keyword_statement_videos_count(keyword)
+    pluralize keyword.videos_count.to_i, 'video'
+  end
+
+
 end

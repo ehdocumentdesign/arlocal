@@ -43,5 +43,10 @@ class QueryVideos
   end
 
 
+  def order_by_title_asc
+    Video.all.sort_by{ |v| v.title.downcase  }
+  end
+
+
 
 end

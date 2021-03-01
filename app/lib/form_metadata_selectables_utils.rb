@@ -11,7 +11,7 @@ module FormMetadataSelectablesUtils
     end
   end
 
-  
+
   def has_keywords
     if (@keywords == nil)
       false
@@ -33,6 +33,17 @@ module FormMetadataSelectablesUtils
     elsif (@pictures.length == 1) && (Integer === @pictures[0].id)
       true
     elsif (@pictures.length >= 2)
+      true
+    end
+  end
+
+
+  def has_videos
+    if (@videos == nil)
+      false
+    elsif (@videos.length == 0)
+      false
+    elsif (@videos.length >= 1)
       true
     end
   end

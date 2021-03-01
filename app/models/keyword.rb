@@ -52,7 +52,8 @@ class Keyword < ApplicationRecord
   accepts_nested_attributes_for :audio_keywords, allow_destroy: true
   accepts_nested_attributes_for :event_keywords, allow_destroy: true
   accepts_nested_attributes_for :picture_keywords, allow_destroy: true
-
+  accepts_nested_attributes_for :video_keywords, allow_destroy: true
+  
 
   ### albums_count
 
@@ -94,6 +95,11 @@ class Keyword < ApplicationRecord
 
   def does_have_pictures
     pictures_count.to_i > 0
+  end
+
+
+  def does_have_videos
+    videos_count.to_i > 0
   end
 
 

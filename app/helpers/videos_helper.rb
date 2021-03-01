@@ -60,6 +60,11 @@ module VideosHelper
   end
 
 
+  def video_reference_admin_link(video)
+    link_to(video.slug, admin_video_path(video.id_admin), class: :arl_link_url)
+  end
+
+
   def video_statement_keywords_count(video)
     pluralize video.keywords_count.to_i, 'keyword'
   end
