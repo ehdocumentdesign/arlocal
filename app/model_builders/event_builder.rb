@@ -1,15 +1,56 @@
 class EventBuilder
 
 
-  def default
-    Event.new(params_default)
+  attr_reader :event
+
+
+  def initialize
+    @event = Event.new
   end
 
 
-  def default_with(params_given)
-    params = params_default.merge(params_given)
-    Event.new(params)
+
+  protected
+
+
+  def self.build
+    builder = new
+    yield(builder)
+    builder.event
   end
+
+
+  def self.build_with_defaults
+    self.build do |b|
+      b.assign_default_attributes
+    end
+  end
+
+
+  def self.create(event_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(event_params)
+    end
+  end
+
+
+
+  public
+
+
+  def assign_default_attributes
+    @event.assign_attributes(params_default)
+  end
+
+
+  def assign_given_attributes(event_params)
+    @event.assign_attributes(event_params)
+  end
+
+
+
+  private
 
 
   def params_default

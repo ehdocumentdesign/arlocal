@@ -2,7 +2,7 @@ class Admin::StreamsController < AdminController
 
 
   def create
-    @stream = StreamBuilder.new.default_with(stream_params)
+    @stream = StreamBuilder.create(stream_params)
     if @stream.save
       flash[:notice] = 'Stream was successfully created.'
       redirect_to edit_admin_stream_path(@stream.id_admin)
@@ -18,7 +18,7 @@ class Admin::StreamsController < AdminController
 
 
   def destroy
-    @stream = QueryStreams.new.find_by_id(params[:id])
+    @stream = Stream.find(params[:id])
     @stream.destroy
     flash[:notice] = 'Stream was destroyed.'
     redirect_to action: :index
@@ -26,7 +26,7 @@ class Admin::StreamsController < AdminController
 
 
   def edit
-    @stream = QueryStreams.new.find_by_slug(params[:id])
+    @stream = Stream.friendly.find(params[:id])
     @form_metadata = FormStreamMetadata.new(pane: params[:pane])
   end
 
@@ -37,18 +37,18 @@ class Admin::StreamsController < AdminController
 
 
   def new
-    @stream = StreamBuilder.new.default
+    @stream = StreamBuilder.build_with_defaults
     @form_metadata = FormStreamMetadata.new(pane: params[:pane])
   end
 
 
   def show
-    @stream = QueryStreams.new.find_by_slug(params[:id])
+    @stream = Stream.friendly.find(params[:id])
   end
 
 
   def update
-    @stream = QueryStreams.new.find_by_id(params[:id])
+    @stream = Stream.friendly.find(params[:id])
     if @stream.update(stream_params)
       flash[:notice] = 'Stream was successfuly updated.'
       redirect_to edit_admin_stream_path(@stream.id_admin, pane: params[:pane])

@@ -7,7 +7,7 @@ class AudioBuilder
   attr_reader :audio
 
 
-  def initialize(args={})
+  def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
     audio = (Audio === args[:audio]) ? args[:audio] : Audio.new
     @arlocal_settings = arlocal_settings
@@ -20,21 +20,21 @@ class AudioBuilder
   protected
 
 
-  def self.build(args={})
+  def self.build(**args)
     builder = new(args)
     yield(builder)
     builder.audio
   end
 
 
-  def self.build_with_defaults(args={})
+  def self.build_with_defaults(**args)
     self.build(args) do |b|
       b.assign_default_attributes
     end
   end
 
 
-  def self.create(audio_params, args={})
+  def self.create(audio_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
@@ -42,7 +42,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_import(audio_params, args={})
+  def self.create_from_import(audio_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
@@ -52,7 +52,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_import_and_join_nested_album(audio_params, args={})
+  def self.create_from_import_and_join_nested_album(audio_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
@@ -63,7 +63,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_import_and_join_nested_event(audio_params, args={})
+  def self.create_from_import_and_join_nested_event(audio_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
@@ -74,7 +74,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_import_nested_within_album(album, params, args={})
+  def self.create_from_import_nested_within_album(album, params, **args)
     audio_params = {
       source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
@@ -88,7 +88,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_import_nested_within_event(event, params, args={})
+  def self.create_from_import_nested_within_event(event, params, **args)
     audio_params = {
       source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
@@ -102,7 +102,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_upload(audio_params, args={})
+  def self.create_from_upload(audio_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
@@ -112,7 +112,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_upload_and_join_nested_album(audio_params, args={})
+  def self.create_from_upload_and_join_nested_album(audio_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
@@ -123,7 +123,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_upload_and_join_nested_event(audio_params, args={})
+  def self.create_from_upload_and_join_nested_event(audio_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
@@ -134,7 +134,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_upload_nested_within_album(album, params, args={})
+  def self.create_from_upload_nested_within_album(album, params, **args)
     audio_params = {
       recording: params['audio_attributes']['0']['recording'],
       source_type: 'attachment'
@@ -148,7 +148,7 @@ class AudioBuilder
   end
 
 
-  def self.create_from_upload_nested_within_event(event, params, args={})
+  def self.create_from_upload_nested_within_event(event, params, **args)
     audio_params = {
       recording: params['audio_attributes']['0']['recording'],
       source_type: 'attachment'

@@ -42,7 +42,7 @@ class Admin::AlbumsController < AdminController
 
 
   def create
-    @album = AlbumBuilder.new.default_with(album_params)
+    @album = AlbumBuilder.create(album_params)
     if @album.save
       flash[:notice] = 'Album was successfully created.'
       redirect_to edit_admin_album_path(@album.id_admin)
@@ -81,7 +81,7 @@ class Admin::AlbumsController < AdminController
 
 
   def new
-    @album = AlbumBuilder.new.default
+    @album = AlbumBuilder.build_default
     @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -137,7 +137,7 @@ class Admin::AlbumsController < AdminController
 
 
   def update
-    @album = QueryAlbums.new.find(params[:id])
+    @album = Album.friendly.find(params[:id])
     if @album.update_and_recount_joined_resources(album_params)
       flash[:notice] = 'Album was successfully updated.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: params[:pane])

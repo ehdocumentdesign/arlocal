@@ -1,12 +1,15 @@
 class KeywordBuilder
+
+
+  protected
   
-  
-  def default
+
+  def self.default
     Keyword.new
   end
-  
-  
-  def default_with(params_given)
+
+
+  def self.default_with(params_given)
     Keyword.new(params_given)
   end
 

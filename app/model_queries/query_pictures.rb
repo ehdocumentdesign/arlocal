@@ -1,17 +1,15 @@
 class QueryPictures
 
 
-  # TODO: Determine which query methods can be deprecated.
+  # TODO: Commented-out methods are from a previous factoring. They might be useful for future reference.
 
 
-  def initialize(args = {})
+  def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
     @index_sorter_admin = SorterIndexAdminPictures.find(arlocal_settings.admin_index_pictures_sorter_id)
     @index_sorter_public = SorterIndexAdminPictures.find(arlocal_settings.public_index_pictures_sorter_id)
     @selectable_filter = SorterFormSelectablePictures.find(arlocal_settings.admin_forms_selectable_pictures_sorter_id)
     @params = args[:params]
-
-    @pictures = Picture.all.with_attached_image
   end
 
 
@@ -20,7 +18,7 @@ class QueryPictures
 
 
   def action_admin_edit
-    find(@params[:id])
+    pictures.friendly.find(@params[:id])
   end
 
 
@@ -31,30 +29,23 @@ class QueryPictures
 
   def action_admin_index(arg = nil)
     filter_method = (arg) ? arg : @params[:filter]
-
     case filter_method.to_s.downcase
     when 'datetime_asc'
-      @pictures.sort_by{ |p| p.datetime_effective_value }
+      pictures.sort_by{ |p| p.datetime_effective_value }
     when 'datetime_desc'
-      @pictures.sort_by{ |p| p.datetime_effective_value }.reverse
+      pictures.sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
-      @pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
+      pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
     when 'filepath_desc'
-      @pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
+      pictures.sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
     when 'title_asc'
-      @pictures.sort_by{ |p| p.title_without_markup.downcase }
+      pictures.sort_by{ |p| p.title_without_markup.downcase }
     when 'title_desc'
-      @pictures.sort_by{ |p| p.title_without_markup.downcase }.reverse
+      pictures.sort_by{ |p| p.title_without_markup.downcase }.reverse
     else
-      all
+      pictures
     end
   end
-
-
-  # def action_admin_index_by_keyword(keyword, page_number: :all)
-  #   pictures = pictures_admin_index_ordered.joins(:keywords).where(keywords: {id: keyword.id})
-  #   paginate(page_number: page_number, pictures: pictures)
-  # end
 
 
   def action_admin_index_by_page(limit: 20, page: 1)
@@ -62,13 +53,8 @@ class QueryPictures
   end
 
 
-  # def action_admin_index_not_keyworded
-  #   find_not_keyworded
-  # end
-
-
   def action_admin_show
-    Picture.friendly.find(@params[:id])
+    pictures.friendly.find(@params[:id])
   end
 
 
@@ -78,37 +64,27 @@ class QueryPictures
 
 
   def action_admin_update
-    Picture.friendly.find(@params[:id])
+    pictures.friendly.find(@params[:id])
   end
 
 
-  # def action_public_album_pictures_index(album)
-  #   pictures = album.album_pictures.map { |ap| ap.picture }
-  #   paginate(pictures: pictures)
-  # end
-
-
   def action_public_index(arg = nil)
-    # many of the ordering methods for pictures call upon object instance methods
-    # however, originally, ordering methods relied on database attributes.
-    # the commented-methods in the following case statement might be obsolete and deprecated.
     filter_method = (arg) ? arg : @params[:filter]
-
     case filter_method.to_s.downcase
     when 'datetime_asc'
-      @pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }
+      pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }
     when 'datetime_desc'
-      @pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }.reverse
+      pictures.where(indexed: true, published: true).sort_by{ |p| p.datetime_effective_value }.reverse
     when 'filepath_asc'
-      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
+      pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }
     when 'filepath_desc'
-      @pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
+      pictures.where(indexed: true, published: true).sort_by{ |p| [p.source_type.to_s, p.source_file_path.to_s] }.reverse
     when 'title_asc'
-      @pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }
+      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }
     when 'title_desc'
-      @pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }.reverse
+      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }.reverse
     else
-      @pictures.where(indexed: true, published: true)
+      pictures.where(indexed: true, published: true)
     end
   end
 
@@ -119,7 +95,7 @@ class QueryPictures
 
 
   def action_public_show
-    @pictures.where(published: true).friendly.find(@params[:id])
+    pictures.where(published: true).friendly.find(@params[:id])
   end
 
 
@@ -128,118 +104,80 @@ class QueryPictures
   end
 
 
-  def all
-    @pictures.all
-  end
-
-
   def filter_for_select(arg = nil)
     filter_method = (arg) ? arg : @params[:filter]
-
     case filter_method.to_s.downcase
     when 'all_title_asc'
-      order_by_title_asc
+      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }
     when 'all_title_desc'
-      order_by_title_desc
+      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }.reverse
     when 'only_match_keywords'
-      find_with_matching_keywords(nil)
+      pictures.joins(:keywords).where(keywords: {id: keywords.map{|k| k.id} })
     when 'only_recent_10'
-      find_most_recent_title_asc(limit: 10)
+      pictures.order(:created_at).limit(10).order(Picture.arel_table[:title_without_markup].lower.asc)
     when 'only_recent_20'
-      find_most_recent_title_asc(limit: 20)
+      pictures.order(:created_at).limit(20).order(Picture.arel_table[:title_without_markup].lower.asc)
     when 'only_recent_40'
-      find_most_recent_title_asc(limit: 40)
+      pictures.order(:created_at).limit(40).order(Picture.arel_table[:title_without_markup].lower.asc)
     else
-      all
+      pictures
     end
   end
 
 
-  def find(id)
-    @pictures.friendly.find(id)
-  end
-
-
-  def find_by_slug(slug)
-    @pictures.friendly.find(id)
-  end
-
-
-  def find_by_slug!(slug)
-    @pictures.friendly.find(id)
-  end
-
-
-  def find_by_keyword(keyword)
-    @pictures.joins(:keywords).where(keywords: {id: keyword.id})
-  end
-
-
-  def find_by_keywords(keywords)
-    @pictures.joins(:keywords).where(keywords: {id: keywords.map{|k| k.id} })
-  end
-
-
-  def find_by_keywords_title_asc(keywords)
-    @pictures.joins(:keywords).where(keywords: {id: keywords.map{ |k| k.id } }).order(Picture.arel_table[:title_without_markup].lower.asc)
-  end
-
-
-  def find_most_recent(limit: 1)
-    @pictures.order(:created_at).limit(limit)
-  end
-
-
-  def find_most_recent_title_asc(limit: 10)
-    @pictures.order(:created_at).limit(limit).order(Picture.arel_table[:title_without_markup].lower.asc)
-  end
-
-
-  def find_not_keyworded
-    @pictures.where.not(id: Picture.joins(:keywords).each { |k| k.id })
-  end
-
-
-  # def order_by_datetime_asc
-  #   # possibly obsolete
-  #   # datetime_effective_value is an object instance method rather than a database attribute
-  #   @pictures.order(datetime_effective_value: :asc)
+  # def find(id)
+  #   pictures.friendly.find(id)
   # end
   #
   #
-  # def order_by_datetime_desc
-  #   # possibly obsolete
-  #   # datetime_effective_value is an object instance method rather than a database attribute
-  #   @pictures.order(datetime_effective_value: :desc)
+  # def find_by_slug(slug)
+  #   pictures.friendly.find(id)
   # end
   #
   #
-  # def order_by_filepath_asc
-  #   # possibly obsolete
-  #   @pictures.order(catalog_file_path: :asc)
+  # def find_by_slug!(slug)
+  #   pictures.friendly.find(id)
   # end
   #
   #
-  # def order_by_filepath_desc
-  #   # possibly obsolete
-  #   @pictures.order(catalog_file_path: :desc)
+  # def find_by_keyword(keyword)
+  #   pictures.joins(:keywords).where(keywords: {id: keyword.id})
   # end
   #
   #
-  # def order_by_title_asc
-  #   # possibly deprecated
-  #   @pictures.order(Picture.arel_table[:title_without_markup].lower.asc)
+  # def find_by_keywords(keywords)
+  #   pictures.joins(:keywords).where(keywords: {id: keywords.map{|k| k.id} })
   # end
   #
   #
-  # def order_by_title_desc
-  #   # possibly deprecated
-  #   @pictures.order(Picture.arel_table[:title_without_markup].lower.desc)
+  # def find_by_keywords_title_asc(keywords)
+  #   pictures.joins(:keywords).where(keywords: {id: keywords.map{ |k| k.id } }).order(Picture.arel_table[:title_without_markup].lower.asc)
   # end
-
+  #
+  #
+  # def find_most_recent(limit: 1)
+  #   pictures.order(:created_at).limit(limit)
+  # end
+  #
+  #
+  # def find_most_recent_title_asc(limit: 10)
+  #   pictures.order(:created_at).limit(limit).order(Picture.arel_table[:title_without_markup].lower.asc)
+  # end
+  #
+  #
+  # def find_not_keyworded
+  #   pictures.where.not(id: Picture.joins(:keywords).each { |k| k.id })
+  # end
+  #
+  #
 
 
   private
+
+
+  def pictures
+    Picture.all.with_attached_image
+  end
 
 
   def pictures_admin_forms_selectable

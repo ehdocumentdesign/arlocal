@@ -1,15 +1,56 @@
 class ArticleBuilder
-  
-    
-  def default
-    Article.new(params_default)
+
+
+  attr_reader :article
+
+
+  def initialize
+    @article = Article.new
   end
-  
-  
-  def default_with(params_given)
-    params = params_default.merge(params_given)
-    Article.new(params)
+
+
+
+  protected
+
+
+  def self.build
+    builder = new
+    yield(builder)
+    builder.article
   end
+
+
+  def self.build_with_defaults
+    self.build do |b|
+      b.assign_default_attributes
+    end
+  end
+
+
+  def self.create(article_params)
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(article_params)
+    end
+  end
+
+
+
+  public
+
+
+  def assign_default_attributes
+    @article.assign_attributes(params_default)
+  end
+
+
+  def assign_given_attributes(article_params)
+    @article.assign_attributes(article_params)
+  end
+
+
+
+  private
 
 
   def params_default
@@ -20,5 +61,5 @@ class ArticleBuilder
     }
   end
 
-  
+
 end

@@ -2,7 +2,7 @@ class Admin::LinksController < AdminController
 
 
   def create
-    @link = Link.new(link_params)
+    @link = LinkBuilder.create(link_params)
     if @link.save
       flash[:notice] = 'Link successfully created and added.'
       redirect_to admin_links_path
@@ -35,7 +35,7 @@ class Admin::LinksController < AdminController
 
 
   def new
-    @link = LinkBuilder.new.default
+    @link = LinkBuilder.build_default
     @form_metadata = FormLinkMetadata.new(pane: params[:pane])
   end
 

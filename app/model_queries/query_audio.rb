@@ -1,12 +1,10 @@
 class QueryAudio
 
 
-  def initialize(args = {})
+  def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
     @index_sorter_admin = SorterIndexAdminAudio.find(arlocal_settings.admin_index_audio_sorter_id)
     @index_sorter_public = SorterIndexAdminAudio.find(arlocal_settings.public_index_audio_sorter_id)
-
-    @audio = Audio.all.with_attached_recording
   end
 
 
@@ -16,7 +14,6 @@ class QueryAudio
 
   def action_admin_index(arg = nil)
     filter_method = (arg) ? arg : @params[:filter]
-
     case filter_method.to_s.downcase
     when 'datetime_asc'
       order_by_date_released_asc
@@ -41,17 +38,17 @@ class QueryAudio
 
 
   def action_admin_index_by_keyword(keyword)
-    @audio.joins(:keywords).where(keywords: {id: keyword.id}).order(title: :asc)
+    audio.joins(:keywords).where(keywords: {id: keyword.id}).order(title: :asc)
   end
 
 
   def action_admin_index_no_albums
-    @audio.where.not(id: Audio.joins(:albums).map {|aa| aa.id}).order(title: :asc)
+    audio.where.not(id: Audio.joins(:albums).map {|aa| aa.id}).order(title: :asc)
   end
 
 
   def action_admin_index_no_keywords
-    @audio.where.not(id: Audio.joins(:keywords).map {|ak| ak.id}).order(title: :asc)
+    audio.where.not(id: Audio.joins(:keywords).map {|ak| ak.id}).order(title: :asc)
   end
 
 
@@ -61,77 +58,77 @@ class QueryAudio
 
 
   def action_public_index
-    all.where(indexed: true, published: true)
+    audio.where(indexed: true, published: true)
   end
 
 
   def all
-    @audio.all
+    audio.all
   end
 
 
   def find(id)
-    @audio.friendly.find(id)
-  end
-
-
-  def find!(id)
-    @audio.friendly.find(id)
+    audio.friendly.find(id)
   end
 
 
   def find_by_album(album)
-    @audio.joins(:albums).where(albums: {id: album.id}).order(title: :asc)
+    audio.joins(:albums).where(albums: {id: album.id}).order(title: :asc)
   end
 
 
   def find_by_keyword(keyword)
-    @audio.joins(:keywords).where(keywords: {id: keyword.id})
+    audio.joins(:keywords).where(keywords: {id: keyword.id})
   end
 
 
   def order_by_date_released_asc
-    @audio.order(date_released: :asc).order(catalog_file_path: :asc)
+    audio.order(date_released: :asc).order(catalog_file_path: :asc)
   end
 
 
   def order_by_date_released_desc
-    @audio.order(date_released: :desc).order(catalog_file_path: :asc)
+    audio.order(date_released: :desc).order(catalog_file_path: :asc)
   end
 
 
   def order_by_filepath_asc
-    @audio.order(source_file_path: :asc)
+    audio.order(source_file_path: :asc)
   end
 
 
   def order_by_filepath_desc
-    @audio.order(source_file_path: :desc)
+    audio.order(source_file_path: :desc)
   end
 
 
   def order_by_isrc_asc
-    @audio.order(isrc_country_code: :asc).order(isrc_registrant_code: :asc).order(isrc_year_of_reference: :asc).order(isrc_designation_code: :asc)
+    audio.order(isrc_country_code: :asc).order(isrc_registrant_code: :asc).order(isrc_year_of_reference: :asc).order(isrc_designation_code: :asc)
   end
 
 
   def order_by_isrc_desc
-    @audio.order(isrc_country_code: :desc).order(isrc_registrant_code: :desc).order(isrc_year_of_reference: :desc).order(isrc_designation_code: :desc)
+    audio.order(isrc_country_code: :desc).order(isrc_registrant_code: :desc).order(isrc_year_of_reference: :desc).order(isrc_designation_code: :desc)
   end
 
 
   def order_by_title_asc
-    @audio.order(Audio.arel_table[:title].lower.asc)
+    audio.order(Audio.arel_table[:title].lower.asc)
   end
 
 
   def order_by_title_desc
-    @audio.order(Audio.arel_table[:title].lower.desc)
+    audio.order(Audio.arel_table[:title].lower.desc)
   end
 
 
 
   private
+
+
+  def audio
+    Audio.all.with_attached_recording
+  end
 
 
   def audio_admin_index_ordered

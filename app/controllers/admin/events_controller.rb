@@ -41,7 +41,7 @@ class Admin::EventsController < AdminController
 
 
   def create
-    @event = EventBuilder.new.default_with(event_params)
+    @event = EventBuilder.create(event_params)
     if @event.save
       flash[:notice] = 'Event was successfully created.'
       redirect_to edit_admin_event_path(@event.id_admin)
@@ -57,7 +57,7 @@ class Admin::EventsController < AdminController
 
 
   def destroy
-    @event = QueryEvents.new.find(params[:id])
+    @event = Event.find(params[:id])
     @event.destroy
     flash[:notice] = 'Event was destroyed.'
     redirect_to action: :index
@@ -65,7 +65,7 @@ class Admin::EventsController < AdminController
 
 
   def edit
-    @event = QueryEvents.new.find_by_slug(params[:id])
+    @event = QueryEvents.new.action_admin_edit(params[:id])
     @event_neighbors = QueryEvents.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@event)
     @form_metadata = FormEventMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
@@ -78,7 +78,7 @@ class Admin::EventsController < AdminController
 
 
   def new
-    @event = EventBuilder.new.default
+    @event = EventBuilder.build_default
     @form_metadata = FormEventMetadata.new
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -119,13 +119,13 @@ class Admin::EventsController < AdminController
 
 
   def show
-    @event = QueryEvents.new.find_by_slug(params[:id])
+    @event = QueryEvents.new.action_admin_show(params[:id])
     @event_neighbors = QueryEvents.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@event)
   end
 
 
   def update
-    @event = QueryEvents.new.find(params[:id])
+    @event = Event.friendly.find(params[:id])
     if @event.update_and_recount_joined_resources(event_params)
       flash[:notice] = 'Event was successfully updated.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: params[:pane])

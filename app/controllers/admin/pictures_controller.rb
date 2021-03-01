@@ -168,17 +168,17 @@ class Admin::PicturesController < AdminController
   end
 
 
-  def index_by_keyword
-    @keyword = Keyword.find_by_slug!(params[:keyword_id])
-    @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_keyword(@keyword, page: params[:page])
-    render action: :index
-  end
-
-
-  def index_not_keyworded
-    @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_not_keyworded(page: params[:page])
-    render action: :index
-  end
+  # def index_by_keyword
+  #   @keyword = Keyword.friendly.find(params[:keyword_id])
+  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_keyword(@keyword, page: params[:page])
+  #   render action: :index
+  # end
+  #
+  #
+  # def index_not_keyworded
+  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_not_keyworded(page: params[:page])
+  #   render action: :index
+  # end
 
 
   def new
@@ -252,23 +252,23 @@ class Admin::PicturesController < AdminController
 
 
   def purge_image
-    @picture = QueryPictures.new.find(params[:id])
+    @picture = Picture.friendly.find(params[:id])
     @picture.image.purge
     flash[:notice] = 'Attachment purged from picture.'
     redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
   end
 
 
-  def refresh_exif
-    @picture = QueryPictures.new.find(params[:id])
-    if PictureBuilder.new.refresh_exif(@picture)
-      flash[:notice] = 'Picture EXIF was successfully refreshed.'
-      redirect_to edit_admin_picture_path(@picture.id_admin, pane: 'datetime')
-    else
-      flash[:notice] = 'Picture EXIF could not be refreshed.'
-      render 'edit'
-    end
-  end
+  # def refresh_exif
+  #   @picture = Picture.friendly.find(params[:id])
+  #   if PictureBuilder.new.refresh_exif(@picture)
+  #     flash[:notice] = 'Picture EXIF was successfully refreshed.'
+  #     redirect_to edit_admin_picture_path(@picture.id_admin, pane: 'datetime')
+  #   else
+  #     flash[:notice] = 'Picture EXIF could not be refreshed.'
+  #     render 'edit'
+  #   end
+  # end
 
 
   def show

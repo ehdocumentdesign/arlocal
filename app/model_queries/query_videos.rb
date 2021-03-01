@@ -1,10 +1,10 @@
 class QueryVideos
 
 
-  def initialize(args = {})
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
-    @index_sorter_admin = SorterIndexAdminVideos.find(arlocal_settings.admin_index_videos_sorter_id)
-    @index_sorter_public = SorterIndexAdminVideos.find(arlocal_settings.public_index_videos_sorter_id)
+  def initialize(**args)
+    # arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
+    # @index_sorter_admin = SorterIndexAdminVideos.find(arlocal_settings.admin_index_videos_sorter_id)
+    # @index_sorter_public = SorterIndexAdminVideos.find(arlocal_settings.public_index_videos_sorter_id)
     @params = args[:params]
   end
 
@@ -24,7 +24,7 @@ class QueryVideos
 
 
   def action_admin_show
-    Video.friendly.find(id)(@params[:id])
+    Video.friendly.find(@params[:id])
   end
 
 
@@ -39,7 +39,7 @@ class QueryVideos
 
 
   def find
-    Video.friendly.find(id)(@params[:id])
+    Video.friendly.find(@params[:id])
   end
 
 

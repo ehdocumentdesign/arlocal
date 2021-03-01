@@ -45,6 +45,9 @@ class Keyword < ApplicationRecord
     end
   end
 
+  has_many :video_keywords, dependent: :destroy
+  has_many :videos, through: :video_keywords
+
   accepts_nested_attributes_for :album_keywords, allow_destroy: true
   accepts_nested_attributes_for :audio_keywords, allow_destroy: true
   accepts_nested_attributes_for :event_keywords, allow_destroy: true
@@ -178,8 +181,7 @@ class Keyword < ApplicationRecord
 
 
   def strip_whitespace_edges_from_entered_text
-    [ self.title,
-      self.slug
+    [ self.title
     ].each { |a| a.to_s.strip! }
   end
 

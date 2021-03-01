@@ -17,21 +17,21 @@ class VideoBuilder
   protected
 
 
-  def self.build(args={})
+  def self.build(**args)
     builder = new
     yield(builder)
     builder.video
   end
 
 
-  def self.build_with_defaults(args={})
+  def self.build_with_defaults(**args)
     self.build(args) do |b|
       b.assign_default_attributes
     end
   end
 
 
-  def self.create(video_params, args={})
+  def self.create(video_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(video_params)
@@ -50,11 +50,6 @@ class VideoBuilder
 
   def assign_given_attributes(video_params)
     @video.assign_attributes(video_params)
-  end
-
-
-  def find_preexisting(id)
-    @video = Video.find(id)
   end
 
 

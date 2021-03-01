@@ -2,7 +2,7 @@ class Admin::ArticlesController < AdminController
 
 
   def create
-    @article = ArticleBuilder.new.default_with(article_params)
+    @article = ArticleBuilder.create(article_params)
     if @article.save
       flash[:notice] = 'Article was successfully created.'
       redirect_to edit_admin_article_path(@article)
@@ -35,7 +35,7 @@ class Admin::ArticlesController < AdminController
 
 
   def new
-    @article = ArticleBuilder.new.default
+    @article = ArticleBuilder.build_default
     @form_metadata = FormArticleMetadata.new
   end
 

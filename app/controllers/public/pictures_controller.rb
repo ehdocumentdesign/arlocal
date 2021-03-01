@@ -26,7 +26,7 @@ class Public::PicturesController < PublicController
     if params[:filter] == nil
       params[:filter] = SorterIndexPublicPictures.find(@arlocal_settings.public_index_pictures_sorter_id).symbol
     end
-    @pictures = QueryPictures.new({params: params}).action_public_index
+    @pictures = QueryPictures.new(params: params).action_public_index
   end
 
 

@@ -1,14 +1,11 @@
 class QueryAlbums
 
 
-  def initialize(args = {})
+  def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
     @index_sorter_admin = SorterIndexAdminAlbums.find(arlocal_settings.admin_index_albums_sorter_id)
     @index_sorter_public = SorterIndexAdminAlbums.find(arlocal_settings.public_index_albums_sorter_id)
-
     @params = args[:params]
-
-    @albums = Album.all
   end
 
 
@@ -17,12 +14,12 @@ class QueryAlbums
 
 
   def action_admin_destroy
-    @albums.friendly.find(@params[:id])
+    albums.friendly.find(@params[:id])
   end
 
 
   def action_admin_edit
-    @albums.friendly.find(@params[:id])
+    albums.friendly.find(@params[:id])
   end
 
 
@@ -44,7 +41,7 @@ class QueryAlbums
 
 
   def action_admin_show
-    @albums.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment}).friendly.find(@params[:id])
+    albums.friendly.find(@params[:id])
   end
 
 
@@ -72,22 +69,22 @@ class QueryAlbums
 
 
   def action_public_show
-    @albums.where(published: true).includes({audio: :recording_attachment}, :keywords, :pictures).friendly.find(@params[:id])
+    albums.where(published: true).friendly.find(@params[:id])
   end
 
 
   def action_public_show_neighborhood(album, distance: 1)
-    @albums.neighborhood(album, collection: albums_public_index_ordered, distance: distance)
+    albums.neighborhood(album, collection: albums_public_index_ordered, distance: distance)
   end
 
 
   def all
-    @albums
+    albums
   end
 
 
   def find(id)
-    @albums.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment}).friendly.find(id)
+    albums.friendly.find(id)
   end
 
 
@@ -117,27 +114,32 @@ class QueryAlbums
 
 
   def order_by_datetime_asc
-    @albums.order(date_released: :asc)
+    albums.order(date_released: :asc)
   end
 
 
   def order_by_datetime_desc
-    @albums.order(date_released: :desc)
+    albums.order(date_released: :desc)
   end
 
 
   def order_by_title_asc
-    @albums.order(Album.arel_table[:title].lower.asc)
+    albums.order(Album.arel_table[:title].lower.asc)
   end
 
 
   def order_by_title_desc
-    @albums.order(Album.arel_table[:title].lower.desc)
+    albums.order(Album.arel_table[:title].lower.desc)
   end
 
 
 
   private
+
+
+  def albums
+    Album.all.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment})
+  end
 
 
   def albums_admin_index_ordered

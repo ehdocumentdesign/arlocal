@@ -1,12 +1,9 @@
 class QueryArticles
 
 
-  def initialize(args = {})
+  def initialize(**args)
     # arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
-
     @params = args[:params]
-
-    @articles = Article.all
   end
 
 

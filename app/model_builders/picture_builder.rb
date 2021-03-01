@@ -7,7 +7,7 @@ class PictureBuilder
   attr_reader :picture
 
 
-  def initialize(args={})
+  def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
     picture = (Picture === args[:picture]) ? args[:picture] : Picture.new
     @arlocal_settings = arlocal_settings
@@ -19,14 +19,14 @@ class PictureBuilder
   protected
 
 
-  def self.build(args={})
+  def self.build(**args)
     builder = new(args)
     yield(builder)
     builder.picture
   end
 
 
-  def self.build_with_defaults(args={})
+  def self.build_with_defaults(**args)
     self.build(args) do |b|
       b.assign_default_attributes
     end
@@ -38,7 +38,7 @@ class PictureBuilder
   end
 
 
-  def self.create(picture_params, args={})
+  def self.create(picture_params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
@@ -46,7 +46,7 @@ class PictureBuilder
   end
 
 
-  def self.create_from_import(params, args={})
+  def self.create_from_import(params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
@@ -56,29 +56,27 @@ class PictureBuilder
   end
 
 
-  def self.create_from_import_and_join_nested_album(params, args={})
+  def self.create_from_import_and_join_nested_album(params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('catalog')
       b.assign_metadata
-      # b.set_new_album_order
     end
   end
 
 
-  def self.create_from_import_and_join_nested_event(params, args={})
+  def self.create_from_import_and_join_nested_event(params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('catalog')
       b.assign_metadata
-      # b.set_new_event_order
     end
   end
 
 
-  def self.create_from_import_nested_within_album(album, params, args={})
+  def self.create_from_import_nested_within_album(album, params, **args)
     picture_params = {
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
@@ -92,7 +90,7 @@ class PictureBuilder
   end
 
 
-  def self.create_from_import_nested_within_event(event, params, args={})
+  def self.create_from_import_nested_within_event(event, params, **args)
     picture_params = {
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
@@ -106,7 +104,7 @@ class PictureBuilder
   end
 
 
-  def self.create_from_upload(params, args={})
+  def self.create_from_upload(params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
@@ -116,29 +114,27 @@ class PictureBuilder
   end
 
 
-  def self.create_from_upload_and_join_nested_album(params, args={})
+  def self.create_from_upload_and_join_nested_album(params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('attachment')
       b.assign_metadata
-      # b.set_new_album_order
     end
   end
 
 
-  def self.create_from_upload_and_join_nested_event(params, args={})
+  def self.create_from_upload_and_join_nested_event(params, **args)
     self.build(args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('attachment')
       b.assign_metadata
-      # b.set_new_event_order
     end
   end
 
 
-  def self.create_from_upload_nested_within_album(album, params, args={})
+  def self.create_from_upload_nested_within_album(album, params, **args)
     picture_params = {
       image: params['pictures_attributes']['0']['image'],
       source_type: 'attachment'
@@ -152,7 +148,7 @@ class PictureBuilder
   end
 
 
-  def self.create_from_upload_nested_within_event(event, params, args={})
+  def self.create_from_upload_nested_within_event(event, params, **args)
     picture_params = {
       image: params['pictures_attributes']['0']['image'],
       source_type: 'attachment'
@@ -210,14 +206,6 @@ class PictureBuilder
     event_id = event.id
     @picture.event_pictures.build(event_id: event_id)
   end
-
-
-  # def set_new_album_order
-  # end
-
-
-  # def set_new_event_order
-  # end
 
 
 
