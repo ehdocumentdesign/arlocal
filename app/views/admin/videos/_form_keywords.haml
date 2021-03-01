@@ -9,7 +9,7 @@
           %th.arl_form_data_resource_remove= icon_remove
         = f.fields_for :video_keywords do |vk|
           %tr
-            %td.arl_form_data_resource_value= keyword_reference_admin_link(pk.object.keyword)
+            %td.arl_form_data_resource_value= keyword_reference_admin_link(vk.object.keyword)
             %td.arl_form_data_resource_remove= vk.check_box :_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

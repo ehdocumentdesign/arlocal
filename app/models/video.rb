@@ -87,6 +87,11 @@ class Video < ApplicationRecord
   end
 
 
+  def does_have_keywords
+    keywords_count.to_i > 0
+  end
+  
+
   ### id
 
 
