@@ -1,7 +1,7 @@
 .arl_form_title
   Add audio
 
-- if selectable.has_audio
+- if selectable.does_have_audio
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: [:arl_form], method: :patch) do |f|
     .arl_form_data
       = f.fields_for :event_audio, event.event_audio.build do |ea|

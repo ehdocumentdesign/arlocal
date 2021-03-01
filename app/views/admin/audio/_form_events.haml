@@ -17,7 +17,7 @@
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also unjoin any events with '#{icon_destroy}' box checked"
 
--if selectable.events.count >= 1
+-if selectable.does_have_events
   = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :events), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title
       Add audio to event

@@ -17,7 +17,7 @@
       %aside.arl_form_action_explanation
         = "will detach any albums with the #{icon_remove} box checked."
 
--if selectable.albums.count >= 1
+-if selectable.does_have_events
   = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :albums), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title
       Keyword an album

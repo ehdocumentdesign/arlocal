@@ -17,7 +17,7 @@
       %aside.arl_form_action_explanation
         = "will detach any video with the #{icon_remove} box checked."
 
--if selectable.has_videos
+-if selectable.does_have_videos
   = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :videos), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title
       Keyword a video

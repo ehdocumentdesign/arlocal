@@ -1,4 +1,4 @@
-- if selectable.has_pictures
+- if selectable.does_have_pictures
   = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: [:arl_form]) do |f|
     .arl_form_title
       Add picture

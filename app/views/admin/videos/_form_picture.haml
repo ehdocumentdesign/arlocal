@@ -1,4 +1,4 @@
-- if selectable.has_pictures
+- if selectable.does_have_pictures
   = form_with(model: [:admin, video], url: admin_video_path(pane: :picture), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_title video thumbnail picture
     .arl_form_data

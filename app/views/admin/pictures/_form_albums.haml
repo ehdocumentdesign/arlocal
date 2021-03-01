@@ -16,7 +16,7 @@
       %aside.arl_form_action_explanation
         will also unjoin any albums with 'remove' box checked
 
-- if selectable.albums.count >= 1
+- if selectable.does_have_albums
   = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :albums), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title
       Add picture to album

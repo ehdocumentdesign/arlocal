@@ -16,7 +16,7 @@
       %aside.arl_form_action_explanation
         will also unjoin any events with 'remove' box checked
 
--if selectable.events.count >= 1
+-if selectable.does_have_events
   = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :events), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title
       Add picture to event

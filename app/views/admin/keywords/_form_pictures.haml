@@ -15,7 +15,7 @@
       %aside.arl_form_action_explanation
         = "will detach any picture with the #{icon_remove} box checked."
 
-- if selectable.has_pictures
+- if selectable.does_have_pictures
   = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :pictures), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title Keyword a picture
     .arl_form_data

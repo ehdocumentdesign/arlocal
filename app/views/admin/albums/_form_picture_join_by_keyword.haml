@@ -1,4 +1,4 @@
-- if selectable.has_keywords
+- if selectable.does_have_keywords
   = form_with(model: [:admin, album], url: admin_album_add_pictures_by_keyword_path(album, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], namespace: :add_pictures) do |f|
     .arl_form_title
       Add picture(s) by keyword

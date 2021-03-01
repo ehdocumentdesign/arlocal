@@ -17,7 +17,7 @@
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detach any albums with '#{icon_destroy}' box checked"
 
-- if selectable.albums.count >= 1
+- if selectable.does_have_albums
   = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :albums), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
     .arl_form_title
       Add audio to album

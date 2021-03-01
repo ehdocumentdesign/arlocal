@@ -16,7 +16,7 @@
       %aside.arl_form_action_explanation
         will also unjoin any keywords with 'remove' box checked
 
-- if selectable.has_keywords
+- if selectable.does_have_keywords
   = form_with(model: [:admin, video], url: admin_video_path(video, pane: :keywords), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
     .arl_form_title
       Add a keyword

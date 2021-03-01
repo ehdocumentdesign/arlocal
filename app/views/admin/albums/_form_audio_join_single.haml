@@ -1,7 +1,7 @@
 .arl_form_title
   Add audio
 
-- if selectable.has_audio
+- if selectable.does_have_audio
   = form_with(model: [:admin, album], url: admin_album_path(album, pane: :audio), local: true, class: [:arl_form], method: :patch) do |f|
     .arl_form_data
       = f.fields_for :album_audio, album.album_audio.build do |aa|
