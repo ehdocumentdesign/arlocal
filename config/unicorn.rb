@@ -1,6 +1,8 @@
+### for best results, use the true path for 'dir_app' rather than a method
 dir_app = File.absolute_path('../')
-dir_app_log = File.join(app_dir, 'log')
-dir_app_shared = File.join(app_dir, 'shared')
+
+dir_app_log = File.join(dir_app, 'log')
+dir_app_shared = File.join(dir_app, 'shared')
 
 working_directory dir_app
 
