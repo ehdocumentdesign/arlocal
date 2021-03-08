@@ -81,7 +81,7 @@ class Admin::AlbumsController < AdminController
 
 
   def new
-    @album = AlbumBuilder.build_default
+    @album = AlbumBuilder.build_with_defaults
     @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)

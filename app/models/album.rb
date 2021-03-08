@@ -345,8 +345,8 @@ class Album < ApplicationRecord
 
 
   def should_generate_new_friendly_id?
+    date_released_changed? ||
     title_changed? ||
-    year_changed? ||
     super
   end
 

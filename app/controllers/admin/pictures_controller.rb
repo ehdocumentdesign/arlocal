@@ -28,7 +28,7 @@ class Admin::PicturesController < AdminController
 
 
   def create
-    @picture = PictureBuilder.new.default_with(picture_params)
+    @picture = PictureBuilder.create(picture_params)
     if @picture.save
       flash[:notice] = 'Picture was successfuly created.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
