@@ -20,14 +20,14 @@ class PictureBuilder
 
 
   def self.build(**args)
-    builder = new(args)
+    builder = new(**args)
     yield(builder)
     builder.picture
   end
 
 
   def self.build_with_defaults(**args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
     end
   end
@@ -39,7 +39,7 @@ class PictureBuilder
 
 
   def self.create(picture_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
     end
@@ -47,7 +47,7 @@ class PictureBuilder
 
 
   def self.create_from_import(params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('catalog')
@@ -57,7 +57,7 @@ class PictureBuilder
 
 
   def self.create_from_import_and_join_nested_album(params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('catalog')
@@ -67,7 +67,7 @@ class PictureBuilder
 
 
   def self.create_from_import_and_join_nested_event(params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('catalog')
@@ -81,7 +81,7 @@ class PictureBuilder
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata
@@ -95,7 +95,7 @@ class PictureBuilder
       source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata
@@ -105,7 +105,7 @@ class PictureBuilder
 
 
   def self.create_from_upload(params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('attachment')
@@ -115,7 +115,7 @@ class PictureBuilder
 
 
   def self.create_from_upload_and_join_nested_album(params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('attachment')
@@ -125,7 +125,7 @@ class PictureBuilder
 
 
   def self.create_from_upload_and_join_nested_event(params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(params)
       b.assign_source_type('attachment')
@@ -139,7 +139,7 @@ class PictureBuilder
       image: params['pictures_attributes']['0']['image'],
       source_type: 'attachment'
     }
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata
@@ -153,7 +153,7 @@ class PictureBuilder
       image: params['pictures_attributes']['0']['image'],
       source_type: 'attachment'
     }
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(picture_params)
       b.assign_metadata

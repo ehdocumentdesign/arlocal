@@ -21,21 +21,21 @@ class AudioBuilder
 
 
   def self.build(**args)
-    builder = new(args)
+    builder = new(**args)
     yield(builder)
     builder.audio
   end
 
 
   def self.build_with_defaults(**args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
     end
   end
 
 
   def self.create(audio_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
     end
@@ -43,7 +43,7 @@ class AudioBuilder
 
 
   def self.create_from_import(audio_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_source_type('catalog')
@@ -53,7 +53,7 @@ class AudioBuilder
 
 
   def self.create_from_import_and_join_nested_album(audio_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_source_type('catalog')
@@ -64,7 +64,7 @@ class AudioBuilder
 
 
   def self.create_from_import_and_join_nested_event(audio_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_source_type('catalog')
@@ -79,7 +79,7 @@ class AudioBuilder
       source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_metadata
@@ -93,7 +93,7 @@ class AudioBuilder
       source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
       source_type: 'catalog'
     }
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_metadata
@@ -103,7 +103,7 @@ class AudioBuilder
 
 
   def self.create_from_upload(audio_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_source_type('attachment')
@@ -113,7 +113,7 @@ class AudioBuilder
 
 
   def self.create_from_upload_and_join_nested_album(audio_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_source_type('attachment')
@@ -124,7 +124,7 @@ class AudioBuilder
 
 
   def self.create_from_upload_and_join_nested_event(audio_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(audio_params)
       b.assign_source_type('attachment')

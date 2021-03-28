@@ -25,14 +25,14 @@ class VideoBuilder
 
 
   def self.build_with_defaults(**args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
     end
   end
 
 
   def self.create(video_params, **args)
-    self.build(args) do |b|
+    self.build(**args) do |b|
       b.assign_default_attributes
       b.assign_given_attributes(video_params)
     end
