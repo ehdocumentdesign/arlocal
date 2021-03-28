@@ -29,12 +29,12 @@ module CatalogHelper
 
 
   def catalog_path_prefix_filesystem
-    File.join(Rails.root, 'public', 'catalog')
+    Rails.application.config.x.arlocal[:artist_catalog_filesystem_dirname]
   end
 
 
   def catalog_path_prefix_url
-    '/catalog'
+    Rails.application.config.x.arlocal[:artist_catalog_url_path_prefix]
   end
 
 
@@ -85,9 +85,6 @@ module CatalogHelper
   def catalog_video_url(video)
     asset_url File.join(catalog_path_prefix_url, catalog_path_suffix_videos, video.source_catalog_file_path), skip_pipeline: true
   end
-
-
-
 
 
 end
