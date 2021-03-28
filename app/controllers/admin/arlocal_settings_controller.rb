@@ -64,6 +64,7 @@ class Admin::ArlocalSettingsController < AdminController
       :public_index_audio_sorter_id,
       :public_index_events_sorter_id,
       :public_index_pictures_sorter_id,
+      :public_index_videos_sorter_id,
       :public_nav_can_include_albums,
       :public_nav_can_include_audio,
       :public_nav_can_include_events,
