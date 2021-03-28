@@ -108,9 +108,11 @@ class QueryPictures
     filter_method = (arg) ? arg : @params[:filter]
     case filter_method.to_s.downcase
     when 'all_title_asc'
-      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }
+#      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }
+      pictures.sort_by{ |p| p.title_without_markup.downcase }
     when 'all_title_desc'
-      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }.reverse
+#      pictures.where(indexed: true, published: true).sort_by{ |p| p.title_without_markup.downcase }.reverse
+      pictures.sort_by{ |p| p.title_without_markup.downcase }.reverse
     when 'only_match_keywords'
       pictures.joins(:keywords).where(keywords: {id: keywords.map{|k| k.id} })
     when 'only_recent_10'
