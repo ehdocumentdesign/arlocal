@@ -54,7 +54,12 @@ class Video < ApplicationRecord
 
 
   def coverpicture
-    picture
+    video_picture
+  end
+
+
+  def coverpicture_picture
+    thumbnail.picture
   end
 
 
@@ -82,6 +87,11 @@ class Video < ApplicationRecord
   end
 
 
+  def does_have_attached(attribute)
+    self.method(attribute).call.attached? == true
+  end
+
+
   def does_have_coverpicture
     coverpicture != nil
   end
@@ -90,7 +100,12 @@ class Video < ApplicationRecord
   def does_have_keywords
     keywords_count.to_i > 0
   end
-  
+
+
+  def does_not_have_attached(attribute)
+    self.method(attribute).call.attached? == false
+  end
+
 
   ### id
 
@@ -223,6 +238,12 @@ class Video < ApplicationRecord
 
 
   def thumbnail
+    case video_picture
+    when nil
+      build_video_picture
+    when VideoPicture
+      video_picture
+    end
   end
 
 
