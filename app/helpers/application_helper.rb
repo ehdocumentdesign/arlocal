@@ -11,7 +11,7 @@ module ApplicationHelper
 
 
   def app_logo(html_class: nil)
-    tag :img, src: asset_url("#{ArlocalEnv.app_logo_file_path}", skip_pipeline: true), class: html_class
+    tag :img, src: asset_url("#{Rails.application.config.x.arlocal[:app_logo_file_path]}", skip_pipeline: true), class: html_class
   end
 
 

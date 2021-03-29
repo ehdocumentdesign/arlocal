@@ -140,7 +140,7 @@ module PicturesHelper
   def picture_preferred_tag(picture, html_class: nil)
     case picture
     when nil
-      tag :img, class: html_class, src: ArlocalEnv.app_nilpicture_file_path, skip_pipeline: true
+      tag :img, class: html_class, src: Rails.application.config.x.arlocal[:app_nilpicture_file_path], skip_pipeline: true
     when Picture
       tag.img(src: picture_preferred_url(picture), class: html_class)
     end
@@ -156,7 +156,7 @@ module PicturesHelper
     when 'catalog'
       catalog_picture_url(picture)
     when nil
-      url_for(ArlocalEnv.app_nilpicture_file_path)
+      url_for(Rails.application.config.x.arlocal[:app_nilpicture_file_path])
     end
   end
 
