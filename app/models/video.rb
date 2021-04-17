@@ -20,7 +20,6 @@ class Video < ApplicationRecord
   accepts_nested_attributes_for :video_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :video_picture, allow_destroy: true
 
-
   before_validation :strip_whitespace_edges_from_entered_text
 
 
@@ -261,6 +260,7 @@ class Video < ApplicationRecord
       date_released.year
     end
   end
+
 
 
   private

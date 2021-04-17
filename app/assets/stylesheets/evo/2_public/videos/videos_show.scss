@@ -1,5 +1,5 @@
 .arl_videos_show {}
-.arl_videoss_show_nav_neighbors {
+.arl_videos_show_nav_neighbors {
   text-align: center;
   width: 100%;
 }
@@ -34,8 +34,7 @@
     @include layout-flex-column-stretch;
   }
   .arl_videos_show_nav_neighbors {
-    margin: 0rem 0rem 1.5rem 0rem;
-    order: 4;
+    margin: $arl-spacing-wide;
   }
   .arl_videos_show_text {
     @include layout-flex-column-stretch;
@@ -63,7 +62,7 @@
     width: 30rem;
   }
   .arl_videos_show_nav_neighbors {
-    margin-top: 1.75rem;
+    margin: $arl-margin-wide;
   }
   .arl_videos_show_player {
     margin: $arl-spacing-wide 0rem $arl-margin-wide 0rem;
@@ -92,7 +91,7 @@
     width: 40rem;
   }
   .arl_videos_show_nav_neighbors {
-    margin-top: 1.75rem;
+    margin: $arl-margin-wide;
   }
   .arl_videos_show_player {
     margin: $arl-spacing-wide 0rem $arl-margin-wide 0rem;

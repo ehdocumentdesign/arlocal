@@ -1,33 +1,33 @@
 class Neighborhood
-  
-  
-  include Rails.application.routes.url_helpers  
-  
-  
+
+
+  include Rails.application.routes.url_helpers
+
+
   attr_reader :following, :preceeding
-  
-  
+
+
   def initialize(neighbors)
     @following = [neighbors[:following]].flatten
     @preceeding = [neighbors[:preceeding]].flatten
   end
-  
+
 
   public
-  
-  
+
+
   def next
     @following[0]
   end
-  
-  
+
+
   def previous
     @preceeding[0]
   end
 
-  
 
-  
+
+
   # TODO: All this might be obsolete now that individual individual resource helpers explicitly handle buttons.
   # Correction: this does seem redundant, but it is still in use by `shared/resource_nav_by_item`
   # for navigating between neighboring resource items.
@@ -85,7 +85,7 @@ class Neighborhood
 
 
   private
-    
+
 
   def determine_admin_edit_path(neighbor)
     case neighbor
@@ -103,6 +103,8 @@ class Neighborhood
       edit_admin_link_path(neighbor.id_admin)
     when Picture
       edit_admin_picture_path(neighbor.id_admin)
+    when Video
+      edit_admin_video_path(neighbor.id_admin)
     end
   end
 
@@ -123,6 +125,8 @@ class Neighborhood
       admin_link_path(neighbor.id_admin)
     when Picture
       admin_picture_path(neighbor.id_admin)
+    when Video
+      admin_video_path(neighbor.id_admin)
     end
   end
 
@@ -135,6 +139,8 @@ class Neighborhood
       public_event_path(neighbor.id_public)
     when Picture
       public_picture_path(neighbor.id_public)
+    when Video
+      public_video_path(neighbor.id_public)
     end
   end
 

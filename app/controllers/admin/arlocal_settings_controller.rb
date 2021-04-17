@@ -34,6 +34,7 @@ class Admin::ArlocalSettingsController < AdminController
   end
 
 
+
   private
 
 
@@ -48,6 +49,7 @@ class Admin::ArlocalSettingsController < AdminController
       :admin_index_audio_sorter_id,
       :admin_index_events_sorter_id,
       :admin_index_pictures_sorter_id,
+      :admin_index_videos_sorter_id,
       :artist_content_copyright_year_earliest,
       :artist_content_copyright_year_latest,
       :artist_name,

@@ -27,11 +27,15 @@ class Admin::VideosController < AdminController
 
   def edit
     @video = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
+    @video_neighbors = QueryVideos.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@video)
     @form_metadata = FormVideoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
 
 
   def index
+    if params[:filter] == nil
+      params[:filter] = SorterIndexAdminVideos.find(@arlocal_settings.admin_index_videos_sorter_id).symbol
+    end
     @videos = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
   end
 
@@ -48,6 +52,7 @@ class Admin::VideosController < AdminController
 
   def show
     @video = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_show
+    @video_neighbors = QueryVideos.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@video)
   end
 
 
