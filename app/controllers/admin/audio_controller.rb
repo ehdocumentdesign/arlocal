@@ -1,21 +1,6 @@
 class Admin::AudioController < AdminController
 
 
-  # def attachment_add
-  #   audio = QueryAudio.new.find(params[:id])
-  #   audio.recording.attach(audio_params[:recording])
-  #   @audio = AudioBuilder.update(audio)
-  #   if @audio.save
-  #     flash[:notice] = 'Attachment added to audio.'
-  #     redirect_to edit_admin_audio_path(@audio.id, pane: params[:pane])
-  #   else
-  #     @form_metadata = FormAudioMetadata.new(pane: params[:pane])
-  #     flash[:notice] = 'Attachment could not be added to audio.'
-  #     render 'edit'
-  #   end
-  # end
-
-
   def create
     @audio = AudioBuilder.create(audio_params, arlocal_settings: @arlocal_settings)
     if @audio.save
@@ -306,7 +291,6 @@ class Admin::AudioController < AdminController
       :duration_hrs,
       :duration_mins,
       :duration_secs,
-# TODO: check this attribute # TODO: why does this attribute need to be checked, and what for?
       :duration_mils,
       :indexed,
       :involved_people_parser_id,

@@ -1,14 +1,5 @@
 module ResourcesHelper
 
-  # TODO: Reconcile this method with PicturesHelper::picture_preferred_url() and _show_album_picture_img.haml
-  # def resource_coverpicture_tag(resource, html_class: nil)
-  #   if resource.does_have_coverpicture
-  #     catalog_picture_tag(resource.coverpicture_picture, html_class: html_class)
-  #   else
-  #     image_tag('', class: html_class)
-  #   end
-  # end
-
 
   def resource_coverpicture_tag(resource, html_class: nil)
     if resource.does_have_coverpicture
@@ -61,45 +52,6 @@ module ResourcesHelper
     filepath_string = picture_filepaths.flatten.map {|path| '"' + path + '"'}.join(',')
     app_script_element_for(js_function_album_picture_cycler(filepath_string))
   end
-
-  #
-  # NOTE: Legacy Code
-  #
-  # returns a matching path for selectors created in controllers, used in views that render 'shared/selector_list'
-  # 'type' is key in @selectors hash and matches class of objects used as selectors
-  # returns a routeable link for resource#index_by_[xxx]
-  # def resource_selector_link_to(current_controller_path, selector_type_from_hash_key, html_class: nil, selector: nil)
-  #   action = 'index'
-  #   id_key = nil
-  #   link_path = String.new
-  #   if selector
-  #     if (selector.class.to_s.downcase == 'Keyword') && (selector.can_select?(resource_type: controller_name) == false)
-  #       html_class = 'admin'
-  #     end
-  #     title = selector.title
-  #     case selector_type_from_hash_key
-  #     when :albums
-  #       action = 'index_by_album'
-  #       id_key = 'album_id'
-  #     when :keywords
-  #       action = 'index_by_keyword'
-  #       id_key = 'keyword_id'
-  #     end
-  #   else
-  #     title = "(no #{selector_type_from_hash_key.to_s.downcase})"
-  #     case selector_type_from_hash_key
-  #     when :albums
-  #       action = 'index_no_albums'
-  #     when :keywords
-  #       action = 'index_no_keywords'
-  #     end
-  #   end
-  #   link_path = { controller: current_controller_path, action: action }
-  #   if id_key
-  #     link_path.merge!( { id_key.to_sym => selector.id_public } )
-  #   end
-  #   link_to title, link_path, class: html_class
-  # end
 
 
   def resource_slug_form_explanation(resource)
