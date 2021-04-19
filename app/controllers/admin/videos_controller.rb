@@ -18,7 +18,7 @@ class Admin::VideosController < AdminController
 
 
   def destroy
-    @video = QueryVideos.new.find(params[:id])
+    @video = QueryVideos.find(params[:id])
     @video.destroy
     flash[:notice] = 'Video was destroyed.'
     redirect_to action: :index
@@ -26,7 +26,7 @@ class Admin::VideosController < AdminController
 
 
   def edit
-    @video = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
+    @video = QueryVideos.find(params[:id])
     @video_neighbors = QueryVideos.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@video)
     @form_metadata = FormVideoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
@@ -51,13 +51,13 @@ class Admin::VideosController < AdminController
 
 
   def show
-    @video = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_show
+    @video = QueryVideos.find(params[:id])
     @video_neighbors = QueryVideos.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@video)
   end
 
 
   def update
-    @video = Video.friendly.find(params[:id])
+    @video = QueryVideos.find(params[:id])
     if @video.update(video_params)
       flash[:notice] = 'Video was successfully updated.'
       redirect_to edit_admin_video_path(@video.id_admin, pane: params[:pane])

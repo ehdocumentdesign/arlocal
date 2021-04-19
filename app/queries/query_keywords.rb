@@ -5,6 +5,14 @@ class QueryKeywords
   end
 
 
+  protected
+
+
+  def self.find(id)
+    Keyword.friendly.find(id)
+  end
+
+
   public
 
 

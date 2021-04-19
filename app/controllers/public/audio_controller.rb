@@ -7,7 +7,7 @@ class Public::AudioController < PublicController
 
 
   def show
-    @audio = QueryAudio.new.find(params[:id])
+    @audio = QueryAudio.find_public(params[:id])
   end
 
 

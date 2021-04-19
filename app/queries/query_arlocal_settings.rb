@@ -1,9 +1,12 @@
 class QueryArlocalSettings
-  
-  
-  def get
+
+
+  protected
+
+
+  def self.get
     ArlocalSettings.first
   end
-  
-  
+
+
 end

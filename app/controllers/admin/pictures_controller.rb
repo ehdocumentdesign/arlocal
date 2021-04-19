@@ -139,7 +139,7 @@ class Admin::PicturesController < AdminController
 
 
   def destroy
-    @picture = Picture.find(params[:id])
+    @picture = Picture.friendly.find(params[:id])
     @picture.destroy
     flash[:notice] = 'Picture record was destroyed, file remains in filesystem.'
     redirect_to action: :index
@@ -147,7 +147,7 @@ class Admin::PicturesController < AdminController
 
 
   def edit
-    @picture = QueryPictures.new(params: params).action_admin_edit
+    @picture = QueryPictures.find(params[:id])
     @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@picture)
     @form_metadata = FormPictureMetadata.new(pane: params[:pane])
   end
@@ -252,7 +252,7 @@ class Admin::PicturesController < AdminController
 
 
   def purge_image
-    @picture = Picture.friendly.find(params[:id])
+    @picture = QueryPictures.find(params[:id])
     @picture.image.purge
     flash[:notice] = 'Attachment purged from picture.'
     redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
@@ -260,7 +260,7 @@ class Admin::PicturesController < AdminController
 
 
   # def refresh_exif
-  #   @picture = Picture.friendly.find(params[:id])
+  #   @picture = QueryPictures.find(params[:id])
   #   if PictureBuilder.new.refresh_exif(@picture)
   #     flash[:notice] = 'Picture EXIF was successfully refreshed.'
   #     redirect_to edit_admin_picture_path(@picture.id_admin, pane: 'datetime')
@@ -272,13 +272,13 @@ class Admin::PicturesController < AdminController
 
 
   def show
-    @picture = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_admin_show
+    @picture = QueryPictures.find(params[:id])
     @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@picture)
   end
 
 
   def update
-    @picture = Picture.friendly.find(params[:id])
+    @picture = QueryPictures.find(params[:id])
     if @picture.update_and_recount_joined_resources(picture_params)
       flash[:notice] = 'Picture was successfully updated.'
       redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])

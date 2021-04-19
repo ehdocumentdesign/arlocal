@@ -5,11 +5,24 @@ class QueryPictures
 
 
   def initialize(**args)
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
+    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.get
     @index_sorter_admin = SorterIndexAdminPictures.find(arlocal_settings.admin_index_pictures_sorter_id)
     @index_sorter_public = SorterIndexAdminPictures.find(arlocal_settings.public_index_pictures_sorter_id)
     @selectable_filter = SorterFormSelectablePictures.find(arlocal_settings.admin_forms_selectable_pictures_sorter_id)
     @params = args[:params]
+  end
+
+
+  protected
+
+
+  def self.find(id)
+    Picture.friendly.find(id)
+  end
+
+
+  def self.find_public(id)
+    Picture.where(published: true).friendly.find(id)
   end
 
 

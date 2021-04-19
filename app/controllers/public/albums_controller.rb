@@ -10,7 +10,7 @@ class Public::AlbumsController < PublicController
 
 
   def show
-    @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_public_show
+    @album = QueryAlbums.find_public(params[:id])
     @album_neighbors = QueryAlbums.new(arlocal_settings: @arlocal_settings).action_public_show_neighborhood(@album)
   end
 

@@ -2,13 +2,13 @@ class Admin::ArlocalSettingsController < AdminController
 
 
   def edit
-    @arlocal_settings = QueryArlocalSettings.new.get
+    @arlocal_settings = QueryArlocalSettings.get
     @form_metadata = FormArlocalSettingsMetadata.new(pane: params[:pane])
   end
 
 
   def update
-    @arlocal_settings = QueryArlocalSettings.new.get
+    @arlocal_settings = QueryArlocalSettings.get
     if @arlocal_settings.update(arlocal_settings_params)
       flash[:notice] = 'A&R.local settings were successfully updated.'
       redirect_to edit_admin_arlocal_settings_path(pane: params[:pane])
@@ -21,7 +21,7 @@ class Admin::ArlocalSettingsController < AdminController
 
 
   def update_from_resource_and_return
-    @arlocal_settings = QueryArlocalSettings.new.get
+    @arlocal_settings = QueryArlocalSettings.get
     if @arlocal_settings.update(arlocal_settings_params)
       flash[:notice] = 'A&R.local settings were successfully updated.'
       params.delete('filter')

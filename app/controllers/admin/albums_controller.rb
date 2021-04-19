@@ -2,7 +2,7 @@ class Admin::AlbumsController < AdminController
 
 
   def audio_create_from_import
-    @album = Album.friendly.find(params[:id])
+    @album = QueryAlbums.find(params[:id])
     @audio = AudioBuilder.create_from_import_nested_within_album(@album, album_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
@@ -16,7 +16,7 @@ class Admin::AlbumsController < AdminController
 
 
   def audio_create_from_upload
-    @album = Album.friendly.find(params[:id])
+    @album = QueryAlbums.find(params[:id])
     @audio = AudioBuilder.create_from_upload_nested_within_album(@album, album_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
@@ -33,9 +33,9 @@ class Admin::AlbumsController < AdminController
 
 
   def audio_join_by_keyword
-    @keyword = QueryKeywords.new.find(params[:album][:keywords])
-    @album = QueryAlbums.new.find(params[:id])
-    @album.audio << QueryAudio.new.find_by_keyword(@keyword)
+    @keyword = QueryKeywords.find(params[:album][:keywords])
+    @album = QueryAlbums.find(params[:id])
+    @album.audio << QueryAudio.find_by_keyword(@keyword)
     flash[:notice] = 'Album was successfully updated.'
     redirect_to edit_admin_album_path(@album, pane: params[:pane])
   end
@@ -58,7 +58,7 @@ class Admin::AlbumsController < AdminController
 
 
   def destroy
-    @album = Album.find(params[:id])
+    @album = QueryAlbums.find(params[:id])
     @album.destroy
     flash[:notice] = 'Album was destroyed.'
     redirect_to action: :index
@@ -66,7 +66,7 @@ class Admin::AlbumsController < AdminController
 
 
   def edit
-    @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_edit
+    @album = QueryAlbums.find(params[:id])
     @album_neighbors = QueryAlbums.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@album)
     @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
@@ -91,7 +91,7 @@ class Admin::AlbumsController < AdminController
 
 
   def picture_create_from_import
-    @album = Album.friendly.find(params[:id])
+    @album = QueryAlbums.find(params[:id])
     @picture = PictureBuilder.create_from_import_nested_within_album(@album, album_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
@@ -105,7 +105,7 @@ class Admin::AlbumsController < AdminController
 
 
   def picture_create_from_upload
-    @album = Album.friendly.find(params[:id])
+    @album = QueryAlbums.find(params[:id])
     @picture = PictureBuilder.create_from_upload_nested_within_album(@album, album_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
@@ -122,8 +122,8 @@ class Admin::AlbumsController < AdminController
 
 
   def pictures_join_by_keyword
-    @keyword = QueryKeywords.new.find(params[:album][:keywords])
-    @album = QueryAlbums.new.find(params[:id])
+    @keyword = QueryKeywords.find(params[:album][:keywords])
+    @album = QueryAlbums.find(params[:id])
     @album.pictures << QueryPictures.new.find_by_keyword(@keyword)
     flash[:notice] = 'Album was successfully updated.'
     redirect_to edit_admin_album_path(@album, pane: params[:pane])
@@ -131,13 +131,14 @@ class Admin::AlbumsController < AdminController
 
 
   def show
-    @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_show
+    # @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_show
+    @album = QueryAlbums.find(params[:id])
     @album_neighbors = QueryAlbums.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@album)
   end
 
 
   def update
-    @album = Album.friendly.find(params[:id])
+    @album = QueryAlbums.find(params[:id])
     if @album.update_and_recount_joined_resources(album_params)
       flash[:notice] = 'Album was successfully updated.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: params[:pane])

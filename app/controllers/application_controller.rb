@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
 
   def determine_arlocal_settings
-    @arlocal_settings = QueryArlocalSettings.new.get
+    @arlocal_settings = QueryArlocalSettings.get
   end
 
 

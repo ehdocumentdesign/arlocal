@@ -1,9 +1,12 @@
 class QueryInfoPage
-  
-  
-  def get
+
+
+  protected
+
+
+  def self.get
     InfoPage.first
   end
-  
-  
+
+
 end

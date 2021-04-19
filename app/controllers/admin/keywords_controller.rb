@@ -15,7 +15,7 @@ class Admin::KeywordsController < AdminController
 
 
   def destroy
-    @keyword = QueryKeywords.new.find(params[:id])
+    @keyword = QueryKeywords.find(params[:id])
     @keyword.destroy
     flash[:notice] = 'Keyword was destroyed.'
     redirect_to action: :index
@@ -23,7 +23,7 @@ class Admin::KeywordsController < AdminController
 
 
   def edit
-    @keyword = QueryKeywords.new.action_admin_edit(params[:id])
+    @keyword = QueryKeywords.find(params[:id])
     @keyword_neighbors = QueryKeywords.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@keyword)
     @form_metadata = FormKeywordMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
@@ -41,7 +41,7 @@ class Admin::KeywordsController < AdminController
 
 
   def show
-    @keyword = QueryKeywords.new.action_admin_show(params[:id])
+    @keyword = QueryKeywords.find(params[:id])
     @keyword_neighbors = QueryKeywords.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@keyword)
   end
 
@@ -79,7 +79,7 @@ class Admin::KeywordsController < AdminController
 
 
   def update
-    @keyword = QueryKeywords.new.action_admin_update(params[:id])
+    @keyword = QueryKeywords.find(params[:id])
     if @keyword.update_and_recount_joined_resources(keyword_params)
       flash[:notice] = 'Keyword was successfully updated.'
       redirect_to edit_admin_keyword_path(@keyword.id_admin, pane: params[:pane])

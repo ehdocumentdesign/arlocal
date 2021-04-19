@@ -2,10 +2,23 @@ class QueryAlbums
 
 
   def initialize(**args)
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
+    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.get
     @index_sorter_admin = SorterIndexAdminAlbums.find(arlocal_settings.admin_index_albums_sorter_id)
     @index_sorter_public = SorterIndexAdminAlbums.find(arlocal_settings.public_index_albums_sorter_id)
     @params = args[:params]
+  end
+
+
+  protected
+
+
+  def self.find(id)
+    Album.friendly.find(id)
+  end
+
+
+  def self.find_public(id)
+    Album.where(published: true).friendly.find(id)
   end
 
 
@@ -83,9 +96,9 @@ class QueryAlbums
   end
 
 
-  def find(id)
-    albums.friendly.find(id)
-  end
+  # def find(id)
+  #   albums.friendly.find(id)
+  # end
 
 
   # def find!(id)

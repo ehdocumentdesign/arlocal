@@ -32,7 +32,7 @@ class Public::EventsController < PublicController
 
 
   def show
-    @event = QueryEvents.new(arlocal_settings: @arlocal_settings, params: params).action_public_show
+    @event = QueryEvents.find_public(params[:id])
   end
 
 

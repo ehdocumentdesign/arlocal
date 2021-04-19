@@ -2,9 +2,29 @@ class QueryAudio
 
 
   def initialize(**args)
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
+    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.get
     @index_sorter_admin = SorterIndexAdminAudio.find(arlocal_settings.admin_index_audio_sorter_id)
-    @index_sorter_public = SorterIndexAdminAudio.find(arlocal_settings.public_index_audio_sorter_id)
+    @index_sorter_public = SorterIndexPublicAudio.find(arlocal_settings.public_index_audio_sorter_id)
+    @params = args[:params]
+  end
+
+
+
+  protected
+
+
+  def self.find(id)
+    Audio.friendly.find(id)
+  end
+
+
+  def self.find_by_keyword(keyword)
+    Audio.all.with_attached_recording.joins(:keywords).where(keywords: {id: keyword.id})
+  end
+
+
+  def self.find_public(id)
+    Audio.where(published: true).friendly.find(id)
   end
 
 

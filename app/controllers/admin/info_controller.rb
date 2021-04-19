@@ -2,7 +2,7 @@ class Admin::InfoController < AdminController
 
 
   def edit
-    @info_page = QueryInfoPage.new.get
+    @info_page = QueryInfoPage.get
     @form_metadata = FormInfoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
 
@@ -13,12 +13,12 @@ class Admin::InfoController < AdminController
 
 
   def show
-    @info_page = QueryInfoPage.new.get
+    @info_page = QueryInfoPage.get
   end
 
 
   def update
-    @info_page = QueryInfoPage.new.get
+    @info_page = QueryInfoPage.get
     if @info_page.update(info_page_params)
       flash[:notice] = 'Info Page was successfuly updated.'
       redirect_to edit_admin_info_path(pane: params[:pane])

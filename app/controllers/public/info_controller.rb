@@ -1,7 +1,7 @@
 class Public::InfoController < PublicController
 
   def show
-    @info_page = QueryInfoPage.new.get
+    @info_page = QueryInfoPage.get
   end
 
 end

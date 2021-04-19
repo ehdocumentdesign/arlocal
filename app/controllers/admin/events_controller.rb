@@ -10,7 +10,7 @@ class Admin::EventsController < AdminController
 
 
   def audio_create_from_import
-    @event = Event.friendly.find(params[:id])
+    @event = QueryEvents.find(params[:id])
     @audio = AudioBuilder.create_from_import_nested_within_event(@event, event_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
@@ -24,7 +24,7 @@ class Admin::EventsController < AdminController
 
 
   def audio_create_from_upload
-    @event = Event.friendly.find(params[:id])
+    @event = QueryEvents.find(params[:id])
     @audio = AudioBuilder.create_from_upload_nested_within_event(@event, event_params, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
@@ -57,7 +57,7 @@ class Admin::EventsController < AdminController
 
 
   def destroy
-    @event = Event.find(params[:id])
+    @event = QueryEvents.find(params[:id])
     @event.destroy
     flash[:notice] = 'Event was destroyed.'
     redirect_to action: :index
@@ -65,7 +65,7 @@ class Admin::EventsController < AdminController
 
 
   def edit
-    @event = QueryEvents.new.action_admin_edit(params[:id])
+    @event = QueryEvents.find(params[:id])
     @event_neighbors = QueryEvents.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@event)
     @form_metadata = FormEventMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
@@ -88,7 +88,7 @@ class Admin::EventsController < AdminController
 
 
   def picture_create_from_import
-    @event = Event.friendly.find(params[:id])
+    @event = QueryEvents.find(params[:id])
     @picture = PictureBuilder.create_from_import_nested_within_event(@event, event_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
@@ -102,7 +102,7 @@ class Admin::EventsController < AdminController
 
 
   def picture_create_from_upload
-    @event = Event.friendly.find(params[:id])
+    @event = QueryEvents.find(params[:id])
     @picture = PictureBuilder.create_from_upload_nested_within_event(@event, event_params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
@@ -125,7 +125,7 @@ class Admin::EventsController < AdminController
 
 
   def update
-    @event = Event.friendly.find(params[:id])
+    @event = QueryEvents.find(params[:id])
     if @event.update_and_recount_joined_resources(event_params)
       flash[:notice] = 'Event was successfully updated.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: params[:pane])

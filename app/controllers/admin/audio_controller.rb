@@ -113,7 +113,7 @@ class Admin::AudioController < AdminController
 
 
   def destroy
-    @audio = Audio.find(params[:id])
+    @audio = QueryAudio.find(params[:id])
     @audio.recording.purge
     @audio.destroy
     flash[:notice] = 'Audio was destroyed.'
@@ -122,7 +122,7 @@ class Admin::AudioController < AdminController
 
 
   def edit
-    @audio = QueryAudio.new.find(params[:id])
+    @audio = QueryAudio.find(params[:id])
     @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
     @form_metadata = FormAudioMetadata.new(pane: params[:pane])
   end
@@ -132,36 +132,36 @@ class Admin::AudioController < AdminController
     if params[:filter] == nil
       params[:filter] = SorterIndexAdminAudio.find(@arlocal_settings.admin_index_audio_sorter_id).symbol
     end
-    @audio = QueryAudio.new.action_admin_index(params[:filter])
+    @audio = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_index(params[:filter])
   end
 
 
-  def index_by_album
-    @album = QueryAlbums.new.find_by_slug(params[:album_id])
-    @audio = QueryAudio.new.admin_index_by_album(@album)
-    render action: :index
-  end
-
-
-  def index_by_keyword
-    @keyword = Keyword.find_by_slug!(params[:keyword_id])
-    @audio = QueryAudio.new.admin_index_by_keyword(@keyword)
-    render action: :index
-  end
-
-
-  def index_without_albums
-    @audio = QueryAudio.new.index_no_albums
-    render action: :index
-  end
-
-
-  def index_without_keywords
-    @audio = QueryAudio.new.index_no_keywords
-    render action: :index
-  end
-
-
+  # def index_by_album
+  #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
+  #   @audio = QueryAudio.new.admin_index_by_album(@album)
+  #   render action: :index
+  # end
+  #
+  #
+  # def index_by_keyword
+  #   @keyword = Keyword.find_by_slug!(params[:keyword_id])
+  #   @audio = QueryAudio.new.admin_index_by_keyword(@keyword)
+  #   render action: :index
+  # end
+  #
+  #
+  # def index_without_albums
+  #   @audio = QueryAudio.new.index_no_albums
+  #   render action: :index
+  # end
+  #
+  #
+  # def index_without_keywords
+  #   @audio = QueryAudio.new.index_no_keywords
+  #   render action: :index
+  # end
+  #
+  #
   def new
     @audio = AudioBuilder.build_with_defaults(arlocal_settings: @arlocal_settings)
     @form_metadata = FormAudioMetadata.new
@@ -233,7 +233,7 @@ class Admin::AudioController < AdminController
 
 
   def purge_recording
-    @audio = QueryAudio.new.find(params[:id])
+    @audio = QueryAudio.find(params[:id])
     @audio.recording.purge
     flash[:notice] = 'Attachment purged from audio.'
     redirect_to edit_admin_audio_path(@audio.id, pane: :source)
@@ -255,13 +255,13 @@ class Admin::AudioController < AdminController
 
 
   def show
-    @audio = QueryAudio.new.find(params[:id])
+    @audio = QueryAudio.find(params[:id])
     @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
   end
 
 
   def update
-    @audio = Audio.friendly.find(params[:id])
+    @audio = QueryAudio.find(params[:id])
     if @audio.update_and_recount_joined_resources(audio_params)
       flash[:notice] = 'Audio was successfully updated.'
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: params[:pane])

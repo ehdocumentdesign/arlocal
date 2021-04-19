@@ -9,6 +9,19 @@ class QueryEvents
   end
 
 
+  protected
+
+
+  def self.find(id)
+    Event.friendly.find(id)
+  end
+
+
+  def self.find_public(id)
+    Event.where(published: true).friendly.find(id)
+  end
+
+
 
   public
 

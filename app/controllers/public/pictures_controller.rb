@@ -26,7 +26,7 @@ class Public::PicturesController < PublicController
     if params[:filter] == nil
       params[:filter] = SorterIndexPublicPictures.find(@arlocal_settings.public_index_pictures_sorter_id).symbol
     end
-    @pictures = QueryPictures.new(params: params).action_public_index
+    @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_public_index
   end
 
 
@@ -39,7 +39,7 @@ class Public::PicturesController < PublicController
 
 
   def show
-    @picture = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_public_show
+    @picture = QueryPictures.find_public(params[:id])
     @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_public_show_neighborhood(@picture)
   end
 
