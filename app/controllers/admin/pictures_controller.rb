@@ -154,31 +154,17 @@ class Admin::PicturesController < AdminController
 
 
   def index
-    if params[:filter] == nil
-      params[:filter] = SorterIndexAdminPictures.find(@arlocal_settings.admin_index_pictures_sorter_id).symbol
-    end
+    determine_index_sorting
     @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
   end
 
 
   def index_by_page
+    determine_index_sorting
     page = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_page(limit: params[:limit], page: params[:page])
     @pictures = page.collection
     @page_nav_data = page.nav_data
   end
-
-
-  # def index_by_keyword
-  #   @keyword = Keyword.friendly.find(params[:keyword_id])
-  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_keyword(@keyword, page: params[:page])
-  #   render action: :index
-  # end
-  #
-  #
-  # def index_not_keyworded
-  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_not_keyworded(page: params[:page])
-  #   render action: :index
-  # end
 
 
   def new
@@ -259,18 +245,6 @@ class Admin::PicturesController < AdminController
   end
 
 
-  # def refresh_exif
-  #   @picture = QueryPictures.find(params[:id])
-  #   if PictureBuilder.new.refresh_exif(@picture)
-  #     flash[:notice] = 'Picture EXIF was successfully refreshed.'
-  #     redirect_to edit_admin_picture_path(@picture.id_admin, pane: 'datetime')
-  #   else
-  #     flash[:notice] = 'Picture EXIF could not be refreshed.'
-  #     render 'edit'
-  #   end
-  # end
-
-
   def show
     @picture = QueryPictures.find(params[:id])
     @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@picture)
@@ -292,7 +266,40 @@ class Admin::PicturesController < AdminController
 
 
 
+  # def refresh_exif
+  #   @picture = QueryPictures.find(params[:id])
+  #   if PictureBuilder.new.refresh_exif(@picture)
+  #     flash[:notice] = 'Picture EXIF was successfully refreshed.'
+  #     redirect_to edit_admin_picture_path(@picture.id_admin, pane: 'datetime')
+  #   else
+  #     flash[:notice] = 'Picture EXIF could not be refreshed.'
+  #     render 'edit'
+  #   end
+  # end
+  #
+  #
+  # def index_by_keyword
+  #   @keyword = Keyword.friendly.find(params[:keyword_id])
+  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_keyword(@keyword, page: params[:page])
+  #   render action: :index
+  # end
+  #
+  #
+  # def index_not_keyworded
+  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_not_keyworded(page: params[:page])
+  #   render action: :index
+  # end
+
+
+
   private
+
+
+  def determine_index_sorting
+    if params[:filter] == nil
+      params[:filter] = SorterIndexAdminPictures.find(@arlocal_settings.admin_index_pictures_sorter_id).symbol
+    end
+  end
 
 
   def picture_params

@@ -33,9 +33,7 @@ class Admin::VideosController < AdminController
 
 
   def index
-    if params[:filter] == nil
-      params[:filter] = SorterIndexAdminVideos.find(@arlocal_settings.admin_index_videos_sorter_id).symbol
-    end
+    determine_index_sorting
     @videos = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
   end
 
@@ -71,6 +69,13 @@ class Admin::VideosController < AdminController
 
 
   private
+
+
+  def determine_index_sorting
+    if params[:filter] == nil
+      params[:filter] = SorterIndexAdminVideos.find(@arlocal_settings.admin_index_videos_sorter_id).symbol
+    end
+  end
 
 
   def video_params

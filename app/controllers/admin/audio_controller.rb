@@ -129,9 +129,7 @@ class Admin::AudioController < AdminController
 
 
   def index
-    if params[:filter] == nil
-      params[:filter] = SorterIndexAdminAudio.find(@arlocal_settings.admin_index_audio_sorter_id).symbol
-    end
+    determine_index_sorting
     @audio = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_index(params[:filter])
   end
 
@@ -276,6 +274,14 @@ class Admin::AudioController < AdminController
 
 
   private
+
+
+
+  def determine_index_sorting
+    if params[:filter] == nil
+      params[:filter] = SorterIndexAdminAudio.find(@arlocal_settings.admin_index_audio_sorter_id).symbol
+    end
+  end
 
 
   def audio_params

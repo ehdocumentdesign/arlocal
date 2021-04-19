@@ -23,9 +23,7 @@ class Public::PicturesController < PublicController
 
 
   def index_all
-    if params[:filter] == nil
-      params[:filter] = SorterIndexPublicPictures.find(@arlocal_settings.public_index_pictures_sorter_id).symbol
-    end
+    determine_index_sorting
     @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_public_index
   end
 
@@ -79,12 +77,22 @@ class Public::PicturesController < PublicController
   # end
 
 
-  class Selectors
-    attr_reader(
-      :keywords
-    )
-    def initialize
-      @keywords = QueryKeywords.new.all_that_select_public_pictures
+  # class Selectors
+  #   attr_reader(
+  #     :keywords
+  #   )
+  #   def initialize
+  #     @keywords = QueryKeywords.new.all_that_select_public_pictures
+  #   end
+  # end
+
+
+
+  private
+
+  def determine_index_sorting
+    if params[:filter] == nil
+      params[:filter] = SorterIndexPublicPictures.find(@arlocal_settings.public_index_pictures_sorter_id).symbol
     end
   end
 

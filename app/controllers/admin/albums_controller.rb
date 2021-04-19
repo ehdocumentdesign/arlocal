@@ -73,9 +73,7 @@ class Admin::AlbumsController < AdminController
 
 
   def index
-    if params[:filter] == nil
-      params[:filter] = SorterIndexAdminAlbums.find(@arlocal_settings.admin_index_albums_sorter_id).symbol
-    end
+    determine_index_sorting
     @albums = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
   end
 
@@ -152,6 +150,13 @@ class Admin::AlbumsController < AdminController
 
 
   private
+
+
+  def determine_index_sorting
+    if params[:filter] == nil
+      params[:filter] = SorterIndexAdminAlbums.find(@arlocal_settings.admin_index_albums_sorter_id).symbol
+    end
+  end
 
 
   def album_params
