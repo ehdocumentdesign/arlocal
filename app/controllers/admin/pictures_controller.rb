@@ -28,7 +28,7 @@ class Admin::PicturesController < AdminController
 
 
   def create
-    @picture = PictureBuilder.create(picture_params)
+    @picture = PictureBuilder.create(params_picture_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfuly created.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -44,7 +44,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_import
-    @picture = PictureBuilder.create_from_import(picture_params)
+    @picture = PictureBuilder.create_from_import(params_picture_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -60,7 +60,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_import_to_album
-    @picture = PictureBuilder.create_from_import_and_join_nested_album(picture_params)
+    @picture = PictureBuilder.create_from_import_and_join_nested_album(params_picture_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -76,7 +76,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_import_to_event
-    @picture = PictureBuilder.create_from_import_and_join_nested_event(picture_params)
+    @picture = PictureBuilder.create_from_import_and_join_nested_event(params_picture_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -92,7 +92,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_upload
-    @picture = PictureBuilder.create_from_upload(picture_params)
+    @picture = PictureBuilder.create_from_upload(params_picture_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -107,7 +107,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_upload_to_album
-    @picture = PictureBuilder.create_from_upload_and_join_nested_album(picture_params)
+    @picture = PictureBuilder.create_from_upload_and_join_nested_album(params_picture_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -123,7 +123,7 @@ class Admin::PicturesController < AdminController
 
 
   def create_from_upload_to_event
-    @picture = PictureBuilder.create_from_upload_and_join_nested_event(picture_params)
+    @picture = PictureBuilder.create_from_upload_and_join_nested_event(params_picture_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_picture_path(@picture.id_admin)
@@ -154,13 +154,13 @@ class Admin::PicturesController < AdminController
 
 
   def index
-    determine_index_sorting
+    ensure_index_sorting
     @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
   end
 
 
   def index_by_page
-    determine_index_sorting
+    ensure_index_sorting
     page = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_page(limit: params[:limit], page: params[:page])
     @pictures = page.collection
     @page_nav_data = page.nav_data
@@ -253,7 +253,7 @@ class Admin::PicturesController < AdminController
 
   def update
     @picture = QueryPictures.find(params[:id])
-    if @picture.update_and_recount_joined_resources(picture_params)
+    if @picture.update_and_recount_joined_resources(params_picture_permitted)
       flash[:notice] = 'Picture was successfully updated.'
       redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
     else
@@ -295,14 +295,14 @@ class Admin::PicturesController < AdminController
   private
 
 
-  def determine_index_sorting
+  def ensure_index_sorting
     if params[:filter] == nil
       params[:filter] = SorterIndexAdminPictures.find(@arlocal_settings.admin_index_pictures_sorter_id).symbol
     end
   end
 
 
-  def picture_params
+  def params_picture_permitted
     params.require(:picture).permit(
       :credits_parser_id,
       :credits_text_markup,

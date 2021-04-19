@@ -11,7 +11,7 @@ class Admin::EventsController < AdminController
 
   def audio_create_from_import
     @event = QueryEvents.find(params[:id])
-    @audio = AudioBuilder.create_from_import_nested_within_event(@event, event_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_import_nested_within_event(@event, params_event_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :audio)
@@ -25,7 +25,7 @@ class Admin::EventsController < AdminController
 
   def audio_create_from_upload
     @event = QueryEvents.find(params[:id])
-    @audio = AudioBuilder.create_from_upload_nested_within_event(@event, event_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_upload_nested_within_event(@event, params_event_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :audio)
@@ -41,7 +41,7 @@ class Admin::EventsController < AdminController
 
 
   def create
-    @event = EventBuilder.create(event_params)
+    @event = EventBuilder.create(params_event_permitted)
     if @event.save
       flash[:notice] = 'Event was successfully created.'
       redirect_to edit_admin_event_path(@event.id_admin)
@@ -89,7 +89,7 @@ class Admin::EventsController < AdminController
 
   def picture_create_from_import
     @event = QueryEvents.find(params[:id])
-    @picture = PictureBuilder.create_from_import_nested_within_event(@event, event_params)
+    @picture = PictureBuilder.create_from_import_nested_within_event(@event, params_event_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :pictures)
@@ -103,7 +103,7 @@ class Admin::EventsController < AdminController
 
   def picture_create_from_upload
     @event = QueryEvents.find(params[:id])
-    @picture = PictureBuilder.create_from_upload_nested_within_event(@event, event_params)
+    @picture = PictureBuilder.create_from_upload_nested_within_event(@event, params_event_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :pictures)
@@ -126,7 +126,7 @@ class Admin::EventsController < AdminController
 
   def update
     @event = QueryEvents.find(params[:id])
-    if @event.update_and_recount_joined_resources(event_params)
+    if @event.update_and_recount_joined_resources(params_event_permitted)
       flash[:notice] = 'Event was successfully updated.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: params[:pane])
     else
@@ -141,7 +141,7 @@ class Admin::EventsController < AdminController
   private
 
 
-  def event_params
+  def params_event_permitted
     params.require(:event).permit(
       :alert,
       :city,

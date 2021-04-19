@@ -9,7 +9,7 @@ class Admin::ArlocalSettingsController < AdminController
 
   def update
     @arlocal_settings = QueryArlocalSettings.get
-    if @arlocal_settings.update(arlocal_settings_params)
+    if @arlocal_settings.update(params_arlocal_settings_permitted)
       flash[:notice] = 'A&R.local settings were successfully updated.'
       redirect_to edit_admin_arlocal_settings_path(pane: params[:pane])
     else
@@ -22,7 +22,7 @@ class Admin::ArlocalSettingsController < AdminController
 
   def update_from_resource_and_return
     @arlocal_settings = QueryArlocalSettings.get
-    if @arlocal_settings.update(arlocal_settings_params)
+    if @arlocal_settings.update(params_arlocal_settings_permitted)
       flash[:notice] = 'A&R.local settings were successfully updated.'
       params.delete('filter')
       redirect_to request.referrer
@@ -38,7 +38,7 @@ class Admin::ArlocalSettingsController < AdminController
   private
 
 
-  def arlocal_settings_params
+  def params_arlocal_settings_permitted
     params.require(:arlocal_settings).permit(
       :admin_forms_auto_keyword_enabled,
       :admin_forms_auto_keyword_id,

@@ -19,7 +19,7 @@ class Admin::InfoController < AdminController
 
   def update
     @info_page = QueryInfoPage.get
-    if @info_page.update(info_page_params)
+    if @info_page.update(params_info_page_permitted)
       flash[:notice] = 'Info Page was successfuly updated.'
       redirect_to edit_admin_info_path(pane: params[:pane])
     else
@@ -34,7 +34,7 @@ class Admin::InfoController < AdminController
   private
 
 
-  def info_page_params
+  def params_info_page_permitted
     params.require(:info_page).permit(
       :article_id,
       :picture_id,

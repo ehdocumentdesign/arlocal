@@ -2,7 +2,7 @@ class Admin::KeywordsController < AdminController
 
 
   def create
-    @keyword = KeywordBuilder.default_with(keyword_params)
+    @keyword = KeywordBuilder.default_with(params_keyword_permitted)
     if @keyword.save
       flash[:notice] = 'Keyword was successfully created.'
       redirect_to edit_admin_keyword_path(@keyword.id_admin)
@@ -80,7 +80,7 @@ class Admin::KeywordsController < AdminController
 
   def update
     @keyword = QueryKeywords.find(params[:id])
-    if @keyword.update_and_recount_joined_resources(keyword_params)
+    if @keyword.update_and_recount_joined_resources(params_keyword_permitted)
       flash[:notice] = 'Keyword was successfully updated.'
       redirect_to edit_admin_keyword_path(@keyword.id_admin, pane: params[:pane])
     else
@@ -95,7 +95,7 @@ class Admin::KeywordsController < AdminController
   private
 
 
-  def keyword_params
+  def params_keyword_permitted
     params.require(:keyword).permit(
       :can_select_public_albums,
       :can_select_pictures,

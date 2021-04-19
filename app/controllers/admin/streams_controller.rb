@@ -2,7 +2,7 @@ class Admin::StreamsController < AdminController
 
 
   def create
-    @stream = StreamBuilder.create(stream_params)
+    @stream = StreamBuilder.create(params_stream_permitted)
     if @stream.save
       flash[:notice] = 'Stream was successfully created.'
       redirect_to edit_admin_stream_path(@stream.id_admin)
@@ -49,7 +49,7 @@ class Admin::StreamsController < AdminController
 
   def update
     @stream = QueryStreams.find(params[:id])
-    if @stream.update(stream_params)
+    if @stream.update(params_stream_permitted)
       flash[:notice] = 'Stream was successfuly updated.'
       redirect_to edit_admin_stream_path(@stream.id_admin, pane: params[:pane])
     else
@@ -63,7 +63,7 @@ class Admin::StreamsController < AdminController
   private
 
 
-  def stream_params
+  def params_stream_permitted
     params.require(:stream).permit(
       :description_parser_id,
       :description_text_markup,

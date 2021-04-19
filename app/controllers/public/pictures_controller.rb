@@ -23,7 +23,7 @@ class Public::PicturesController < PublicController
 
 
   def index_all
-    determine_index_sorting
+    ensure_index_sorting
     @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_public_index
   end
 
@@ -90,7 +90,7 @@ class Public::PicturesController < PublicController
 
   private
 
-  def determine_index_sorting
+  def ensure_index_sorting
     if params[:filter] == nil
       params[:filter] = SorterIndexPublicPictures.find(@arlocal_settings.public_index_pictures_sorter_id).symbol
     end

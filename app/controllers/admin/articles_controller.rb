@@ -2,7 +2,7 @@ class Admin::ArticlesController < AdminController
 
 
   def create
-    @article = ArticleBuilder.create(article_params)
+    @article = ArticleBuilder.create(params_article_permitted)
     if @article.save
       flash[:notice] = 'Article was successfully created.'
       redirect_to edit_admin_article_path(@article)
@@ -48,7 +48,7 @@ class Admin::ArticlesController < AdminController
 
   def update
     @article = QueryArticles.find(params[:id])
-    if @article.update(article_params)
+    if @article.update(params_article_permitted)
       flash[:notice] = 'Article was successfully created.'
       redirect_to edit_admin_article_path(@article)
     else
@@ -63,7 +63,7 @@ class Admin::ArticlesController < AdminController
   private
 
 
-  def article_params
+  def params_article_permitted
     params.require(:article).permit(
       :author,
       :copyright_parser_id,

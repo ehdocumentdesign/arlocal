@@ -3,7 +3,7 @@ class Admin::AlbumsController < AdminController
 
   def audio_create_from_import
     @album = QueryAlbums.find(params[:id])
-    @audio = AudioBuilder.create_from_import_nested_within_album(@album, album_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_import_nested_within_album(@album, params_album_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
@@ -17,7 +17,7 @@ class Admin::AlbumsController < AdminController
 
   def audio_create_from_upload
     @album = QueryAlbums.find(params[:id])
-    @audio = AudioBuilder.create_from_upload_nested_within_album(@album, album_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_upload_nested_within_album(@album, params_album_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
@@ -42,7 +42,7 @@ class Admin::AlbumsController < AdminController
 
 
   def create
-    @album = AlbumBuilder.create(album_params)
+    @album = AlbumBuilder.create(params_album_permitted)
     if @album.save
       flash[:notice] = 'Album was successfully created.'
       redirect_to edit_admin_album_path(@album.id_admin)
@@ -73,7 +73,7 @@ class Admin::AlbumsController < AdminController
 
 
   def index
-    determine_index_sorting
+    ensure_index_sorting
     @albums = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
   end
 
@@ -90,7 +90,7 @@ class Admin::AlbumsController < AdminController
 
   def picture_create_from_import
     @album = QueryAlbums.find(params[:id])
-    @picture = PictureBuilder.create_from_import_nested_within_album(@album, album_params)
+    @picture = PictureBuilder.create_from_import_nested_within_album(@album, params_album_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :pictures)
@@ -104,7 +104,7 @@ class Admin::AlbumsController < AdminController
 
   def picture_create_from_upload
     @album = QueryAlbums.find(params[:id])
-    @picture = PictureBuilder.create_from_upload_nested_within_album(@album, album_params)
+    @picture = PictureBuilder.create_from_upload_nested_within_album(@album, params_album_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :pictures)
@@ -137,7 +137,7 @@ class Admin::AlbumsController < AdminController
 
   def update
     @album = QueryAlbums.find(params[:id])
-    if @album.update_and_recount_joined_resources(album_params)
+    if @album.update_and_recount_joined_resources(params_album_permitted)
       flash[:notice] = 'Album was successfully updated.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: params[:pane])
     else
@@ -152,14 +152,14 @@ class Admin::AlbumsController < AdminController
   private
 
 
-  def determine_index_sorting
+  def ensure_index_sorting
     if params[:filter] == nil
       params[:filter] = SorterIndexAdminAlbums.find(@arlocal_settings.admin_index_albums_sorter_id).symbol
     end
   end
 
 
-  def album_params
+  def params_album_permitted
     params.require(:album).permit(
       :album_artist,
       :album_pictures_sorter_id,

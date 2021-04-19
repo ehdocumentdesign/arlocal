@@ -2,7 +2,7 @@ class Admin::VideosController < AdminController
 
 
   def create
-    @video = VideoBuilder.create(video_params)
+    @video = VideoBuilder.create(params_video_permitted)
     if @video.save
       flash[:notice] = 'Video was successfully created.'
       redirect_to edit_admin_video_path(@video.id_admin)
@@ -33,7 +33,7 @@ class Admin::VideosController < AdminController
 
 
   def index
-    determine_index_sorting
+    ensure_index_sorting
     @videos = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
   end
 
@@ -56,7 +56,7 @@ class Admin::VideosController < AdminController
 
   def update
     @video = QueryVideos.find(params[:id])
-    if @video.update(video_params)
+    if @video.update(params_video_permitted)
       flash[:notice] = 'Video was successfully updated.'
       redirect_to edit_admin_video_path(@video.id_admin, pane: params[:pane])
     else
@@ -71,14 +71,14 @@ class Admin::VideosController < AdminController
   private
 
 
-  def determine_index_sorting
+  def ensure_index_sorting
     if params[:filter] == nil
       params[:filter] = SorterIndexAdminVideos.find(@arlocal_settings.admin_index_videos_sorter_id).symbol
     end
   end
 
 
-  def video_params
+  def params_video_permitted
     params.require(:video).permit(
       :copyright_parser_id,
       :copyright_text_markup,

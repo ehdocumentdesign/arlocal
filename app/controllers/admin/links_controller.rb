@@ -2,7 +2,7 @@ class Admin::LinksController < AdminController
 
 
   def create
-    @link = LinkBuilder.create(link_params)
+    @link = LinkBuilder.create(params_link_permitted)
     if @link.save
       flash[:notice] = 'Link successfully created and added.'
       redirect_to admin_links_path
@@ -48,7 +48,7 @@ class Admin::LinksController < AdminController
 
   def update
     @link = Link.find(params[:id])
-    if @link.update(link_params)
+    if @link.update(params_link_permitted)
       flash[:notice] = 'Link was successfully updated.'
       redirect_to edit_admin_link_path(@link.id)
     else
@@ -63,7 +63,7 @@ class Admin::LinksController < AdminController
   private
 
 
-  def link_params
+  def params_link_permitted
     params.require(:link).permit(
       :address_href,
       :address_inline_text,

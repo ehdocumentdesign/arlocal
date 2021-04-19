@@ -2,7 +2,7 @@ class Admin::AudioController < AdminController
 
 
   def create
-    @audio = AudioBuilder.create(audio_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully created.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -18,7 +18,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import
-    @audio = AudioBuilder.create_from_import(audio_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_import(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -34,7 +34,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import_to_album
-    @audio = AudioBuilder.create_from_import_and_join_nested_album(audio_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_import_and_join_nested_album(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -50,7 +50,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_import_to_event
-    @audio = AudioBuilder.create_from_import_and_join_nested_event(audio_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_import_and_join_nested_event(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -66,7 +66,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload
-    @audio = AudioBuilder.create_from_upload(audio_params, arlocal_settings: @arlocal_settingss)
+    @audio = AudioBuilder.create_from_upload(params_audio_permitted, arlocal_settings: @arlocal_settingss)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -81,7 +81,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_album
-    @audio = AudioBuilder.create_from_upload_and_join_nested_album(audio_params, arlocal_settings: @arlocal_settings)
+    @audio = AudioBuilder.create_from_upload_and_join_nested_album(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -97,7 +97,7 @@ class Admin::AudioController < AdminController
 
 
   def create_from_upload_to_event
-    @audio = AudioBuilder.create_from_upload_and_join_nested_event(audio_params)
+    @audio = AudioBuilder.create_from_upload_and_join_nested_event(params_audio_permitted)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
       redirect_to edit_admin_audio_path(@audio.id)
@@ -129,7 +129,7 @@ class Admin::AudioController < AdminController
 
 
   def index
-    determine_index_sorting
+    ensure_index_sorting
     @audio = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_index(params[:filter])
   end
 
@@ -239,7 +239,7 @@ class Admin::AudioController < AdminController
 
 
   def refresh_id3
-    # @audio = AudioBuilder.refresh_id3(audio_params)
+    # @audio = AudioBuilder.refresh_id3(params_audio_permitted)
     # if @audio.save
     #   flash[:notice] = "Audio was successfully updated."
     #   redirect_to edit_admin_audio_path(@audio.id_admin, pane: 'id3')
@@ -260,7 +260,7 @@ class Admin::AudioController < AdminController
 
   def update
     @audio = QueryAudio.find(params[:id])
-    if @audio.update_and_recount_joined_resources(audio_params)
+    if @audio.update_and_recount_joined_resources(params_audio_permitted)
       flash[:notice] = 'Audio was successfully updated.'
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: params[:pane])
     else
@@ -277,14 +277,14 @@ class Admin::AudioController < AdminController
 
 
 
-  def determine_index_sorting
+  def ensure_index_sorting
     if params[:filter] == nil
       params[:filter] = SorterIndexAdminAudio.find(@arlocal_settings.admin_index_audio_sorter_id).symbol
     end
   end
 
 
-  def audio_params
+  def params_audio_permitted
     params.require(:audio).permit(
       :artist,
       :audio_artist,
