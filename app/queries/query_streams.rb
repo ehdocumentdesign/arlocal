@@ -32,7 +32,9 @@ class QueryStreams
   public
 
 
-  def initialize
+  def initialize(**args)
+    @arlocal_settings = args[:arlocal_settings]
+    @params = args[:params] ? args[:params] : {}
   end
 
 
