@@ -7,12 +7,12 @@ class FormVideoMetadata
   @@default_pane = :video
 
 
-  def initialize(pane: :video, settings: nil)
+  def initialize(pane: :video, arlocal_settings: nil)
     pane = ((pane == nil) ? @@default_pane : pane.to_sym.downcase)
 
     @nav_categories = FormVideoMetadata.categories
     @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane, settings)
+    @selectables = determine_selectables(pane, arlocal_settings)
     @tab_name = determine_tab_name(pane)
   end
 
@@ -52,8 +52,8 @@ class FormVideoMetadata
   end
 
 
-  def determine_selectables(pane, settings)
-    FormVideoMetadata::Selectables.new(pane, settings)
+  def determine_selectables(pane, arlocal_settings)
+    FormVideoMetadata::Selectables.new(pane, arlocal_settings)
   end
 
 
@@ -74,16 +74,16 @@ class FormVideoMetadata
       :pictures,
       :source_types
     )
-    def initialize(pane, settings)
+    def initialize(pane, arlocal_settings)
       case pane
       when :video
         @markup_parsers = MarkupParser.options_for_select
       when :keywords
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @keywords = QueryKeywords.options_for_select_admin
       when :source
         @source_types = Video.source_type_options_for_select
       when :thumbnail
-        @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures
+        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
       else
         @markup_parsers = MarkupParser.options_for_select
       end

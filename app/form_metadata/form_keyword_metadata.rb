@@ -4,12 +4,12 @@ class FormKeywordMetadata
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
 
 
-  def initialize(pane: :keyword, settings: nil)
+  def initialize(pane: :keyword, arlocal_settings: nil)
     pane = ((pane == nil) ? :keyword : pane.to_sym.downcase)
 
     @nav_categories = FormKeywordMetadata.categories
     @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane, settings)
+    @selectables = determine_selectables(pane, arlocal_settings)
     @tab_name = determine_tab_name(pane)
   end
 
@@ -57,8 +57,8 @@ class FormKeywordMetadata
   end
 
 
-  def determine_selectables(pane, settings)
-    FormKeywordMetadata::Selectables.new(pane, settings)
+  def determine_selectables(pane, arlocal_settings)
+    FormKeywordMetadata::Selectables.new(pane, arlocal_settings)
   end
 
 
@@ -79,18 +79,18 @@ class FormKeywordMetadata
       :pictures,
       :videos
     )
-    def initialize(pane, settings)
+    def initialize(pane, arlocal_settings)
       case pane
       when :albums
-        @albums = QueryAlbums.new.order_by_title_asc
+        @albums = QueryAlbums.options_for_select_admin
       when :audio
-        @audio = QueryAudio.new.order_by_title_asc
+        @audio = QueryAudio.options_for_select_admin
       when :events
-        @events = QueryEvents.new.order_by_start_time_asc
+        @events = QueryEvents.options_for_select_admin
       when :pictures
-        @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures
+        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
       when :videos
-        @videos = QueryVideos.new.order_by_title_asc
+        @videos = QueryVideos.options_for_select_admin
       end
     end
   end

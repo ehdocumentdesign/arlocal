@@ -267,6 +267,7 @@ class Audio < ApplicationRecord
   def should_generate_new_friendly_id?
     date_released_changed? ||
     recording.changed? ||
+    subtitle_changed? ||
     title_changed? ||
     super
   end
@@ -275,7 +276,8 @@ class Audio < ApplicationRecord
   def slug_candidates
     [
       [:title],
-      [:title, :year]
+      [:title, :subtitle],
+      [:title, :subtitle, :year]
     ]
   end
 

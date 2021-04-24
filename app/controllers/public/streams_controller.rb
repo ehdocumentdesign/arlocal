@@ -5,7 +5,7 @@ class Public::StreamsController < PublicController
     if Stream.count == 1
       redirect_to action: :show
     else
-      @streams = Stream.all
+      @streams = QueryStreams.index_public
       render 'index'
     end
   end
@@ -13,10 +13,10 @@ class Public::StreamsController < PublicController
 
   def show
     if params[:id]
-      @stream = QueryStreams.new.find_by_slug(params[:id])
+      @stream = QueryStreams.find_public(params[:id])
     else
       @stream = Stream.first!
-      params.merge!({id: @stream.slug})
+      params.merge!({id: @stream.id})
     end
   end
 

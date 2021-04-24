@@ -70,11 +70,12 @@ module AudioHelper
   end
 
 
-  def audio_admin_filter_select(form)
+  def audio_admin_filter_select(form, params)
+    selected = params[:filter] ? SorterIndexAdminAudio.find_id_from_param(params[:filter]) : form.object.admin_index_audio_sorter_id
     form.select(
       :admin_index_audio_sorter_id,
       SorterIndexAdminAudio.options_for_select(:url),
-      { include_blank: false, selected: SorterIndexAdminAudio.find_id_from_param(params[:filter]) },
+      { include_blank: false, selected: selected },
       { class: [:arl_active_refine_selection, :arl_button_select, :arl_audio_index_filter] }
     )
   end

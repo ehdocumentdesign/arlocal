@@ -7,7 +7,7 @@ class Admin::VideosController < AdminController
       flash[:notice] = 'Video was successfully created.'
       redirect_to edit_admin_video_path(@video.id_admin)
     else
-      @form_metadata = FormVideoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+      @form_metadata = FormVideoMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
@@ -18,7 +18,7 @@ class Admin::VideosController < AdminController
 
 
   def destroy
-    @video = QueryVideos.find(params[:id])
+    @video = QueryVideos.find_admin(params[:id])
     @video.destroy
     flash[:notice] = 'Video was destroyed.'
     redirect_to action: :index
@@ -26,21 +26,20 @@ class Admin::VideosController < AdminController
 
 
   def edit
-    @video = QueryVideos.find(params[:id])
-    @video_neighbors = QueryVideos.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@video)
-    @form_metadata = FormVideoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @video = QueryVideos.find_admin(params[:id])
+    @video_neighbors = QueryVideos.neighborhood_admin(@video, @arlocal_settings)
+    @form_metadata = FormVideoMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
   end
 
 
   def index
-    ensure_index_sorting
-    @videos = QueryVideos.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
+    @videos = QueryVideos.index_admin(@arlocal_settings, params)
   end
 
 
   def new
     @video = VideoBuilder.build_with_defaults
-    @form_metadata = FormVideoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @form_metadata = FormVideoMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       @video.video_keywords.build(keyword_id: @auto_keyword.keyword_id)
@@ -49,18 +48,18 @@ class Admin::VideosController < AdminController
 
 
   def show
-    @video = QueryVideos.find(params[:id])
-    @video_neighbors = QueryVideos.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@video)
+    @video = QueryVideos.find_admin(params[:id])
+    @video_neighbors = QueryVideos.neighborhood_admin(@video, @arlocal_settings)
   end
 
 
   def update
-    @video = QueryVideos.find(params[:id])
+    @video = QueryVideos.find_admin(params[:id])
     if @video.update(params_video_permitted)
       flash[:notice] = 'Video was successfully updated.'
       redirect_to edit_admin_video_path(@video.id_admin, pane: params[:pane])
     else
-      @form_metadata = FormVideoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+      @form_metadata = FormVideoMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Video could not be updated.'
       render 'edit'
     end
@@ -69,13 +68,6 @@ class Admin::VideosController < AdminController
 
 
   private
-
-
-  def ensure_index_sorting
-    if params[:filter] == nil
-      params[:filter] = SorterIndexAdminVideos.find(@arlocal_settings.admin_index_videos_sorter_id).symbol
-    end
-  end
 
 
   def params_video_permitted

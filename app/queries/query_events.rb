@@ -1,18 +1,10 @@
 class QueryEvents
 
 
-  def initialize(**args)
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.new.get
-    @index_sorter_admin = SorterIndexAdminEvents.find(arlocal_settings.admin_index_events_sorter_id)
-    @index_sorter_public = SorterIndexAdminEvents.find(arlocal_settings.public_index_events_sorter_id)
-    @params = args[:params]
-  end
-
-
   protected
 
 
-  def self.find(id)
+  def self.find_admin(id)
     Event.friendly.find(id)
   end
 
@@ -22,18 +14,42 @@ class QueryEvents
   end
 
 
+  def self.index_admin(arlocal_settings, params)
+    new(arlocal_settings: arlocal_settings, params: params).index_admin
+  end
+
+
+  def self.index_public(arlocal_settings, params)
+    new(arlocal_settings: arlocal_settings, params: params).index_public
+  end
+
+
+  def self.neighborhood_admin(event, arlocal_settings)
+    new(arlocal_settings: arlocal_settings).neighborhood_admin(event)
+  end
+
+
+  def self.neighborhood_public(event, arlocal_settings)
+    new(arlocal_settings: arlocal_settings).neighborhood_public(event)
+  end
+
+
+  def self.options_for_select_admin
+    new.order_by_start_time_asc
+  end
+
 
   public
 
 
-  def action_admin_edit(id)
-    events.friendly.find(id)
+  def initialize(**args)
+    @arlocal_settings = args[:arlocal_settings]
+    @params = args[:params] ? args[:params] : {}
   end
 
 
-  def action_admin_index(arg = nil)
-    filter_method = (arg) ? arg : @params[:filter]
-    case filter_method.to_s.downcase
+  def index_admin
+    case determine_filter_method_admin
     when 'datetime_asc'
       order_by_start_time_asc
     when 'datetime_desc'
@@ -47,26 +63,15 @@ class QueryEvents
     when 'title_desc'
       order_by_title_desc
     else
-      all
+      all_events
     end
   end
 
 
-  def action_admin_show(id)
-    events.friendly.find(id)
-  end
-
-
-  def action_admin_show_neighborhood(event, distance: 1)
-    Event.neighborhood(event, collection: events_admin_index_ordered, distance: distance)
-  end
-
-
-  def action_public_index(arg = nil)
-    filter_method = (arg) ? arg : @params[:filter]
-    case filter_method.to_s.downcase
+  def index_public
+    case determine_filter_method_public
     when 'all'
-      all.where(indexed: true, published: true)
+      all_events.where(indexed: true, published: true)
     when 'future'
       all_future.where(indexed: true, published: true)
     when 'past'
@@ -76,63 +81,63 @@ class QueryEvents
     when 'with_audio'
       all_with_audio.where(indexed: true, published: true)
     else
-      all.where(indexed: true, published: true)
+      all_events.where(indexed: true, published: true)
     end
   end
 
 
-  def action_public_show
-    events.where(published: true).friendly.find(@params[:id])
+  def neighborhood_admin(event, distance: 1)
+    Event.neighborhood(event, collection: index_admin, distance: distance)
+  end
+
+
+  def neighborhood_public(event, distance: 1)
+    Event.neighborhood(event, collection: index_public, distance: distance)
   end
 
 
   def all
-    events
+    all_events
   end
 
 
   def all_future
-    events.where("datetime_utc > ?", Time.current.midnight).order(datetime_utc: :asc)
+    all_events.where("datetime_utc > ?", Time.current.midnight).order(datetime_utc: :asc)
   end
 
 
   def all_past
-    events.where("datetime_utc < ?", Time.current).order(datetime_utc: :desc)
+    all_events.where("datetime_utc < ?", Time.current).order(datetime_utc: :desc)
   end
 
 
   def all_upcoming
-    events.where(datetime_utc: Time.current.midnight...Time.current.next_month).order(datetime_utc: :asc)
+    all_events.where(datetime_utc: Time.current.midnight...Time.current.next_month).order(datetime_utc: :asc)
   end
 
 
   def all_with_audio
-    events.where("audio_count >= 1").order(datetime_utc: :desc)
-  end
-
-
-  def find(id)
-    events.friendly.find(id)
+    all_events.where("audio_count >= 1").order(datetime_utc: :desc)
   end
 
 
   def order_by_start_time_asc
-    events.order(datetime_utc: :asc)
+    all_events.order(datetime_utc: :asc)
   end
 
 
   def order_by_start_time_desc
-    events.order(datetime_utc: :desc)
+    all_events.order(datetime_utc: :desc)
   end
 
 
   def order_by_title_asc
-    events.order(Event.arel_table[:title].lower.asc)
+    all_events.order(Event.arel_table[:title].lower.asc)
   end
 
 
   def order_by_title_desc
-    events.order(Event.arel_table[:title].lower.desc)
+    all_events.order(Event.arel_table[:title].lower.desc)
   end
 
 
@@ -140,18 +145,36 @@ class QueryEvents
   private
 
 
-  def events
+  def all_events
     Event.all.includes(:audio, :keywords, :pictures)
   end
 
 
-  def events_admin_index_ordered
-    action_admin_index(@index_sorter_admin.symbol)
+  def determine_filter_method_admin
+    if @params[:filter]
+      @params[:filter].downcase
+    else
+      index_sorter_admin.symbol.to_s.downcase
+    end
   end
 
 
-  def events_public_index_ordered
-    action_public_index(@index_sorter_public.symbol)
+  def determine_filter_method_public
+    if @params[:filter]
+      @params[:filter].downcase
+    else
+      index_sorter_public.symbol.to_s.downcase
+    end
+  end
+
+
+  def index_sorter_admin
+    SorterIndexAdminEvents.find(@arlocal_settings.admin_index_events_sorter_id)
+  end
+
+
+  def index_sorter_public
+    SorterIndexPublicEvents.find(@arlocal_settings.public_index_events_sorter_id)
   end
 
 

@@ -5,7 +5,7 @@ class Admin::AudioController < AdminController
     @audio = AudioBuilder.create(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully created.'
-      redirect_to edit_admin_audio_path(@audio.id)
+      redirect_to edit_admin_audio_path(@audio.id_admin)
     else
       @form_metadata = FormAudioMetadata.new
       if @arlocal_settings.admin_forms_auto_keyword_enabled
@@ -21,7 +21,7 @@ class Admin::AudioController < AdminController
     @audio = AudioBuilder.create_from_import(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
-      redirect_to edit_admin_audio_path(@audio.id)
+      redirect_to edit_admin_audio_path(@audio.id_admin)
     else
       flash[:notice] = 'Audio could not be imported.'
       @form_metadata = FormAudioMetadata.new
@@ -37,12 +37,12 @@ class Admin::AudioController < AdminController
     @audio = AudioBuilder.create_from_import_and_join_nested_album(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
-      redirect_to edit_admin_audio_path(@audio.id)
+      redirect_to edit_admin_audio_path(@audio.id_admin)
     else
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @albums = QueryAlbums.new.order_by_title_asc
+      @albums = QueryAlbums.options_for_select_admin
       flash[:notice] = 'Audio could not be imported.'
       render 'new_import_to_album'
     end
@@ -53,12 +53,12 @@ class Admin::AudioController < AdminController
     @audio = AudioBuilder.create_from_import_and_join_nested_event(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
-      redirect_to edit_admin_audio_path(@audio.id)
+      redirect_to edit_admin_audio_path(@audio.id_admin)
     else
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @events = QueryEvents.new.order_by_start_time_asc
+      @events = QueryEvents.options_for_select_admin
       flash[:notice] = 'Audio could not be imported.'
       render 'new_import_to_event'
     end
@@ -69,7 +69,7 @@ class Admin::AudioController < AdminController
     @audio = AudioBuilder.create_from_upload(params_audio_permitted, arlocal_settings: @arlocal_settingss)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
-      redirect_to edit_admin_audio_path(@audio.id)
+      redirect_to edit_admin_audio_path(@audio.id_admin)
     else
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
@@ -84,12 +84,12 @@ class Admin::AudioController < AdminController
     @audio = AudioBuilder.create_from_upload_and_join_nested_album(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
-      redirect_to edit_admin_audio_path(@audio.id)
+      redirect_to edit_admin_audio_path(@audio.id_admin)
     else
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @albums = QueryAlbums.new.order_by_title_asc
+      @albums = QueryAlbums.options_for_select_admin
       flash[:notice] = 'Audio could not be uploaded.'
       render 'new_upload_to_album'
     end
@@ -100,12 +100,12 @@ class Admin::AudioController < AdminController
     @audio = AudioBuilder.create_from_upload_and_join_nested_event(params_audio_permitted)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
-      redirect_to edit_admin_audio_path(@audio.id)
+      redirect_to edit_admin_audio_path(@audio.id_admin)
     else
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @events = QueryEvents.new.order_by_start_time_asc
+      @events = QueryEvents.options_for_select_admin
       flash[:notice] = 'Audio could not be uploaded.'
       render 'new_upload_to_event'
     end
@@ -113,7 +113,7 @@ class Admin::AudioController < AdminController
 
 
   def destroy
-    @audio = QueryAudio.find(params[:id])
+    @audio = QueryAudio.find_admin(params[:id])
     @audio.recording.purge
     @audio.destroy
     flash[:notice] = 'Audio was destroyed.'
@@ -122,44 +122,17 @@ class Admin::AudioController < AdminController
 
 
   def edit
-    @audio = QueryAudio.find(params[:id])
-    @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
+    @audio = QueryAudio.find_admin(params[:id])
+    @audio_neighbors = QueryAudio.neighborhood_admin(@audio, @arlocal_settings)
     @form_metadata = FormAudioMetadata.new(pane: params[:pane])
   end
 
 
   def index
-    ensure_index_sorting
-    @audio = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_index(params[:filter])
+    @audio = QueryAudio.index_admin(@arlocal_settings, params)
   end
 
 
-  # def index_by_album
-  #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
-  #   @audio = QueryAudio.new.admin_index_by_album(@album)
-  #   render action: :index
-  # end
-  #
-  #
-  # def index_by_keyword
-  #   @keyword = Keyword.find_by_slug!(params[:keyword_id])
-  #   @audio = QueryAudio.new.admin_index_by_keyword(@keyword)
-  #   render action: :index
-  # end
-  #
-  #
-  # def index_without_albums
-  #   @audio = QueryAudio.new.index_no_albums
-  #   render action: :index
-  # end
-  #
-  #
-  # def index_without_keywords
-  #   @audio = QueryAudio.new.index_no_keywords
-  #   render action: :index
-  # end
-  #
-  #
   def new
     @audio = AudioBuilder.build_with_defaults(arlocal_settings: @arlocal_settings)
     @form_metadata = FormAudioMetadata.new
@@ -184,7 +157,7 @@ class Admin::AudioController < AdminController
 
   def new_import_to_album
     @audio = AudioBuilder.build_with_defaults(arlocal_settings: @arlocal_settings)
-    @albums = QueryAlbums.new.order_by_title_asc
+    @albums = QueryAlbums.options_for_select_admin
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
     end
@@ -231,10 +204,10 @@ class Admin::AudioController < AdminController
 
 
   def purge_recording
-    @audio = QueryAudio.find(params[:id])
+    @audio = QueryAudio.find_admin(params[:id])
     @audio.recording.purge
     flash[:notice] = 'Attachment purged from audio.'
-    redirect_to edit_admin_audio_path(@audio.id, pane: :source)
+    redirect_to edit_admin_audio_path(@audio.id_admin, pane: :source)
   end
 
 
@@ -253,18 +226,18 @@ class Admin::AudioController < AdminController
 
 
   def show
-    @audio = QueryAudio.find(params[:id])
-    @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
+    @audio = QueryAudio.find_admin(params[:id])
+    @audio_neighbors = QueryAudio.neighborhood_admin(@audio, @arlocal_settings)
   end
 
 
   def update
-    @audio = QueryAudio.find(params[:id])
+    @audio = QueryAudio.find_admin(params[:id])
     if @audio.update_and_recount_joined_resources(params_audio_permitted)
       flash[:notice] = 'Audio was successfully updated.'
       redirect_to edit_admin_audio_path(@audio.id_admin, pane: params[:pane])
     else
-      @audio_neighbors = QueryAudio.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@audio)
+      @audio_neighbors = QueryAudio.neighborhood_admin(@audio, @arlocal_settings)
       @form_metadata = FormAudioMetadata.new(pane: params[:pane])
       flash[:notice] = 'Audio could not be updated.'
       render 'edit'
@@ -336,3 +309,32 @@ class Admin::AudioController < AdminController
 
 
 end
+
+
+
+# def index_by_album
+#   @album = QueryAlbums.new.find_by_slug(params[:album_id])
+#   @audio = QueryAudio.new.admin_index_by_album(@album)
+#   render action: :index
+# end
+#
+#
+# def index_by_keyword
+#   @keyword = Keyword.find_by_slug!(params[:keyword_id])
+#   @audio = QueryAudio.new.admin_index_by_keyword(@keyword)
+#   render action: :index
+# end
+#
+#
+# def index_without_albums
+#   @audio = QueryAudio.new.index_no_albums
+#   render action: :index
+# end
+#
+#
+# def index_without_keywords
+#   @audio = QueryAudio.new.index_no_keywords
+#   render action: :index
+# end
+#
+#

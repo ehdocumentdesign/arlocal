@@ -86,13 +86,13 @@ class FormAudioMetadata
     def initialize(pane)
       case pane
       when :albums
-        @albums = QueryAlbums.new.order_by_title_asc
+        @albums = QueryAlbums.options_for_select_admin
       when :audio
         @markup_parsers = MarkupParser.options_for_select
       when :events
-        @events = QueryEvents.new.order_by_start_time_asc
+        @events = QueryEvents.options_for_select_admin
       when :keywords
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @keywords = QueryKeywords.options_for_select_admin
       when :source
         @source_types = Audio.source_type_options_for_select
       else

@@ -2,13 +2,13 @@ class Admin::AlbumsController < AdminController
 
 
   def audio_create_from_import
-    @album = QueryAlbums.find(params[:id])
+    @album = QueryAlbums.find_admin(params[:id])
     @audio = AudioBuilder.create_from_import_nested_within_album(@album, params_album_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :audio)
     else
-      @form_metadata = FormAlbumMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      @form_metadata = FormAlbumMetadata.new(pane: :audio_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Audio could not be imported.'
       render 'edit'
     end
@@ -16,7 +16,7 @@ class Admin::AlbumsController < AdminController
 
 
   def audio_create_from_upload
-    @album = QueryAlbums.find(params[:id])
+    @album = QueryAlbums.find_admin(params[:id])
     @audio = AudioBuilder.create_from_upload_nested_within_album(@album, params_album_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
@@ -25,7 +25,7 @@ class Admin::AlbumsController < AdminController
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @form_metadata = FormAlbumMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      @form_metadata = FormAlbumMetadata.new(pane: :audio_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Audio could not be uploaded.'
       render 'edit'
     end
@@ -34,8 +34,8 @@ class Admin::AlbumsController < AdminController
 
   def audio_join_by_keyword
     @keyword = QueryKeywords.find(params[:album][:keywords])
-    @album = QueryAlbums.find(params[:id])
-    @album.audio << QueryAudio.find_by_keyword(@keyword)
+    @album = QueryAlbums.find_admin(params[:id])
+    @album.audio << QueryAudio.find_with_keyword(@keyword)
     flash[:notice] = 'Album was successfully updated.'
     redirect_to edit_admin_album_path(@album, pane: params[:pane])
   end
@@ -47,7 +47,7 @@ class Admin::AlbumsController < AdminController
       flash[:notice] = 'Album was successfully created.'
       redirect_to edit_admin_album_path(@album.id_admin)
     else
-      @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+      @form_metadata = FormAlbumMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
@@ -58,7 +58,7 @@ class Admin::AlbumsController < AdminController
 
 
   def destroy
-    @album = QueryAlbums.find(params[:id])
+    @album = QueryAlbums.find_admin(params[:id])
     @album.destroy
     flash[:notice] = 'Album was destroyed.'
     redirect_to action: :index
@@ -66,21 +66,20 @@ class Admin::AlbumsController < AdminController
 
 
   def edit
-    @album = QueryAlbums.find(params[:id])
-    @album_neighbors = QueryAlbums.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@album)
-    @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @album = QueryAlbums.find_admin(params[:id])
+    @album_neighbors = QueryAlbums.neighborhood_admin(@album, @arlocal_settings)
+    @form_metadata = FormAlbumMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
   end
 
 
   def index
-    ensure_index_sorting
-    @albums = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
+    @albums = QueryAlbums.index_admin(@arlocal_settings, params)
   end
 
 
   def new
     @album = AlbumBuilder.build_with_defaults
-    @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @form_metadata = FormAlbumMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       @album.album_keywords.build(keyword_id: @auto_keyword.keyword_id)
@@ -89,13 +88,13 @@ class Admin::AlbumsController < AdminController
 
 
   def picture_create_from_import
-    @album = QueryAlbums.find(params[:id])
+    @album = QueryAlbums.find_admin(params[:id])
     @picture = PictureBuilder.create_from_import_nested_within_album(@album, params_album_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: :pictures)
     else
-      @form_metadata = FormAlbumMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      @form_metadata = FormAlbumMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Picture could not be imported.'
       render 'edit'
     end
@@ -103,7 +102,7 @@ class Admin::AlbumsController < AdminController
 
 
   def picture_create_from_upload
-    @album = QueryAlbums.find(params[:id])
+    @album = QueryAlbums.find_admin(params[:id])
     @picture = PictureBuilder.create_from_upload_nested_within_album(@album, params_album_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
@@ -112,7 +111,7 @@ class Admin::AlbumsController < AdminController
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @form_metadata = FormAlbumMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      @form_metadata = FormAlbumMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Picture could not be uploaded.'
       render 'edit'
     end
@@ -121,27 +120,26 @@ class Admin::AlbumsController < AdminController
 
   def pictures_join_by_keyword
     @keyword = QueryKeywords.find(params[:album][:keywords])
-    @album = QueryAlbums.find(params[:id])
-    @album.pictures << QueryPictures.new.find_by_keyword(@keyword)
+    @album = QueryAlbums.find_admin(params[:id])
+    @album.pictures << QueryPictures.find_with_keyword(@keyword)
     flash[:notice] = 'Album was successfully updated.'
     redirect_to edit_admin_album_path(@album, pane: params[:pane])
   end
 
 
   def show
-    # @album = QueryAlbums.new(arlocal_settings: @arlocal_settings, params: params).action_admin_show
-    @album = QueryAlbums.find(params[:id])
-    @album_neighbors = QueryAlbums.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@album)
+    @album = QueryAlbums.find_admin(params[:id])
+    @album_neighbors = QueryAlbums.neighborhood_admin(@album, @arlocal_settings)
   end
 
 
   def update
-    @album = QueryAlbums.find(params[:id])
+    @album = QueryAlbums.find_admin(params[:id])
     if @album.update_and_recount_joined_resources(params_album_permitted)
       flash[:notice] = 'Album was successfully updated.'
       redirect_to edit_admin_album_path(@album.id_admin, pane: params[:pane])
     else
-      @form_metadata = FormAlbumMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+      @form_metadata = FormAlbumMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Album could not be updated.'
       render 'edit'
     end
@@ -150,13 +148,6 @@ class Admin::AlbumsController < AdminController
 
 
   private
-
-
-  def ensure_index_sorting
-    if params[:filter] == nil
-      params[:filter] = SorterIndexAdminAlbums.find(@arlocal_settings.admin_index_albums_sorter_id).symbol
-    end
-  end
 
 
   def params_album_permitted

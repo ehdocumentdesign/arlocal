@@ -70,20 +70,19 @@ module PicturesHelper
   end
 
 
-  def picture_admin_filter_select(form)
+  def picture_admin_filter_select(form, selected: nil)
     form.select(
       :admin_index_audio_sorter_id,
       SorterIndexAdminPictures.options_for_select(:url),
-      { include_blank: false, selected: SorterIndexAdminPictures.find_id_from_param(params[:filter]) },
+      { include_blank: false, selected: selected },
       { class: [:arl_active_refine_selection, :arl_button_select, :arl_audio_index_filter] }
     )
   end
 
 
   def picture_datetime_cascade_value_statement(picture)
-    picture_date = tag.span(Time.new(picture.datetime_cascade_value).strftime('%Y/%m/%d'))
-    picture_time = tag.span(Time.new(picture.datetime_cascade_value).strftime('%H:%M:%S'))
-    sanitize("#{picture_date}#{picture_time}")
+    picture_datetime = tag.span(picture.datetime_effective_value.strftime('%Y/%m/%d'))
+    sanitize("#{picture_datetime}")
   end
 
 

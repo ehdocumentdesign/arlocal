@@ -1,19 +1,10 @@
 class QueryVideos
 
 
-  def initialize(**args)
-    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : QueryArlocalSettings.get
-    @index_sorter_admin = SorterIndexAdminVideos.find(arlocal_settings.admin_index_videos_sorter_id)
-    @index_sorter_public = SorterIndexPublicVideos.find(arlocal_settings.public_index_videos_sorter_id)
-    @params = args[:params]
-  end
-
-
-
   protected
 
 
-  def self.find(id)
+  def self.find_admin(id)
     Video.friendly.find(id)
   end
 
@@ -23,23 +14,48 @@ class QueryVideos
   end
 
 
+  def self.index_admin(arlocal_settings, params)
+    new(arlocal_settings: arlocal_settings, params: params).index_admin
+  end
+
+
+  def self.index_public(arlocal_settings, params)
+    new(arlocal_settings: arlocal_settings, params: params).index_public
+  end
+
+
+  def self.neighborhood_admin(video, arlocal_settings)
+    new(arlocal_settings: arlocal_settings).neighborhood_admin(video)
+  end
+
+
+  def self.neighborhood_public(video, arlocal_settings)
+    new(arlocal_settings: arlocal_settings).neighborhood_public(video)
+  end
+
+
+  def self.options_for_select_admin
+    new.order_by_title_asc
+  end
+
+
 
   public
 
 
-  def action_admin_edit
-    videos.friendly.find(@params[:id])
+  def initialize(**args)
+    @arlocal_settings = args[:arlocal_settings]
+    @params = args[:params] ? args[:params] : {}
   end
 
 
-  # def action_admin_index
-  #   Video.all
-  # end
+  def all
+    all_videos
+  end
 
 
-  def action_admin_index(arg = nil)
-    filter_method = (arg) ? arg : @params[:filter]
-    case filter_method.to_s.downcase
+  def index_admin
+    case determine_filter_method_admin
     when 'datetime_asc'
       order_by_datetime_asc
     when 'datetime_desc'
@@ -49,29 +65,13 @@ class QueryVideos
     when 'title_desc'
       order_by_title_desc
     else
-      all
+      all_videos
     end
   end
 
 
-  def action_admin_show
-    videos.friendly.find(@params[:id])
-  end
-
-
-  def action_public_show_neighborhood(video, distance: 1)
-    videos.neighborhood(video, collection: videos_admin_index_ordered, distance: distance)
-  end
-
-
-  # def action_public_index
-  #   Video.all.where(indexed: true, published: true)
-  # end
-
-
-  def action_public_index(arg = nil)
-    filter_method = (arg) ? arg : @params[:filter]
-    case filter_method.to_s.downcase
+  def index_public
+    case determine_filter_method_public
     when 'datetime_asc'
       order_by_datetime_asc.where(indexed: true, published: true)
     when 'datetime_desc'
@@ -81,38 +81,33 @@ class QueryVideos
     when 'title_desc'
       order_by_title_desc.where(indexed: true, published: true)
     else
-      all.where(indexed: true, published: true)
+      all_videos.where(indexed: true, published: true)
     end
   end
 
 
-  def action_public_show
-    videos.where(indexed: true, published: true).friendly.find(@params[:id])
+  def neighborhood_admin(video, distance: 1)
+    Video.neighborhood(video, collection: index_admin, distance: distance)
   end
 
 
-  def action_admin_show_neighborhood(video, distance: 1)
-    videos.neighborhood(video, collection: videos_public_index_ordered, distance: distance)
+  def neighborhood_public(video, distance: 1)
+    Video.neighborhood(video, collection: index_public, distance: distance)
   end
 
 
-  def all
-    videos
-  end
-
-
-  def find
-    videos.friendly.find(@params[:id])
+  def options_for_select_admin
+    order_by_title_asc
   end
 
 
   def order_by_datetime_asc
-    videos.order(date_released: :asc)
+    all_videos.order(date_released: :asc)
   end
 
 
   def order_by_datetime_desc
-    videos.order(date_released: :desc)
+    all_videos.order(date_released: :desc)
   end
 
 
@@ -122,12 +117,12 @@ class QueryVideos
 
 
   def order_by_title_asc
-    videos.order(Video.arel_table[:title].lower.asc)
+    all_videos.order(Video.arel_table[:title].lower.asc)
   end
 
 
   def order_by_title_desc
-    videos.order(Video.arel_table[:title].lower.desc)
+    all_videos.order(Video.arel_table[:title].lower.desc)
   end
 
 
@@ -135,18 +130,36 @@ class QueryVideos
   private
 
 
-  def videos
+  def all_videos
     Video.all.includes({picture: :image_attachment})
   end
 
 
-  def videos_admin_index_ordered
-    action_admin_index(@index_sorter_admin.symbol)
+  def determine_filter_method_admin
+    if @params[:filter]
+      @params[:filter].downcase
+    else
+      index_sorter_admin.symbol.to_s.downcase
+    end
   end
 
 
-  def videos_public_index_ordered
-    action_public_index(@index_sorter_public.symbol)
+  def determine_filter_method_public
+    if @params[:filter]
+      @params[:filter].downcase
+    else
+      index_sorter_public.symbol.to_s.downcase
+    end
+  end
+
+
+  def index_sorter_admin
+    SorterIndexAdminVideos.find(@arlocal_settings.admin_index_videos_sorter_id)
+  end
+
+
+  def index_sorter_public
+    SorterIndexPublicVideos.find(@arlocal_settings.public_index_videos_sorter_id)
   end
 
 

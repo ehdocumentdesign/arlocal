@@ -1,18 +1,6 @@
 class Public::PicturesController < PublicController
 
 
-  # def album_pictures_index
-  #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
-  #   @pictures_page_hash = QueryPictures.new.action_public_album_pictures_index(@album)
-  # end
-
-
-  def album_pictures_index
-    @album = QueryAlbums.new.find_by_slug(params[:album_id])
-    @pictures = QueryPictures.new.action_public_album_pictures_index(@album)
-  end
-
-
   def index
     if params[:page] || params[:limit]
       index_by_page
@@ -23,13 +11,12 @@ class Public::PicturesController < PublicController
 
 
   def index_all
-    ensure_index_sorting
-    @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_public_index
+    @pictures = QueryPictures.index_public(@arlocal_settings, params)
   end
 
 
   def index_by_page
-    page = QueryPictures.new(arlocal_settings: @arlocal_settings).action_public_index_by_page(limit: params[:limit], page: params[:page])
+    page = QueryPictures.index_public_by_page(@arlocal_settings, params)
     @pictures = page.collection
     @page_nav_data = page.nav_data
     # @selectors = Selectors.new
@@ -38,8 +25,21 @@ class Public::PicturesController < PublicController
 
   def show
     @picture = QueryPictures.find_public(params[:id])
-    @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_public_show_neighborhood(@picture)
+    @picture_neighbors = QueryPictures.neighborhood_public(@picture, @arlocal_settings)
   end
+
+
+  # def album_pictures_index
+  #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
+  #   @pictures_page_hash = QueryPictures.new.action_public_album_pictures_index(@album)
+  # end
+
+  #
+  # def album_pictures_index
+  #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
+  #   @pictures = QueryPictures.new.action_public_album_pictures_index(@album)
+  # end
+  #
 
 
   # def album_pictures_show
@@ -85,16 +85,6 @@ class Public::PicturesController < PublicController
   #     @keywords = QueryKeywords.new.all_that_select_public_pictures
   #   end
   # end
-
-
-
-  private
-
-  def ensure_index_sorting
-    if params[:filter] == nil
-      params[:filter] = SorterIndexPublicPictures.find(@arlocal_settings.public_index_pictures_sorter_id).symbol
-    end
-  end
 
 
 end

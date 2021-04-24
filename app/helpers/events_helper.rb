@@ -138,13 +138,14 @@ module EventsHelper
   end
 
 
-  def event_public_filter_select
+  def event_public_filter_select(arlocal_settings, params)
+    selected = params[:filter] ? SorterIndexPublicEvents.find_id_from_param(params[:filter]) : arlocal_settings.public_index_events_sorter_id
     select(
       :events_index,
       :filter,
       SorterIndexPublicEvents.options_for_select(:url),
-      { include_blank: false, selected: SorterIndexPublicEvents.find_id_from_param(params[:filter]) },
-      { class: [:arl_active_refine_selection, :arl_button_select, :arl_events_index_filter]}
+      { include_blank: false, selected: selected },
+      { class: [:arl_active_refine_selection, :arl_button_select, :arl_events_index_filter] }
     )
   end
 
@@ -152,7 +153,6 @@ module EventsHelper
   def event_reference_admin_link(event)
     link_to(event.date_and_venue, admin_event_path(event.id_admin), class: :arl_link_url)
   end
-
 
 
   def event_script_jPlayer_playlist(event)

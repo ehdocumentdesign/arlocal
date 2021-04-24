@@ -15,7 +15,7 @@ class Admin::KeywordsController < AdminController
 
 
   def destroy
-    @keyword = QueryKeywords.find(params[:id])
+    @keyword = QueryKeywords.find_admin(params[:id])
     @keyword.destroy
     flash[:notice] = 'Keyword was destroyed.'
     redirect_to action: :index
@@ -23,14 +23,14 @@ class Admin::KeywordsController < AdminController
 
 
   def edit
-    @keyword = QueryKeywords.find(params[:id])
-    @keyword_neighbors = QueryKeywords.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@keyword)
-    @form_metadata = FormKeywordMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @keyword = QueryKeywords.find_admin(params[:id])
+    @keyword_neighbors = QueryKeywords.neighborhood_admin(@keyword)
+    @form_metadata = FormKeywordMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
   end
 
 
   def index
-    @keywords = QueryKeywords.new.action_admin_index
+    @keywords = QueryKeywords.index_admin
   end
 
 
@@ -41,50 +41,18 @@ class Admin::KeywordsController < AdminController
 
 
   def show
-    @keyword = QueryKeywords.find(params[:id])
-    @keyword_neighbors = QueryKeywords.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@keyword)
+    @keyword = QueryKeywords.find_admin(params[:id])
+    @keyword_neighbors = QueryKeywords.neighborhood_admin(@keyword)
   end
 
 
-  # def unkeyword_albums
-  #   @keyword = QueryKeywords.new.find(params[:id])
-  #   AlbumKeyword.where({keyword_id: @keyword.id}).each { |at| at.destroy }
-  #   flash[:notice] = 'Albums were unkeyworded.'
-  #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
-  # end
-  #
-  #
-  # def unkeyword_audio
-  #   @keyword = QueryKeywords.new.find(params[:id])
-  #   AudioKeyword.where({keyword_id: @keyword.id}).each { |at| at.destroy }
-  #   flash[:notice] = 'Audio was unkeyworded.'
-  #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
-  # end
-  #
-  #
-  # def unkeyword_events
-  #   @keyword = QueryKeywords.new.find(params[:id])
-  #   EventKeyword.where({keyword_id: @keyword.id}).each { |et| et.destroy }
-  #   flash[:notice] = 'Events were unkeyworded.'
-  #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
-  # end
-  #
-  #
-  # def unkeyword_pictures
-  #   @keyword = QueryKeywords.new.find(params[:id])
-  #   PictureKeyword.where({keyword_id: @keyword.id}).each { |pt| pt.destroy }
-  #   flash[:notice] = 'Pictures were unkeyworded.'
-  #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
-  # end
-
-
   def update
-    @keyword = QueryKeywords.find(params[:id])
+    @keyword = QueryKeywords.find_admin(params[:id])
     if @keyword.update_and_recount_joined_resources(params_keyword_permitted)
       flash[:notice] = 'Keyword was successfully updated.'
       redirect_to edit_admin_keyword_path(@keyword.id_admin, pane: params[:pane])
     else
-      @form_metadata = FormKeywordMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+      @form_metadata = FormKeywordMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Keyword could not be updated.'
       render 'edit'
     end
@@ -131,3 +99,36 @@ class Admin::KeywordsController < AdminController
 
 
 end
+
+
+
+# def unkeyword_albums
+#   @keyword = QueryKeywords.new.find(params[:id])
+#   AlbumKeyword.where({keyword_id: @keyword.id}).each { |at| at.destroy }
+#   flash[:notice] = 'Albums were unkeyworded.'
+#   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
+# end
+#
+#
+# def unkeyword_audio
+#   @keyword = QueryKeywords.new.find(params[:id])
+#   AudioKeyword.where({keyword_id: @keyword.id}).each { |at| at.destroy }
+#   flash[:notice] = 'Audio was unkeyworded.'
+#   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
+# end
+#
+#
+# def unkeyword_events
+#   @keyword = QueryKeywords.new.find(params[:id])
+#   EventKeyword.where({keyword_id: @keyword.id}).each { |et| et.destroy }
+#   flash[:notice] = 'Events were unkeyworded.'
+#   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
+# end
+#
+#
+# def unkeyword_pictures
+#   @keyword = QueryKeywords.new.find(params[:id])
+#   PictureKeyword.where({keyword_id: @keyword.id}).each { |pt| pt.destroy }
+#   flash[:notice] = 'Pictures were unkeyworded.'
+#   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
+# end

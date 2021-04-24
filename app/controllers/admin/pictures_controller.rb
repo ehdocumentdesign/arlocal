@@ -139,7 +139,7 @@ class Admin::PicturesController < AdminController
 
 
   def destroy
-    @picture = Picture.friendly.find(params[:id])
+    @picture = QueryPictures.find_admin(params[:id])
     @picture.destroy
     flash[:notice] = 'Picture record was destroyed, file remains in filesystem.'
     redirect_to action: :index
@@ -147,21 +147,19 @@ class Admin::PicturesController < AdminController
 
 
   def edit
-    @picture = QueryPictures.find(params[:id])
-    @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@picture)
+    @picture = QueryPictures.find_admin(params[:id])
+    @picture_neighbors = QueryPictures.neighborhood_admin(@picture, @arlocal_settings)
     @form_metadata = FormPictureMetadata.new(pane: params[:pane])
   end
 
 
   def index
-    ensure_index_sorting
-    @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index
+    @pictures = QueryPictures.index_admin(@arlocal_settings, params)
   end
 
 
   def index_by_page
-    ensure_index_sorting
-    page = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_page(limit: params[:limit], page: params[:page])
+    page = QueryPictures.index_admin_by_page(@arlocal_settings, params)
     @pictures = page.collection
     @page_nav_data = page.nav_data
   end
@@ -238,7 +236,7 @@ class Admin::PicturesController < AdminController
 
 
   def purge_image
-    @picture = QueryPictures.find(params[:id])
+    @picture = QueryPictures.find_admin(params[:id])
     @picture.image.purge
     flash[:notice] = 'Attachment purged from picture.'
     redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
@@ -246,13 +244,13 @@ class Admin::PicturesController < AdminController
 
 
   def show
-    @picture = QueryPictures.find(params[:id])
-    @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@picture)
+    @picture = QueryPictures.find_admin(params[:id])
+    @picture_neighbors = QueryPictures.neighborhood_admin(@picture, @arlocal_settings)
   end
 
 
   def update
-    @picture = QueryPictures.find(params[:id])
+    @picture = QueryPictures.find_admin(params[:id])
     if @picture.update_and_recount_joined_resources(params_picture_permitted)
       flash[:notice] = 'Picture was successfully updated.'
       redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
@@ -293,13 +291,6 @@ class Admin::PicturesController < AdminController
 
 
   private
-
-
-  def ensure_index_sorting
-    if params[:filter] == nil
-      params[:filter] = SorterIndexAdminPictures.find(@arlocal_settings.admin_index_pictures_sorter_id).symbol
-    end
-  end
 
 
   def params_picture_permitted

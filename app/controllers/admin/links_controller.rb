@@ -15,7 +15,7 @@ class Admin::LinksController < AdminController
 
 
   def destroy
-    @link = Link.find(params[:id])
+    @link = QueryLinks.find_admin(params[:id])
     @link.destroy
     flash[:notice] = 'Link was destroyed.'
     redirect_to action: :index
@@ -23,14 +23,14 @@ class Admin::LinksController < AdminController
 
 
   def edit
-    @link = Link.find(params[:id])
-    @link_neighbors = QueryLinks.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@link)
+    @link = QueryLinks.find_admin(params[:id])
+    @link_neighbors = QueryLinks.neighborhood_admin(@link)
     @form_metadata = FormLinkMetadata.new(pane: params[:pane])
   end
 
 
   def index
-    @links = Link.all
+    @links = QueryLinks.index_admin
   end
 
 
@@ -41,13 +41,13 @@ class Admin::LinksController < AdminController
 
 
   def show
-    @link = Link.find(params[:id])
-    @link_neighbors = QueryLinks.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@link)
+    @link = QueryLinks.find_admin(params[:id])
+    @link_neighbors = QueryLinks.neighborhood_admin(@link)
   end
 
 
   def update
-    @link = Link.find(params[:id])
+    @link = QueryLinks.find_admin(params[:id])
     if @link.update(params_link_permitted)
       flash[:notice] = 'Link was successfully updated.'
       redirect_to edit_admin_link_path(@link.id)

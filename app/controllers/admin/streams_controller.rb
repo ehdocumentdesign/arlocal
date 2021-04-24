@@ -18,7 +18,7 @@ class Admin::StreamsController < AdminController
 
 
   def destroy
-    @stream = QueryStreams.find(params[:id])
+    @stream = QueryStreams.find_admin(params[:id])
     @stream.destroy
     flash[:notice] = 'Stream was destroyed.'
     redirect_to action: :index
@@ -26,13 +26,13 @@ class Admin::StreamsController < AdminController
 
 
   def edit
-    @stream = QueryStreams.find(params[:id])
+    @stream = QueryStreams.find_admin(params[:id])
     @form_metadata = FormStreamMetadata.new(pane: params[:pane])
   end
 
 
   def index
-    @streams = Stream.all
+    @streams = QueryStreams.index_admin
   end
 
 
@@ -43,12 +43,12 @@ class Admin::StreamsController < AdminController
 
 
   def show
-    @stream = QueryStreams.find(params[:id])
+    @stream = QueryStreams.find_admin(params[:id])
   end
 
 
   def update
-    @stream = QueryStreams.find(params[:id])
+    @stream = QueryStreams.find_admin(params[:id])
     if @stream.update(params_stream_permitted)
       flash[:notice] = 'Stream was successfuly updated.'
       redirect_to edit_admin_stream_path(@stream.id_admin, pane: params[:pane])

@@ -7,12 +7,12 @@
     = picture_admin_button_to_new_import
     = picture_admin_button_to_new_upload
 
-/= render 'shared/selector_list', selectors: @selectors, all_link: true, nil_link: false
+-# render 'shared/selector_list', selectors: @selectors, all_link: true, nil_link: false
 
 .arl_admin_pictures_index
   .arl_pictures_select
     = form_with model: @arlocal_settings, url: admin_arlocal_settings_update_and_return_path, local: true do |f|
-      = picture_admin_filter_select(f)
+      = picture_admin_filter_select(f, selected: @arlocal_settings.admin_index_pictures_sorter_id)
       = f.submit 'make default', class: :arl_button_form_aux_submit
 
 %table.arl_admin_pictures_index_pictures

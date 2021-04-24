@@ -71,9 +71,9 @@ class FormInfoMetadata
       when :article
         @articles = Article.all
       when :links
-        @links = Link.all
+        @links = QueryLinks.options_for_select_admin
       when :picture
-        @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures
+        @pictures = QueryPictures.options_for_select_admin(settings)
       else
         @articles = Article.all
       end

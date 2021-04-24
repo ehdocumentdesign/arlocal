@@ -2,8 +2,7 @@ class Public::EventsController < PublicController
 
 
   def index
-    ensure_index_sorting
-    events = QueryEvents.new(arlocal_settings: @arlocal_settings, params: params).action_public_index
+    events = QueryEvents.index_public(@arlocal_settings, params)
     if events.empty?
       render :index_nil
     else
@@ -50,16 +49,6 @@ class Public::EventsController < PublicController
   #   end
   # end
 
-
-
-  private
-
-
-  def ensure_index_sorting
-    if params[:filter] == nil
-      params[:filter] = SorterIndexPublicEvents.find(@arlocal_settings.public_index_events_sorter_id).symbol
-    end
-  end
 
 
 end

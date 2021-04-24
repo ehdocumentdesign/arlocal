@@ -4,12 +4,12 @@ class FormAlbumMetadata
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name
 
 
-  def initialize(pane: :album, settings: nil)
+  def initialize(pane: :album, arlocal_settings: nil)
     pane = ((pane == nil) ? :album : pane.to_sym.downcase)
 
     @nav_categories = FormAlbumMetadata.categories
     @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane, settings)
+    @selectables = determine_selectables(pane, arlocal_settings)
     @tab_name = determine_tab_name(pane)
   end
 
@@ -69,8 +69,8 @@ class FormAlbumMetadata
   end
 
 
-  def determine_selectables(pane, settings)
-    FormAlbumMetadata::Selectables.new(pane, settings)
+  def determine_selectables(pane, arlocal_settings)
+    FormAlbumMetadata::Selectables.new(pane, arlocal_settings)
   end
 
 
@@ -93,27 +93,27 @@ class FormAlbumMetadata
       :pictures
     )
 
-    def initialize(pane, settings)
+    def initialize(pane, arlocal_settings)
       case pane
       when :album
         @markup_parsers = MarkupParser.options_for_select
       when :audio
-        @audio = QueryAudio.new.order_by_title_asc
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @audio = QueryAudio.options_for_select_admin
+        @keywords = QueryKeywords.options_for_select_admin
       when :audio_join_by_keyword
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @keywords = QueryKeywords.options_for_select_admin
       when :audio_join_single
-        @audio = QueryAudio.new.order_by_title_asc
+        @audio = QueryAudio.options_for_select_admin
       when :picture_join_by_keyword
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @keywords = QueryKeywords.options_for_select_admin
       when :picture_join_single
-        @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures
+        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
       when :pictures
         @album_pictures_sorters = SorterAlbumPictures.options_for_select
-        @pictures = QueryPictures.new(arlocal_settings: settings).action_admin_forms_selectable_pictures
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
+        @keywords = QueryKeywords.options_for_select_admin
       when :keywords
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @keywords = QueryKeywords.options_for_select_admin
       when :vendors
       else
         @markup_parsers = MarkupParser.options_for_select

@@ -10,7 +10,7 @@
 .arl_audio_index
   .arl_audio_select
     = form_with model: @arlocal_settings, url: admin_arlocal_settings_update_and_return_path, local: true do |f|
-      = audio_admin_filter_select(f)
+      = audio_admin_filter_select(f, params)
       = f.submit 'make default', class: :arl_button_form_aux_submit
 
   %table.arl_audio_index_audios

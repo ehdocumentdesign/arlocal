@@ -1,9 +1,12 @@
 check all database queries for friendly_id
   STREAM isn't friendly
 
-
-maybe rename builder/query/form_metadata folders so it's easier to access the model/ folder
-
 AudioController#create_from_import_to_album , etc.
 AudioController#new_from_import_to_album , etc.
-  should the (Album) query be a selectable?
+  should the (Album) query be a selectable from Form[X]Metadata?
+
+picture datetime_cascade -> datetime_effective
+
+when to display title vs slug vs link
+
+(nginx) why does admin/ caching still happen?

@@ -3,20 +3,20 @@ class Admin::EventsController < AdminController
 
   def add_pictures_by_keyword
     @keyword = QueryKeywords.find(params[:event][:keywords])
-    @event = QueryEvents.find(params[:id])
-    @event.pictures << QueryPictures.new.find_by_keyword(@keyword)
+    @event = QueryEvents.find_admin(params[:id])
+    @event.pictures << QueryPictures.find_with_keyword(@keyword)
     redirect_to edit_admin_event_path(@event, pane: params[:pane])
   end
 
 
   def audio_create_from_import
-    @event = QueryEvents.find(params[:id])
+    @event = QueryEvents.find_admin(params[:id])
     @audio = AudioBuilder.create_from_import_nested_within_event(@event, params_event_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully imported.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :audio)
     else
-      @form_metadata = FormEventMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      @form_metadata = FormEventMetadata.new(pane: :audio_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Audio could not be imported.'
       render 'edit'
     end
@@ -24,7 +24,7 @@ class Admin::EventsController < AdminController
 
 
   def audio_create_from_upload
-    @event = QueryEvents.find(params[:id])
+    @event = QueryEvents.find_admin(params[:id])
     @audio = AudioBuilder.create_from_upload_nested_within_event(@event, params_event_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully uploaded.'
@@ -33,7 +33,7 @@ class Admin::EventsController < AdminController
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @form_metadata = FormEventMetadata.new(pane: :audio_import, settings: @arlocal_settings)
+      @form_metadata = FormEventMetadata.new(pane: :audio_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Audio could not be uploaded.'
       render 'edit'
     end
@@ -57,7 +57,7 @@ class Admin::EventsController < AdminController
 
 
   def destroy
-    @event = QueryEvents.find(params[:id])
+    @event = QueryEvents.find_admin(params[:id])
     @event.destroy
     flash[:notice] = 'Event was destroyed.'
     redirect_to action: :index
@@ -65,14 +65,14 @@ class Admin::EventsController < AdminController
 
 
   def edit
-    @event = QueryEvents.find(params[:id])
-    @event_neighbors = QueryEvents.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@event)
-    @form_metadata = FormEventMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @event = QueryEvents.find_admin(params[:id])
+    @event_neighbors = QueryEvents.neighborhood_admin(@event, @arlocal_settings)
+    @form_metadata = FormEventMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
   end
 
 
   def index
-    @events_calendar = Calendar.by_year(QueryEvents.new(arlocal_settings: @arlocal_settings, params: params).action_admin_index)
+    @events_calendar = Calendar.by_year(QueryEvents.index_admin(@arlocal_settings, params))
     render :index_hash
   end
 
@@ -88,13 +88,13 @@ class Admin::EventsController < AdminController
 
 
   def picture_create_from_import
-    @event = QueryEvents.find(params[:id])
+    @event = QueryEvents.find_admin(params[:id])
     @picture = PictureBuilder.create_from_import_nested_within_event(@event, params_event_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: :pictures)
     else
-      @form_metadata = FormEventMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      @form_metadata = FormEventMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Picture could not be imported.'
       render 'edit'
     end
@@ -102,7 +102,7 @@ class Admin::EventsController < AdminController
 
 
   def picture_create_from_upload
-    @event = QueryEvents.find(params[:id])
+    @event = QueryEvents.find_admin(params[:id])
     @picture = PictureBuilder.create_from_upload_nested_within_event(@event, params_event_permitted)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
@@ -111,7 +111,7 @@ class Admin::EventsController < AdminController
       if @arlocal_settings.admin_forms_auto_keyword_enabled
         @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       end
-      @form_metadata = FormEventMetadata.new(pane: :picture_import, settings: @arlocal_settings)
+      @form_metadata = FormEventMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Picture could not be uploaded.'
       render 'edit'
     end
@@ -119,18 +119,18 @@ class Admin::EventsController < AdminController
 
 
   def show
-    @event = QueryEvents.new.action_admin_show(params[:id])
-    @event_neighbors = QueryEvents.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@event)
+    @event = QueryEvents.find_admin(params[:id])
+    @event_neighbors = QueryEvents.neighborhood_admin(@event, @arlocal_settings)
   end
 
 
   def update
-    @event = QueryEvents.find(params[:id])
+    @event = QueryEvents.find_admin(params[:id])
     if @event.update_and_recount_joined_resources(params_event_permitted)
       flash[:notice] = 'Event was successfully updated.'
       redirect_to edit_admin_event_path(@event.id_admin, pane: params[:pane])
     else
-      @form_metadata = FormEventMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+      @form_metadata = FormEventMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Event could not be updated.'
       render 'edit'
     end
