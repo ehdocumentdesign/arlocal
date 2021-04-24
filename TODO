@@ -1,5 +1,3 @@
-check all database queries for friendly_id
-  STREAM isn't friendly
 
 AudioController#create_from_import_to_album , etc.
 AudioController#new_from_import_to_album , etc.

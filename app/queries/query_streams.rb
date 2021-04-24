@@ -5,12 +5,12 @@ class QueryStreams
 
 
   def self.find_admin(id)
-    Stream.find_by_slug(id)
+    Stream.friendly.find(id)
   end
 
 
   def self.find_public(id)
-    Stream.where(published: true).find(id)
+    Stream.where(published: true).friendly.find(id)
   end
 
 
