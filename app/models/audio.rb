@@ -109,7 +109,10 @@ class Audio < ApplicationRecord
 
 
   def does_have_attached(attribute)
-    self.method(attribute).call.attached? == true
+    case attribute
+    when :recording
+      self.method(attribute).call.attached? == true
+    end
   end
 
 
@@ -129,7 +132,10 @@ class Audio < ApplicationRecord
 
 
   def does_not_have_attached(attribute)
-    self.method(attribute).call.attached? == false
+    case attribute
+    when :recording
+      self.method(attribute).call.attached? == false
+    end
   end
 
 
