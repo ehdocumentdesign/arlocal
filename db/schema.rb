@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_074218) do
+ActiveRecord::Schema.define(version: 2021_05_01_210905) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_074218) do
     t.string "audio_default_isrc_registrant_code"
     t.integer "marquee_parser_id"
     t.string "marquee_text_markup"
-    t.string "html_head_favicon_catalog_filepath"
+    t.string "icon_source_catalog_file_path"
     t.boolean "html_head_public_can_include_meta_description"
     t.string "public_index_albums_sorter_id"
     t.boolean "public_nav_can_include_albums"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_074218) do
     t.integer "admin_index_videos_sorter_id"
     t.integer "public_index_videos_sorter_id"
     t.boolean "public_nav_can_include_videos"
+    t.string "icon_source_type"
   end
 
   create_table "articles", force: :cascade do |t|

@@ -23,6 +23,7 @@ class FormArlocalSettingsMetadata
       :artist,
       :audio,
       :html_head,
+      :icon,
       :marquee,
       :public
     ]
@@ -43,6 +44,10 @@ class FormArlocalSettingsMetadata
       'form_audio'
     when :html_head
       'form_html_head'
+    when :icon
+      'form_icon'
+    when :icon_attachment_purge
+      'form_icon_attachment_purge'
     when :marquee
       'form_marquee'
     when :public
@@ -77,7 +82,8 @@ class FormArlocalSettingsMetadata
       :markup_parsers,
       :pictures_index_sorters,
       :videos_index_sorters,
-      :selectable_pictures_sorters
+      :selectable_pictures_sorters,
+      :source_types
     )
     def initialize(pane)
       case pane
@@ -85,10 +91,12 @@ class FormArlocalSettingsMetadata
         @albums_index_sorters = SorterIndexAdminAlbums.options_for_select
         @audio_index_sorters = SorterIndexAdminAudio.options_for_select
         @events_index_sorters = SorterIndexAdminEvents.options_for_select
-        @keywords = QueryKeywords.new.order_by_title_asc
+        @keywords = QueryKeywords.options_for_select_admin
         @pictures_index_sorters = SorterIndexAdminPictures.options_for_select
         @videos_index_sorters = SorterIndexAdminVideos.options_for_select
         @selectable_pictures_sorters = SorterFormSelectablePictures.options_for_select
+      when :icon
+        @source_types = ArlocalSettings.icon_source_type_options_for_select
       when :marquee
         @markup_parsers = MarkupParser.options_for_select
       when :public

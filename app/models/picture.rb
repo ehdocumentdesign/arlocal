@@ -209,7 +209,7 @@ class Picture < ApplicationRecord
   def does_have_attached(attribute)
     case attribute
     when :image
-      self.method(attribute).call.attached? == true
+      self.image.attached? == true
     end
   end
 
@@ -247,7 +247,7 @@ class Picture < ApplicationRecord
   def does_not_have_attached(attribute)
     case attribute
     when :image
-      self.method(attribute).call.attached? == false
+      self.image.attached? == false
     end
   end
 

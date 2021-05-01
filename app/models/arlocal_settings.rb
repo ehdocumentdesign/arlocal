@@ -1,9 +1,28 @@
 class ArlocalSettings < ApplicationRecord
 
+  has_one_attached :icon_image
 
   before_validation :strip_whitespace_edges_from_entered_text
 
   validates :admin_forms_auto_keyword_id, presence: true, if: :admin_forms_auto_keyword_enabled
+
+
+
+  protected
+
+
+  def self.icon_source_type_options
+    [:attachment, :catalog]
+  end
+
+
+  def self.icon_source_type_options_for_select
+    ArlocalSettings.icon_source_type_options.map{ |option| [option, option] }
+  end
+
+
+
+  public
 
 
   ### admin_index_audio_sorter_id
@@ -59,7 +78,20 @@ class ArlocalSettings < ApplicationRecord
   ### created_at
 
 
-  ### html_head_favicon_catalog_filepath
+  def does_have_attached(attribute)
+    case attribute
+    when :icon_image
+      self.icon_image.attached? == true
+    end
+  end
+
+
+  def does_not_have_attached(attribute)
+    case attribute
+    when :icon_image
+      self.icon_image.attached? == false
+    end
+  end
 
 
   ### html_head_google_analytics_id
@@ -76,6 +108,70 @@ class ArlocalSettings < ApplicationRecord
       true
     end
   end
+
+
+  def icon_filename
+    icon_source_file_path
+  end
+
+
+  def icon_source_attachment_file_path
+    if icon_image.attached?
+      icon_image.blob.filename.to_s
+    else
+      ''
+    end
+  end
+
+
+  ### icon_source_catalog_file_path
+
+
+  def icon_source_file_basename
+    if icon_source_file_path
+      File.basename(icon_source_file_path, '.*')
+    end
+  end
+
+
+  def icon_source_file_extname
+    File::extname(icon_source_file_path.to_s)
+  end
+
+
+  def icon_source_file_extension
+    icon_source_file_extname.to_s.gsub(/\A./,'')
+  end
+
+
+  def icon_source_file_mime_type
+    Mime::Type.lookup_by_extension(icon_source_file_extension)
+  end
+
+
+  def icon_source_file_path
+    case icon_source_type
+    when 'attachment'
+      icon_source_attachment_file_path
+    when 'catalog'
+      icon_source_catalog_file_path
+    end
+  end
+
+
+  def icon_source_is_file
+    case source_type
+    when 'attachment'
+      true
+    when 'catalog'
+      true
+    else
+      false
+    end
+  end
+
+
+  ### icon_source_type
 
 
   ### id
@@ -157,8 +253,8 @@ class ArlocalSettings < ApplicationRecord
 
   def strip_whitespace_edges_from_entered_text
     [ self.artist_name,
+      self.icon_source_catalog_file_path,
       self.marquee_text_markup,
-      self.html_head_favicon_catalog_filepath,
     ].each { |a| a.to_s.strip! }
   end
 

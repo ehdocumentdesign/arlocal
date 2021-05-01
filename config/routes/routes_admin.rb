@@ -13,9 +13,9 @@ namespace :admin do
   resources :administrators, only: [:index]
 
 
-  resource :arlocal_settings, only: [:edit, :update]
-  patch    'arlocal_settings/update_from_resource', to: 'arlocal_settings#update_from_resource_and_return', as: :arlocal_settings_update_and_return
-
+  resource  :arlocal_settings, only: [:edit, :update]
+  patch     'arlocal_settings/update_from_resource', to: 'arlocal_settings#update_from_resource_and_return', as: :arlocal_settings_update_and_return
+  patch     'arlocal_settings/purge_icon_image', to: 'arlocal_settings#purge_icon_image', as: :arlocal_settings_purge_icon_image
 
   resources :articles
 

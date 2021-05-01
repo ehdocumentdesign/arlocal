@@ -7,6 +7,14 @@ class Admin::ArlocalSettingsController < AdminController
   end
 
 
+  def purge_icon_image
+    @arlocal_settings = QueryArlocalSettings.get
+    @arlocal_settings.icon_image.purge
+    flash[:notice] = 'Icon image purged.'
+    redirect_to edit_admin_arlocal_settings_path(@arlocal_settings, pane: :icon)
+  end
+
+
   def update
     @arlocal_settings = QueryArlocalSettings.get
     if @arlocal_settings.update(params_arlocal_settings_permitted)
@@ -60,8 +68,10 @@ class Admin::ArlocalSettingsController < AdminController
       :marquee_enabled,
       :marquee_parser_id,
       :marquee_text_markup,
-      :html_head_favicon_catalog_filepath,
       :html_head_public_can_include_meta_description,
+      :icon_image,
+      :icon_source_catalog_file_path,
+      :icon_source_type,
       :public_index_albums_sorter_id,
       :public_index_audio_sorter_id,
       :public_index_events_sorter_id,
