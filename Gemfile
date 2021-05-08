@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.7'
+ruby '>= 2.7'
 
 gem 'bcrypt', '~> 3.1'
 gem 'bootsnap', '~> 1.5', require: false    # Reduces boot times through caching; required in config/boot.rb
@@ -14,7 +14,7 @@ gem 'haml', '~> 5.2'
 gem 'jquery-rails', '~> 4.4'   # jPlayer requires jquery
 gem 'mediainfo', '~> 1.4'
 gem 'puma', '~> 5.0'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 6.1.3'
 gem 'rb-readline', '~> 0.5'
 gem 'sassc-rails', '~> 2.1'
 # A&R.Local still uses Sprockets for javascript asset compilation. There is not enough front-end javascript to justify webpacker.
