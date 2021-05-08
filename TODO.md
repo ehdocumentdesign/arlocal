@@ -2,20 +2,25 @@
 
 ## HIGH priority
 
-  - Note where the selectable value source_type comes from the model, not via FormMetadata::Selectable
-
-## Medium priority
-
   - when to display title vs slug vs link
   - Do picture selects still require a (none) option?
 
+## Medium priority
+
++ Note where the selectable value source_type comes from the model, not via FormMetadata::Selectable
+  - Controllers::Admin::Audio#new_[method_to_resource]
+  - Controllers::Admin::Picture#new_[method_to_resource]
+  - Helpers::AudioHelper#audio_admin_filter_select
+  - Helpers::EventsHelper#event_public_filter_select
+  - Helpers::PicturesHelper#picture_admin_filter_select
+
 ## Low Priority
 
-  - AudioController#create_from_import_to_album , etc.
-    AudioController#new_from_import_to_album , etc.
-    - should the (Album) query be a selectable from Form[X]Metadata?
-
   - Audio index
+  - about_arlocal
+    - icons help
+    - formatting for markup types, esp. for narrow width
+  - release notes, what's new
 
 ## Possibly fixed
 

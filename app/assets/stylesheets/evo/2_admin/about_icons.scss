@@ -1,0 +1,24 @@
+.arl_admin_help_basic_title {
+  font-family: $font-family-admin;
+  text-align: center;
+}
+.admin_help_basic_icons {
+  margin-bottom: $arl-spacing-wide;
+}
+.admin_help_basic_icons_example {
+
+}
+.arl_admin_help_basic_icon {
+  padding: $arl-margin-wide $arl-margin;
+}
+.arl_admin_help_basic_icon_text {
+  padding: $arl-margin-wide $arl-margin;
+}
+.arl_admin_help_basic_icon_text_title {
+  font-family: $font-family-admin-data-label;
+  margin: 0rem;
+}
+.arl_admin_help_basic_icon_text_description {
+  font-family: $font-family-admin-data-value;
+  margin: 0rem;
+}
