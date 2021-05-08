@@ -2,7 +2,7 @@ module ParsersHelper
 
 
   # parser_div() returns the html_class of the parser
-  # therefore this method is not as easy to DRY up by calling parser_result
+  # therefore this method is not as easy to DRY up by calling parser_result from within
   def parser_div(resource_text_props)
     parser = MarkupParser.find(resource_text_props[:parser_id])
     text_markup = resource_text_props[:text_markup]
