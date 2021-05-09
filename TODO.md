@@ -2,7 +2,10 @@
 
 ## HIGH priority
 
+  - add whatsnew and readme files
   - when to display title vs slug vs link
+    - audio
+    - pictures
   - Do picture selects still require a (none) option?
 
 ## Medium priority
@@ -18,9 +21,8 @@
 
   - Audio index
   - about_arlocal
-    - icons help
+    + icons help
     - formatting for markup types, esp. for narrow width
-  - release notes, what's new
 
 ## Possibly fixed
 

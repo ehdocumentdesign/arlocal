@@ -7,36 +7,42 @@
         .arl_button_admin_resource= icon_new
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title New
+        %p.arl_admin_help_basic_icon_text_description Create a new resource item in the database.
 
     %tr.admin_help_basic_icons_example
       %td.arl_admin_help_basic_icon
         .arl_button_admin_resource= icon_edit
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title Edit
+        %p.arl_admin_help_basic_icon_text_description Open the chosen resource item for changes.
 
     %tr.admin_help_basic_icons_example
       %td.arl_admin_help_basic_icon
         .arl_button_admin_resource= icon_next
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title Next
+        %p.arl_admin_help_basic_icon_text_description Open the next resource item, ordered as by the index.
 
     %tr.admin_help_basic_icons_example
       %td.arl_admin_help_basic_icon
         .arl_button_admin_resource= icon_previous
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title Previous
+        %p.arl_admin_help_basic_icon_text_description Open the previous resource item, ordered as by the index.
 
     %tr.admin_help_basic_icons_example
       %td.arl_admin_help_basic_icon
         .arl_button_admin_resource= icon_done_editing
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title Done Editing
+        %p.arl_admin_help_basic_icon_text_description Close the chosen resource item from changes.
 
     %tr.admin_help_basic_icons_example
       %td.arl_admin_help_basic_icon
         .arl_button_admin_resource= icon_index
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title Index
+        %p.arl_admin_help_basic_icon_text_description List all resource items of a category.
 
   %table.admin_help_basic_icons
     %tr.admin_help_basic_icons_example
@@ -66,3 +72,11 @@
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title Join by keyword
         %p.arl_admin_help_basic_icon_text_description Associate the current item with a collection of resources chosen by keyword. Opens a new page to choose a keyword.
+
+.arl_admin_help_basic
+  %h2.arl_admin_help_basic_title Content Storage
+  %p.arl_admin_help_basic_content_text A&amp;R.local includes two different methods of accessing content files for audio, pictures, and videos: <i>catalog</i> and <i>upload</i>. Administrators who are unfamiliar with UNIX/Linux will probably prefer to <i>upload</i> their content.
+  %h3.arl_admin_help_basic_content_title Catalog
+  %p.arl_admin_help_basic_content_text The <i>catalog</i> is a location on the server that can be symlinked to `/public/catalog`. An administrator can push files using scp or rsync (for example).
+  %h3.arl_admin_help_basic_content_title Upload
+  %p.arl_admin_help_basic_content_text The <i>upload</i> tools use the default ActiveStorage gem to store content attachments in `/storage`.

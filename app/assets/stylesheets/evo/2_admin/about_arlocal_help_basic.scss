@@ -1,5 +1,8 @@
+.arl_admin_help_basic {
+  max-width: 30rem;
+}
 .arl_admin_help_basic_title {
-  font-family: $font-family-admin;
+  font-family: $font-family-admin-data-value;
   text-align: center;
 }
 .admin_help_basic_icons {
@@ -10,15 +13,24 @@
 }
 .arl_admin_help_basic_icon {
   padding: $arl-margin-wide $arl-margin;
+  vertical-align: top;
 }
 .arl_admin_help_basic_icon_text {
   padding: $arl-margin-wide $arl-margin;
+  vertical-align: top;
 }
 .arl_admin_help_basic_icon_text_title {
-  font-family: $font-family-admin-data-label;
+  font-family: $font-family-admin-data-value;
   margin: 0rem;
 }
 .arl_admin_help_basic_icon_text_description {
   font-family: $font-family-admin-data-value;
   margin: 0rem;
+}
+
+.arl_admin_help_basic_content_text {
+  font-family: $font-family-admin-data-value;
+}
+.arl_admin_help_basic_content_title {
+  font-family: $font-family-admin-data-value;
 }
