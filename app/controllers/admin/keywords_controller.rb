@@ -104,7 +104,7 @@ end
 
 # def unkeyword_albums
 #   @keyword = QueryKeywords.new.find(params[:id])
-#   AlbumKeyword.where({keyword_id: @keyword.id}).each { |at| at.destroy }
+#   AlbumKeyword.where({keyword_id: @keyword.id}).each { |ak| ak.destroy }
 #   flash[:notice] = 'Albums were unkeyworded.'
 #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
 # end
@@ -112,7 +112,7 @@ end
 #
 # def unkeyword_audio
 #   @keyword = QueryKeywords.new.find(params[:id])
-#   AudioKeyword.where({keyword_id: @keyword.id}).each { |at| at.destroy }
+#   AudioKeyword.where({keyword_id: @keyword.id}).each { |ak| ak.destroy }
 #   flash[:notice] = 'Audio was unkeyworded.'
 #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
 # end
@@ -120,7 +120,7 @@ end
 #
 # def unkeyword_events
 #   @keyword = QueryKeywords.new.find(params[:id])
-#   EventKeyword.where({keyword_id: @keyword.id}).each { |et| et.destroy }
+#   EventKeyword.where({keyword_id: @keyword.id}).each { |ek| ek.destroy }
 #   flash[:notice] = 'Events were unkeyworded.'
 #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
 # end
@@ -128,7 +128,7 @@ end
 #
 # def unkeyword_pictures
 #   @keyword = QueryKeywords.new.find(params[:id])
-#   PictureKeyword.where({keyword_id: @keyword.id}).each { |pt| pt.destroy }
+#   PictureKeyword.where({keyword_id: @keyword.id}).each { |pk| pk.destroy }
 #   flash[:notice] = 'Pictures were unkeyworded.'
 #   redirect_to edit_admin_keyword_path(@keyword, pane: params[:pane])
 # end
