@@ -10,6 +10,7 @@ class PictureBuilder
   def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
     picture = (Picture === args[:picture]) ? args[:picture] : Picture.new
+
     @arlocal_settings = arlocal_settings
     @metadata = nil
     @picture = picture
