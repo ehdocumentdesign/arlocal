@@ -1,11 +1,12 @@
 class QueryPictures
 
 
-  # Controllers should call a singleton method, to maintain the look and feel of
+  # Controllers call a singleton method to maintain the look and feel of
   # the ActiveRecord Query Interface.
   #
-  # If a singleton menthod requires interpretation of data, the singleton
-  # method will create and utilize an instance object.
+  # If a singleton menthod requires interpretation of data, such as
+  # ArlocalSettings or request parameters, the singleton method will create an
+  # instance object and call a corresponding instance method.
 
 
 
@@ -107,7 +108,7 @@ class QueryPictures
 
 
   def index_admin_by_page
-    Picture.paginate(collection: index_admin, limit: params[:limit], page: params[:page])
+    Picture.paginate(collection: index_admin, limit: @params[:limit], page: @params[:page])
   end
 
 
@@ -132,7 +133,7 @@ class QueryPictures
 
 
   def index_public_by_page
-    Picture.paginate(collection: index_public, limit: params[:limit], page: params[:page])
+    Picture.paginate(collection: index_public, limit: @params[:limit], page: @params[:page])
   end
 
 
@@ -144,11 +145,6 @@ class QueryPictures
   def neighborhood_public(picture, distance: 1)
     Picture.neighborhood(picture, collection: index_public, distance: distance)
   end
-
-
-  # def options_for_select_admin
-  #   [PictureBuilder.nil_picture].concat(index_form_selectable)
-  # end
 
 
   def options_for_select_admin
