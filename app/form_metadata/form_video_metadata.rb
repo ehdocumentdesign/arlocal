@@ -83,7 +83,7 @@ class FormVideoMetadata
       when :source
         @source_types = Video.source_type_options_for_select
       when :thumbnail
-        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
+        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
       else
         @markup_parsers = MarkupParser.options_for_select
       end

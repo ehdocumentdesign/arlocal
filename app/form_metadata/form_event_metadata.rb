@@ -103,10 +103,10 @@ class FormEventMetadata
       when :picture_join_by_keyword
         @keywords = QueryKeywords.options_for_select_admin
       when :picture_join_single
-        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
+        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
       when :pictures
         @event_pictures_sorters = SorterEventPictures.options_for_select
-        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
+        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
         @keywords = QueryKeywords.options_for_select_admin
       else
         @markup_parsers = MarkupParser.options_for_select

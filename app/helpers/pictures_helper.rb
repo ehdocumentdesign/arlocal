@@ -161,7 +161,7 @@ module PicturesHelper
 
 
   def picture_reference_admin_link(picture)
-    link_to(picture.slug, admin_picture_path(picture.id_admin), class: :arl_link_url)
+    link_to(picture.title, admin_picture_path(picture.id_admin), class: :arl_link_url)
   end
 
 

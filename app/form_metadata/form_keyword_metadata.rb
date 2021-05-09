@@ -88,7 +88,7 @@ class FormKeywordMetadata
       when :events
         @events = QueryEvents.options_for_select_admin
       when :pictures
-        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
+        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
       when :videos
         @videos = QueryVideos.options_for_select_admin
       end

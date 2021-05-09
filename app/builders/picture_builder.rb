@@ -165,7 +165,7 @@ class PictureBuilder
   def self.nil_picture
     Picture.new(
       id: nil,
-      title_without_markup: '(none)'
+      title_without_markup: ''
     )
   end
 

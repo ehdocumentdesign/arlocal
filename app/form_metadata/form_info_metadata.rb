@@ -73,7 +73,7 @@ class FormInfoMetadata
       when :links
         @links = QueryLinks.options_for_select_admin
       when :picture
-        @pictures = QueryPictures.options_for_select_admin(settings)
+        @pictures = QueryPictures.options_for_select_admin_with_nil(settings)
       else
         @articles = Article.all
       end

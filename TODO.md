@@ -3,10 +3,12 @@
 ## HIGH priority
 
   - add whatsnew and readme files
-  - when to display title vs slug vs link
-    - audio
-    - pictures
-  - Do picture selects still require a (none) option?
+  + when to display title vs slug vs link
+    + audio
+    + pictures
+  + Do picture selects still require a (none) option? **yes** it looks a lot better.
+  - picture datetime_cascade -> datetime_effective
+    - remaining textual references (sorters, etc)
 
 ## Medium priority
 
@@ -44,4 +46,3 @@
   + Obsolete references in views
 
   + (nginx) why does admin/ caching still happen?
-  + picture datetime_cascade -> datetime_effective

@@ -63,6 +63,11 @@ class QueryPictures
   end
 
 
+  def self.options_for_select_admin_with_nil(arlocal_settings)
+    new(arlocal_settings: arlocal_settings).options_for_select_admin_with_nil
+  end
+
+
 
   public
 
@@ -147,25 +152,29 @@ class QueryPictures
 
 
   def options_for_select_admin
-    options = [PictureBuilder.nil_picture]
     case determine_filter_method_form_selectable
     when 'all_title_asc'
-      options << all_pictures.sort_by{ |p| p.title_without_markup.downcase }
+      all_pictures.sort_by{ |p| p.title_without_markup.downcase }
     when 'all_title_desc'
-      options << all_pictures.sort_by{ |p| p.title_without_markup.downcase }.reverse
+      all_pictures.sort_by{ |p| p.title_without_markup.downcase }.reverse
     when 'only_match_keywords'
-      options << all_pictures.joins(:keywords).where(keywords: {id: keywords.map{|k| k.id} })
+      all_pictures.joins(:keywords).where(keywords: {id: keywords.map{|k| k.id} })
     when 'only_recent_10'
-      options << all_pictures.order(:created_at).limit(10).order(Picture.arel_table[:title_without_markup].lower.asc)
+      all_pictures.order(:created_at).limit(10).order(Picture.arel_table[:title_without_markup].lower.asc)
     when 'only_recent_20'
-      options << all_pictures.order(:created_at).limit(20).order(Picture.arel_table[:title_without_markup].lower.asc)
+      all_pictures.order(:created_at).limit(20).order(Picture.arel_table[:title_without_markup].lower.asc)
     when 'only_recent_40'
-      options << all_pictures.order(:created_at).limit(40).order(Picture.arel_table[:title_without_markup].lower.asc)
+      all_pictures.order(:created_at).limit(40).order(Picture.arel_table[:title_without_markup].lower.asc)
     else
-      options << all_pictures
+      all_pictures
     end
-    options.flatten
   end
+
+
+  def options_for_select_admin_with_nil
+    [PictureBuilder.nil_picture, options_for_select_admin].flatten
+  end
+
 
 
   private
