@@ -12,6 +12,8 @@
 
   - Method arguments - compatible with Ruby 3.0.1?
 
+  - how to update via w/ customizations
+
 
 ## Medium priority
 
