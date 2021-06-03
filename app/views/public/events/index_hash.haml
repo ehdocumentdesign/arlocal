@@ -1,7 +1,7 @@
 = html_head_title_extend! :events
 
 .arl_events_select
-  = event_public_filter_select
+  = event_public_filter_select(@arlocal_settings, params)
 .arl_events_index
   - @events_calendar.each_pair do |year, events|
     %table.arl_events_index_table
@@ -10,7 +10,3 @@
         %tr.arl_events_index_event.arl_active_link_container{data: {url: public_event_path(event.id_public)}}
           / = render 'index_event_coverpicture', event: event
           = render 'index_event_info', event: event
-    
-    
-    
-    

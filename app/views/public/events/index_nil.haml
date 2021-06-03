@@ -1,10 +1,7 @@
 = html_head_title_extend! :events
 
 .arl_events_select
-  = event_public_filter_select
+  = event_public_filter_select(@arlocal_settings, params)
 .arl_events_index
   %div.arl_events_index_none
     [none]
-    
-    
-    
