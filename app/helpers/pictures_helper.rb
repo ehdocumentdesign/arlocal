@@ -81,7 +81,7 @@ module PicturesHelper
 
 
   def picture_datetime_cascade_value_statement(picture)
-    picture_datetime = tag.span(picture.datetime_effective_value.strftime('%Y/%m/%d'))
+    picture_datetime = tag.span("#{picture.datetime_effective_value}")
     sanitize("#{picture_datetime}")
   end
 

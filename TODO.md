@@ -3,6 +3,11 @@
 
 ## HIGH priority
 
+  - PicturesHelper::picture_datetime_cascade_value_statement
+    - find calls
+    - rename to effective_datetime
+    - make sure it works
+
   - add whatsnew and readme files
     - **really?** whatsnew is just the git log, and readme won't help an existing installation.
     - Maybe remove the links (but keep the architecture just in case).
