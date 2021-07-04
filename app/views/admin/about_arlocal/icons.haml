@@ -72,13 +72,3 @@
       %td.arl_admin_help_basic_icon_text
         %h3.arl_admin_help_basic_icon_text_title Join by keyword
         %p.arl_admin_help_basic_icon_text_description Associate the current item with a collection of resources chosen by keyword. Opens a new page to choose a keyword.
-
-.arl_admin_help_basic
-  %h2.arl_admin_help_basic_title Content Storage
-  %p.arl_admin_help_basic_content_text A&amp;R.local includes two different methods of accessing content files for audio, pictures, and videos: <i>catalog</i> and <i>upload</i>. Administrators who are unfamiliar with UNIX/Linux will probably prefer to <i>upload</i> their content.
-  %h3.arl_admin_help_basic_content_title Catalog
-  %p.arl_admin_help_basic_content_text The <i>catalog</i> is a location on the server that can be symlinked to `/public/catalog`. An administrator can push files using scp or rsync (for example).
-  %h3.arl_admin_help_basic_content_title Upload
-  %p.arl_admin_help_basic_content_text The <i>upload</i> tools use the default ActiveStorage gem to store content attachments in `/storage`.
-  %h3.arl_admin_help_basic_content_title Videos only: URL
-  %p.arl_admin_help_basic_content_text Videos can also accept a URL as a source. Video files can be very large, so administrators may prefer to upload content to a service such as YouTube of Vimeo (for example). The video player will read the video file from the URL and play it through your own site.

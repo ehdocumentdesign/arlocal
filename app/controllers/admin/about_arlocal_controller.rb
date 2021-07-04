@@ -1,6 +1,14 @@
 class Admin::AboutArlocalController < AdminController
 
 
+  def content_storage
+  end
+
+
+  def icons
+  end
+
+  
   def markup_types
     @markup_examples = ArlocalMarkupExamples::MARKUP_EXAMPLES
   end

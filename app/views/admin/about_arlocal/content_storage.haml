@@ -1,0 +1,18 @@
+.arl_admin_help_basic
+  %h2.arl_admin_help_basic_title
+    Content Storage
+  %p.arl_admin_help_basic_content_text
+    A&amp;R.local includes two different methods of accessing content files for audio, pictures, and videos: <i>catalog</i> and <i>upload</i>. Videos offer a third method: <i>url</i>.
+  %h3.arl_admin_help_basic_content_title
+    Catalog
+  %p.arl_admin_help_basic_content_text
+    The <i>catalog</i> is a location on the server that can store audio, image, and video files. An administrator can push files using scp or rsync. This option is suitable for administrators who have shell access on their local device and the server itself. The source catalog filepath is the location of the file relative to the catalog directory
+    'public/catalog'.
+  %h3.arl_admin_help_basic_content_title
+    Upload
+  %p.arl_admin_help_basic_content_text
+    The <i>upload</i> tools let an administrator upload audio, image, or video files through the web browser. This option does not require shell access, however, it does not allow an administrator to customize how the server organizes content files within the '/storage' directory on the filesystem. Uploading is suitable for administrators looking for the simplest content storage option.
+  %h3.arl_admin_help_basic_content_title
+    Videos only: URL
+  %p.arl_admin_help_basic_content_text
+    Videos can also accept a URL as a source. Video files can be very large, so administrators may prefer to upload content to a service such as YouTube or Vimeo (for example). The video player will read the video file from the URL and play it through your own site.

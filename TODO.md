@@ -3,6 +3,8 @@
 
 ## HIGH priority
 
+  - Arlocal Help Path
+
   - PicturesHelper::picture_datetime_cascade_value_statement
     - find calls
     - rename to effective_datetime

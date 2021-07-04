@@ -18,15 +18,18 @@
   .jp_arl_playlist_tracks
     .jp-playlist
       %table.jp-playlist-items
-        %tr.jp-playlist-item
+        -# %tr.jp-playlist-item
           %td.jp-playlist-item-about-arlocal
             %span= link_to 'Release notes', admin_about_arlocal_release_notes_path
-        %tr.jp-playlist-item
+        -# %tr.jp-playlist-item
           %td.jp-playlist-item-about-arlocal
             %span= link_to 'Revision log', admin_about_arlocal_revision_log_path
         %tr.jp-playlist-item
           %td.jp-playlist-item-about-arlocal
-            %span= link_to 'Markup types explained', admin_about_arlocal_markup_types_path
+            %span= link_to 'Content Storage', admin_about_arlocal_content_storage_path
         %tr.jp-playlist-item
           %td.jp-playlist-item-about-arlocal
-            %span= link_to 'Help', admin_about_arlocal_help_path
+            %span= link_to 'Icons', admin_about_arlocal_icons_path
+        %tr.jp-playlist-item
+          %td.jp-playlist-item-about-arlocal
+            %span= link_to 'Markup types explained', admin_about_arlocal_markup_types_path

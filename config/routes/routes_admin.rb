@@ -1,14 +1,15 @@
 namespace :admin do
 
 
-  get '/', to: 'about_arlocal_#index', as: :root
+  get '/', to: 'about_arlocal#index', as: :root
 
 
-  get 'about_arlocal',               to: 'about_arlocal#index',         as: :about_arlocal
-  get 'about_arlocal/help',          to: 'about_arlocal#help_basic',    as: :about_arlocal_help
-  get 'about_arlocal/markup_types',  to: 'about_arlocal#markup_types',  as: :about_arlocal_markup_types
-  get 'about_arlocal/release_notes', to: 'about_arlocal#release_notes', as: :about_arlocal_release_notes
-  get 'about_arlocal/whats_new',     to: 'about_arlocal#whats_new',     as: :about_arlocal_revision_log
+  get 'about_arlocal',                 to: 'about_arlocal#index',           as: :about_arlocal
+  get 'about_arlocal/content_storage', to: 'about_arlocal#content_storage', as: :about_arlocal_content_storage
+  get 'about_arlocal/icons',           to: 'about_arlocal#icons',           as: :about_arlocal_icons
+  get 'about_arlocal/markup_types',    to: 'about_arlocal#markup_types',    as: :about_arlocal_markup_types
+  get 'about_arlocal/release_notes',   to: 'about_arlocal#release_notes',   as: :about_arlocal_release_notes
+  get 'about_arlocal/whats_new',       to: 'about_arlocal#whats_new',       as: :about_arlocal_revision_log
 
 
   resources :administrators, only: [:index]
