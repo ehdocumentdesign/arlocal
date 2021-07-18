@@ -4,12 +4,16 @@ class AudioBuilder
   require 'mediainfo'
 
 
+  include CatalogHelper
+
+
   attr_reader :audio
 
 
   def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
     audio = (Audio === args[:audio]) ? args[:audio] : Audio.new
+
     @arlocal_settings = arlocal_settings
     @audio = audio
     @metadata = nil
@@ -287,8 +291,8 @@ class AudioBuilder
 
 
   def determine_metadata_from_catalog
-    if File.exists?(CatalogHelper.catalog_audio_filesystem_path(@audio))
-      @metadata = MediaInfo.from(CatalogHelper.catalog_audio_filesystem_path(@audio))
+    if File.exists?(catalog_audio_filesystem_path(@audio))
+      @metadata = MediaInfo.from(catalog_audio_filesystem_path(@audio))
     end
   end
 

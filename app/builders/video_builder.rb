@@ -4,7 +4,10 @@ class VideoBuilder
   require 'mediainfo'
 
 
-  attr_reader :video
+  include CatalogHelper
+
+
+attr_reader :video
 
 
   def initialize
@@ -84,8 +87,8 @@ class VideoBuilder
 
 
   def determine_mediainfo_from_catalog
-    if File.exists?(CatalogHelper.catalog_video_filesystem_path(@video))
-      @mediainfo = MediaInfo.from(CatalogHelper.catalog_video_filesystem_path(@video))
+    if File.exists?(catalog_video_filesystem_path(@video))
+      @mediainfo = MediaInfo.from(catalog_video_filesystem_path(@video))
     end
   end
 

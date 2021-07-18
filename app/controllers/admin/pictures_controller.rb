@@ -1,6 +1,13 @@
 class Admin::PicturesController < AdminController
 
 
+  before_action :verify_file_exists, only: [
+    :create_from_import,
+    :create_from_import_to_album,
+    :create_from_import_to_event
+  ]
+
+
   # def album_pictures_index
   #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
   #   @pictures_page_hash = QueryPictures.new.album_pictures_index(@album)
@@ -329,6 +336,15 @@ class Admin::PicturesController < AdminController
         :_destroy
       ]
     )
+  end
+
+
+  def verify_file_exists
+    filename = helpers.catalog_picture_filesystem_path(params[:picture][:source_catalog_file_path])
+    if File.exists?(filename) == false
+      flash[:notice] = "File not found: #{filename}"
+      redirect_to request.referrer
+    end
   end
 
 

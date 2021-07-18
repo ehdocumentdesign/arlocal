@@ -1,7 +1,14 @@
 class Admin::AudioController < AdminController
 
 
-  def create
+  before_action :verify_file_exists, only: [
+    :create_from_import,
+    :create_from_import_to_album,
+    :create_from_import_to_event
+  ]
+
+
+def create
     @audio = AudioBuilder.create(params_audio_permitted, arlocal_settings: @arlocal_settings)
     if @audio.save
       flash[:notice] = 'Audio was successfully created.'
@@ -305,6 +312,15 @@ class Admin::AudioController < AdminController
         :_destroy
       ]
     )
+  end
+
+
+  def verify_file_exists
+    filename = helpers.catalog_audio_filesystem_path(params[:audio][:source_catalog_file_path])
+    if File.exists?(filename) == false
+      flash[:notice] = "File not found: #{filename}"
+      redirect_to request.referrer
+    end
   end
 
 

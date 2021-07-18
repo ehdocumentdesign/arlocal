@@ -1,15 +1,17 @@
 module CatalogHelper
 
 
-  module_function
-
-
   def catalog_audio_filesystem_dirname
     File.join(catalog_path_prefix_filesystem, catalog_path_suffix_audio)
   end
 
   def catalog_audio_filesystem_path(audio)
-    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_audio, audio.source_catalog_file_path)
+    case audio
+    when Audio
+      File.join(catalog_audio_filesystem_dirname, audio.source_catalog_file_path)
+    when String
+      File.join(catalog_audio_filesystem_dirname, audio)
+    end
   end
 
 
@@ -64,7 +66,12 @@ module CatalogHelper
 
 
   def catalog_picture_filesystem_path(picture)
-    File.join(catalog_path_prefix_filesystem, catalog_path_suffix_pictures, picture.source_catalog_file_path)
+    case picture
+    when Picture
+      File.join(catalog_picture_filesystem_dirname, picture.source_catalog_file_path)
+    when String
+      File.join(catalog_picture_filesystem_dirname, picture)
+    end
   end
 
 

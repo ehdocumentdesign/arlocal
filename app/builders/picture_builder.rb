@@ -4,6 +4,9 @@ class PictureBuilder
   require 'exiftool'
 
 
+  include CatalogHelper
+
+
   attr_reader :picture
 
 
@@ -235,8 +238,8 @@ class PictureBuilder
 
 
   def determine_metadata_from_catalog
-    if File.exists?(CatalogHelper.catalog_picture_filesystem_path(@picture))
-      @metadata = Exiftool.new(CatalogHelper.catalog_picture_filesystem_path(@picture))
+    if File.exists?(catalog_picture_filesystem_path(@picture))
+      @metadata = Exiftool.new(catalog_picture_filesystem_path(@picture))
     end
   end
 

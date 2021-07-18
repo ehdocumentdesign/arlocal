@@ -3,6 +3,8 @@
 
 ## HIGH priority
 
+  - put picture thumbnail in admin/pictures#edit panes
+
   - Arlocal Help Path
 
   - PicturesHelper::picture_datetime_cascade_value_statement
@@ -13,13 +15,6 @@
   - add whatsnew and readme files
     - **really?** whatsnew is just the git log, and readme won't help an existing installation.
     - Maybe remove the links (but keep the architecture just in case).
-
-  - picture datetime_cascade -> datetime_effective
-    - remaining textual references (sorters, etc)
-
-  - Method arguments - compatible with Ruby 3.0.1?
-
-  - how to update via w/ customizations
 
 
 ## Medium priority
