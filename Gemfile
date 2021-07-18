@@ -16,6 +16,7 @@ gem 'mediainfo', '~> 1.4'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.3'
 gem 'rb-readline', '~> 0.5'
+gem 'rexml', '~> 3.2'
 gem 'sassc-rails', '~> 2.1'
 # A&R.Local still uses Sprockets for javascript asset compilation. There is not enough front-end javascript to justify webpacker.
 gem 'sprockets', '~> 4.0'     # A&R.Local requires sprockets version 4
