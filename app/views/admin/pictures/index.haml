@@ -22,7 +22,7 @@
         = picture_preferred_tag picture, html_class: :arl_admin_pictures_index_picture_image_thumbnail
       %td.arl_admin_pictures_index_picture_summary
         .arl_admin_pictures_index_picture_summary_title= picture_title_link picture, admin_picture_path(picture.id_admin), html_class: :arl_admin_pictures_index_picture_summary_title_link
-        .arl_admin_pictures_index_picture_summary_filepath= picture_file_path_with_indicator_classes(picture)
+        .arl_admin_pictures_index_picture_summary_filepath= picture_file_source_path_with_indicators(picture)
         .arl_admin_pictures_index_picture_summary_datetime= picture.datetime
 
   - if @page_nav_data
