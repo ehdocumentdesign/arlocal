@@ -2,7 +2,6 @@
   .arl_form_title
     HTML Header settings
   .arl_form_data
-    = render 'form_elements/text_field', attribute: :html_head_favicon_catalog_filepath, form: f, aside: ['small site icon for web browsers', "#{catalog_icon_filesystem_dirname}/"]
     = render 'form_elements/check_box', attribute: :html_head_can_include_meta_description, form: f, aside: 'Brief description tag for search engines and app feeds.'
   .arl_form_actions
     = f.submit 'Update A&R.Local settings', class: :arl_button_form_submit

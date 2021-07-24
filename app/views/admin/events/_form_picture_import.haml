@@ -4,6 +4,6 @@
 = form_with(model: [:admin, event], url: admin_event_picture_create_from_import_path(event), local: true, class: :arl_form) do |f|
   .arl_form_data
     = f.fields_for :pictures, event.pictures.build do |e|
-      = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: e, aside: "catalog/#{catalog_path_suffix_pictures}/"
+      = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: e, aside: "#{catalog_filesystem_dirname(trailing_separator: true)}"
   .arl_form_actions
     = f.submit class: :arl_button_form_submit

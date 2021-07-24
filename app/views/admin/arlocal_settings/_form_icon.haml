@@ -3,7 +3,7 @@
     Icon for bookmarks
   .arl_form_data
     = render 'form_elements/source_select',    attribute: :icon_source_type,               form: f, selectable: selectable
-    = render 'form_elements/text_field',       attribute: :icon_source_catalog_file_path,  form: f, aside_before: "catalog/#{catalog_path_suffix_pictures}/"
+    = render 'form_elements/text_field',       attribute: :icon_source_catalog_file_path,  form: f, aside: "#{catalog_filesystem_dirname(trailing_separator: true)}"
     = render 'form_elements/file_field',       attribute: :icon_image,                     form: f, purge_path: edit_admin_arlocal_settings_path(@arlocal_settings, pane: :icon_attachment_purge)
   .arl_form_actions
     .arl_form_action_submit

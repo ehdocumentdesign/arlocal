@@ -21,12 +21,24 @@ module CatalogHelper
   end
 
 
+  def catalog_filesystem_dirname(trailing_separator: false)
+    case trailing_separator
+    when true
+      "#{catalog_path_prefix_filesystem}#{File::SEPARATOR}"
+    when false
+      "#{catalog_path_prefix_filesystem}"
+    else
+      "#{catalog_path_prefix_filesystem}"
+    end
+  end
+
+
   def catalog_filesystem_path(item)
     case item
     when Audio, Picture, Video
-      File.join(catalog_picture_filesystem_dirname, item.source_catalog_file_path)
+      File.join(catalog_path_prefix_filesystem, item.source_catalog_file_path)
     when String
-      File.join(catalog_picture_filesystem_dirname, item)
+      File.join(catalog_path_prefix_filesystem, item)
     end
   end
 

@@ -22,7 +22,7 @@ class FormArlocalSettingsMetadata
       :admin,
       :artist,
       :audio,
-      :html_head,
+      #:html_head,
       :icon,
       :marquee,
       :public

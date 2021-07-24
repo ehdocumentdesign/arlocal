@@ -265,6 +265,9 @@
 .arl_form_picture {
   @include layout-flex-column-center;
 }
+.arl_form_thumbnail {
+  @include layout-flex-column-center;
+}
 
 
 .arl_form_title {
