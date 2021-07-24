@@ -209,7 +209,7 @@ class Admin::AlbumsController < AdminController
   end
 
 
-  def verify_catalog_file(filename)
+  def verify_file(filename)
     if File.exists?(filename) == false
       flash[:notice] = "File not found: #{filename}"
       redirect_to request.referrer
@@ -218,14 +218,14 @@ class Admin::AlbumsController < AdminController
 
 
   def verify_nested_audio_file_exists
-    filename = helpers.catalog_filesystem_path(params_album_permitted['audio_attributes']['0']['source_catalog_file_path'])
-    verify_catalog_file(filename)
+    filename = helpers.catalog_file_path(params_album_permitted['audio_attributes']['0']['source_catalog_file_path'])
+    verify_file(filename)
   end
 
 
   def verify_nested_picture_file_exists
-    filename = helpers.catalog_filesystem_path(params_album_permitted['pictures_attributes']['0']['source_catalog_file_path'])
-    verify_catalog_file(filename)
+    filename = helpers.catalog_file_path(params_album_permitted['pictures_attributes']['0']['source_catalog_file_path'])
+    verify_file(filename)
   end
 
 

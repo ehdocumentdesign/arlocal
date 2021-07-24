@@ -139,7 +139,7 @@ class Admin::VideosController < AdminController
 
 
   def verify_nested_picture_file_exists
-    filename = helpers.catalog_picture_filesystem_path(params[:picture][:source_catalog_file_path])
+    filename = helpers.catalog_file_path(params[:picture][:source_catalog_file_path])
     if File.exists?(filename) == false
       flash[:notice] = "File not found: #{filename}"
       redirect_to request.referrer

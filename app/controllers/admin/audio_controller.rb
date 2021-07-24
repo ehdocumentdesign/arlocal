@@ -316,7 +316,7 @@ def create
 
 
   def verify_file_exists
-    filename = helpers.catalog_audio_filesystem_path(params[:audio][:source_catalog_file_path])
+    filename = helpers.catalog_files_path(params[:audio][:source_catalog_file_path])
     if File.exists?(filename) == false
       flash[:notice] = "File not found: #{filename}"
       redirect_to request.referrer

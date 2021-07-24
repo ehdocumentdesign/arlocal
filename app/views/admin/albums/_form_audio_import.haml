@@ -4,6 +4,6 @@
 = form_with(model: [:admin, album], url: admin_album_audio_create_from_import_path(album), local: true, class: :arl_form) do |f|
   = f.fields_for :audio, album.audio.build do |a|
     .arl_form_data
-      = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: a, aside: "#{catalog_filesystem_dirname(trailing_separator: true)}"
+      = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: a, aside: "#{catalog_dirname(trailing_separator: true)}"
     .arl_form_actions
       = a.submit class: :arl_button_form_submit

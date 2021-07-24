@@ -75,7 +75,17 @@ module VideosHelper
   end
 
 
-  def video_reference_admin_link(video)
+  def video_preferred_url(video)
+    case video.source_type
+    when 'attachment'
+      url_for(video.recording)
+    when 'catalog'
+      catalog_url(video)
+    end
+  end
+
+
+def video_reference_admin_link(video)
     link_to(video.slug, admin_video_path(video.id_admin), class: :arl_link_url)
   end
 

@@ -15,7 +15,7 @@
       .arl_form_data_attr.arl_form_layout_blocks
         = f.label :source_catalog_file_path, class: :arl_form_data_label
         %aside.arl_form_data_attr_explanation
-          = "#{catalog_filesystem_dirname(trailing_separator: true)}"
+          = "#{catalog_dirname(trailing_separator: true)}"
         = f.text_field :source_catalog_file_path, class: :arl_form_data_text_field
 
     = f.fields_for :album_pictures, f.object.album_pictures.build do |ap|

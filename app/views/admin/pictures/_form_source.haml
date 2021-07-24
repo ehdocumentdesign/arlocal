@@ -4,7 +4,7 @@
   .arl_form_data
     = render 'form_elements/source_select',    attribute: :source_type,               form: f, selectable: selectable
     = render 'form_elements/file_field',       attribute: :image,                     form: f, label: :source_attachment, purge_path: edit_admin_picture_path(@picture, pane: :source_attachment_purge)
-    = render 'form_elements/text_field',       attribute: :source_catalog_file_path,  form: f, aside: "#{catalog_filesystem_dirname(trailing_separator: true)}"
+    = render 'form_elements/text_field',       attribute: :source_catalog_file_path,  form: f, aside: "#{catalog_dirname(trailing_separator: true)}"
   .arl_form_actions
     .arl_form_action_submit
       = f.submit class: :arl_button_form_submit

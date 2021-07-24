@@ -104,7 +104,7 @@ module PicturesHelper
         html_class << :arl_error_file_missing
       end
     when :catalog
-      path_to_file = catalog_picture_filesystem_path(picture)
+      path_to_file = catalog_file_path(picture)
       if File.exists?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
@@ -153,7 +153,7 @@ module PicturesHelper
         url_for(picture.image)
       end
     when 'catalog'
-      catalog_picture_url(picture)
+      catalog_url(picture)
     when nil
       url_for(Rails.application.config.x.arlocal[:app_nilpicture_file_path])
     end

@@ -94,7 +94,7 @@ module AudioHelper
       end
     when 'catalog'
       filename = audio.source_catalog_file_path
-      path_to_file = catalog_audio_filesystem_path(audio)
+      path_to_file = catalog_file_path(audio)
       if File.exists?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
@@ -114,7 +114,7 @@ module AudioHelper
     when 'attachment'
       url_for(audio.recording)
     when 'catalog'
-      catalog_audio_url(audio)
+      catalog_url(audio)
     end
   end
 

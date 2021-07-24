@@ -22,7 +22,7 @@ module HtmlHeadHelper
     when 'attachment'
       url_for(arlocal_settings.icon_image)
     when 'catalog'
-      catalog_icon_url(arlocal_settings.icon_filename)
+      catalog_url(arlocal_settings.icon_filename)
     end
   end
 
