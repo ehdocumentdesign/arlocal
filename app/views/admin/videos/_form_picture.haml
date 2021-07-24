@@ -1,9 +1,20 @@
+-# TODO: define what 'selectable.pictures.count >= 2' means semantically, refactor logic into model.
 - if selectable.does_have_pictures
-  = form_with(model: [:admin, video], url: admin_video_path(pane: :picture), local: true, class: :arl_form, method: :patch) do |f|
-    .arl_form_title video thumbnail picture
+  = form_with(model: [:admin, video], url: admin_video_path(video, pane: :picture), local: true, class: :arl_form) do |f|
+    .arl_form_title
+      Add thumbnail picture
     .arl_form_data
-      .arl_form_data_attr.arl_form_layout_center
-        = f.label :picture_id, class: :arl_form_data_label
-        = render 'admin/shared/form_picture_selector', form: f, picture_options: selectable.pictures
+      = f.fields_for :video_picture, video.build_picture do |vp|
+        = render 'form_elements/picture_select', attribute: :picture_id, form: vp, selectable: selectable
     .arl_form_actions
-      = f.submit 'Update Picture', class: :arl_button_form_submit
+      = f.submit class: :arl_button_form_submit
+
+.arl_form.arl_border_top
+  .arl_form_title
+    Add picture
+  .arl_form_actions
+    .arl_admin_resource_alt_buttons
+      = video_picture_button_to_new_join_single(video)
+      = video_picture_button_to_new_import(video)
+      = video_picture_button_to_new_upload(video)
+      -#= album_picture_admin_button_to_new_join_by_keyword(album)

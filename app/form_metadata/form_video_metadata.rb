@@ -25,7 +25,7 @@ class FormVideoMetadata
       :video,
       :keywords,
       :source,
-      :thumbnail,
+      :picture,
       :destroy
     ]
   end
@@ -40,10 +40,16 @@ class FormVideoMetadata
       'form'
     when :keywords
       'form_keywords'
+    when :picture
+      'form_picture'
+    when :picture_import
+      'form_picture_import'
+    when :picture_upload
+      'form_picture_upload'
+    when :picture_join_single
+      'form_picture_join_single'
     when :source
       'form_source'
-    when :thumbnail
-      'form_thumbnail'
     when :destroy
       'form_destroy'
     else
@@ -80,10 +86,12 @@ class FormVideoMetadata
         @markup_parsers = MarkupParser.options_for_select
       when :keywords
         @keywords = QueryKeywords.options_for_select_admin
+      when :picture
+        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
+      when :picture_join_single
+        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
       when :source
         @source_types = Video.source_type_options_for_select
-      when :thumbnail
-        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
       else
         @markup_parsers = MarkupParser.options_for_select
       end

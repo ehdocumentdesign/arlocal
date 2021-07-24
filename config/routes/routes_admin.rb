@@ -114,6 +114,8 @@ namespace :admin do
   resources :streams
 
   resources :videos
+  patch     'videos/:id/picture_import',        to: 'videos#picture_create_from_import', as: :video_picture_create_from_import
+  patch     'videos/:id/picture_upload',        to: 'videos#picture_create_from_upload', as: :video_picture_create_from_upload
 
 
 end

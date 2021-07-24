@@ -108,6 +108,20 @@ class PictureBuilder
   end
 
 
+  def self.create_from_import_nested_within_video(video, params, **args)
+    picture_params = {
+      source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
+      source_type: 'catalog'
+    }
+    self.build(**args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(picture_params)
+      b.assign_metadata
+      b.join_to_video(video)
+    end
+  end
+
+
   def self.create_from_upload(params, **args)
     self.build(**args) do |b|
       b.assign_default_attributes
@@ -166,6 +180,20 @@ class PictureBuilder
   end
 
 
+  def self.create_from_upload_nested_within_video(video, params, **args)
+    picture_params = {
+      image: params['pictures_attributes']['0']['image'],
+      source_type: 'attachment'
+    }
+    self.build(**args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(picture_params)
+      b.assign_metadata
+      b.join_to_video(video)
+    end
+  end
+
+
   def self.nil_picture
     Picture.new(
       id: nil,
@@ -211,6 +239,11 @@ class PictureBuilder
     @picture.event_pictures.build(event_id: event_id)
   end
 
+
+  def join_to_video(video)
+    video_id = video.id
+    @picture.build_video_picture(video_id: video_id)
+  end
 
 
   private

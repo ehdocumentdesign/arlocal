@@ -60,6 +60,21 @@ module VideosHelper
   end
 
 
+  def video_picture_button_to_new_import(video)
+    button_admin_to_new_import edit_admin_video_path(video.id_admin, pane: :picture_import)
+  end
+
+
+  def video_picture_button_to_new_join_single(video)
+    button_admin_to_new_join_single edit_admin_video_path(video.id_admin, pane: :picture_join_single)
+  end
+
+
+  def video_picture_button_to_new_upload(video)
+    button_admin_to_new_upload edit_admin_video_path(video.id_admin, pane: :picture_upload)
+  end
+
+
   def video_reference_admin_link(video)
     link_to(video.slug, admin_video_path(video.id_admin), class: :arl_link_url)
   end
