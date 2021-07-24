@@ -1,10 +1,9 @@
 class Admin::AlbumsController < AdminController
 
 
-  before_action :verify_nested_picture_file_exists, only: [
-    :audio_create_from_import,
-    :picture_create_from_import
-  ]
+  before_action :verify_nested_audio_file_exists,   only: [ :audio_create_from_import ]
+  before_action :verify_nested_picture_file_exists, only: [ :picture_create_from_import ]
+
 
 
   def audio_create_from_import
@@ -210,13 +209,27 @@ class Admin::AlbumsController < AdminController
   end
 
 
-  def verify_nested_picture_file_exists
-    filename = helpers.catalog_picture_filesystem_path(params[:picture][:source_catalog_file_path])
+  def verify_catalog_file(filename)
     if File.exists?(filename) == false
       flash[:notice] = "File not found: #{filename}"
       redirect_to request.referrer
     end
   end
+
+
+  def verify_nested_audio_file_exists
+    filename = helpers.catalog_filesystem_path(params_album_permitted['audio_attributes']['0']['source_catalog_file_path'])
+    verify_catalog_file(filename)
+  end
+
+
+  def verify_nested_picture_file_exists
+    filename = helpers.catalog_filesystem_path(params_album_permitted['pictures_attributes']['0']['source_catalog_file_path'])
+    verify_catalog_file(filename)
+  end
+
+
+
 
 
 end

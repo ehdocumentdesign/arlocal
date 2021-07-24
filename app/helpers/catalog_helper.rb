@@ -5,6 +5,7 @@ module CatalogHelper
     File.join(catalog_path_prefix_filesystem, catalog_path_suffix_audio)
   end
 
+
   def catalog_audio_filesystem_path(audio)
     case audio
     when Audio
@@ -20,7 +21,17 @@ module CatalogHelper
   end
 
 
-  def catalog_icon_filesystem_dirname
+  def catalog_filesystem_path(item)
+    case item
+    when Audio, Picture, Video
+      File.join(catalog_picture_filesystem_dirname, item.source_catalog_file_path)
+    when String
+      File.join(catalog_picture_filesystem_dirname, item)
+    end
+  end
+
+
+def catalog_icon_filesystem_dirname
     File.join(catalog_path_prefix_filesystem, catalog_path_suffix_icons)
   end
 
