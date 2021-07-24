@@ -3,8 +3,6 @@
 
 ## HIGH priority
 
-  - stop differentiating "catalog_[resource]_xxxx" helper methods
-
   - PicturesHelper::picture_datetime_cascade_value_statement
     - find calls
     - rename to effective_datetime
@@ -32,4 +30,5 @@
 
 ## Possibly fixed
 
+  + stop differentiating "catalog_[resource]_xxxx" helper methods
   + model: strip_whitespace_edges?
