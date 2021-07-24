@@ -87,42 +87,23 @@ module PicturesHelper
 
 
 
-  #TODO: This should be replaced by methods that are named more appropriately
-  # => 1. One that indicates a hash of data
-  # => 2. One that returns the <div> element
-  #
-  
-
-  def picture_file_source_path_with_indicators(picture, html_class: [])
+  def picture_file_path_div_with_indicators(picture, html_class: [])
     filename = picture.source_file_path
     html_class = [html_class].flatten
-
     case picture.source_type
-    when :attachment
+    when 'attachment'
       path_to_file = ActiveStorage::Blob.service.send(:path_for, picture.image.key)
       if File.exist?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
-    when :catalog
+    when 'catalog'
       path_to_file = catalog_file_path(picture)
       if File.exists?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
     end
-
     tag.div filename, class: html_class
   end
-
-
-  #TODO: This is most probably obsolete:
-  # def picture_file_path_with_indicator_classes(picture, html_class: [])
-  #   html_class = [html_class].flatten
-  #   if File.exists?(catalog_picture_filesystem_path(picture)) == false
-  #     html_class << :arl_error_file_missing
-  #   end
-  #   tag.div "pictures/#{picture.catalog_file_path}", class: html_class
-  # end
-
 
 
   def picture_options_for_select(picture_options, form)
