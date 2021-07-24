@@ -41,22 +41,26 @@ module CatalogHelper
 
 
   def catalog_path_suffix_audio
-    'audio'
+    #'audio'
+    ''
   end
 
 
   def catalog_path_suffix_icons
-    'icons'
+    #'icons'
+    ''
   end
 
 
   def catalog_path_suffix_pictures
-    'pictures'
+    #'pictures'
+    ''
   end
 
 
   def catalog_path_suffix_videos
-    'videos'
+    #'videos'
+    ''
   end
 
 
