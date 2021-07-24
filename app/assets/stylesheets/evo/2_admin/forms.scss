@@ -262,12 +262,18 @@
 .arl_form_padding_vertical_nudge {
   padding: $arl-margin-wide 0rem;
 }
-.arl_form_picture {
-  @include layout-flex-column-center;
-}
+// OBSOLETE: (use _thumbnail)
+// .arl_form_picture {
+//   @include layout-flex-column-center;
+// }
 .arl_form_thumbnail {
   @include layout-flex-column-center;
 }
+.arl_form_thumbnail_image{
+  max-height: 150px;
+  padding: $arl-margin 0rem;
+}
+
 
 
 .arl_form_title {

@@ -399,7 +399,11 @@ class Picture < ApplicationRecord
 
 
   def title
-    title_without_markup
+    if title_without_markup.to_s == ''
+      '(untitled)'
+    else
+      title_without_markup
+    end
   end
 
 

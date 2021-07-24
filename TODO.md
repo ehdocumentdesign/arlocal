@@ -3,16 +3,6 @@
 
 ## HIGH priority
 
-  - forms.css 265-270
-    > .arl_form_picture {
-    >   @include layout-flex-column-center;
-    >  }
-    > .arl_form_thumbnail {
-    >   @include layout-flex-column-center;
-    > }
-
-  - put picture thumbnail in admin/pictures#edit panes
-
   - stop differentiating "catalog_[resource]_xxxx" helper methods
 
   - PicturesHelper::picture_datetime_cascade_value_statement
@@ -37,7 +27,6 @@
 
   - Audio index
   - about_arlocal
-    + icons help
     - formatting for markup types, esp. for narrow width
 
 
