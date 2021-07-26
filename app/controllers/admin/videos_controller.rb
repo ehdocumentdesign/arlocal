@@ -1,9 +1,7 @@
 class Admin::VideosController < AdminController
 
 
-  before_action :verify_nested_picture_file_exists, only: [
-    :picture_create_from_import
-  ]
+  before_action :verify_nested_picture_file_exists, only: [ :picture_create_from_import ]
 
 
   def create
@@ -138,8 +136,7 @@ class Admin::VideosController < AdminController
   end
 
 
-  def verify_nested_picture_file_exists
-    filename = helpers.catalog_file_path(params[:picture][:source_catalog_file_path])
+  def verify_file(filename)
     if File.exists?(filename) == false
       flash[:notice] = "File not found: #{filename}"
       redirect_to request.referrer
@@ -147,6 +144,10 @@ class Admin::VideosController < AdminController
   end
 
 
+  def verify_nested_picture_file_exists
+    filename = helpers.catalog_file_path(params_video_permitted['pictures_attributes']['0']['source_catalog_file_path'])
+    verify_file(filename)
+  end
 
 
 end

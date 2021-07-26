@@ -1,7 +1,7 @@
 class Admin::AudioController < AdminController
 
 
-  before_action :verify_file_exists, only: [
+  before_action :verify_audio_file_exists, only: [
     :create_from_import,
     :create_from_import_to_album,
     :create_from_import_to_event
@@ -315,8 +315,8 @@ def create
   end
 
 
-  def verify_file_exists
-    filename = helpers.catalog_files_path(params[:audio][:source_catalog_file_path])
+  def verify_audio_file_exists
+    filename = helpers.catalog_file_path(params[:audio][:source_catalog_file_path])
     if File.exists?(filename) == false
       flash[:notice] = "File not found: #{filename}"
       redirect_to request.referrer

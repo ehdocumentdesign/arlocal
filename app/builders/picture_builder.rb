@@ -271,8 +271,8 @@ class PictureBuilder
 
 
   def determine_metadata_from_catalog
-    if File.exists?(catalog_picture_filesystem_path(@picture))
-      @metadata = Exiftool.new(catalog_picture_filesystem_path(@picture))
+    if File.exists?(catalog_file_path(@picture))
+      @metadata = Exiftool.new(catalog_file_path(@picture))
     end
   end
 

@@ -291,8 +291,8 @@ class AudioBuilder
 
 
   def determine_metadata_from_catalog
-    if File.exists?(catalog_audio_filesystem_path(@audio))
-      @metadata = MediaInfo.from(catalog_audio_filesystem_path(@audio))
+    if File.exists?(catalog_file_path(@audio))
+      @metadata = MediaInfo.from(catalog_file_path(@audio))
     end
   end
 

@@ -1,6 +1,10 @@
 class Admin::EventsController < AdminController
 
 
+  before_action :verify_nested_audio_file_exists,   only: [ :audio_create_from_import ]
+  before_action :verify_nested_picture_file_exists, only: [ :picture_create_from_import ]
+
+
   def add_pictures_by_keyword
     @keyword = QueryKeywords.find(params[:event][:keywords])
     @event = QueryEvents.find_admin(params[:id])
@@ -192,6 +196,27 @@ class Admin::EventsController < AdminController
       ]
     )
   end
+
+
+  def verify_file(filename)
+    if File.exists?(filename) == false
+      flash[:notice] = "File not found: #{filename}"
+      redirect_to request.referrer
+    end
+  end
+
+
+  def verify_nested_audio_file_exists
+    filename = helpers.catalog_file_path(params_event_permitted['audio_attributes']['0']['source_catalog_file_path'])
+    verify_file(filename)
+  end
+
+
+  def verify_nested_picture_file_exists
+    filename = helpers.catalog_file_path(params_event_permitted['pictures_attributes']['0']['source_catalog_file_path'])
+    verify_file(filename)
+  end
+
 
 
 end

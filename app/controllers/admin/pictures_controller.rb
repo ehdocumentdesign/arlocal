@@ -1,37 +1,11 @@
 class Admin::PicturesController < AdminController
 
 
-  before_action :verify_file_exists, only: [
+  before_action :verify_picture_file_exists, only: [
     :create_from_import,
     :create_from_import_to_album,
     :create_from_import_to_event
   ]
-
-
-  # def album_pictures_index
-  #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
-  #   @pictures_page_hash = QueryPictures.new.album_pictures_index(@album)
-  # end
-  #
-  #
-  # def album_pictures_show
-  #   @album = QueryAlbums.new.find_by_slug(params[:album_id])
-  #   @picture = QueryPictures.new.find_by_slug(params[:id])
-  #   @picture_neighbors = @album.pictures_sorted.neighbors_of(@picture)
-  # end
-  #
-  #
-  # def event_pictures_index
-  #   @event = QueryEvents.new.find_by_slug(params[:event_id])
-  #   @pictures = @event.pictures_sorted
-  # end
-  #
-  #
-  # def event_pictures_show
-  #   @event = QueryEvents.new.find_by_slug(params[:event_id])
-  #   @picture = QueryPictures.new.find_by_slug(params[:id])
-  #   @picture_neighbors = @event.pictures_sorted.neighbors_of(@picture)
-  # end
 
 
   def create
@@ -271,30 +245,6 @@ class Admin::PicturesController < AdminController
 
 
 
-  # def refresh_exif
-  #   @picture = QueryPictures.find(params[:id])
-  #   if PictureBuilder.new.refresh_exif(@picture)
-  #     flash[:notice] = 'Picture EXIF was successfully refreshed.'
-  #     redirect_to edit_admin_picture_path(@picture.id_admin, pane: 'datetime')
-  #   else
-  #     flash[:notice] = 'Picture EXIF could not be refreshed.'
-  #     render 'edit'
-  #   end
-  # end
-  #
-  #
-  # def index_by_keyword
-  #   @keyword = Keyword.friendly.find(params[:keyword_id])
-  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_keyword(@keyword, page: params[:page])
-  #   render action: :index
-  # end
-  #
-  #
-  # def index_not_keyworded
-  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_not_keyworded(page: params[:page])
-  #   render action: :index
-  # end
-
 
 
   private
@@ -339,7 +289,7 @@ class Admin::PicturesController < AdminController
   end
 
 
-  def verify_file_exists
+  def verify_picture_file_exists
     filename = helpers.catalog_file_path(params[:picture][:source_catalog_file_path])
     if File.exists?(filename) == false
       flash[:notice] = "File not found: #{filename}"
@@ -349,3 +299,57 @@ class Admin::PicturesController < AdminController
 
 
 end
+
+
+
+
+# def album_pictures_index
+#   @album = QueryAlbums.new.find_by_slug(params[:album_id])
+#   @pictures_page_hash = QueryPictures.new.album_pictures_index(@album)
+# end
+#
+#
+# def album_pictures_show
+#   @album = QueryAlbums.new.find_by_slug(params[:album_id])
+#   @picture = QueryPictures.new.find_by_slug(params[:id])
+#   @picture_neighbors = @album.pictures_sorted.neighbors_of(@picture)
+# end
+#
+#
+# def event_pictures_index
+#   @event = QueryEvents.new.find_by_slug(params[:event_id])
+#   @pictures = @event.pictures_sorted
+# end
+#
+#
+# def event_pictures_show
+#   @event = QueryEvents.new.find_by_slug(params[:event_id])
+#   @picture = QueryPictures.new.find_by_slug(params[:id])
+#   @picture_neighbors = @event.pictures_sorted.neighbors_of(@picture)
+# end
+
+
+
+  # def refresh_exif
+  #   @picture = QueryPictures.find(params[:id])
+  #   if PictureBuilder.new.refresh_exif(@picture)
+  #     flash[:notice] = 'Picture EXIF was successfully refreshed.'
+  #     redirect_to edit_admin_picture_path(@picture.id_admin, pane: 'datetime')
+  #   else
+  #     flash[:notice] = 'Picture EXIF could not be refreshed.'
+  #     render 'edit'
+  #   end
+  # end
+  #
+  #
+  # def index_by_keyword
+  #   @keyword = Keyword.friendly.find(params[:keyword_id])
+  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_by_keyword(@keyword, page: params[:page])
+  #   render action: :index
+  # end
+  #
+  #
+  # def index_not_keyworded
+  #   @pictures = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_index_not_keyworded(page: params[:page])
+  #   render action: :index
+  # end

@@ -5,6 +5,7 @@
 
 
 
+
 ## Medium priority
 
 + Note where the selectable value source_type comes from the model, not via FormMetadata::Selectable
@@ -23,6 +24,8 @@
 
 
 ## Possibly fixed
+
+- Finish import file verification (Controllers)
 
 - Clean up PicturesHelper
 
