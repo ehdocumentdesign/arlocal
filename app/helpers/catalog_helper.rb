@@ -41,7 +41,7 @@ module CatalogHelper
     when Audio, Picture, Video
       asset_url File.join(catalog_path_prefix_url, item.source_catalog_file_path), skip_pipeline: true
     when String
-      asset_url File,join(catalog_path_prefix_url, item), skip_pipeline: true
+      asset_url File.join(catalog_path_prefix_url, item), skip_pipeline: true
     end
   end
 
