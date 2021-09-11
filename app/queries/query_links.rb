@@ -47,4 +47,8 @@ class QueryLinks
   end
 
 
+  def options_for_select_admin
+    Link.all
+  end
+
 end
