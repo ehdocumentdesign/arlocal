@@ -35,7 +35,7 @@ class Admin::LinksController < AdminController
 
 
   def new
-    @link = LinkBuilder.build_default
+    @link = LinkBuilder.build_with_defaults
     @form_metadata = FormLinkMetadata.new(pane: params[:pane])
   end
 
