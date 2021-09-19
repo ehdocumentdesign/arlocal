@@ -1,6 +1,16 @@
 = html_head_title_extend! 'info'
-  
+
 .arl_info_show
-  = render 'show_info_picture', info_page: @info_page
-  = render 'show_info_text', info_page: @info_page  
-  
+  - if @info_page.has_items_group_nil
+    .arl_info_show_group
+      .arl_info_show_group_nil
+        - @info_page.items_group_nil.each do |item|
+          = render 'show_info_item', item: item
+  - if @info_page.has_items_group_a_or_b
+    .arl_info_show_group
+      .arl_info_show_group_a
+        - @info_page.items_group_a.each do |item|
+          = render 'show_info_item', item: item
+      .arl_info_show_group_b
+        - @info_page.items_group_b.each do |item|
+          = render 'show_info_item', item: item

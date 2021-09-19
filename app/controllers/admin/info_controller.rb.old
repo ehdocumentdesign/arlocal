@@ -2,7 +2,7 @@ class Admin::InfoController < AdminController
 
 
   def edit
-    @info_page = QueryInfopage.get
+    @info_page = QueryInfoPage.get
     @form_metadata = FormInfoMetadata.new(pane: params[:pane], settings: @arlocal_settings)
   end
 
@@ -13,12 +13,12 @@ class Admin::InfoController < AdminController
 
 
   def show
-    @info_page = QueryInfopage.get
+    @info_page = QueryInfoPage.get
   end
 
 
   def update
-    @info_page = QueryInfopage.get
+    @info_page = QueryInfoPage.get
     if @info_page.update(params_info_page_permitted)
       flash[:notice] = 'Info Page was successfuly updated.'
       redirect_to edit_admin_info_path(pane: params[:pane])
@@ -35,13 +35,15 @@ class Admin::InfoController < AdminController
 
 
   def params_info_page_permitted
-    params.require(:infopage).permit(
-      infopage_items_attributes: [
+    params.require(:info_page).permit(
+      :article_id,
+      :picture_id,
+      info_page_links_attributes: [
+        :display_method,
+        :link_id,
         :id,
-        :infopage_id,
-        :infopage_order,
-        :infopageable_id,
-        :infopageable_type,
+        :info_page_can_display_details,
+        :info_page_order,
         :_destroy
       ]
     )

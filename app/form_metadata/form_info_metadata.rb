@@ -39,7 +39,7 @@ class FormInfoMetadata
     when :picture
       'form_picture'
     else
-      'form_article'
+      'form_item'
     end
   end
 
