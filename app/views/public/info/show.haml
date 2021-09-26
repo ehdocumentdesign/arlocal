@@ -2,12 +2,11 @@
 
 .arl_info_show
   - if @info_page.does_have_items_group_top
-    .arl_info_show_group
-      .arl_info_show_group_top
-        - @info_page.items_group_top.each do |item|
-          = render 'show_info_item', item: item
+    .arl_info_show_group_top
+      - @info_page.items_group_top.each do |item|
+        = render 'show_info_item', item: item
   - if @info_page.does_have_items_group_bottom
-    .arl_info_show_group
+    .arl_info_show_group_bottom
       .arl_info_show_group_left
         - @info_page.items_group_left.each do |item|
           = render 'show_info_item', item: item
