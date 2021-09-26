@@ -5,23 +5,24 @@ class InfopageItem < ApplicationRecord
   belongs_to :infopageable, polymorphic: true
 
 
+  protected
+
+  def self.group_options
+    ['top','left','right']
+  end
+
+
+
   public
 
 
   ### infopage_id
 
 
-  def infopage_group
-    infopage_order_parsed[:group]
-  end
+  ### infopage_group
 
 
-  ### infopage_order
-
-
-  def infopage_order_within_group
-    infopage_order_parsed[:order_with_group]
-  end
+  ### infopage_group_order
 
 
   ### infopageable_id
@@ -35,8 +36,18 @@ class InfopageItem < ApplicationRecord
   end
 
 
-  def is_group?(group)
-    infopage_group == group.to_s
+  def is_group_left
+    infopage_group == 'left'
+  end
+
+
+  def is_group_right
+    infopage_group == 'right'
+  end
+
+
+  def is_group_top
+    infopage_group == 'top' || infopage_group.to_s == ''
   end
 
 
@@ -48,25 +59,29 @@ class InfopageItem < ApplicationRecord
   def is_picture
     infopageable_type == 'Picture'
   end
+
+
+  def picture
+    if is_picture
+      infopageable
+    end
+  end
   
 
+  def picture_id
+    if is_picture
+      infopageable_id
+    end
+  end
+
+
   def title
-    self.infopageable
+    self.infopageable.title
   end
 
 
   def type_of
     infopageable_type
-  end
-
-
-
-  private
-
-
-  def infopage_order_parsed
-    parsed_order = infopage_order.match /\A(\D*)(\d*)\z/
-    { group: parsed_order[1].to_s.downcase, order_within_group: parsed_order[2].to_i }
   end
 
 

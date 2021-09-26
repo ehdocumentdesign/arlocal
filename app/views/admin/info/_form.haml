@@ -1,0 +1,29 @@
+= form_with(model: [:admin, info_page], url: admin_info_path(pane: :infopage), local: true, class: :arl_form, method: :patch) do |f|
+  .arl_form_title
+    InfoPage
+  .arl_form_data
+    = render 'form_elements/text_field', attribute: :title, form: f
+    = render 'form_elements/text_field_sized', attribute: :index_order, form: f, size: 4
+  .arl_form_actions
+    = f.submit class: :arl_button_form_submit
+
+- if info_page.does_have_items
+  = form_with(model: [:admin, info_page], url: admin_info_path(pane: :infopage), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+    .arl_form_data
+      %table.arl_form_data_attr.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading class
+          %th.arl_form_data_resource_heading title
+          %th.arl_form_data_resource_heading group
+          %th.arl_form_data_resource_heading order
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :infopage_items do |i|
+          %tr
+            %td.arl_form_data_resource_value= i.object.type_of
+            %td.arl_form_data_resource_value= infopageable_reference_admin_link(i.object)
+            %td.arl_form_data_resource_value= i.select :infopage_group, @form_metadata.selectables.item_groups, { selected: i.object.infopage_group }, class: :arl_form_data_select, class: :arl_form_data_number_field
+            %td.arl_form_data_resource_value= i.text_field :infopage_group_order, size: 4, class: :arl_form_data_number_field
+            %td.arl_form_data_resource_remove= i.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation= "will also detatch any items with '#{icon_destroy}' box checked"

@@ -4,10 +4,17 @@ module FormMetadataSelectablesUtils
   def does_have_albums
     if (@albums == nil)
       false
-    elsif (@albums.length == 0)
+    else
+      @albums.any?
+    end
+  end
+
+
+  def does_have_articles
+    if (@articles == nil)
       false
-    elsif (@albums.length >= 1)
-      true
+    else
+      @articles.any?
     end
   end
 
@@ -15,10 +22,8 @@ module FormMetadataSelectablesUtils
   def does_have_audio
     if (@audio == nil)
       false
-    elsif (@audio.length == 0)
-      false
-    elsif (@audio.length >= 1)
-      true
+    else
+      @audio.any?
     end
   end
 
@@ -26,10 +31,8 @@ module FormMetadataSelectablesUtils
   def does_have_events
     if (@events == nil)
       false
-    elsif (@events.length == 0)
-      false
-    elsif (@events.length >= 1)
-      true
+    else
+      @events.any?
     end
   end
 
@@ -37,10 +40,17 @@ module FormMetadataSelectablesUtils
   def does_have_keywords
     if (@keywords == nil)
       false
-    elsif (@keywords.length == 0)
+    else
+      @keywords.any?
+    end
+  end
+
+
+  def does_have_links
+    if (@links == nil)
       false
-    elsif (@keywords.length >= 1)
-      true
+    else
+      @links.any?
     end
   end
 
@@ -63,10 +73,8 @@ module FormMetadataSelectablesUtils
   def does_have_videos
     if (@videos == nil)
       false
-    elsif (@videos.length == 0)
-      false
-    elsif (@videos.length >= 1)
-      true
+    else
+      @videos.any?
     end
   end
 

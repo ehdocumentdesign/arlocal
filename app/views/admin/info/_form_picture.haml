@@ -1,9 +1,0 @@
-- if selectable.does_have_pictures
-  = form_with(model: [:admin, info_page], url: admin_info_path(pane: :picture), local: true, class: :arl_form, method: :patch) do |f|
-    .arl_form_title info page picture
-    .arl_form_data
-      .arl_form_data_attr.arl_form_layout_center
-        = f.label :picture_id, class: :arl_form_data_label
-        = render 'admin/shared/form_picture_selector', form: f, picture_options: selectable.pictures
-    .arl_form_actions
-      = f.submit 'Update Info page', class: :arl_button_form_submit

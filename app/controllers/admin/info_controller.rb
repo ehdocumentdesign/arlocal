@@ -7,9 +7,9 @@ class Admin::InfoController < AdminController
   end
 
 
-  def new_contact
-    redirect_to action: :edit
-  end
+  # def new_contact
+  #   redirect_to action: :edit
+  # end
 
 
   def show
@@ -39,7 +39,8 @@ class Admin::InfoController < AdminController
       infopage_items_attributes: [
         :id,
         :infopage_id,
-        :infopage_order,
+        :infopage_group,
+        :infopage_group_order,
         :infopageable_id,
         :infopageable_type,
         :_destroy

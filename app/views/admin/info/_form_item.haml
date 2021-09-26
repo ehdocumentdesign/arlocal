@@ -1,7 +1,0 @@
-= form_with(model: [:admin, info_page], url: admin_info_path(pane: :item), local: true, class: :arl_form, method: :patch) do |f|
-  .arl_form_title
-  .arl_form_data
-    - info_page.items.each do |item|
-      .arl_form_data_attr= [item.title, item.infopageable_type, item.infopageable_id, item.infopage_group, item.infopage_order_within_group]
-
-  .arl_form_actions

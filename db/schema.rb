@@ -303,7 +303,8 @@ ActiveRecord::Schema.define(version: 2021_09_18_231633) do
 
   create_table "infopage_items", force: :cascade do |t|
     t.integer "infopage_id"
-    t.string "infopage_order"
+    t.string "infopage_group"
+    t.integer "infopage_group_order"
     t.string "infopageable_type"
     t.integer "infopageable_id"
     t.datetime "created_at", precision: 6, null: false
@@ -313,10 +314,12 @@ ActiveRecord::Schema.define(version: 2021_09_18_231633) do
   end
 
   create_table "infopages", force: :cascade do |t|
-    t.integer "info_order"
+    t.integer "index_order"
+    t.string "slug"
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_infopages_on_slug"
   end
 
   create_table "keywords", force: :cascade do |t|

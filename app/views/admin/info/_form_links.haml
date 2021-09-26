@@ -1,37 +1,31 @@
-.arl_form_title= info_page_links_count_statement(info_page)
-- if info_page.has_links
+.arl_form_title
+  = infopage_statement_links_count(info_page)
+- if info_page.does_have_links
   = form_with(model: [:admin, info_page], url: admin_info_path(info_page, pane: :links), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.arl_form_data_resource_table
+      %table.arl_form_data_attr.arl_form_data_resource_table
         %tr
+          %th.arl_form_data_resource_heading title
+          %th.arl_form_data_resource_heading group
           %th.arl_form_data_resource_heading order
-          %th.arl_form_data_resource_heading link
           %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :info_page_links do |ipl|
+        = f.fields_for :infopage_links do |il|
           %tr
-            %td.arl_form_data_resource_value.arl_form_layout_top.arl_form_padding_vertical_nudge
-              = ipl.text_field :info_page_order, size: 4, class: :arl_form_data_number_field
-            %td.arl_form_data_resource_value.arl_form_layout_top.arl_form_padding_vertical
-              .arl_link_heading= ipl.object.link_name
-              .arl_link_address= link_parse(ipl.object.link)
-              .arl_link_description= parser_div(ipl.object.link_details_props)
-              .arl_form_layout_dependent
-                = ipl.check_box :info_page_can_display_details, class: :arl_form_data_checkbox
-                = ipl.label 'Include description', class: :arl_form_data_label_dependent
-            %td.arl_form_data_resource_remove
-              = ipl.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+            %td.arl_form_data_resource_value= link_reference_admin_link(il.object.infopageable)
+            %td.arl_form_data_resource_value= il.select :infopage_group, @form_metadata.selectables.item_groups, { selected: il.object.infopage_group }, { class: :arl_form_data_select }
+            %td.arl_form_data_resource_value= il.text_field :infopage_group_order, autocomplete: :off, size: 4, class: :arl_form_data_number_field
+            %td.arl_form_data_resource_remove= il.check_box :_destroy, class: :arl_form_data_checkbox_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detatch any links with '#{icon_destroy}' box checked"
 
-- if selectable.links.count >= 1
-  = form_with(model: [:admin, info_page], url: admin_info_path(info_page, pane: :links), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+- if selectable.does_have_links
+  = form_with(model: [:admin, info_page], url: admin_info_path(pane: :links), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
     .arl_form_title
-      Add a link
+      Select an link
     .arl_form_data
-      = f.fields_for :info_page_links, info_page.info_page_links.build do |ipl|
-        .arl_form_data_attr.arl_form_layout_center
-          = ipl.label :info_page_link, class: :arl_form_data_label
-          = ipl.collection_select :link_id, selectable.links, :id, :name, {include_blank: true}, {class: :arl_form_data_select}
+      = f.fields_for :infopage_links, info_page.infopage_links.build do |il|
+        = il.label :link, 'Link', class: :arl_form_data_label
+        = il.collection_select :infopageable_id, selectable.links, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

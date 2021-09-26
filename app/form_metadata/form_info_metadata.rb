@@ -5,7 +5,7 @@ class FormInfoMetadata
 
 
   def initialize(pane: :article, settings: nil)
-    pane = ((pane == nil) ? :article : pane.to_sym.downcase)
+    pane = ((pane == nil) ? :infopage : pane.to_sym.downcase)
 
     @nav_categories = FormInfoMetadata.categories
     @partial_name = determine_partial_name(pane)
@@ -19,9 +19,10 @@ class FormInfoMetadata
 
   def self.categories
     [
-      :article,
+      :infopage,
+      :articles,
       :links,
-      :picture
+      :pictures
     ]
   end
 
@@ -32,14 +33,16 @@ class FormInfoMetadata
 
   def determine_partial_name(pane)
     case pane
-    when :article
-      'form_article'
+    when :infopage
+      'form'
+    when :articles
+      'form_articles'
     when :links
       'form_links'
-    when :picture
-      'form_picture'
+    when :pictures
+      'form_pictures'
     else
-      'form_item'
+      'form'
     end
   end
 
@@ -53,7 +56,7 @@ class FormInfoMetadata
     if FormInfoMetadata.categories.include?(pane)
       pane
     else
-      :article
+      :infopage
     end
   end
 
@@ -63,19 +66,25 @@ class FormInfoMetadata
     include FormMetadataSelectablesUtils
     attr_reader(
       :articles,
+      :item_groups,
       :links,
       :pictures
     )
     def initialize(pane, settings)
       case pane
-      when :article
+      when :infopage
+        @item_groups = InfopageItem.group_options
+      when :articles
         @articles = Article.all
+        @item_groups = InfopageItem.group_options
       when :links
+        @item_groups = InfopageItem.group_options
         @links = QueryLinks.options_for_select_admin
-      when :picture
+      when :pictures
+        @item_groups = InfopageItem.group_options
         @pictures = QueryPictures.options_for_select_admin_with_nil(settings)
       else
-        @articles = Article.all
+        @item_groups = InfopageItem.group_options
       end
     end
   end
