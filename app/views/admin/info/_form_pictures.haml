@@ -11,7 +11,7 @@
           %th.arl_form_data_resource_remove= icon_remove
         = f.fields_for :infopage_pictures do |ip|
           %tr
-            %td.arl_form_data_resource_value= picture_reference_admin_picture(il.object.infopageable)
+            %td.arl_form_data_resource_value= picture_reference_admin_link(ip.object.infopageable)
             %td.arl_form_data_resource_value= ip.select :infopage_group, @form_metadata.selectables.item_groups, { selected: ip.object.infopage_group }, { class: :arl_form_data_select }
             %td.arl_form_data_resource_value= ip.text_field :infopage_group_order, autocomplete: :off, size: 4, class: :arl_form_data_number_field
             %td.arl_form_data_resource_remove= ip.check_box :_destroy, class: :arl_form_data_checkbox_destroy
@@ -25,6 +25,6 @@
       Select an picture
     .arl_form_data
       = f.fields_for :infopage_pictures, info_page.infopage_pictures.build do |ip|
-        = render 'admin/shared/form_picture_selector', form: ip, picture_options: selectable.pictures
+        = render 'form_elements/picture_select', attribute: :infopageable_id, form: ip, selectable: selectable
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

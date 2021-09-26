@@ -1,6 +1,0 @@
-- if info_page.has_links
-  %dl.arl_info_show_text_links
-    - info_page.info_page_links.each do |ipl|
-      .arl_info_show_text_link
-        = link_parse(ipl.link, include_details: ipl.info_page_will_display_details)
-      
