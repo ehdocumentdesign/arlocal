@@ -36,6 +36,17 @@ class Admin::InfoController < AdminController
 
   def params_info_page_permitted
     params.require(:infopage).permit(
+      :index_order,
+      :title,
+      infopage_articles_attributes: [
+        :id,
+        :infopage_id,
+        :infopage_group,
+        :infopage_group_order,
+        :infopageable_id,
+        :infopageable_type,
+        :_destroy
+      ],
       infopage_items_attributes: [
         :id,
         :infopage_id,
@@ -44,7 +55,26 @@ class Admin::InfoController < AdminController
         :infopageable_id,
         :infopageable_type,
         :_destroy
+      ],
+      infopage_links_attributes: [
+        :id,
+        :infopage_id,
+        :infopage_group,
+        :infopage_group_order,
+        :infopageable_id,
+        :infopageable_type,
+        :_destroy
+      ],
+      infopage_pictures_attributes: [
+        :id,
+        :infopage_id,
+        :infopage_group,
+        :infopage_group_order,
+        :infopageable_id,
+        :infopageable_type,
+        :_destroy
       ]
+
     )
   end
 
