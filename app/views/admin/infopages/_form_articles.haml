@@ -1,7 +1,7 @@
 .arl_form_title
   = infopage_statement_articles_count(info_page)
-- if info_page.does_have_articles
-  = form_with(model: [:admin, info_page], url: admin_info_path(info_page, pane: :articles), local: true, class: :arl_form, method: :patch) do |f|
+- if infopage.does_have_articles
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :articles), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
       %table.arl_form_data_attr.arl_form_data_resource_table
         %tr
@@ -20,11 +20,11 @@
       %aside.arl_form_action_explanation= "will also detatch any articles with '#{icon_destroy}' box checked"
 
 - if selectable.does_have_articles
-  = form_with(model: [:admin, info_page], url: admin_info_path(pane: :articles), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :articles), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
     .arl_form_title
       Select an article
     .arl_form_data
-      = f.fields_for :infopage_articles, info_page.infopage_articles.build do |ia|
+      = f.fields_for :infopage_articles, infopage.infopage_articles.build do |ia|
         = ia.label :article, 'Article', class: :arl_form_data_label
         = ia.collection_select :infopageable_id, selectable.articles, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
     .arl_form_actions

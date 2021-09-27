@@ -1,0 +1,22 @@
+= html_head_title_extend! 'info'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_title= "Editing Info Page"
+  .arl_admin_resource_header_buttons
+    = button_admin_to_edit edit_admin_infopage_path
+  = render '/admin/info/admin_infopage_stats', infopage: @infopage
+
+.arl_infopage_show
+  - if @infopage.does_have_items_group_top
+    .arl_infopage_show_group
+      .arl_infopage_show_group_nil
+        - @infopage.items_group_top.each do |item|
+          = render 'show_infopage_item', item: item
+  - if @infopage.does_have_items_group_bottom
+    .arl_infopage_show_group
+      .arl_infopage_show_group_a
+        - @infopage.items_group_left.each do |item|
+          = render 'show_infopage_item', item: item
+      .arl_infopage_show_group_b
+        - @infopage.items_group_right.each do |item|
+          = render 'show_infopage_item', item: item

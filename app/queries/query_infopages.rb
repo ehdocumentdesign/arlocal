@@ -1,4 +1,4 @@
-class QueryInfopage
+class QueryInfopages
 
 
   protected

@@ -1,0 +1,6 @@
+- if item.is_article
+  = render 'show_infopage_item_article', article: item.infopageable
+- elsif item.is_link
+  = render 'show_infopage_item_link', link: item.infopageable
+- elsif item.is_picture
+  = render 'show_infopage_item_picture', picture: item.infopageable

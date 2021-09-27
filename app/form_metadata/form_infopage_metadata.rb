@@ -1,4 +1,4 @@
-class FormInfoMetadata
+class FormInfopageMetadata
 
 
   attr_reader :nav_categories, :partial_name, :selectables, :tab_name

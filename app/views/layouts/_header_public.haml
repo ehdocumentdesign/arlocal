@@ -11,7 +11,7 @@
         - if @arlocal_settings.public_nav_can_include_events
           = link_to 'events',   public_events_path,   class: :arl_header_nav_category
         - if @arlocal_settings.public_nav_can_include_info
-          = link_to 'info',     public_info_path,     class: :arl_header_nav_category
+          = link_to 'info',     public_infopage_first_path,     class: :arl_header_nav_category
         - if @arlocal_settings.public_nav_can_include_pictures
           = link_to 'pictures', public_pictures_path, class: :arl_header_nav_category
         - if @arlocal_settings.public_nav_can_include_stream

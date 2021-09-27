@@ -1,7 +1,7 @@
 .arl_form_title
-  = infopage_statement_pictures_count(info_page)
-- if info_page.does_have_pictures
-  = form_with(model: [:admin, info_page], url: admin_info_path(info_page, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
+  = infopage_statement_pictures_count(infopage)
+- if infopage.does_have_pictures
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
       %table.arl_form_data_attr.arl_form_data_resource_table
         %tr
@@ -20,11 +20,11 @@
       %aside.arl_form_action_explanation= "will also detatch any pictures with '#{icon_destroy}' box checked"
 
 - if selectable.does_have_pictures
-  = form_with(model: [:admin, info_page], url: admin_info_path(pane: :pictures), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
     .arl_form_title
       Select an picture
     .arl_form_data
-      = f.fields_for :infopage_pictures, info_page.infopage_pictures.build do |ip|
+      = f.fields_for :infopage_pictures, infopage.infopage_pictures.build do |ip|
         = render 'form_elements/picture_select', attribute: :infopageable_id, form: ip, selectable: selectable
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
