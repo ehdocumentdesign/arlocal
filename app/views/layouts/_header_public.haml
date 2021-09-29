@@ -1,20 +1,13 @@
 %header.arl_header
   %h1.arl_header_artist
-    = link_to @arlocal_settings.artist_name_downcase, root_path, class: :arl_header_artist_name
+    = arlocal_public_artist_home_link(@arlocal_settings)
   - if @arlocal_settings.public_layout_will_have_nav
     .arl_header_nav
       %nav.arl_header_nav_public
-        - if @arlocal_settings.public_nav_can_include_albums
-          = link_to 'albums',   public_albums_path,   class: :arl_header_nav_category
-        -# if @arlocal_settings.public_nav_can_include_audio
-          -# = link_to 'audio',   public_audio_path,   class: :arl_header_nav_category
-        - if @arlocal_settings.public_nav_can_include_events
-          = link_to 'events',   public_events_path,   class: :arl_header_nav_category
-        - if @arlocal_settings.public_nav_can_include_info
-          = link_to 'info',     public_infopage_first_path,     class: :arl_header_nav_category
-        - if @arlocal_settings.public_nav_can_include_pictures
-          = link_to 'pictures', public_pictures_path, class: :arl_header_nav_category
-        - if @arlocal_settings.public_nav_can_include_stream
-          = link_to 'stream', public_streams_path, class: :arl_header_nav_category
-        - if @arlocal_settings.public_nav_can_include_videos
-          = link_to 'videos', public_videos_path, class: :arl_header_nav_category
+        = arlocal_public_nav_link(@arlocal_settings, :albums)
+        -#arlocal_public_nav_link(@arlocal_settings, :audio)
+        = arlocal_public_nav_link(@arlocal_settings, :events)
+        = arlocal_public_nav_link(@arlocal_settings, :info)
+        = arlocal_public_nav_link(@arlocal_settings, :pictures)
+        = arlocal_public_nav_link(@arlocal_settings, :stream)
+        = arlocal_public_nav_link(@arlocal_settings, :videos)
