@@ -2,7 +2,7 @@ module AudioHelper
 
 
   def audio_admin_button_to_done_editing(audio)
-    button_admin_to_done_editing admin_audio_path(@audio.id_admin)
+    button_admin_to_done_editing admin_audio_path(audio.id_admin)
   end
 
 
