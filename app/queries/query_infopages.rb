@@ -4,8 +4,8 @@ class QueryInfopages
   protected
 
 
-  def self.get
-    Infopage.first
+  def self.find_admin(id)
+    Infopage.friendly.find(id)
   end
 
 
@@ -14,7 +14,18 @@ class QueryInfopages
   end
 
 
+  def self.neighborhood_admin(infopage, arlocal_settings)
+    new(arlocal_settings: arlocal_settings).neighborhood_admin(infopage)
+  end
+
+
   public
+
+
+  def initialize(**args)
+    @arlocal_settings = args[:arlocal_settings]
+    @params = args[:params] ? args[:params] : {}
+  end
 
 
   def index_admin
@@ -22,11 +33,16 @@ class QueryInfopages
   end
 
 
+  def neighborhood_admin(infopage, distance: 1)
+    Event.neighborhood(infopage, collection: index_admin, distance: distance)
+  end
+
+
   private
 
 
   def all_infopages
-    Infopages.all.includes({infopage_items: :infopageable})
+    Infopage.all.includes({infopage_items: :infopageable})
   end
 
 

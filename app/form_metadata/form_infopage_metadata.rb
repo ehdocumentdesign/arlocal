@@ -7,7 +7,7 @@ class FormInfopageMetadata
   def initialize(pane: :article, settings: nil)
     pane = ((pane == nil) ? :infopage : pane.to_sym.downcase)
 
-    @nav_categories = FormInfoMetadata.categories
+    @nav_categories = FormInfopageMetadata.categories
     @partial_name = determine_partial_name(pane)
     @selectables = determine_selectables(pane, settings)
     @tab_name = determine_tab_name(pane)
@@ -22,7 +22,8 @@ class FormInfopageMetadata
       :infopage,
       :articles,
       :links,
-      :pictures
+      :pictures,
+      :destroy
     ]
   end
 
@@ -41,6 +42,8 @@ class FormInfopageMetadata
       'form_links'
     when :pictures
       'form_pictures'
+    when :destroy
+      'form_destroy'
     else
       'form'
     end
@@ -48,12 +51,12 @@ class FormInfopageMetadata
 
 
   def determine_selectables(pane, settings)
-    FormInfoMetadata::Selectables.new(pane, settings)
+    FormInfopageMetadata::Selectables.new(pane, settings)
   end
 
 
   def determine_tab_name(pane)
-    if FormInfoMetadata.categories.include?(pane)
+    if FormInfopageMetadata.categories.include?(pane)
       pane
     else
       :infopage

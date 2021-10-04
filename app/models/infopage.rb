@@ -72,6 +72,16 @@ class Infopage < ApplicationRecord
   ### id
 
 
+  def id_admin
+    friendly_id
+  end
+
+
+  def id_public
+    friendly_id
+  end
+
+
   ### info_order
 
 
@@ -114,6 +124,9 @@ class Infopage < ApplicationRecord
     title_changed? ||
     super
   end
+
+
+  ### slug
 
 
   def slug_candidates

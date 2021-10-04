@@ -1,10 +1,15 @@
-= html_head_title_extend! 'editing Info Page'
+= html_head_title_extend! "editing Info Page: #{@infopage.title}"
 
 .arl_admin_resource_header
-  .arl_admin_resource_header_title= "editing Info Page"
+  .arl_admin_resource_header_class= "editing infopage"
+  .arl_admin_resource_header_title= "#{@infopage.title}"
   .arl_admin_resource_header_buttons
-    = button_admin_to_done_editing admin_infopage_path
-  = render '/admin/info/admin_infopage_stats', info_page: @infopage
+    = infopage_admin_button_to_new
+    = infopage_admin_button_to_edit_previous(@infopage_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = infopage_admin_button_to_done_editing(@infopage)
+    = infopage_admin_button_to_edit_next(@infopage_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = infopage_admin_button_to_index
+  = render 'admin_infopage_stats', infopage: @infopage
   = render '/admin/shared/form_errors', resource: @infopage
 
 %nav.arl_admin_resource_edit_nav

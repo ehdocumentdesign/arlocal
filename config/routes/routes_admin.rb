@@ -73,7 +73,7 @@ namespace :admin do
   # end
 
 
-  resource :infopages, path: 'info'
+  resources :infopages, path: 'info'
 
 
   resources :keywords
