@@ -8,7 +8,9 @@ class InfopageItem < ApplicationRecord
   protected
 
   def self.group_options
-    ['top','left','right']
+    [{id: '0', order: '0', position: 'top'},
+     {id: '1', order: '1', position: 'left'},
+     {id: '2', order: '2', position: 'right'}]
   end
 
 
@@ -36,18 +38,30 @@ class InfopageItem < ApplicationRecord
   end
 
 
+  def is_group(position)
+    group = InfopageItem.group_options.select { |o| o[:id] == infopage_group }
+    if group == nil
+      false
+    elsif group == []
+      false
+    elsif group.any?
+      position.to_s == group[0][:position]
+    end
+  end
+
+
   def is_group_left
-    infopage_group == 'left'
+    is_group(:top)
   end
 
 
   def is_group_right
-    infopage_group == 'right'
+    is_group(:right)
   end
 
 
   def is_group_top
-    infopage_group == 'top' || infopage_group.to_s == ''
+    is_group(:top)
   end
 
 
@@ -66,7 +80,7 @@ class InfopageItem < ApplicationRecord
       infopageable
     end
   end
-  
+
 
   def picture_id
     if is_picture

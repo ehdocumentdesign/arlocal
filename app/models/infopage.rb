@@ -5,8 +5,8 @@ class Infopage < ApplicationRecord
 
   friendly_id :slug_candidates, use: :slugged
 
-  has_many :infopage_items, dependent: :destroy
-  has_many :items, class_name: 'InfopageItem', dependent: :destroy
+  has_many :infopage_items, -> { order infopage_group: :asc }, dependent: :destroy
+  has_many :items, -> { order infopage_group: :asc }, class_name: 'InfopageItem', dependent: :destroy
 
   has_many :infopage_articles, -> { where infopageable_type: 'Article' }, class_name: 'InfopageItem', dependent: :destroy
   has_many :infopage_links, -> { where infopageable_type: 'Link' }, class_name: 'InfopageItem', dependent: :destroy

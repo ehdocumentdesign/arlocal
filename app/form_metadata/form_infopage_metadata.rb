@@ -76,7 +76,7 @@ class FormInfopageMetadata
     def initialize(pane, settings)
       case pane
       when :infopage
-        @item_groups = InfopageItem.group_options
+        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
       when :articles
         @articles = Article.all
         @item_groups = InfopageItem.group_options
