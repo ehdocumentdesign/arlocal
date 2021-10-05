@@ -1,5 +1,5 @@
 .arl_form_title
-  = infopage_statement_articles_count(info_page)
+  = infopage_statement_articles_count(infopage)
 - if infopage.does_have_articles
   = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :articles), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
