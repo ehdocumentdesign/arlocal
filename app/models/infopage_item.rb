@@ -51,7 +51,7 @@ class InfopageItem < ApplicationRecord
 
 
   def is_group_left
-    is_group(:top)
+    is_group(:left)
   end
 
 
