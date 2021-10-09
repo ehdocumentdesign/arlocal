@@ -2,13 +2,13 @@ class Public::InfopagesController < PublicController
 
 
   def first
-    @infopage = QueryInfopages.get
+    @infopage = QueryInfopages.first_public
     render action: :show
   end
 
 
   def show
-    @infopage = QueryInfopages.get
+    @infopage = QueryInfopages.find_public
   end
 
 

@@ -9,6 +9,16 @@ class QueryInfopages
   end
 
 
+  def self.find_public(id)
+    Infopage.friendly.find(id)
+  end
+
+
+  def self.first_public
+    Infopage.order(index_order: :asc).first
+  end
+
+
   def self.index_admin
     new.index_admin
   end
