@@ -41,6 +41,15 @@ module InfopagesHelper
   end
 
 
+  def infopage_admin_button_to_next(infopage)
+    button_admin_to_next admin_infopage_path(infopage.id_admin)
+  end
+
+
+  def infopage_admin_button_to_previous(infopage)
+    button_admin_to_previous admin_infopage_path(infopage.id_admin)
+  end
+
 
   def infopage_admin_edit_nav_button(infopage: nil, category: nil, current_pane: nil)
     button_admin_to_edit_pane(

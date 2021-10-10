@@ -5,9 +5,9 @@
   .arl_admin_resource_header_title= @infopage.title
   .arl_admin_resource_header_buttons
     = infopage_admin_button_to_new
-    = infopage_admin_button_to_edit_previous(@infopage_neighbors.previous)
+    = infopage_admin_button_to_previous(@infopage_neighbors.previous)
     = infopage_admin_button_to_edit(@infopage)
-    = infopage_admin_button_to_edit_next(@infopage_neighbors.next)
+    = infopage_admin_button_to_next(@infopage_neighbors.next)
     = infopage_admin_button_to_index
   = render 'admin_infopage_stats', infopage: @infopage
 
