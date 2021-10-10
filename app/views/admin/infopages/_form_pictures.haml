@@ -1,0 +1,30 @@
+.arl_form_title
+  = infopage_statement_pictures_count(infopage)
+- if infopage.does_have_pictures
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
+    .arl_form_data
+      %table.arl_form_data_attr.arl_form_data_resource_table
+        %tr
+          %th.arl_form_data_resource_heading title
+          %th.arl_form_data_resource_heading group
+          %th.arl_form_data_resource_heading order
+          %th.arl_form_data_resource_remove= icon_remove
+        = f.fields_for :infopage_pictures do |ip|
+          %tr
+            %td.arl_form_data_resource_value= picture_reference_admin_link(ip.object.infopageable)
+            %td.arl_form_data_resource_value= ip.select :infopage_group, @form_metadata.selectables.item_groups, { selected: ip.object.infopage_group }, { class: :arl_form_data_select }
+            %td.arl_form_data_resource_value= ip.text_field :infopage_group_order, autocomplete: :off, size: 4, class: :arl_form_data_number_field
+            %td.arl_form_data_resource_remove= ip.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+      %aside.arl_form_action_explanation= "will also detatch any pictures with '#{icon_destroy}' box checked"
+
+- if selectable.does_have_pictures
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :pictures), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+    .arl_form_title
+      Select an picture
+    .arl_form_data
+      = f.fields_for :infopage_pictures, infopage.infopage_pictures.build do |ip|
+        = render 'form_elements/picture_select', attribute: :infopageable_id, form: ip, selectable: selectable
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

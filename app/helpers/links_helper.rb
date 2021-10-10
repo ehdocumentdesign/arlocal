@@ -113,6 +113,12 @@ module LinksHelper
 
 
 
+  def link_reference_admin_link(link)
+    link_to(link.title, admin_link_path(link.id_admin), class: :arl_link_url)
+  end
+
+
+
   def link_to_admin_about_arlocal_markup_types(text)
     link_to text, admin_about_arlocal_markup_types_path, target: '_blank'
   end

@@ -1,0 +1,10 @@
+= html_head_title_extend! 'new infopage'
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'new infopage'
+  .arl_admin_resource_header_buttons
+    = infopage_admin_button_to_index
+  = render '/admin/shared/form_errors', resource: @infopage
+
+.arl_admin_infopages_new
+  = render 'form', infopage: @infopage, selectable: @form_metadata.selectables

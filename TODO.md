@@ -18,6 +18,7 @@
 
 ## Low Priority
 
+  - form buttons for "destroy" action-- should they be individualized like other resource admin action buttons?
   - Audio index
   - about_arlocal
     - formatting for markup types, esp. for narrow width

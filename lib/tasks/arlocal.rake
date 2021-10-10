@@ -49,7 +49,6 @@ namespace :arlocal do
       puts "\n"
       [ 'db:schema:load',
         'arlocal:init:settings',
-        'arlocal:init:info_page',
         'arlocal:administrator:create'
       ].each do |task|
         task_announcement(task)
@@ -58,11 +57,6 @@ namespace :arlocal do
       puts "\n\n"
       puts '# Done with initialization tasks.'
       puts "\n"
-    end
-
-    desc 'Initialize info_page'
-    task :info_page => :environment do
-      info_page_initialize
     end
 
     desc 'Initialize arlocal settings'
@@ -77,7 +71,6 @@ namespace :arlocal do
       puts "\n"
       puts '  - db:schema:load'
       puts '  - arlocal:init:settings'
-      puts '  - arlocal:init:info_page'
       puts '  - arlocal:administrator:create'
       puts "\n"
     end
@@ -177,11 +170,6 @@ def arlocal_settings_initialize
     puts '*** ARLOCAL: Database entry for ArlocalSettings cannot be created. Has the database been initialized? ***'
     puts "\n"
   end
-end
-
-
-def info_page_initialize
-  InfoPageBuilder.new.build_and_save_default
 end
 
 

@@ -1,0 +1,18 @@
+= html_head_title_extend! :infopage
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= 'infopage index'
+  .arl_admin_resource_header_buttons
+    = infopage_admin_button_to_new
+
+.arl_infopage_index
+  %table.arl_infopage_index_infopages
+    %tr.arl_infopages_index_infopage
+      %th.arl_infopage_index_header order
+      %th.arl_infopage_index_header name
+    - @infopages.each do |infopage|
+      %tr.arl_infopages_index_infopage.arl_active_link_container{data: {url: admin_infopage_path(infopage.id_admin)}}
+        %td.arl_infopage_index_infopage_index_order
+          = infopage.index_order
+        %td.arl_infopage_index_infopage_title
+          = link_to infopage.title, admin_infopage_path(infopage.id_public), class: :arl_infopage_index_infopage_text_title_link

@@ -2,6 +2,11 @@
 -# because `picture_options` already includes an option for `nil`
 -# through its declaration in the `pictures_controller`
 
-.arl_form_data_selector_pictures
-  = form.select :picture_id, picture_options_for_select(selectable.pictures, form), { include_blank: false }, { class: [:arl_form_data_select, :arl_listening] }
-  = picture_preferred_tag(form.object.picture, html_class: :arl_form_data_select_thumbnail_image)
+- if local_assigns[:attribute]
+  .arl_form_data_selector_pictures
+    = form.select attribute, picture_options_for_select(selectable.pictures, form), { include_blank: false }, { class: [:arl_form_data_select, :arl_listening] }
+    = picture_preferred_tag(form.object.picture, html_class: :arl_form_data_select_thumbnail_image)
+- else
+  .arl_form_data_selector_pictures
+    = form.select :picture_id, picture_options_for_select(selectable.pictures, form), { include_blank: false }, { class: [:arl_form_data_select, :arl_listening] }
+    = picture_preferred_tag(form.object.picture, html_class: :arl_form_data_select_thumbnail_image)

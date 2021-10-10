@@ -15,7 +15,8 @@ get 'events/:id',      to: 'public/events#show',  as: 'public_event'
 get 'events/:event_id/pictures',     to: 'public/pictures#event_pictures_index', as: 'public_event_pictures'
 get 'events/:event_id/pictures/:id', to: 'public/pictures#event_pictures_show',  as: 'public_event_picture'
 
-get 'info', to: 'public/info#show', as: 'public_info'
+get 'info',     to: 'public/infopages#first', as: 'public_infopage_first'
+get 'info/:id', to: 'public/infopages#show',  as: 'public_infopage'
 
 get 'pictures',                to: 'public/pictures#index',            as: 'public_pictures'
 # get 'pictures/page/:page',     to: 'public/pictures#index_by_page',    as: 'public_pictures_by_page'

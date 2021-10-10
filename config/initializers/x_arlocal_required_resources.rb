@@ -1,7 +1,6 @@
 # If you change this file, restart the server.
 Rails.application.config.to_prepare do
   if ArlocalSettings.table_exists?
-
     if QueryArlocalSettings.get == nil
       if ArlocalSettingsBuilder.new.build_and_save_default
         message = 'ARLOCAL: Database entry for ArlocalSettings resource not found. Creating one with default settings.'
@@ -12,18 +11,5 @@ Rails.application.config.to_prepare do
         Rails.logger.fatal message
       end
     end
-  end
-
-  if InfoPage.table_exists?
-    if QueryInfoPage.get == nil
-      if InfoPageBuilder.new.build_and_save_default
-        message = 'ARLOCAL: Database entry for InfoPage resource not found. Creating one with default settings.'
-        Rails.logger.warn message
-      else
-        message = 'ARLOCAL: Database entry for InfoPage cannot be created. Has the database been initialized?'
-        Rails.logger.fatal message
-      end
-    end
-
   end
 end
