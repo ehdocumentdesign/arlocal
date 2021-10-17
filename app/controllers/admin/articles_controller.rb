@@ -35,7 +35,7 @@ class Admin::ArticlesController < AdminController
 
 
   def new
-    @article = ArticleBuilder.build_default
+    @article = ArticleBuilder.build_with_defaults
     @form_metadata = FormArticleMetadata.new
   end
 
