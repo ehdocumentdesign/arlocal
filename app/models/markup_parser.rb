@@ -42,19 +42,22 @@ class MarkupParser
       id: 5,
       description: 'HTML iFrame',
       method_parse: lambda { |text| text.to_s },
-      method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text, tags: [:iframe, :script]) },
+      method_sanitize: lambda { |text| text.html_safe },
       symbol: :html_iframe
     }
   ]
-
-  HTML_CLASS_PREFIX = 'arl_markup_parser'
 
 
   protected
 
 
+  def self.html_class_prefix
+    'arl_markup_parser'
+  end
+
+
   def self.parse_sanitize_class(resource_text_props)
-    parser = self.find(resource_text_props[:parser_id])
+    parser = MarkupParser.find(resource_text_props[:parser_id])
     { html_class: parser.html_class, sanitized_text: parser.parse_and_sanitize(resource_text_props[:text_markup]) }
   end
 
@@ -70,7 +73,7 @@ class MarkupParser
     if parser
       @id = parser[:id]
       @description = parser[:description]
-      @html_class = [ MarkupParser::HTML_CLASS_PREFIX, parser[:symbol].to_s ].join('_')
+      @html_class = [ MarkupParser.html_class_prefix, parser[:symbol].to_s ].join('_')
       @method_parse = parser[:method_parse]
       @method_sanitize = parser[:method_sanitize]
       @symbol = parser[:symbol]
