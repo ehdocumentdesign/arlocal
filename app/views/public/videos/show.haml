@@ -2,6 +2,8 @@
 
 .arl_videos_show
   .arl_videos_show_player
+    - if @video.source_is_embed
+      = render 'show_video_embed', video: @video
     - if @video.source_is_file
       = render 'show_videojs_file', video: @video
     - elsif @video.source_is_url

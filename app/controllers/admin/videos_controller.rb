@@ -119,6 +119,7 @@ class Admin::VideosController < AdminController
       :source_catalog_file_path,
       :source_dimension_height,
       :source_dimension_width,
+      :source_embed,
       :source_type,
       :source_url,
       :title,

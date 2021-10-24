@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_08_071930) do
+ActiveRecord::Schema.define(version: 2021_10_19_171135) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -426,6 +426,7 @@ ActiveRecord::Schema.define(version: 2021_10_08_071930) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "keywords_count"
+    t.text "source_embed"
     t.index ["slug"], name: "index_videos_on_slug"
   end
 

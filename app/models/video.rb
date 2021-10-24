@@ -28,7 +28,7 @@ class Video < ApplicationRecord
 
 
   def self.source_type_options
-    [:attachment, :catalog, :url]
+    [:attachment, :catalog, :embed, :url]
   end
 
 
@@ -197,6 +197,16 @@ class Video < ApplicationRecord
     when 'catalog'
       source_catalog_file_path
     when 'url'
+      false
+    end
+  end
+
+
+  def source_is_embed
+    case source_type
+    when 'embed'
+      true
+    else
       false
     end
   end
