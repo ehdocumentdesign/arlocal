@@ -140,7 +140,7 @@ class AudioBuilder
 
   def self.create_from_upload_nested_within_album(album, params, **args)
     audio_params = {
-      recording: params['audio_attributes']['0']['recording'],
+      source_attachment: params['audio_attributes']['0']['source_attachment'],
       source_type: 'attachment'
     }
     self.build do |b|
@@ -154,7 +154,7 @@ class AudioBuilder
 
   def self.create_from_upload_nested_within_event(event, params, **args)
     audio_params = {
-      recording: params['audio_attributes']['0']['recording'],
+      source_attachment: params['audio_attributes']['0']['source_attachment'],
       source_type: 'attachment'
     }
     self.build do |b|
