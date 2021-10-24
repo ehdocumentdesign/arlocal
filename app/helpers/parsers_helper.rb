@@ -6,6 +6,11 @@ module ParsersHelper
   end
 
 
+  def parser_remove_markup(resource_text_props)
+    strip_tags(parser_result(resource_text_props))
+  end
+
+
   def parser_result(resource_text_props, html_class: nil, wrap_with: nil)
     parser_result = MarkupParser.parse_sanitize_class(resource_text_props)
     case wrap_with
