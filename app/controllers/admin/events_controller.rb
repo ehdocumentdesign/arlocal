@@ -168,7 +168,7 @@ class Admin::EventsController < AdminController
       :venue,
       :venue_url,
       audio_attributes: [
-        :recording,
+        :source_attachment,
         :source_catalog_file_path
       ],
       event_audio_attributes: [
@@ -191,7 +191,7 @@ class Admin::EventsController < AdminController
         :_destroy
       ],
       pictures_attributes: [
-        :image,
+        :source_attachment,
         :source_catalog_file_path
       ]
     )

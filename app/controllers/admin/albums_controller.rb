@@ -198,11 +198,11 @@ class Admin::AlbumsController < AdminController
         :_destroy
       ],
       audio_attributes: [
-        :recording,
+        :source_attachment,
         :source_catalog_file_path
       ],
       pictures_attributes: [
-        :image,
+        :source_attachment,
         :source_catalog_file_path
       ]
     )
