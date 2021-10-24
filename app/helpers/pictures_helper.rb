@@ -92,7 +92,7 @@ module PicturesHelper
     html_class = [html_class].flatten
     case picture.source_type
     when 'attachment'
-      path_to_file = ActiveStorage::Blob.service.send(:path_for, picture.image.key)
+      path_to_file = ActiveStorage::Blob.service.send(:path_for, picture.source_attachment.key)
       if File.exist?(path_to_file) == false
         html_class << :arl_error_file_missing
       end
@@ -131,8 +131,8 @@ module PicturesHelper
   def picture_preferred_url(picture)
     case picture.source_type
     when 'attachment'
-      if picture.image.attached?
-        url_for(picture.image)
+      if picture.source_attachment.attached?
+        url_for(picture.source_attachment)
       end
     when 'catalog'
       catalog_url(picture)

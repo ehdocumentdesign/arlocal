@@ -12,7 +12,7 @@
   = form_with(model: [:admin, Picture.new], local: true, method: :post, url: admin_picture_create_from_upload_path) do |f|
 
     .arl_form_data_attr.arl_form_layout_blocks
-      = f.file_field :image, multiple: false, direct_upload: true, class: :arl_button_file_upload
+      = f.file_field :source_attachment, multiple: false, direct_upload: true, class: :arl_button_file_upload
 
     - if @auto_keyword
       = f.fields_for :picture_keywords, f.object.picture_keywords.build do |pk|

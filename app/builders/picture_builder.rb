@@ -262,8 +262,8 @@ class PictureBuilder
 
 
   def determine_metadata_from_attachment
-    if @picture.image.attached?
-      @picture.image.open do |i|
+    if @picture.source_attachment.attached?
+      @picture.source_attachment.open do |i|
         @metadata = Exiftool.new(i.path)
       end
     end

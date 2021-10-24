@@ -216,9 +216,9 @@ class Admin::PicturesController < AdminController
   end
 
 
-  def purge_image
+  def purge_source_attachment
     @picture = QueryPictures.find_admin(params[:id])
-    @picture.image.purge
+    @picture.source_attachment.purge
     flash[:notice] = 'Attachment purged from picture.'
     redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
   end
@@ -262,12 +262,12 @@ class Admin::PicturesController < AdminController
       :datetime_from_manual_entry_second,
       :description_parser_id,
       :description_text_markup,
-      :image,
       :indexed,
       :published,
       :show_can_display_title,
       :title_parser_id,
       :title_text_markup,
+      :source_attachment,
       :source_catalog_file_path,
       :source_type,
       album_pictures_attributes: [

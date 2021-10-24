@@ -33,7 +33,7 @@ class Picture < ApplicationRecord
     end
   end
 
-  has_one_attached :image
+  has_one_attached :source_attachment
 
 
   accepts_nested_attributes_for :album_pictures, allow_destroy: true
@@ -209,7 +209,7 @@ class Picture < ApplicationRecord
   def does_have_attached(attribute)
     case attribute
     when :image
-      self.image.attached? == true
+      self.source_attachment.attached? == true
     end
   end
 
@@ -247,7 +247,7 @@ class Picture < ApplicationRecord
   def does_not_have_attached(attribute)
     case attribute
     when :image
-      self.image.attached? == false
+      self.source_attachment.attached? == false
     end
   end
 
@@ -301,7 +301,7 @@ class Picture < ApplicationRecord
     datetime_from_manual_entry_hour_changed? ||
     datetime_from_manual_entry_minute_changed? ||
     datetime_from_manual_entry_second_changed? ||
-    image.changed? ||
+    source_attachment.changed? ||
     source_catalog_file_path_changed? ||
     source_type_changed? ||
     super
@@ -328,8 +328,8 @@ class Picture < ApplicationRecord
 
 
   def source_attachment_file_path
-    if image.attached?
-      image.blob.filename.to_s
+    if source_attachment.attached?
+      source_attachment.blob.filename.to_s
     else
       ''
     end

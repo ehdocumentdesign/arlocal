@@ -177,7 +177,7 @@ class QueryPictures
 
 
   def all_pictures
-    Picture.all.with_attached_image
+    Picture.all.with_attached_source_attachment
   end
 
 

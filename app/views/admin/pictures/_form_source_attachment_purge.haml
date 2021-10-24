@@ -1,7 +1,7 @@
 .arl_admin_audio_edit
-  = form_with(model: [:admin, @picture], url: admin_picture_purge_image_path(@picture, pane: :source), local: true, class: :arl_form) do |f|
+  = form_with(model: [:admin, @picture], url: admin_picture_purge_source_attachment_path(@picture, pane: :source), local: true, class: :arl_form) do |f|
     .arl_form_title
-      = @picture.image.filename
+      = @picture.source_attachment.filename
     .arl_form_title
       Remove attachment?
     .arl_form_data
