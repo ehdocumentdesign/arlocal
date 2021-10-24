@@ -122,7 +122,7 @@ class Admin::PicturesController < AdminController
   def destroy
     @picture = QueryPictures.find_admin(params[:id])
     @picture.destroy
-    flash[:notice] = 'Picture record was destroyed, file remains in filesystem.'
+    flash[:notice] = 'Picture record was destroyed.'
     redirect_to action: :index
   end
 
