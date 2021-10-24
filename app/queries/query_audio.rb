@@ -143,7 +143,7 @@ class QueryAudio
 
 
   def all_audio
-    Audio.all.with_attached_recording
+    Audio.all.with_attached_source_attachment
   end
 
 

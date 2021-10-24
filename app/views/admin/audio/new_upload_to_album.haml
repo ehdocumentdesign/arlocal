@@ -12,7 +12,7 @@
   = form_with(model: [:admin, Audio.new], local: true, method: :post, url: admin_audio_create_from_upload_to_album_path) do |f|
 
     .arl_form_data_attr.arl_form_layout_blocks
-      = f.file_field :recording, multiple: false, direct_upload: true, class: :arl_button_file_upload
+      = f.file_field :source_attachment, multiple: false, direct_upload: true, class: :arl_button_file_upload
 
     = f.fields_for :album_audio, f.object.album_audio.build do |aa|
       .arl_form_data_attr.arl_form_layout_blocks

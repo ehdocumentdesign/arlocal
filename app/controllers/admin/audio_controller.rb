@@ -210,9 +210,9 @@ def create
   end
 
 
-  def purge_recording
+  def purge_source_attachment
     @audio = QueryAudio.find_admin(params[:id])
-    @audio.recording.purge
+    @audio.source_attachment.purge
     flash[:notice] = 'Attachment purged from audio.'
     redirect_to edit_admin_audio_path(@audio.id_admin, pane: :source)
   end
@@ -288,7 +288,7 @@ def create
       :musicians_parser_id,
       :musicians_text_markup,
       :published,
-      :recording,
+      :source_attachment,
       :source_catalog_file_path,
       :source_type,
       :source_url,

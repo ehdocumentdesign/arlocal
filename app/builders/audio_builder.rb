@@ -282,8 +282,8 @@ class AudioBuilder
 
 
   def determine_metadata_from_attachment
-    if @audio.recording.attached?
-      @audio.recording.open do |a|
+    if @audio.source_attachment.attached?
+      @audio.source_attachment.open do |a|
         @metadata = MediaInfo.from(a.path)
       end
     end

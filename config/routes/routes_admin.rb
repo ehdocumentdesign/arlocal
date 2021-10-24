@@ -52,7 +52,7 @@ namespace :admin do
   post  'audio_upload_to_album',      to: 'audio#create_from_upload_to_album',  as: 'audio_create_from_upload_to_album'
   get   'audio_upload_to_event',      to: 'audio#new_upload_to_event',          as: 'audio_new_upload_to_event'
   post  'audio_upload_to_event',      to: 'audio#create_from_upload_to_event',  as: 'audio_create_from_upload_to_event'
-  patch 'audio/:id/purge_recording',  to: 'audio#purge_recording',              as: 'audio_purge_recording'
+  patch 'audio/:id/purge_attachment', to: 'audio#purge_source_attachment',      as: 'audio_purge_source_attachment'
 
 
 

@@ -88,7 +88,7 @@ module AudioHelper
     case audio.source_type
     when 'attachment'
       filename = audio.source_attachment_file_path
-      path_to_file = ActiveStorage::Blob.service.send(:path_for, audio.recording.key)
+      path_to_file = ActiveStorage::Blob.service.send(:path_for, audio.source_attachment.key)
       if File.exist?(path_to_file) == false
         html_class << :arl_error_file_missing
       end

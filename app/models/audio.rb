@@ -37,7 +37,7 @@ class Audio < ApplicationRecord
   has_many :event_audio, dependent: :destroy
   has_many :events, through: :event_audio
 
-  has_one_attached :recording
+  has_one_attached :source_attachment
 
 
   accepts_nested_attributes_for :album_audio, allow_destroy: true
@@ -111,7 +111,7 @@ class Audio < ApplicationRecord
   def does_have_attached(attribute)
     case attribute
     when :recording
-      self.method(attribute).call.attached? == true
+      self.source_attachment.attached? == true
     end
   end
 
@@ -134,7 +134,7 @@ class Audio < ApplicationRecord
   def does_not_have_attached(attribute)
     case attribute
     when :recording
-      self.method(attribute).call.attached? == false
+      self.source_attachment.attached? == false
     end
   end
 
@@ -272,7 +272,7 @@ class Audio < ApplicationRecord
 
   def should_generate_new_friendly_id?
     date_released_changed? ||
-    recording.changed? ||
+    source_attachment.changed? ||
     subtitle_changed? ||
     title_changed? ||
     super
@@ -288,8 +288,8 @@ class Audio < ApplicationRecord
   end
 
   def source_attachment_file_path
-    if recording.attached?
-      recording.blob.filename.to_s
+    if source_attachment.attached?
+      source_attachment.blob.filename.to_s
     end
   end
 
