@@ -3,7 +3,12 @@
 
 ## HIGH priority
 
+- double-check source_attachment features
++ video thumbnail upload/import
 - Which parsers are obsolete?
+  - HTML = Iframe
+  - HTML P = simpleformat
+  - HTML PRE = markdown
 
 
 ## Medium priority
@@ -24,7 +29,7 @@
     - formatting for markup types, esp. for narrow width
 
 
-## Possibly fixed
+## ~Possibly~ Probably fixed
 
 - Finish import file verification (Controllers)
 
