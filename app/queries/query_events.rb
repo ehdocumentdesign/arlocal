@@ -146,7 +146,7 @@ class QueryEvents
 
 
   def all_events
-    Event.all.includes(:audio, :keywords, :pictures)
+    Event.all.includes({audio: :source_attachment_attachment}, :keywords, {pictures: :source_attachment_attachment})
   end
 
 

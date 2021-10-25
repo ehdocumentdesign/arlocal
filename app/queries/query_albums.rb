@@ -128,7 +128,7 @@ class QueryAlbums
 
 
   def all_albums
-    Album.all.includes({audio: :recording_attachment}, :keywords, {pictures: :image_attachment})
+    Album.all.includes({audio: :source_attachment_attachment}, :keywords, {pictures: :source_attachment_attachment})
   end
 
 
