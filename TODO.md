@@ -3,8 +3,7 @@
 
 ## HIGH priority
 
-- double-check source_attachment features
-+ video thumbnail upload/import
+- give a title to nested_picture uploads/imports 
 - Which parsers are obsolete?
   - HTML = Iframe
   - HTML P = simpleformat
@@ -29,7 +28,13 @@
     - formatting for markup types, esp. for narrow width
 
 
-## ~Possibly~ Probably fixed
+## Possibly fixed
+
++ video thumbnail upload/import
+- double-check source_attachment features
+
+
+## Probably fixed
 
 - Finish import file verification (Controllers)
 

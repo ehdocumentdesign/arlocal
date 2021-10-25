@@ -110,7 +110,7 @@ class PictureBuilder
 
   def self.create_from_import_nested_within_video(video, params, **args)
     picture_params = {
-      source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
+      source_catalog_file_path: params['picture']['source_catalog_file_path'],
       source_type: 'catalog'
     }
     self.build(**args) do |b|
@@ -182,7 +182,7 @@ class PictureBuilder
 
   def self.create_from_upload_nested_within_video(video, params, **args)
     picture_params = {
-      source_attachment: params['pictures_attributes']['0']['source_attachment'],
+      source_attachment: params['video']['picture']['source_attachment'],
       source_type: 'attachment'
     }
     self.build(**args) do |b|
@@ -242,7 +242,7 @@ class PictureBuilder
 
   def join_to_video(video)
     video_id = video.id
-    @picture.build_video_picture(video_id: video_id)
+    @picture.video_pictures.build(video_id: video_id)
   end
 
 

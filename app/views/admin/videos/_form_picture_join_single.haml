@@ -3,8 +3,8 @@
     .arl_form_title
       Add thumbnail picture
     .arl_form_data
-      = f.fields_for :album_pictures, video.video_picture.build do |ap|
-        = render 'admin/shared/form_picture_selector', form: ap, picture_options: selectable.pictures
+      = f.fields_for :video_pictures, video.video_picture.build do |vp|
+        = render 'admin/shared/form_picture_selector', form: vp, picture_options: selectable.pictures
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
 

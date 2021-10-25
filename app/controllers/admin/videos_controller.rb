@@ -65,8 +65,8 @@ class Admin::VideosController < AdminController
 
 
   def picture_create_from_upload
-    @video = QueryVideo.find_admin(params[:id])
-    @picture = PictureBuilder.create_from_upload_nested_within_video(@video, params_video_permitted)
+    @video = QueryVideos.find_admin(params[:id])
+    @picture = PictureBuilder.create_from_upload_nested_within_video(@video, params)
     if @picture.save
       flash[:notice] = 'Picture was successfully uploaded.'
       redirect_to edit_admin_video_path(@video.id_admin, pane: :picture)
@@ -124,6 +124,10 @@ class Admin::VideosController < AdminController
       :source_type,
       :source_url,
       :title,
+      picture_attributes: [
+        :source_attachment,
+        :source_catalog_file_path
+      ],
       video_keywords_attributes: [
         :id,
         :keyword_id,

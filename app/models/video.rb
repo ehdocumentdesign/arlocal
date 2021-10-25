@@ -271,6 +271,16 @@ class Video < ApplicationRecord
   end
 
 
+  def video_picture_or_blank
+    case video_picture
+    when VideoPicture
+      video_picture
+    else
+      build_video_picture
+    end
+  end
+
+
   def year
     if date_released
       date_released.year

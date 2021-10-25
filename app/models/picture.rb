@@ -33,6 +33,8 @@ class Picture < ApplicationRecord
     end
   end
 
+  has_many :video_pictures, dependent: :destroy
+
   has_one_attached :source_attachment
 
 

@@ -4,7 +4,7 @@
     .arl_form_title
       Add thumbnail picture
     .arl_form_data
-      = f.fields_for :video_picture, video.build_picture do |vp|
+      = f.fields_for :video_picture, video.video_picture_or_blank do |vp|
         = render 'form_elements/picture_select', attribute: :picture_id, form: vp, selectable: selectable
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

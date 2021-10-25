@@ -2,7 +2,7 @@
   Upload thumbnail picture
 
 = form_with(model: [:admin, video], local: true, url: admin_video_picture_create_from_upload_path(video)) do |f|
-  = f.fields_for :picture, f.object.build_picture do |a|
+  = f.fields_for :picture, f.object.build_video_picture do |a|
     .arl_form_data_attr.arl_form_layout_blocks
       = a.file_field :source_attachment, multiple: false, direct_upload: true, class: :arl_button_file_upload
     .arl_form_actions
