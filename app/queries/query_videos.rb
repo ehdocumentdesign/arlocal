@@ -131,7 +131,7 @@ class QueryVideos
 
 
   def all_videos
-    Video.all.includes({picture: :image_attachment})
+    Video.all.includes({picture: :source_attachment_attachment})
   end
 
 

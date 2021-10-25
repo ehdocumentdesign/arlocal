@@ -116,6 +116,7 @@ class Admin::VideosController < AdminController
       :involved_people_text_markup,
       :published,
       :slug,
+      :source_attachment,
       :source_catalog_file_path,
       :source_dimension_height,
       :source_dimension_width,

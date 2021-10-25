@@ -78,7 +78,7 @@ module VideosHelper
   def video_preferred_url(video)
     case video.source_type
     when 'attachment'
-      url_for(video.recording)
+      url_for(video.source_attachment)
     when 'catalog'
       catalog_url(video)
     end

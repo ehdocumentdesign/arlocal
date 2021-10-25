@@ -15,7 +15,7 @@ class Video < ApplicationRecord
   has_one :video_picture, dependent: :destroy
   has_one :picture, through: :video_picture
 
-  has_one_attached :recording
+  has_one_attached :source_attachment
 
   accepts_nested_attributes_for :video_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :video_picture, allow_destroy: true
@@ -89,7 +89,7 @@ class Video < ApplicationRecord
   def does_have_attached(attribute)
     case attribute
     when :recording
-      self.method(attribute).call.attached? == true
+      self.source_attachment.attached? == true
     end
   end
 
@@ -107,7 +107,7 @@ class Video < ApplicationRecord
   def does_not_have_attached(attribute)
     case attribute
     when :recording
-      self.method(attribute).call.attached? == false
+      self.source_attachment.attached? == false
     end
   end
 
@@ -162,7 +162,7 @@ class Video < ApplicationRecord
 
 
   def source_attachment_file_path
-    recording.blob.filename.to_s
+    source_attachment.blob.filename.to_s
   end
 
 
