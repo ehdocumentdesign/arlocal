@@ -5,27 +5,29 @@ class MarkupParser
   DATA = [
     {
       id: 0,
+      categories: [:admin, :public],
       description: 'No formatting',
       method_parse: lambda { |text| text.to_s },
       method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
       symbol: :no_formatting
     },
-    {
-      id: 1,
-      description: 'HTML Paragraph',
-      method_parse: lambda { |text| ApplicationController.helpers.tag.p(text.to_s) },
-      method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
-      symbol: :html_p
-    },
-    {
-      id: 2,
-      description: 'HTML Preformatted',
-      method_parse: lambda { |text| "<pre>\n" + text.to_s + "\n</pre>" },
-      method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
-      symbol: :html_pre
-    },
+    # {
+    #   id: 1,
+    #   description: 'HTML Paragraph',
+    #   method_parse: lambda { |text| ApplicationController.helpers.tag.p(text.to_s) },
+    #   method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
+    #   symbol: :html_p
+    # },
+    # {
+    #   id: 2,
+    #   description: 'HTML Preformatted',
+    #   method_parse: lambda { |text| "<pre>\n" + text.to_s + "\n</pre>" },
+    #   method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
+    #   symbol: :html_pre
+    # },
     {
       id: 3,
+      categories: [:admin, :public],
       description: 'Markdown – Commonmarker',
       method_parse: lambda { |text| CommonMarker.render_html(text.to_s) },
       method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
@@ -33,6 +35,7 @@ class MarkupParser
     },
     {
       id: 4,
+      categories: [:admin, :public],
       description: 'Simple Format – Rails',
       method_parse: lambda { |text| ApplicationController.helpers.simple_format(text.to_s) },
       method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
@@ -40,7 +43,8 @@ class MarkupParser
     },
     {
       id: 5,
-      description: 'HTML iFrame',
+      categories: [:admin],
+      description: 'HTML embed',
       method_parse: lambda { |text| text.to_s },
       method_sanitize: lambda { |text| text.html_safe },
       symbol: :html_iframe
