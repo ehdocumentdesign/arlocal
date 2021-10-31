@@ -79,15 +79,15 @@ class FormInfopageMetadata
         @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
       when :articles
         @articles = Article.all
-        @item_groups = InfopageItem.group_options
+        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
       when :links
-        @item_groups = InfopageItem.group_options
+        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
         @links = QueryLinks.options_for_select_admin
       when :pictures
-        @item_groups = InfopageItem.group_options
+        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
         @pictures = QueryPictures.options_for_select_admin_with_nil(settings)
       else
-        @item_groups = InfopageItem.group_options
+        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
       end
     end
   end

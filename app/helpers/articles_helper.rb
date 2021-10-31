@@ -11,7 +11,7 @@ module ArticlesHelper
 
 
   def article_admin_button_to_done_editing(article)
-    button_admin_to_done_editing admin_article_path(@article.id_admin)
+    button_admin_to_done_editing admin_article_path(article.id_admin)
   end
 
 

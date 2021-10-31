@@ -1,7 +1,7 @@
 /*
 Views for resources with _text_markup attributes use ParserHelper to generate
 HTML from markup. The MarkupParser instance variable @html_class assigns the
-class attribute from a resource's _parser_id attribute. 
+class attribute from a resource's _parser_id attribute.
 
 The generic <P> element defined in `__reset/elements.scss` includes top and
 bottom margins by default, making the effective margin between any container
@@ -17,10 +17,10 @@ environment that tries to accommodate several different markup processers and
 `display: [block|flex]` paradigms.
 */
 
-.arl_markup_parser_html_tag_p {
-  margin-top: -(#{$arl-line-height});
-  margin-bottom: -(#{$arl-line-height});
-}
+// .arl_markup_parser_html_tag_p {
+//   margin-top: -(#{$arl-line-height});
+//   margin-bottom: -(#{$arl-line-height});
+// }
 .arl_markup_parser_markdown_commonmarker {
   margin-top: -(#{$arl-line-height});
   margin-bottom: -(#{$arl-line-height});

@@ -40,7 +40,7 @@
   }
   .arl_infopage_show_item_article {
     font-size: 0.9em;
-    margin: $arl-margin-wide $arl-spacing-wide;
+    margin: $arl-spacing;
   }
   .arl_infopage_show_item_link {
     font-size: 0.9em;
@@ -48,6 +48,7 @@
   }
   .arl_infopage_show_item_picture_img {
     border-bottom: $border;
+    max-width: 20rem;
   }
 }
 
@@ -72,6 +73,8 @@
   }
   .arl_infopage_show_item_article {
     @include border-pseudo-vertical;
+    margin-top: $arl-spacing;
+    margin-bottom: $arl-margin-wide;
   }
   .arl_infopage_show_item_link {
     @include border-pseudo-vertical;
@@ -105,7 +108,7 @@
     width: 40em;
   }
   .arl_infopage_show_item_article {
-    margin-top: -($arl-spacing);
+    margin-bottom: $arl-margin;
   }
   .arl_infopage_show_item_link {
   }
