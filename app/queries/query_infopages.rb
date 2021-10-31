@@ -15,7 +15,7 @@ class QueryInfopages
 
 
   def self.first_public
-    Infopage.order(index_order: :asc).first
+    Infopage.order(index_order: :asc).first!
   end
 
 

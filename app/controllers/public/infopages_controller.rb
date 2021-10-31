@@ -8,7 +8,7 @@ class Public::InfopagesController < PublicController
 
 
   def show
-    @infopage = QueryInfopages.find_public
+    @infopage = QueryInfopages.find_public(params[:id])
   end
 
 
