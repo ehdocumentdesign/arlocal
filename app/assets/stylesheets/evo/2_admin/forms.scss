@@ -109,9 +109,8 @@
   vertical-align: center;
 }
 .arl_form_data_resource_gallery_thumbnail_image {
+  @include border-rounded-img;
   border: $border-light;
-  box-shadow: $shadow-img;
-  box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
 }
@@ -151,8 +150,7 @@
   margin-right: auto;
 }
 .arl_form_data_select_thumbnail_image {
-  border: $border-light;
-  box-sizing: border-box;
+  @include border-rounded-img;
   margin-top: $arl-margin-narrow;
   max-height: 8rem;
   max-width: 8rem;

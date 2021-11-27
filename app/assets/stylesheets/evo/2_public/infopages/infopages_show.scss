@@ -80,8 +80,7 @@
     @include border-pseudo-vertical;
   }
   .arl_infopage_show_item_picture_img {
-    border: $border-img;
-    box-shadow: $shadow-img;
+    @include border-rounded-img;
   }
 }
 
@@ -115,7 +114,6 @@
   .arl_infopage_show_item_picture {
   }
   .arl_infopage_show_item_picture_img {
-    border: $border-img;
-    box-shadow: $shadow-img;
+    @include border-rounded-img;
   }
 }

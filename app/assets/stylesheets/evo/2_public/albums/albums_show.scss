@@ -89,7 +89,6 @@
   }
   .arl_albums_show_picture_img {
     @include border-rounded-img-albums-show;
-    box-shadow: $shadow-img;
     height: 22rem;
     width: 22rem;
   }
@@ -127,8 +126,6 @@
   }
   .arl_albums_show_picture_img {
     @include border-rounded-img-albums-show;
-    box-shadow: $shadow-img;
-    box-sizing: border-box;
     height: 22rem;
     width: 22rem;
   }

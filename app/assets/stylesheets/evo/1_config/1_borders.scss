@@ -28,7 +28,6 @@ $border-form-button-admin-console-active: $var-border-color-active $var-border-s
 $border-form-input: $var-border-color-light $var-border-style $var-border-width;
 $border-jp-link-merchant: $var-border-color-exciting $var-border-style $var-border-width;
 $border-jp-progress-bar: $var-border-color-jp-progress-bar $var-border-style $var-border-width;
-$border-img: $var-border-color-img $var-border-style $var-border-width;
 
 $border-test: purple 1px dashed;
 
@@ -44,38 +43,38 @@ $border-radius-wide: $var-border-radius;
 
 @mixin border-rounded-img {
   background-color: $var-border-color-img-rounded;
-  border: $var-border-color-img-rounded $var-border-style $var-border-width;
   border-radius: $border-radius-img;
+  box-shadow: $shadow-img;
 }
 
 @mixin border-rounded-img-albums-index {
   background-color: $var-border-color-img-rounded;
-  border: $var-border-color-img-rounded $var-border-style $var-border-width;
   border-radius: ($border-radius-img / 2);
+  box-shadow: $shadow-img;
 }
 
 @mixin border-rounded-img-albums-show {
   background-color: $var-border-color-img-rounded;
-  border: $var-border-color-img-rounded $var-border-style $var-border-width;
   border-radius: ($border-radius-img / 2);
+  box-shadow: $shadow-img;
 }
 
 @mixin border-rounded-thumbnail {
   background-color: $var-border-color-img-rounded;
-  border: $var-border-color-img-rounded $var-border-style $var-border-width;
   border-radius: $border-radius-thumbnail;
+  box-shadow: $shadow-img;
 }
 
 @mixin border-rounded-img-videos-index {
   background-color: $var-border-color-img-rounded;
-  border: $var-border-color-img-rounded $var-border-style $var-border-width;
   border-radius: ($border-radius-img / 2);
+  box-shadow: $shadow-img;
 }
 
 @mixin border-rounded-img-videos-show {
   background-color: $var-border-color-img-rounded;
-  border: $var-border-color-img-rounded $var-border-style $var-border-width;
   border-radius: ($border-radius-img / 2);
+  box-shadow: $shadow-img;
 }
 
 .arl_border_bottom {

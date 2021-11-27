@@ -3,6 +3,13 @@
 
 ## HIGH priority
 
+- what is this:
+  > // TODO: figure out why this doesn't render border-bottom or border-top
+  > // see .jp-type-playlist for border-bottom.
+  > // see .arl_albums_show_player for border-top.
+  >
+  > - app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2
+
 - give a title to nested_picture uploads/imports
 - Which parsers are obsolete?
   - HTML = Iframe
@@ -14,7 +21,7 @@
 
 - which partials can be refactored?
   - especially `_admin_[resource]_stats.haml`
-  
+
 + Note where the selectable value source_type comes from the model, not via FormMetadata::Selectable
   - Controllers::Admin::Audio#new_[method_to_resource]
   - Controllers::Admin::Picture#new_[method_to_resource]

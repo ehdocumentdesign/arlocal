@@ -57,8 +57,7 @@
   margin: $arl-margin 0rem;
 }
 .arl_events_index_thumbnail {
-  border: $border-img;
-  box-shadow: $shadow-img;
+  @include border-rounded-img;
 }
 .arl_events_index_time {}
 .arl_events_index_by_year {
@@ -77,7 +76,7 @@
   .arl_events_index_thumbnail {
     max-height: 5em;
     max-width: 5em;
-  }  
+  }
 }
 @media #{$media-screen-2} {
   .arl_events_index_event_info {
@@ -87,7 +86,7 @@
   .arl_events_index_thumbnail {
     max-height: 7em;
     max-width: 7em;
-  }  
+  }
 }
 @media #{$media-screen-3} {
   .arl_events_index_event_info {
@@ -97,5 +96,5 @@
   .arl_events_index_thumbnail {
     max-height: 7em;
     max-width: 7em;
-  }  
+  }
 }

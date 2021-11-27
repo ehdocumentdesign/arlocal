@@ -40,7 +40,7 @@
   max-width: 16rem;
 }
 .arl_admin_resource_header_picture_img {
-  border: $border-img;
+  @include border-rounded-img;
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;

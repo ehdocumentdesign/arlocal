@@ -69,8 +69,7 @@
   .arl_events_show_coverpicture {
   }
   .arl_events_show_coverpicture_img {
-    border: $border-img;
-    box-shadow: $shadow-img;
+    @include border-rounded-img;
     margin-bottom: $arl-margin-narrow;
     margin-top: $arl-margin-wide;
     max-width: 20rem;
@@ -93,8 +92,7 @@
     margin-bottom: $arl-spacing-wide;
   }
   .arl_events_show_coverpicture_img {
-    border: $border-img;
-    box-shadow: $shadow-img;
+    @include border-rounded-img;
     margin: $arl-margin-wide $arl-margin-narrow $arl-margin-wide $arl-margin-wide;
     max-width: 15rem;
     max-height: 20rem;

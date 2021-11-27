@@ -14,9 +14,6 @@
 //  vertical-align: middle;
 }
 .arl_albums_index_album_picture_img {
-  @include border-rounded-img-albums-index;
-  box-shadow: $shadow-img;
-  box-sizing: border-box;
 }
 .arl_albums_index_album_text {
 }
@@ -32,7 +29,7 @@
   margin-bottom: $arl-margin-narrow;
 }
 .arl_albums_index_album_text_title_link {
-  color: $color-fg-link;  
+  color: $color-fg-link;
 }
 .arl_albums_index_album_text_track {
   @include layout-list-item-inline;
@@ -89,7 +86,7 @@
   .arl_albums_index_album_notice_alt_url {
     margin-bottom: $arl-margin-wide;
   }
-  
+
 }
 
 
@@ -103,6 +100,7 @@
     padding: $arl-margin-wider $arl-margin-narrow;
   }
   .arl_albums_index_album_picture_img {
+    @include border-rounded-img-albums-index;
     height: 7rem;
     width: 7rem;
   }
@@ -122,6 +120,7 @@
     padding: $arl-margin-wider $arl-margin-narrow;
   }
   .arl_albums_index_album_picture_img {
+    @include border-rounded-img-albums-index;
     height: 7rem;
     width: 7rem;
   }
@@ -129,4 +128,3 @@
     padding: $arl-margin-wide $arl-margin-narrow;
   }
 }
-

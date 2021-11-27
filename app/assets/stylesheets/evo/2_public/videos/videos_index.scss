@@ -7,8 +7,6 @@
 }
 .arl_videos_index_video_picture_img {
   @include border-rounded-img-videos-index;
-  box-shadow: $shadow-img;
-  box-sizing: border-box;
 }
 .arl_videos_index_video_text {
 }
