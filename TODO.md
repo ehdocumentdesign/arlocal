@@ -3,7 +3,7 @@
 
 ## HIGH priority
 
-- give a title to nested_picture uploads/imports 
+- give a title to nested_picture uploads/imports
 - Which parsers are obsolete?
   - HTML = Iframe
   - HTML P = simpleformat
@@ -12,6 +12,9 @@
 
 ## Medium priority
 
+- which partials can be refactored?
+  - especially `_admin_[resource]_stats.haml`
+  
 + Note where the selectable value source_type comes from the model, not via FormMetadata::Selectable
   - Controllers::Admin::Audio#new_[method_to_resource]
   - Controllers::Admin::Picture#new_[method_to_resource]
@@ -29,6 +32,10 @@
 
 
 ## Possibly fixed
+
+Admin::Videos#Edit
+- add title across panes
+- check for pane stickiness with neighbors
 
 + video thumbnail upload/import
 - double-check source_attachment features

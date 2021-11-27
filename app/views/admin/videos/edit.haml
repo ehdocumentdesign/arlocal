@@ -2,13 +2,16 @@
 
 .arl_admin_resource_header
   .arl_admin_resource_header_title= "editing video"
+  .arl_admin_resource_header_title= "#{@video.title}"
   .arl_admin_resource_header_buttons
     = video_admin_button_to_new
-    = video_admin_button_to_edit_previous(@video_neighbors.previous)
+    = video_admin_button_to_edit_previous(@video_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
     = video_admin_button_to_done_editing(@video)
-    = video_admin_button_to_edit_next(@video_neighbors.next)
+    = video_admin_button_to_edit_next(@video_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
     = video_admin_button_to_index
-  =# render '/admin/shared/form_errors', resource: @video
+  = render '/admin/videos/admin_video_stats', video: @video
+  = render '/admin/shared/form_errors', resource: @video
+
 
 %nav.arl_admin_resource_edit_nav
   - @form_metadata.nav_categories.each do |category|
