@@ -11,7 +11,6 @@ module ButtonHelper
   end
 
 
-  #TODO: Button spacing
   def button_admin_to_done_editing(path)
     tag.div(tag.a(icon_done_editing, href: path, class: :arl_button_admin_resource, method: :get, title: 'done editing'), class: :arl_button_admin_resource_spacing)
   end
@@ -122,23 +121,3 @@ module ButtonHelper
 
 
 end
-
-
-# These became <A> links instead of <INPUT> buttons for general accessibility
-# def button_admin_to_next(path)
-#   tag.div(button_to(icon_next, path, class: :arl_button_admin_resource, method: :get, title: 'next'), class: :arl_button_admin_resource_spacing)
-# end
-
-# def button_admin_to_next(path, arlocal_settings: nil, pane: nil)
-#   if arlocal_settings && (arlocal_settings.admin_forms_retain_pane_for_neighbor == true)
-#     button = tag.a(icon_next, class: :arl_button_admin_resource, href: path, method: :get, title: 'next')
-#   else
-#     button = button_to(icon_next, path, class: :arl_button_admin_resource, method: :get, title: 'next')
-#   end
-#   tag.div(button, class: :arl_button_admin_resource_spacing)
-# end
-
-
-# def button_admin_to_previous(path)
-#   tag.div(button_to(icon_previous, path, class: :arl_button_admin_resource, method: :get, title: 'previous'), class: :arl_button_admin_resource_spacing)
-# end
