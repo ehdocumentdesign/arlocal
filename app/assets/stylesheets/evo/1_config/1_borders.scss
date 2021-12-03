@@ -3,7 +3,9 @@ $var-border-color-active: $color-fg-exciting;
 $var-border-color-admin-header: mix($var-border-color, $var-color-bg-admin-resource-header, 33);
 $var-border-color-exciting: mix($color-bg-exciting, $color-fg, 85);
 $var-border-color-img: transparentize($color-fg, 0.425);
-$var-border-color-img-rounded: transparentize($color-fg, 0.667);
+// refactor
+$var-border-color-img-rounded: transparentize($color-fg, 0.9);
+
 $var-border-color-jp-progress-bar: mix($var-border-color, $var-color-jp-progress-bar-bg, 42.5);
 $var-border-color-light: transparentize($color-fg, 0.625);
 $var-border-color-lighter: transparentize($color-fg, 0.75);
@@ -41,6 +43,9 @@ $border-radius-wide: $var-border-radius;
   margin-right: $var-border-width;
 }
 
+//refactor as image mixins?
+//
+
 @mixin border-rounded-img {
   background-color: $var-border-color-img-rounded;
   border-radius: $border-radius-img;
@@ -63,6 +68,7 @@ $border-radius-wide: $var-border-radius;
   background-color: $var-border-color-img-rounded;
   border-radius: $border-radius-thumbnail;
   box-shadow: $shadow-img;
+  overflow: hidden;
 }
 
 @mixin border-rounded-img-videos-index {

@@ -2,12 +2,8 @@
   .arl_form_title
     Album Details
   .arl_form_data
-    .arl_form_data_attr.arl_form_layout_inline
-      = f.check_box :show_can_have_vendor_widget_gumroad, class: :arl_form_data_checkbox
-      = f.label :show_can_have_vendor_widget_gumroad, class: :arl_form_data_label_inline
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.label :vendor_widget_gumroad, class: :arl_form_data_label
-      ~ f.text_area :vendor_widget_gumroad, class: :arl_form_data_text_area
+    = render 'form_elements/check_box', form: f, attribute: :show_can_have_vendor_widget_gumroad
+    = render 'form_elements/text_area', form: f, attribute: :vendor_widget_gumroad
 
   .arl_form_actions
     .arl_form_action_submit

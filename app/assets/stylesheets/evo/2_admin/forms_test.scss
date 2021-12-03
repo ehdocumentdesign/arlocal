@@ -1,0 +1,165 @@
+// checkbox title inline
+//  .       explanation explanation
+//  .       input input
+//
+
+
+.test_form_data_attr {
+  display: grid;
+  // grid-template-areas: 'checkbox label inline .' '. explanation explanation .' '. input input .';
+  // grid-template-columns: 1.5rem auto auto 1.5rem;
+  grid-template-areas: 'label inline' 'explanation explanation' 'input input' 'thumbnail thumbnail';
+  grid-template-columns: auto auto;
+  margin: $arl-margin-wide 0;
+}
+.test_form_data_attr_explanation {
+  font-family: $font-family-admin-data-label;
+  grid-area: explanation;
+}
+.test_form_data_attr_input_checkbox {
+  align-self: center;
+  grid-area: inline;
+  justify-self: end;
+}
+.test_form_data_attr_input_file_upload {
+  @include layout-flex-column-center;
+  @include buttonize_file_upload;
+  font-family: $font-family-admin-data-button;
+  font-size: 1rem;
+  grid-area: input;
+}
+.test_form_data_attr_input_select {
+  grid-area: input;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+}
+.test_form_data_attr_input_select_inline {
+  grid-area: inline;
+  justify-self: end;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+}
+.test_form_data_attr_input_text_area {
+  grid-area: input;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+  min-height: 10rem;
+  padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
+}
+.test_form_data_attr_input_text_field {
+  grid-area: input;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+  padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
+}
+.test_form_data_attr_input_text_field_inline {
+  grid-area: inline;
+  justify-self: end;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+  margin-left: $arl-margin;
+  padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
+}
+.test_form_data_attr_label {
+  align-self: center;
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
+  grid-area: label;
+}
+.test_form_data_attr_multi {
+  grid-area: input;
+  display: flex;
+  flex-direction: row;
+}
+.test_form_data_attr_thumbnail_image {
+  @include border-rounded-img;
+  border: 1px purple solid;
+  align-self: center;
+  grid-area: thumbnail;
+  justify-self: center;
+  margin-top: $arl-margin-narrow;
+  max-height: 8rem;
+  max-width: 8rem;
+}
+
+.test_form_data_destroy {}
+.test_form_data_destroy_explanation {
+  margin: $arl-margin 0rem;
+}
+.test_form_data_destroy_explanation_caveat {
+  font-family: $font-family-admin-data-value;
+  font-size: 0.875em;
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
+}
+.test_form_data_destroy_explanation_warning {
+  font-family: $font-family-admin-data-value;
+  font-weight: bold;
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
+}
+
+
+.test_form_data_joins {
+  margin-left: auto;
+  margin-right: auto;
+}
+.test_form_data_joins_heading {
+  font-family: $font-family-admin;
+  font-weight: bold;
+  padding: $arl-margin-narrow;
+}
+.test_form_data_joins_picture {
+  display: grid;
+  grid-template-areas: 'thumbnail title remove' 'thumbnail coverpicture remove' 'thumbnail order remove' ' thumbnail . .';
+  grid-template-rows: 1.5em 1.5em 1.5em auto;
+  padding: $arl-margin-wide 0;
+}
+.test_form_data_joins_picture_coverpicture {
+  grid-area: coverpicture;
+}
+.test_form_data_joins_picture_order {
+  grid-area: order;
+}
+.test_form_data_joins_picture_remove {
+  grid-area: remove;
+  align-self: center;
+  justify-self: center;
+  padding: 0 $arl-spacing;
+}
+.test_form_data_joins_picture_thumbnail {
+  grid-area: thumbnail;
+  align-self: start;
+  justify-self: center;
+  padding: 0 $arl-margin;
+}
+.test_form_data_joins_picture_thumbnail_image {
+  @include border-rounded-thumbnail;
+  display: block;
+  width: 128px;
+  height: 72px;
+}
+.test_form_data_joins_picture_title {
+  grid-area: title;
+}
+.test_form_data_joins_value {
+  font-family: $font-family-admin-data-label;
+  padding: $arl-margin-narrow;
+}
+
+
+
+.test_form_data_spacer {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $arl-margin-wide;
+  margin-bottom: $arl-margin-wide;
+}

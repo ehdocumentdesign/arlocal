@@ -18,7 +18,16 @@
 
 - TODO: Button spacing in admin forms
 
+- 1_borders.scss
+  - refactor mixins that are image
+
 - eventshelper:158 why assign js empty?
+
+- pictures_helper picture_preferred_url
+  - check if picture exists (add file_exists? method to model)
+  - if not, return a dummy html_class to guarantee minimal dimensions
+- form_pictures exerwhere
+- picture_selector in join_single
 
 
 ## Medium priority

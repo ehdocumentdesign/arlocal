@@ -1,9 +1,7 @@
-.arl_form_data_attr.arl_form_layout_blocks
-  .arl_form_layout_inline
-    = form.check_box attribute, class: :arl_form_data_checkbox
-    = form.label attribute, class: :arl_form_data_label_inline
-  - if local_assigns[:aside]
-    %aside.arl_form_data_attr_explanation.arl_form_layout_inline_inset= "#{aside}"
-  - if local_assigns[:not_yet_implemented] == true
-    .not_yet_implemented
-      Not yet implemented.
+.test_form_data_attr
+  = form.check_box attribute, class: :test_form_data_attr_input_checkbox
+  = form.label attribute, class: :test_form_data_attr_label
+- if local_assigns[:aside]
+  %aside.test_form_data_attr_explanation= "#{aside}"
+- if local_assigns[:not_yet_implemented] == true
+  .not_yet_implemented

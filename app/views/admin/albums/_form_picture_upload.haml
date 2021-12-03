@@ -1,9 +1,10 @@
 .arl_form_title
   Upload picture
 
-= form_with(model: [:admin, album], local: true, url: admin_album_picture_create_from_upload_path(album)) do |f|
-  = f.fields_for :pictures, f.object.pictures.build do |a|
-    .arl_form_data_attr.arl_form_layout_blocks
-      = a.file_field :source_attachment, multiple: false, direct_upload: true, class: :arl_button_file_upload
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= form_with(model: [:admin, album], local: true, url: admin_album_picture_create_from_upload_path(album), class: :arl_form) do |f|
+  .arl_form_data
+    = f.fields_for :pictures, f.object.pictures.build do |a|
+      .test_form_data_attr
+        = a.file_field :source_attachment, multiple: false, direct_upload: true, class: :test_form_data_attr_input_file_upload
+  .arl_form_actions
+    = f.submit class: :arl_button_form_submit

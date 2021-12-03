@@ -1,8 +1,8 @@
 module ButtonHelper
 
 
-  def button_admin_submit_to_destroy(path, data: nil)
-    button_to 'Destroy', path, class: :arl_button_form_submit_destroy, data: data, method: :delete, title: 'destroy'
+  def button_admin_submit_to_destroy(path, data: nil, label: 'Destroy')
+    button_to label, path, class: :arl_button_form_submit_destroy, data: data, method: :delete, title: 'destroy'
   end
 
 

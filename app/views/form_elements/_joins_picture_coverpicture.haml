@@ -1,0 +1,3 @@
+.test_form_data_joins_picture_coverpicture
+  = form.check_box :is_coverpicture, class: [:arl_form_data_checkbox, :arl_active_checkbox_coverpicture], data: { picture: form.object.picture.slug }
+  = form.label 'Cover', class: :arl_form_data_resource_value

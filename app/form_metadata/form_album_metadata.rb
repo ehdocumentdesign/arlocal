@@ -47,6 +47,8 @@ class FormAlbumMetadata
       'form_audio_join_by_keyword'
     when :audio_join_single
       'form_audio_join_single'
+    when :keyword_join_single
+      'form_keyword_join_single'
     when :keywords
       'form_keywords'
     when :picture_import
@@ -97,13 +99,15 @@ class FormAlbumMetadata
       case pane
       when :album
         @markup_parsers = MarkupParser.options_for_select
-      when :audio
-        @audio = QueryAudio.options_for_select_admin
-        @keywords = QueryKeywords.options_for_select_admin
+      # when :audio
+        # @audio = QueryAudio.options_for_select_admin
+        # @keywords = QueryKeywords.options_for_select_admin
       when :audio_join_by_keyword
         @keywords = QueryKeywords.options_for_select_admin
       when :audio_join_single
         @audio = QueryAudio.options_for_select_admin
+      when :keyword_join_single
+        @keywords = QueryKeywords.options_for_select_admin
       when :picture_join_by_keyword
         @keywords = QueryKeywords.options_for_select_admin
       when :picture_join_single
@@ -112,8 +116,8 @@ class FormAlbumMetadata
         @album_pictures_sorters = SorterAlbumPictures.options_for_select
         @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
         @keywords = QueryKeywords.options_for_select_admin
-      when :keywords
-        @keywords = QueryKeywords.options_for_select_admin
+      # when :keywords
+        # @keywords = QueryKeywords.options_for_select_admin
       when :vendors
       else
         @markup_parsers = MarkupParser.options_for_select
