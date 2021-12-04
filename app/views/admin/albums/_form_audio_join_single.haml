@@ -2,20 +2,14 @@
   Add audio
 
 - if selectable.does_have_audio
-  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :audio), local: true, class: [:arl_form], method: :patch) do |f|
+  = form_with model: [:admin, album], url: admin_album_path(album, pane: :audio), local: true, class: :arl_form, method: :patch do |f|
     .arl_form_data
       = f.fields_for :album_audio, album.album_audio.build do |aa|
-        .test_form_data_attr
-          = aa.label :audio_id, 'Title', class: :test_form_data_attr_label
-          = aa.collection_select :audio_id, selectable.audio, :id, :full_title, { include_blank: true }, { class: :test_form_data_attr_input_select }
-        .test_form_data_attr
-          = aa.label :album_order, 'order', class: :test_form_data_attr_label
-          = aa.text_field :album_order, autocomplete: :off, size: 4, class: :test_form_data_attr_input_text_field_inline
+        = render 'form_elements/collection_select', form: aa, attribute: :audio_id, collection: selectable.audio, label: 'Title', text_method: :full_title
+        = render 'form_elements/text_field_sized', form: aa, attribute: :audio_id, label: 'Order', size: 4
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
 
 - else
   .arl_form
-    .arl_form_data
-      .test_form_data_attr
-        .test_form_data_attr_label No audio.
+    .test_form_null No audio.

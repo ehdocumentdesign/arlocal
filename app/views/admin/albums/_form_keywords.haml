@@ -1,5 +1,6 @@
 .arl_form_title
   = album_statement_keywords_count(album)
+
 - if album.does_have_keywords
   = form_with(model: [:admin, album], url: admin_album_path(album, pane: :keywords), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data

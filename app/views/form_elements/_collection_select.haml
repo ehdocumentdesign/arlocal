@@ -3,6 +3,6 @@
     = form.label attribute, label, class: :test_form_data_attr_label
   - else
     = form.label attribute, class: :test_form_data_attr_label
-  = form.text_field attribute, size: size, class: :test_form_data_attr_input_text_field_inline
+  = form.collection_select attribute, collection, :id, text_method, { include_blank: local_assigns[:blank], selected: form.object.public_send(attribute) }, { class: :test_form_data_attr_input_select }
   - if local_assigns[:aside]
     %aside.test_form_data_attr_explanation= "#{aside}"

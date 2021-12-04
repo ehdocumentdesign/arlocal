@@ -2,7 +2,7 @@
   Add picture(s) by keyword
 
 - if selectable.does_have_keywords
-  = form_with(model: [:admin, album], url: admin_album_add_pictures_by_keyword_path(album, pane: :pictures), local: true, class: [:arl_form]) do |f|
+  = form_with model: [:admin, album], url: admin_album_add_pictures_by_keyword_path(album, pane: :pictures), local: true, class: :arl_form do |f|
     .arl_form_data
       = render 'form_elements/add_by_keyword', form: f, selectable: selectable, text_method: :title_with_pictures_count
     .arl_form_actions

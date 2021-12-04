@@ -2,7 +2,7 @@
   Add audio by keyword
 
 - if selectable.does_have_keywords
-  = form_with(model: [:admin, album], url: admin_album_add_audio_by_keyword_path(album, pane: :audio), local: true, class: [:arl_form], method: :patch) do |f|
+  = form_with model: [:admin, album], url: admin_album_add_audio_by_keyword_path(album, pane: :audio), local: true, class: :arl_form, method: :patch do |f|
     .arl_form_data
       = render 'form_elements/add_by_keyword', form: f, selectable: selectable, text_method: :title_with_audio_count
     .arl_form_actions
