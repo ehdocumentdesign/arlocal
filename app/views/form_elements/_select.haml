@@ -1,9 +1,15 @@
-.arl_form_data_attr.arl_form_layout_blocks
-  - if local_assigns[:label]
-    = form.label attribute, label, class: :arl_form_data_label_block
-  - else
-    = form.label attribute, class: :arl_form_data_label_block
-  .arl_form_layout_multifield
-    = form.select attribute, selectable, { selected: form.object.public_send(attribute) }, { class: :arl_form_data_select }
+.test_form_data_attr
+  = form.label attribute, ( local_assigns[:label] ? label : attribute ), class: :test_form_data_attr_label
+  = form.select attribute, selectable, { selected: form.object.public_send(attribute) }, { class: :test_form_data_attr_input_select }
   - if local_assigns[:aside]
     %aside.arl_form_data_attr_explanation= "#{aside}"
+
+-# .test_form_data_attr
+-#   - if local_assigns[:label]
+-#     = form.label attribute, label, class: :arl_form_data_label_block
+-#   - else
+-#     = form.label attribute, class: :arl_form_data_label_block
+-#   .arl_form_layout_multifield
+-#     = form.select attribute, selectable, { selected: form.object.public_send(attribute) }, { class: :arl_form_data_select }
+-#   - if local_assigns[:aside]
+-#     %aside.arl_form_data_attr_explanation= "#{aside}"

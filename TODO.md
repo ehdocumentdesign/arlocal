@@ -29,6 +29,14 @@
 - form_pictures exerwhere
 - picture_selector in join_single
 
+- Admin::ArlocalSettings?admin
+  - options for select & selectable & form_elements/select form_elements_arls/select_sorter
+    - The map method for the form builder is located within the lib/InactiveRecord module and FormMetadata::Selectable
+    - For clarity, should it be refactored into the form builder or partial?
+    - As things stand, it's not clear how the collection and value/text methods get delivered to the form
+- Admin::ArlocalSettings?icon
+  - purge_attachment has not been refactored into new grid css
+
 
 ## Medium priority
 

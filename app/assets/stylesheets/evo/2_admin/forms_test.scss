@@ -6,20 +6,21 @@
 
 .test_form_data_attr {
   display: grid;
-  // grid-template-areas: 'checkbox label inline .' '. explanation explanation .' '. input input .';
-  // grid-template-columns: 1.5rem auto auto 1.5rem;
-  grid-template-areas: 'label inline' 'explanation explanation' 'input input' 'thumbnail thumbnail';
-  grid-template-columns: auto auto;
+  grid-template-areas: 'checkbox label inline .' '. explanation explanation .' '. input input .' '. thumbnail thumbnail .';
+  grid-template-columns: 1.5rem auto auto 1.5rem;
+  // grid-template-areas: 'label inline' 'explanation explanation' 'input input' 'thumbnail thumbnail';
+  // grid-template-columns: auto auto;
   margin: $arl-margin-wide 0;
 }
 .test_form_data_attr_explanation {
   font-family: $font-family-admin-data-label;
+  font-size: 0.875em;
   grid-area: explanation;
 }
 .test_form_data_attr_input_checkbox {
   align-self: center;
-  grid-area: inline;
-  justify-self: end;
+  grid-area: checkbox;
+  justify-self: center;
 }
 .test_form_data_attr_input_file_upload {
   @include layout-flex-column-center;
@@ -27,6 +28,7 @@
   font-family: $font-family-admin-data-button;
   font-size: 1rem;
   grid-area: input;
+  margin: 0
 }
 .test_form_data_attr_input_select {
   grid-area: input;

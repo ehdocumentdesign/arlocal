@@ -2,11 +2,11 @@
   .arl_form_title Public view settings
 
   .arl_form_data
-    = render 'form_elements/select', attribute: :public_index_albums_sorter_id, form: f, label: 'Public Index – Albums – sort by', selectable: selectable.albums_index_sorters
-    = render 'form_elements/select', attribute: :public_index_audio_sorter_id, form: f, label: 'Public Index – Audio – sort by', selectable: selectable.audio_index_sorters
-    = render 'form_elements/select', attribute: :public_index_events_sorter_id, form: f, label: 'Public Index – Events – sort by', selectable: selectable.events_index_sorters
-    = render 'form_elements/select', attribute: :public_index_pictures_sorter_id, form: f, label: 'Public Index – Pictures – sort by', selectable: selectable.pictures_index_sorters, aside: form_message_picture_datetime_cascade
-    = render 'form_elements/select', attribute: :public_index_videos_sorter_id, form: f, label: 'Public Index – Videos – sort by', selectable: selectable.videos_index_sorters
+    = render 'form_elements_arls/select_sorter', attribute: :public_index_albums_sorter_id, form: f, label: 'Public Index – Albums – sort by', selectable: selectable.albums_index_sorters
+    = render 'form_elements_arls/select_sorter', attribute: :public_index_audio_sorter_id, form: f, label: 'Public Index – Audio – sort by', selectable: selectable.audio_index_sorters
+    = render 'form_elements_arls/select_sorter', attribute: :public_index_events_sorter_id, form: f, label: 'Public Index – Events – sort by', selectable: selectable.events_index_sorters
+    = render 'form_elements_arls/select_sorter', attribute: :public_index_pictures_sorter_id, form: f, label: 'Public Index – Pictures – sort by', selectable: selectable.pictures_index_sorters, aside: form_message_picture_datetime_cascade
+    = render 'form_elements_arls/select_sorter', attribute: :public_index_videos_sorter_id, form: f, label: 'Public Index – Videos – sort by', selectable: selectable.videos_index_sorters
     = render 'form_elements/check_box', attribute: :public_nav_can_include_albums, form: f
     -# = render 'form_elements/check_box', attribute: :public_nav_can_include_audio, form: f
     = render 'form_elements/check_box', attribute: :public_nav_can_include_events, form: f

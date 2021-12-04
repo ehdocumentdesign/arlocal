@@ -1,7 +1,7 @@
 .test_form_data_attr
-  = form.check_box attribute, class: :test_form_data_attr_input_checkbox
   = form.label attribute, class: :test_form_data_attr_label
-- if local_assigns[:aside]
-  %aside.test_form_data_attr_explanation= "#{aside}"
-- if local_assigns[:not_yet_implemented] == true
-  .not_yet_implemented
+  = form.check_box attribute, class: :test_form_data_attr_input_checkbox
+  - if local_assigns[:aside]
+    %aside.test_form_data_attr_explanation= "#{aside}"
+  - if local_assigns[:not_yet_implemented] == true
+    .not_yet_implemented
