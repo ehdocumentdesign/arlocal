@@ -163,3 +163,11 @@
   margin-top: $arl-margin-wide;
   margin-bottom: $arl-margin-wide;
 }
+
+.test_form_null {
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
+  list-style-type: none;
+  margin: $arl-spacing;
+  text-align: center;
+}

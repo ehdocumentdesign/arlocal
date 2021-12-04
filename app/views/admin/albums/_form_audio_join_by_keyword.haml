@@ -4,13 +4,10 @@
 - if selectable.does_have_keywords
   = form_with(model: [:admin, album], url: admin_album_add_audio_by_keyword_path(album, pane: :audio), local: true, class: [:arl_form], method: :patch) do |f|
     .arl_form_data
-      .test_form_data_attr
-        = f.collection_select :keywords, selectable.keywords, :id, :title_with_audio_count, { include_blank: true }, { class: :test_form_data_attr_input_select }
+      = render 'form_elements/add_by_keyword', form: f, selectable: selectable, text_method: :title_with_audio_count
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
 
 - else
   .arl_form
-    .arl_form_data
-      .test_form_data_attr
-        .test_form_data_attr_label No keywords.
+    .test_form_null No keywords.
