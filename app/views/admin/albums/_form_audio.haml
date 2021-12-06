@@ -1,5 +1,6 @@
 .arl_form_title
   = album_statement_audio_count(album)
+
 - if album.does_have_audio
   = form_with(model: [:admin, album], url: admin_album_path(album, pane: :audio), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data

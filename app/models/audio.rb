@@ -133,7 +133,7 @@ class Audio < ApplicationRecord
 
   def does_not_have_attached(attribute)
     case attribute
-    when :recording
+    when :source_attachment
       self.source_attachment.attached? == false
     end
   end

@@ -1,0 +1,14 @@
+.arl_form_title
+  Add a keyword
+
+- if selectable.does_have_keywords
+  = form_with model: [:admin, audio], url: admin_audio_path(audio, pane: :keywords), local: true, class: :arl_form, method: :patch do |f|
+    .arl_form_data
+      = f.fields_for :audio_keywords, audio.audio_keywords.build do |ak|
+        = render 'form_elements/collection_select', form: ak, attribute: :keyword_id, blank: true, collection: selectable.keywords, label: 'Keyword', text_method: :title
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- else
+  .arl_form
+    .test_form_null No keywords.

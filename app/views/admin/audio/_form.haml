@@ -3,9 +3,10 @@
     Audio Details
   .arl_form_data
     = render 'form_elements/text_field',      attribute: :title,              form: f
+    = render 'form_elements/text_field',      attribute: :subtitle,           form: f
     = render 'form_elements/check_box',       attribute: :published,          form: f
     = render 'form_elements/check_box',       attribute: :indexed,            form: f
-    = render 'form_elements/text_field',      attribute: :subtitle,           form: f
+    = render 'form_elements/spacer'
     = render 'form_elements/text_field',      attribute: :audio_artist,       form: f
     = render 'form_elements/text_field',      attribute: :composer,           form: f
     = render 'form_elements/parseable_area',  attribute: :copyright,          form: f, selectable: selectable

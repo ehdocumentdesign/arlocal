@@ -7,5 +7,4 @@
     = render 'form_elements/text_field',       attribute: :source_catalog_file_path,  form: f, aside: "#{catalog_dirname(trailing_separator: true)}"
     -#= render 'form_elements/text_field',       attribute: :source_url,                form: f, aside_before: "catalog/#{catalog_path_suffix_audio}/"
   .arl_form_actions
-    .arl_form_action_submit
-      = f.submit class: :arl_button_form_submit
+    = f.submit class: :arl_button_form_submit

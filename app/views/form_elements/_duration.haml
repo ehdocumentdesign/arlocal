@@ -1,18 +1,18 @@
-.arl_form_data_attr.arl_form_layout_blocks
-  %label.arl_form_data_label Duration
-  .arl_form_layout_inline
-    .arl_form_layout_blocks
-      = form.label :duration_hrs, 'hrs', class: :arl_form_data_attr_explanation
-      = form.text_field :duration_hrs, size: 3, class: :arl_form_data_text_field
+.test_form_data_attr
+  %label.test_form_data_attr_label Duration
+  .test_form_data_attr_multi
+    .test_form_data_attr_multi_field
+      = form.label :duration_hrs, 'hrs', class: :test_form_data_attr_multi_label
+      = form.text_field :duration_hrs, size: 3, class: :test_form_data_attr_input_text_field
     .arl_form_layout_time_separator= ':'
-    .arl_form_layout_blocks
-      = form.label :duration_mins, 'mins', class: :arl_form_data_attr_explanation
-      = form.text_field :duration_mins, size: 4, maxlength: 3, class: :arl_form_data_text_field
+    .test_form_data_attr_multi_field
+      = form.label :duration_mins, 'mins', class: :test_form_data_attr_multi_label
+      = form.text_field :duration_mins, size: 3, maxlength: 2, class: :test_form_data_attr_input_text_field
     .arl_form_layout_time_separator= ':'
-    .arl_form_layout_blocks
-      = form.label :duration_secs, 'secs', class: :arl_form_data_attr_explanation
-      = form.text_field :duration_secs, size: 4, maxlength: 3, class: :arl_form_data_text_field
+    .test_form_data_attr_multi_field
+      = form.label :duration_secs, 'secs', class: :test_form_data_attr_multi_label
+      = form.text_field :duration_secs, size: 3, maxlength: 2, class: :test_form_data_attr_input_text_field
     .arl_form_layout_time_separator= '.'
-    .arl_form_layout_blocks
-      = form.label :duration_mils, 'mils', class: :arl_form_data_attr_explanation
-      = form.text_field :duration_mils, size: 4, maxlength: 3, class: :arl_form_data_text_field
+    .test_form_data_attr_multi_field
+      = form.label :duration_mils, 'mils', class: :test_form_data_attr_multi_label
+      = form.text_field :duration_mils, size: 3, maxlength: 3, class: :test_form_data_attr_input_text_field

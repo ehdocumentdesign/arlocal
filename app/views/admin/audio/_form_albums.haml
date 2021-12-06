@@ -1,34 +1,29 @@
 .arl_form_title
   = audio_statement_albums_count(audio)
+
 - if audio.does_have_albums
-  = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :albums), local: true, class: :arl_form, method: :patch) do |f|
+  = form_with model: [:admin, audio], url: admin_audio_path(audio, pane: :albums), local: true, class: :arl_form, method: :patch do |f|
     .arl_form_data
-      %table.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading album title
-          %th.arl_form_data_resource_heading order
-          %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :album_audio do |aa|
-          %tr
-            %td.arl_form_data_resource_value= album_reference_admin_link(aa.object.album)
-            %td.arl_form_data_resource_value= aa.text_field :album_order, size: 4, class: :arl_form_data_number_field
-            %td.arl_form_data_resource_remove= aa.check_box :_destroy
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headings
+            %th.test_form_data_joins_heading album title
+            %th.test_form_data_joins_heading order
+            %th.test_form_data_joins_heading= icon_remove
+        %tbody
+          = f.fields_for :album_audio do |aa|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= album_reference_admin_link(aa.object.album)
+              %td.test_form_data_joins_value= aa.text_field :album_order, autocomplete: :off, size: 4, class: :test_form_data_attr_input_text_field_inline
+              %td.test_form_data_joins_value= aa.check_box :_destroy, class: :test_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detach any albums with '#{icon_destroy}' box checked"
 
-- if selectable.does_have_albums
-  = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :albums), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
-    .arl_form_title
-      Add audio to album
-    .arl_form_data
-      = f.fields_for :album_audio, audio.album_audio.build do |aa|
-        .arl_form_data_attr.arl_form_layout_center
-          .arl_form_layout_blocks
-            = aa.collection_select :album_id, selectable.albums, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
-        .arl_form_data_attr.arl_form_layout_center
-          .arl_form_layout_blocks
-            = aa.label :album_order, class: :arl_form_data_label
-            = aa.text_field :album_order, size: 4, class: :arl_form_data_number_field
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add to album
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = audio_album_admin_button_to_new_join_single(audio)

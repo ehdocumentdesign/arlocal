@@ -81,6 +81,21 @@ module AudioHelper
   end
 
 
+  def audio_album_admin_button_to_new_join_single(audio)
+    button_admin_to_new_join_single edit_admin_audio_path(audio.id_admin, pane: :album_join_single)
+  end
+
+
+  def audio_event_admin_button_to_new_join_single(audio)
+    button_admin_to_new_join_single edit_admin_audio_path(audio.id_admin, pane: :event_join_single)
+  end
+
+
+  def audio_keyword_admin_button_to_new_join_single(audio)
+    button_admin_to_new_join_single edit_admin_audio_path(audio.id_admin, pane: :keyword_join_single)
+  end
+
+
   def audio_file_source_path_with_indicators(audio, html_class: [])
     filename = ''
     html_class = [html_class].flatten

@@ -1,27 +1,27 @@
-.arl_form_title= audio_statement_keywords_count(audio)
-- if audio.does_have_keywords
-  = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :keywords), local: true, class: :arl_form, method: :patch) do |f|
-    .arl_form_data
-      %table.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading keyword title
-          %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :audio_keywords do |ak|
-          %tr
-            %td.arl_form_data_resource_value= keyword_reference_admin_link(ak.object.keyword)
-            %td.arl_form_data_resource_remove= ak.check_box :_destroy
+.arl_form_title
+  = audio_statement_keywords_count(audio)
 
+- if audio.does_have_keywords
+  = form_with model: [:admin, audio], url: admin_audio_path(audio, pane: :keywords), local: true, class: :arl_form, method: :patch do |f|
+    .arl_form_data
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headings
+            %th.test_form_data_joins_heading keyword title
+            %th.test_form_data_joins_heading= icon_remove
+        %tbody
+          = f.fields_for :audio_keywords do |ak|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= keyword_reference_admin_link(ak.object.keyword)
+              %td.test_form_data_joins_value= ak.check_box :_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also unjoin any keywords with '#{icon_destroy}' box checked"
 
-- if selectable.does_have_keywords
-  = form_with(model: [:admin, audio], url: admin_audio_path(audio, pane: :keywords), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
-    .arl_form_title Add a keyword
-    .arl_form_data
-      = f.fields_for :audio_keywords, audio.audio_keywords.build do |ak|
-        .arl_form_data_attr.arl_form_layout_center
-          =# ak.label :keyword_id
-          = ak.collection_select :keyword_id, selectable.keywords, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add keyword
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = audio_keyword_admin_button_to_new_join_single(audio)

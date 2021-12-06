@@ -11,10 +11,17 @@
   > - app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2
 
 - give a title to nested_picture uploads/imports
+
 - Which parsers are obsolete? **Seems right.**
   - HTML = Iframe
   - HTML P = simpleformat
   - HTML PRE = markdown
+- Only allow iframe in video embedding.
+
+- Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
+
+- Does audio view still use _form_attachment* ?
+
 
 - TODO: Button spacing in admin forms
 
@@ -36,6 +43,8 @@
     - As things stand, it's not clear how the collection and value/text methods get delivered to the form
 - Admin::ArlocalSettings?icon
   - purge_attachment has not been refactored into new grid css
+
+- Should auto_keyword be in the top part of a form?
 
 
 ## Medium priority

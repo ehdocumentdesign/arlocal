@@ -1,26 +1,25 @@
 = form_with(model: [:admin, audio], url: admin_audio_refresh_id3_path(audio, pane: :id3), local: true, method: :patch, class: :arl_form) do |f|
+  .arl_form_title
+    Audio ID3
+
+  %ul.test_form_explanation
+    %li.test_form_explanation_caveat Press "Update Auto" to reload the following information from the audio recording file.
+  %ul.test_form_explanation
+    %li.test_form_explanation_warning This cannot be undone.
+
   .arl_form_data
-    .arl_form_title
-      Audio ID3
-    .arl_form_data_attr.arl_form_data_blocks
-      %aside.arl_form_data_attr_explanation
-        Press "Refresh" to reload the following information using the audio recording file.
-      %aside.arl_form_data_attr_explanation
-        %em This cannot be undone.
-    
-    .arl_metadata
-      .arl_metdata_pair
-        .arl_metadata_key Artist
-        .arl_metadata_value= audio.artist
-      .arl_metdata_pair
-        .arl_metadata_key Duration
-        .arl_metadata_value= audio.duration_as_text
-      .arl_metdata_pair
-        .arl_metadata_key Artist
-        .arl_metadata_value= audio.artist
-      .arl_metdata_pair
-        .arl_metadata_key Date
-        .arl_metadata_value= audio.year
-    
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+    .test_form_data_attr
+      .test_form_data_attr_label Artist
+      .test_form_data_attr_value= audio.artist
+    .test_form_data_attr
+      .test_form_data_attr_label Duration
+      .test_form_data_attr_value= audio.duration_as_text
+    .test_form_data_attr
+      .test_form_data_attr_label Artist
+      .test_form_data_attr_value= audio.artist
+    .test_form_data_attr
+      .test_form_data_attr_label Date
+      .test_form_data_attr_value= audio.year
+
+  .arl_form_actions
+    = f.submit class: :arl_button_form_submit

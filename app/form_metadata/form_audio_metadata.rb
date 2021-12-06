@@ -5,7 +5,7 @@ class FormAudioMetadata
 
 
   def initialize(pane: :audio)
-    pane = ((pane == nil) ? :audio : pane.to_sym.downcase)
+    pane = (pane == nil ? :audio : pane).to_sym.downcase
 
     @nav_categories = FormAudioMetadata.categories
     @partial_name = determine_partial_name(pane)
@@ -39,10 +39,16 @@ class FormAudioMetadata
     case pane
     when :audio
       'form'
+    when :album_join_single
+      'form_album_join_single'
     when :albums
       'form_albums'
+    when :event_join_single
+      'form_event_join_single'
     when :events
       'form_events'
+    when :keyword_join_single
+      'form_keyword_join_single'
     when :keywords
       'form_keywords'
     when :id3
@@ -67,11 +73,8 @@ class FormAudioMetadata
   def determine_tab_name(pane)
     if FormAudioMetadata.categories.include?(pane)
       pane
-    else
-      :audio
     end
   end
-
 
 
   class Selectables
@@ -85,13 +88,13 @@ class FormAudioMetadata
     )
     def initialize(pane)
       case pane
-      when :albums
+      when :album_join_single
         @albums = QueryAlbums.options_for_select_admin
       when :audio
         @markup_parsers = MarkupParser.options_for_select
-      when :events
+      when :event_join_single
         @events = QueryEvents.options_for_select_admin
-      when :keywords
+      when :keyword_join_single
         @keywords = QueryKeywords.options_for_select_admin
       when :source
         @source_types = Audio.source_type_options_for_select

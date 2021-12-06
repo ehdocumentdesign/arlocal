@@ -59,12 +59,12 @@
   padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
 }
 .test_form_data_attr_input_text_field_inline {
-  grid-area: inline;
-  justify-self: end;
+  grid-area: input;
+  justify-self: start;
   border: $border-light;
   font-size: 0.9em;
   font-family: $font-family-admin-data-value;
-  margin-left: $arl-margin;
+  // margin-left: $arl-margin;
   padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
 }
 .test_form_data_attr_label {
@@ -78,6 +78,15 @@
   display: flex;
   flex-direction: row;
 }
+.test_form_data_attr_multi_field {
+  display: grid;
+  grid-template-areas: 'label' 'input';
+}
+.test_form_data_attr_multi_label {
+  align-self: center;
+  font-family: $font-family-admin-data-label;
+  grid-area: label;
+}
 .test_form_data_attr_thumbnail_image {
   @include border-rounded-img;
   border: 1px purple solid;
@@ -88,24 +97,9 @@
   max-height: 8rem;
   max-width: 8rem;
 }
-
-.test_form_data_destroy {}
-.test_form_data_destroy_explanation {
-  margin: $arl-margin 0rem;
-}
-.test_form_data_destroy_explanation_caveat {
+.test_form_data_attr_value {
+  grid-area: input;
   font-family: $font-family-admin-data-value;
-  font-size: 0.875em;
-  list-style-type: none;
-  margin: 0;
-  text-align: center;
-}
-.test_form_data_destroy_explanation_warning {
-  font-family: $font-family-admin-data-value;
-  font-weight: bold;
-  list-style-type: none;
-  margin: 0;
-  text-align: center;
 }
 
 
@@ -158,13 +152,25 @@
 
 
 
-.test_form_data_spacer {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: $arl-margin-wide;
-  margin-bottom: $arl-margin-wide;
+.test_form_explanation {
+  margin: $arl-margin 0rem;
 }
+.test_form_explanation_caveat {
+  font-family: $font-family-admin-data-value;
+  font-size: 0.875em;
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
+}
+.test_form_explanation_warning {
+  font-family: $font-family-admin-data-value;
+  font-weight: bold;
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
+}
+
+
 
 .test_form_null {
   font-family: $font-family-admin-data-label;
@@ -172,4 +178,14 @@
   list-style-type: none;
   margin: $arl-spacing;
   text-align: center;
+}
+
+
+
+.test_form_spacer {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $arl-margin-wide;
+  margin-bottom: $arl-margin-wide;
 }

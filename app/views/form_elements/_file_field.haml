@@ -1,13 +1,14 @@
 .test_form_data_attr
   = form.label (local_assigns[:label] ? label : attribute), class: :test_form_data_attr_label
+
   - if local_assigns[:aside_before]
-    %aside.test_form_data_attr_explanation= "#{aside_before}"
+    %aside.test_form_data_attr_explanation= "#{local_assigns[:aside_before]}"
+
   - if form.object.does_not_have_attached(attribute)
     = form.file_field attribute, class: :test_form_data_attr_input_file_upload
+
   - if form.object.does_have_attached(attribute)
     .arl_form_data_attached_active_storage
-      .arl_form_data_attached_active_storage_filename
-        = form.object.method(attribute).call.blob.filename
+      .arl_form_data_attached_active_storage_filename= form.object.method(attribute).call.blob.filename
       - if local_assigns[:purge_path]
-        .arl_form_data_attached_active_storage_purge_link
-        = link_to 'purge attachment', purge_path
+        .arl_form_data_attached_active_storage_purge_link= link_to 'purge attachment', purge_path
