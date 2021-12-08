@@ -9,7 +9,6 @@ class Event < ApplicationRecord
   friendly_id :slug_candidates, use: :slugged
 
   before_validation :strip_whitespace_edges_from_entered_text
-  before_validation :ensure_critical_attributes_have_default_values
   before_validation :create_attr_title_without_markup
 
   validates :details_parser_id, presence: true

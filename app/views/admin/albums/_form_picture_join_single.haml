@@ -2,7 +2,7 @@
   Add picture
 
 - if selectable.does_have_pictures
-  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: [:arl_form]) do |f|
+  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: :arl_form) do |f|
     .arl_form_data
       = f.fields_for :album_pictures, album.album_pictures.build do |ap|
         = render 'form_elements/picture_select', form: ap, selectable: selectable

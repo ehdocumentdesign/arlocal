@@ -1,0 +1,14 @@
+.arl_form_title
+  Add a keyword
+
+- if selectable.does_have_keywords
+  = form_with model: [:admin, event], url: admin_event_path(event, pane: :keywords), local: true, class: :arl_form, method: :patch do |f|
+    .arl_form_data
+      = f.fields_for :event_keywords, event.event_keywords.build do |ek|
+        = render 'form_elements/collection_select', form: ek, attribute: :keyword_id, blank: true, collection: selectable.keywords, text_method: :title
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- else
+  .arl_form
+    .test_form_null No keywords.

@@ -1,7 +1,8 @@
 .arl_form_title
   = album_statement_pictures_count(album)
+
 - if album.does_have_pictures
-  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: :arl_form) do |f|
+  = form_with(model: [:admin, album], url: admin_album_path(album, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
       .test_form_data_attr
         = f.label :album_pictures_sorter_id, 'Sort pictures by:', class: :test_form_data_attr_label

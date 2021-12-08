@@ -5,7 +5,7 @@
   = form_with model: [:admin, album], url: admin_album_path(album, pane: :audio), local: true, class: :arl_form, method: :patch do |f|
     .arl_form_data
       = f.fields_for :album_audio, album.album_audio.build do |aa|
-        = render 'form_elements/collection_select', form: aa, attribute: :audio_id, collection: selectable.audio, label: 'Title', text_method: :full_title
+        = render 'form_elements/collection_select', form: aa, attribute: :audio_id, blank: true, collection: selectable.audio, label: 'Title', text_method: :full_title
         = render 'form_elements/text_field_sized', form: aa, attribute: :album_order, label: 'Order', size: 4
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

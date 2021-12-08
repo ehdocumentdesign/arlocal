@@ -1,9 +1,9 @@
 .arl_form_title
   Upload picture
 
-= form_with(model: [:admin, event], local: true, url: admin_event_picture_create_from_upload_path(event)) do |f|
-  = f.fields_for :pictures, f.object.pictures.build do |e|
-    .arl_form_data_attr.arl_form_layout_blocks
-      = e.file_field :source_attachment, multiple: false, direct_upload: true, class: :arl_button_file_upload
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= form_with model: [:admin, event], local: true, url: admin_event_picture_create_from_upload_path(event), class: :arl_form do |f|
+  .arl_form_data
+    = f.fields_for :pictures, f.object.pictures.build do |e|
+      = render 'form_elements/file_upload', attribute: :source_attachment, form: e
+  .arl_form_actions
+    = f.submit class: :arl_button_form_submit

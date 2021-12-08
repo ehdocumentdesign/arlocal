@@ -45,6 +45,8 @@ class FormEventMetadata
       'form_audio_join_by_keyword'
     when :audio_join_single
       'form_audio_join_single'
+    when :keyword_join_single
+      'form_keyword_join_single'
     when :keywords
       'form_keywords'
     when :picture_import
@@ -98,7 +100,7 @@ class FormEventMetadata
         @keywords = QueryKeywords.options_for_select_admin
       when :audio_join_single
         @audio = QueryAudio.options_for_select_admin
-      when :keywords
+      when :keyword_join_single
         @keywords = QueryKeywords.options_for_select_admin
       when :picture_join_by_keyword
         @keywords = QueryKeywords.options_for_select_admin

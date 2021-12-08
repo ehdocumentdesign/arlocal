@@ -1,35 +1,32 @@
 .arl_form_title
   = event_statement_pictures_count(event)
+
 - if event.does_have_pictures
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :event_pictures_sorter_id, 'Sort pictures by:', class: :arl_form_data_label_block
-        = f.select :event_pictures_sorter_id, selectable.event_pictures_sorters, {selected: f.object.event_pictures_sorter_id}, {class: :arl_form_data_select}
-      %table.arl_form_data_resource_gallery
+      .test_form_data_attr
+        = f.label :event_pictures_sorter_id, 'Sort pictures by:', class: :test_form_data_attr_label
+        = f.select :event_pictures_sorter_id, selectable.event_pictures_sorters, {selected: f.object.event_pictures_sorter_id}, {class: :test_form_data_attr_input_select}
+      .test_form_data_joins
         = f.fields_for :event_pictures do |ep|
-          %tr.arl_form_data_resource_gallery_item
-            %td.arl_form_data_resource_gallery_thumbnail= render 'admin/shared/form_picture_thumbnail', form: ep
-            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_metadata', form: ep, picture_sorter: event.event_pictures_sorter, resource_order: :event_order
-            -# = render 'admin/shared/form_picture_label', form: ep
-            -# = render 'admin/shared/form_picture_coverpicture_select', form: ep
-            -# - case event.event_pictures_sorter.symbol
-            -#   - when :cover_datetime_asc, :cover_datetime_desc
-            -#     = render 'admin/shared/form_picture_datetime', form: ap
-            -#   - when :cover_manual_asc, :cover_manual_desc
-            -#     = render 'admin/shared/form_picture_order', form: ap, resource_order: :event_order
-            %td.arl_form_data_resource_gallery_data= render 'admin/shared/form_picture_remove', form: ep
+          .test_form_data_joins_picture
+            = render 'form_elements/joins_picture_thumbnail', form: ep
+            = render 'form_elements/joins_picture_title', form: ep
+            = render 'form_elements/joins_picture_coverpicture', form: ep
+            = render 'form_elements/joins_picture_order', form: ep, resource_order: :event_order
+            = render 'form_elements/joins_picture_remove', form: ep
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation
         = "will also detach any pictures with the #{icon_remove} box checked"
 
-.arl_form.arl_border_top
-  .arl_form_title
-    Add picture
-  .arl_form_actions
-    .arl_admin_resource_alt_buttons
-      = event_picture_admin_button_to_new_join_single(event)
-      = event_picture_admin_button_to_new_import(event)
-      = event_picture_admin_button_to_new_upload(event)
-      = event_picture_admin_button_to_new_join_by_keyword(event)
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add picture
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = event_picture_admin_button_to_new_join_single(event)
+    = event_picture_admin_button_to_new_import(event)
+    = event_picture_admin_button_to_new_upload(event)
+    = event_picture_admin_button_to_new_join_by_keyword(event)

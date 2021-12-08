@@ -2,21 +2,14 @@
   Add audio
 
 - if selectable.does_have_audio
-  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: [:arl_form], method: :patch) do |f|
+  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
       = f.fields_for :event_audio, event.event_audio.build do |ea|
-        .arl_form_data_attr
-          .arl_form_layout_blocks
-            = ea.label :audio_id, 'Title', class: :arl_form_data_label
-            = ea.collection_select :audio_id, selectable.audio, :id, :full_title, {include_blank: true}, {class: :arl_form_data_select}
-          .arl_form_layout_inline
-            = ea.label :event_order, 'order', class: :arl_form_data_label
-            = ea.text_field :event_order, autocomplete: :off, size: 4, class: :arl_form_data_number_field
+        = render 'form_elements/collection_select', form: ea, attribute: :audio_id, blank: true, collection: selectable.audio, label: 'Title', text_method: :full_title
+        = render 'form_elements/text_field_sized', form: ea, attribute: :event_order, label: 'Order', size: 4
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
 
 - else
   .arl_form
-    .arl_form_data
-      .arl_form_data_attr.arl_form_layout_center
-        .arl_form_data_label_block No audio.
+    .test_form_null No audio.

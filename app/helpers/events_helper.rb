@@ -80,6 +80,11 @@ module EventsHelper
   end
 
 
+  def event_keyword_admin_button_to_new_join_single(event)
+    button_admin_to_new_join_single edit_admin_event_path(event.id_admin, pane: :keyword_join_single)
+  end
+
+
   def event_linkable_city(event)
     if event.does_have_map_url
       event_linked_city(event)

@@ -1,28 +1,27 @@
 .arl_form_title
   = event_statement_keywords_count(event)
+
 - if event.does_have_keywords
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :keywords), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.arl_form_data_attr.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading title
-          %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :event_keywords do |ek|
-          %tr
-            %td.arl_form_data_resource_value= keyword_reference_admin_link(ek.object.keyword)
-            %td.arl_form_data_resource_remove= ek.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headings
+            %th.test_form_data_joins_heading title
+            %th.test_form_data_joins_heading= icon_remove
+        %tbody
+          = f.fields_for :event_keywords do |ek|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= ek.label :keyword_title, keyword_reference_admin_link(ek.object.keyword)
+              %td.test_form_data_joins_value= ek.check_box :_destroy, class: :test_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detatch any keywords with '#{icon_destroy}' box checked"
 
-- if selectable.does_have_keywords
-  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :keywords), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
-    .arl_form_title
-      Add a keyword
-    .arl_form_data
-      = f.fields_for :event_keywords, event.event_keywords.build do |ek|
-        .arl_form_data_attr.arl_form_layout_center
-          =# ek.label :keyword_id
-          = ek.collection_select :keyword_id, selectable.keywords, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add keyword
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = event_keyword_admin_button_to_new_join_single(event)

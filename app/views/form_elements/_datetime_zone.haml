@@ -1,28 +1,26 @@
-.arl_form_data_attr.arl_form_layout_blocks_wide
-  %label.arl_form_data_label Date/time of event start:
-  .arl_form_layout_inline_wrap
-    .arl_form_layout_datetime
-      .arl_form_layout_blocks
-        = form.label :datetime_year, 'year', class: :arl_form_data_label_dependent
-        = form.select :datetime_year, 2000..(Date.current.year + 3), {selected: form.object.datetime_year, include_blank: false}, {class: :arl_form_data_select}
-      .arl_form_layout_time_separator= '-'
-      .arl_form_layout_blocks
-        = form.label :datetime_month, 'month', class: :arl_form_data_label_dependent
-        = form.select :datetime_month, (01..12).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_month, include_blank: false}, {class: :arl_form_data_select}
-      .arl_form_layout_time_separator= '-'
-      .arl_form_layout_blocks
-        = form.label :datetime_day, 'day', class: :arl_form_data_label_dependent
-        = form.select :datetime_day, (01..31).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_day, include_blank: false}, {class: :arl_form_data_select}
-    .arl_form_layout_datetime
-      .arl_form_layout_blocks
-        = form.label :datetime_hour, 'hr', class: :arl_form_data_label_dependent
-        = form.select :datetime_hour, (00..23).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_hour, include_blank: false}, {class: :arl_form_data_select}
-      .arl_form_layout_time_separator= ':'
-      .arl_form_layout_blocks
-        = form.label :datetime_min, 'min', class: :arl_form_data_label_dependent
-        = form.select :datetime_min, (00..59).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_min, include_blank: false}, {class: :arl_form_data_select}
-
-.arl_form_data_attr.arl_form_layout_blocks
-  = form.label :datetime_zone, 'local time zone', class: :arl_form_data_label
-  .arl_form_layout_inline
-    = form.time_zone_select :datetime_zone, ActiveSupport::TimeZone.all, {default: Rails.application.config.time_zone}, {class: :arl_form_data_select}
+.test_form_data_attr
+  %label.test_form_data_attr_label Date/time of event start:
+  .test_form_data_attr_multi
+    .test_form_data_attr_multi_field
+      = form.label :datetime_year, 'year', class: :test_form_data_attr_multi_label
+      = form.select :datetime_year, 2000..(Date.current.year + 3), {selected: form.object.datetime_year, include_blank: false}, {class: :test_form_data_attr_input_select}
+    .arl_form_layout_time_separator= '-'
+    .test_form_data_attr_multi_field
+      = form.label :datetime_month, 'month', class: :test_form_data_attr_multi_label
+      = form.select :datetime_month, (01..12).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_month, include_blank: false}, {class: :test_form_data_attr_input_select}
+    .arl_form_layout_time_separator= '-'
+    .test_form_data_attr_multi_field
+      = form.label :datetime_day, 'day', class: :test_form_data_attr_multi_label
+      = form.select :datetime_day, (01..31).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_day, include_blank: false}, {class: :test_form_data_attr_input_select}
+    .arl_form_layout_time_separator= ' '
+    .test_form_data_attr_multi_field
+      = form.label :datetime_hour, 'hr', class: :test_form_data_attr_multi_label
+      = form.select :datetime_hour, (00..23).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_hour, include_blank: false}, {class: :test_form_data_attr_input_select}
+    .arl_form_layout_time_separator= ':'
+    .test_form_data_attr_multi_field
+      = form.label :datetime_min, 'min', class: :test_form_data_attr_multi_label
+      = form.select :datetime_min, (00..59).collect {|n| [n.to_s.rjust(2,'0'), n]}, {selected: form.object.datetime_min, include_blank: false}, {class: :test_form_data_attr_input_select}
+    .arl_form_layout_time_separator= ' '
+    .test_form_data_attr_multi_field
+      = form.label :datetime_zone, 'time zone', class: :test_form_data_attr_multi_label
+      = form.time_zone_select :datetime_zone, ActiveSupport::TimeZone.all, {default: Rails.application.config.time_zone}, {class: :test_form_data_attr_input_select_small}

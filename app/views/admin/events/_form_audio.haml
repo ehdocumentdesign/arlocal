@@ -1,28 +1,32 @@
 .arl_form_title
   = event_statement_audio_count(event)
+
 - if event.does_have_audio
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.arl_form_data_attr.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading title
-          %th.arl_form_data_resource_heading order
-          %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :event_audio do |ea|
-          %tr
-            %td.arl_form_data_resource_value= audio_reference_admin_link(ea.object.audio)
-            %td.arl_form_data_resource_value= ea.text_field :event_order, size: 4, class: :arl_form_data_number_field
-            %td.arl_form_data_resource_remove= ea.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headings
+            %th.test_form_data_joins_heading title
+            %th.test_form_data_joins_heading order
+            %th.test_form_data_joins_heading= icon_remove
+        %tbody
+          = f.fields_for :event_audio do |ea|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= audio_reference_admin_link(ea.object.audio)
+              %td.test_form_data_joins_value= ea.text_field :event_order, autocomplete: :off, size: 4, class: :test_form_data_attr_input_text_field
+              %td.test_form_data_joins_value= ea.check_box :_destroy, class: :test_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detach any audio with '#{icon_destroy}' box checked"
 
-.arl_form.arl_border_top
-  .arl_form_title
-    Add audio
-  .arl_form_actions
-    .arl_admin_resource_alt_buttons
-      = event_audio_admin_button_to_new_join_single(event)
-      = event_audio_admin_button_to_new_import(event)
-      = event_audio_admin_button_to_new_upload(event)
-      = event_audio_admin_button_to_new_join_by_keyword(event)
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add audio
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = event_audio_admin_button_to_new_join_single(event)
+    = event_audio_admin_button_to_new_import(event)
+    = event_audio_admin_button_to_new_upload(event)
+    = event_audio_admin_button_to_new_join_by_keyword(event)

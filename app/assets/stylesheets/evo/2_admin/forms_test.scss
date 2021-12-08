@@ -36,6 +36,13 @@
   font-size: 0.9em;
   font-family: $font-family-admin-data-value;
 }
+.test_form_data_attr_input_select_small {
+  grid-area: input;
+  border: $border-light;
+  width: 10em;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+}
 .test_form_data_attr_input_select_inline {
   grid-area: inline;
   justify-self: end;

@@ -3,9 +3,10 @@
     Event details
   .arl_form_data
     = render 'form_elements/parseable_field', attribute: :title,                    form: f, selectable: selectable
+    = render 'form_elements/datetime_zone',   attribute: :datetime,                 form: f
     = render 'form_elements/check_box',       attribute: :published,                form: f
     = render 'form_elements/check_box',       attribute: :indexed,                  form: f
-    = render 'form_elements/datetime_zone',   attribute: :datetime,                 form: f
+    = render 'form_elements/spacer'
     -# = render 'form_elements/slug_field',      attribute: :slug,                     form: f, arlocal_settings: @arlocal_settings
     = render 'form_elements/text_field',      attribute: :alert,                    form: f
     = render 'form_elements/text_field',      attribute: :city,                     form: f
