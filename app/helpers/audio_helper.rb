@@ -1,6 +1,9 @@
 module AudioHelper
 
 
+  require 'mediainfo'
+
+
   def audio_admin_button_to_done_editing(audio)
     button_admin_to_done_editing admin_audio_path(audio.id_admin)
   end
@@ -131,6 +134,34 @@ module AudioHelper
     when 'catalog'
       catalog_url(audio)
     end
+  end
+
+
+  def audio_read_source_metadata(audio)
+    metadata = nil
+    result = {}
+    case audio.source_type
+    when 'attachment'
+      if audio.source_attachment.attached?
+        audio.source_attachment.open do |a|
+          metadata = MediaInfo.from(a.path)
+        end
+      end
+    when 'catalog'
+      if File.exists?(catalog_file_path(audio))
+        metadata = MediaInfo.from(catalog_file_path(audio))
+      end
+    end
+    if MediaInfo::Tracks === metadata
+      dur_mins = metadata.general.duration.divmod(1000)[0].divmod(60)[0]
+      dur_secs = metadata.general.duration.divmod(1000)[0].divmod(60)[1]
+      dur_mils = metadata.general.duration.divmod(1000)[1]
+      result['Title'] = "#{metadata.general.track}"
+      result['Artist'] = "#{metadata.general.performer}"
+      result['Year'] = "© #{metadata.general.recorded_date}"
+      result['Duration'] = "#{dur_mins}:#{dur_secs}.#{dur_mils}"
+    end
+    result
   end
 
 

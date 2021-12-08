@@ -3,6 +3,9 @@
 
 ## HIGH priority
 
++ CSS Grid for admin forms checkbox **In Progress**
+- TODO: Button spacing in admin forms **In Progress**
+
 - what is this:
   > // TODO: figure out why this doesn't render border-bottom or border-top
   > // see .jp-type-playlist for border-bottom.
@@ -20,13 +23,7 @@
 
 - Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
 
-- Does audio view still use _form_attachment* ?
-
-
-- TODO: Button spacing in admin forms
-
-- 1_borders.scss
-  - refactor mixins that are image
+- Does audio view still use _form_attachment* ? **Probably not.**
 
 - eventshelper:158 why assign js empty?
 
@@ -36,18 +33,27 @@
 - form_pictures exerwhere
 - picture_selector in join_single
 
-- Admin::ArlocalSettings?admin
-  - options for select & selectable & form_elements/select form_elements_arls/select_sorter
-    - The map method for the form builder is located within the lib/InactiveRecord module and FormMetadata::Selectable
-    - For clarity, should it be refactored into the form builder or partial?
-    - As things stand, it's not clear how the collection and value/text methods get delivered to the form
 - Admin::ArlocalSettings?icon
   - purge_attachment has not been refactored into new grid css
 
 - Should auto_keyword be in the top part of a form?
 
 
+
 ## Medium priority
+
+- 1_borders.scss
+  - refactor mixins that are image
+
+- admin:audio#edit?id3 needs some refinement.
+  - columns
+  - is audio_helper the best place for the method?
+
+- Admin::ArlocalSettings?admin
+  - options for select & selectable & form_elements/select form_elements_arls/select_sorter
+  - The map method for the form builder is located within the lib/InactiveRecord module and FormMetadata::Selectable
+  - For clarity, should it be refactored into the form builder or partial?
+  - As things stand, it's not clear how the collection and value/text methods get delivered to the form
 
 - which partials can be refactored?
   - especially `_admin_[resource]_stats.haml`
@@ -59,9 +65,7 @@
   - Helpers::EventsHelper#event_public_filter_select
   - Helpers::PicturesHelper#picture_admin_filter_select
 
-+ Albums#Show: section/div nesting doesn't make sense.
-
-+ CSS Grid for admin forms checkbox
++ Albums#Show: section/div nesting doesn't make sense. **CSS Grid will fix this**
 
 
 ## Low Priority

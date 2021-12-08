@@ -287,6 +287,7 @@ class Audio < ApplicationRecord
     ]
   end
 
+
   def source_attachment_file_path
     if source_attachment.attached?
       source_attachment.blob.filename.to_s
