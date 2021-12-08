@@ -54,9 +54,40 @@ module InfopagesHelper
   def infopage_admin_edit_nav_button(infopage: nil, category: nil, current_pane: nil)
     button_admin_to_edit_pane(
       current_pane: current_pane,
-      target_link: edit_admin_infopage_path(infopage.id, pane: category),
+      target_link: edit_admin_infopage_path(infopage.id_admin, pane: category),
       target_pane: category
     )
+  end
+
+
+  def infopage_article_admin_button_to_new_join_single(infopage)
+    button_admin_to_new_join_single edit_admin_infopage_path(infopage.id_admin, pane: :article_join_single)
+  end
+
+
+  def infopage_link_admin_button_to_new_join_single(infopage)
+    button_admin_to_new_join_single edit_admin_infopage_path(infopage.id_admin, pane: :link_join_single)
+  end
+
+
+
+  def infopage_picture_admin_button_to_new_import(infopage)
+    button_admin_to_new_import edit_admin_infopage_path(infopage.id_admin, pane: :picture_import)
+  end
+
+
+  def infopage_picture_admin_button_to_new_join_by_keyword(infopage)
+    button_admin_to_new_join_by_keyword edit_admin_infopage_path(infopage.id_admin, pane: :picture_join_by_keyword)
+  end
+
+
+  def infopage_picture_admin_button_to_new_join_single(infopage)
+    button_admin_to_new_join_single edit_admin_infopage_path(infopage.id_admin, pane: :picture_join_single)
+  end
+
+
+  def infopage_picture_admin_button_to_new_upload(infopage)
+    button_admin_to_new_upload edit_admin_infopage_path(infopage.id_admin, pane: :picture_upload)
   end
 
 

@@ -28,7 +28,7 @@ end
   def edit
     @infopage = QueryInfopages.find_admin(params[:id])
     @infopage_neighbors = QueryInfopages.neighborhood_admin(@infopage, @arlocal_settings)
-    @form_metadata = FormInfopageMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @form_metadata = FormInfopageMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
   end
 
 
@@ -39,12 +39,55 @@ end
 
   def new
     @infopage = InfopageBuilder.build_with_defaults
-    @form_metadata = FormInfopageMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+    @form_metadata = FormInfopageMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
       @infopage.infopage_keywords.build(keyword_id: @auto_keyword.keyword_id)
     end
   end
+
+
+
+
+    def picture_create_from_import
+      @infopage = QueryInfopages.find_admin(params[:id])
+      @picture = PictureBuilder.create_from_import_nested_within_infopage(@infopage, params_infopage_permitted)
+      if @picture.save
+        flash[:notice] = 'Picture was successfully imported.'
+        redirect_to edit_admin_infopage_path(@infopage.id_admin, pane: :pictures)
+      else
+        @form_metadata = FormInfopageMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
+        flash[:notice] = 'Picture could not be imported.'
+        render 'edit'
+      end
+    end
+
+
+    def picture_create_from_upload
+      @infopage = QueryInfopages.find_admin(params[:id])
+      @picture = PictureBuilder.create_from_upload_nested_within_infopage(@infopage, params_infopage_permitted)
+      if @picture.save
+        flash[:notice] = 'Picture was successfully uploaded.'
+        redirect_to edit_admin_infopage_path(@infopage.id_admin, pane: :pictures)
+      else
+        if @arlocal_settings.admin_forms_auto_keyword_enabled
+          @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
+        end
+        @form_metadata = FormInfopageMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
+        flash[:notice] = 'Picture could not be uploaded.'
+        render 'edit'
+      end
+    end
+
+
+    def pictures_join_by_keyword
+      @keyword = QueryKeywords.find(params[:infopage][:keywords])
+      @infopage = QueryInfopages.find_admin(params[:id])
+      @infopage.pictures << QueryPictures.find_with_keyword(@keyword)
+      flash[:notice] = 'Infopage was successfully updated.'
+      redirect_to edit_admin_infopage_path(@infopage, pane: params[:pane])
+    end
+
 
 
   def show
@@ -59,7 +102,7 @@ end
       flash[:notice] = 'Info Page was successfuly updated.'
       redirect_to edit_admin_infopage_path(pane: params[:pane])
     else
-      @form_metadata = FormInfopageMetadata.new(pane: params[:pane], settings: @arlocal_settings)
+      @form_metadata = FormInfopageMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
       flash[:notice] = 'Info Page could not be updated.'
       render 'edit'
     end

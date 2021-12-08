@@ -1,0 +1,16 @@
+.arl_form_title
+  Add an article
+
+- if selectable.does_have_articles
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :articles), local: true, class: :arl_form, method: :patch) do |f|
+    .arl_form_data
+      = f.fields_for :infopage_articles, infopage.infopage_articles.build do |ia|
+        = render 'form_elements/collection_select', form: ia, attribute: :infopageable_id, blank: true, collection: selectable.articles, label: 'Article', text_method: :title
+        = render 'form_elements/select', form: ia, attribute: :infopage_group, blank: true, selectable: selectable.item_groups, label: 'Group'
+        = render 'form_elements/text_field_sized', form: ia, attribute: :infopage_group_order, autocomplete: :off, label: 'Order', size: 4
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- else
+  .arl_form
+    .test_form_null No articles.

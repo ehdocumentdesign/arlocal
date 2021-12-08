@@ -1,31 +1,31 @@
 .arl_form_title
   = infopage_statement_articles_count(infopage)
+
 - if infopage.does_have_articles
   = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :articles), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.arl_form_data_attr.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading title
-          %th.arl_form_data_resource_heading group
-          %th.arl_form_data_resource_heading order
-          %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :infopage_articles do |ia|
-          %tr
-            %td.arl_form_data_resource_value= article_reference_admin_link(ia.object.infopageable)
-            %td.arl_form_data_resource_value= ia.select :infopage_group, @form_metadata.selectables.item_groups, { selected: ia.object.infopage_group }, { class: :arl_form_data_select }
-            %td.arl_form_data_resource_value= ia.text_field :infopage_group_order, autocomplete: :off, size: 4, class: :arl_form_data_number_field
-            %td.arl_form_data_resource_remove= ia.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headings
+            %th.test_form_data_joins_heading title
+            %th.test_form_data_joins_heading group
+            %th.test_form_data_joins_heading order
+            %th.test_form_data_joins_heading= icon_remove
+        %tbody
+          = f.fields_for :infopage_articles do |ia|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= article_reference_admin_link(ia.object.infopageable)
+              %td.test_form_data_joins_value= ia.select :infopage_group, @form_metadata.selectables.item_groups, { selected: ia.object.infopage_group }, { class: :test_form_data_attr_input_select }
+              %td.test_form_data_joins_value= ia.text_field :infopage_group_order, autocomplete: :off, size: 4, class: :test_form_data_attr_input_text_field
+              %td.test_form_data_joins_value= ia.check_box :_destroy, class: :test_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detatch any articles with '#{icon_destroy}' box checked"
 
-- if selectable.does_have_articles
-  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :articles), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
-    .arl_form_title
-      Select an article
-    .arl_form_data
-      = f.fields_for :infopage_articles, infopage.infopage_articles.build do |ia|
-        = ia.label :article, 'Article', class: :arl_form_data_label
-        = ia.collection_select :infopageable_id, selectable.articles, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add article
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = infopage_article_admin_button_to_new_join_single(infopage)

@@ -1,0 +1,13 @@
+.arl_form_title
+  Add picture(s) by keyword
+
+- if selectable.does_have_keywords
+  = form_with model: [:admin, infopage], url: admin_infopage_add_pictures_by_keyword_path(infopage, pane: :pictures), local: true, class: :arl_form do |f|
+    .arl_form_data
+      = render 'form_elements/add_by_keyword', form: f, selectable: selectable, text_method: :title_with_pictures_count
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- else
+  .arl_form
+    .test_form_null No keywords.

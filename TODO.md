@@ -21,6 +21,8 @@
   - HTML PRE = markdown
 - Only allow iframe in video embedding.
 
+- form_elements/picture_select: should it receive selectable or selectable.pictures?
+
 - Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
 
 - Does audio view still use _form_attachment* ? **Probably not.**
@@ -38,7 +40,7 @@
 
 - Should auto_keyword be in the top part of a form?
 
-
+- review routes for semantic/logical cohesion
 
 ## Medium priority
 

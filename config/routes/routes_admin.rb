@@ -74,6 +74,9 @@ namespace :admin do
 
 
   resources :infopages, path: 'info'
+  patch     'info/:id/picture_import',        to: 'infopages#picture_create_from_import', as: :infopage_picture_create_from_import
+  patch     'info/:id/picture_upload',        to: 'infopages#picture_create_from_upload', as: :infopage_picture_create_from_upload
+  patch     'info/:id/pictures_with_keyword', to: 'infopages#add_pictures_by_keyword',    as: :infopage_add_pictures_by_keyword
 
 
   resources :keywords

@@ -8,22 +8,25 @@
     = f.submit class: :arl_button_form_submit
 
 - if infopage.does_have_items
-  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :infopage), local: true, class: [:arl_form, :arl_border_top], method: :patch) do |f|
+  = render 'form_elements/spacer'
+  = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :infopage), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.arl_form_data_attr.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading class
-          %th.arl_form_data_resource_heading title
-          %th.arl_form_data_resource_heading group
-          %th.arl_form_data_resource_heading order
-          %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :infopage_items do |i|
-          %tr
-            %td.arl_form_data_resource_value= i.object.type_of
-            %td.arl_form_data_resource_value= infopageable_reference_admin_link(i.object)
-            %td.arl_form_data_resource_value= i.select :infopage_group, @form_metadata.selectables.item_groups, { selected: i.object.infopage_group }, class: :arl_form_data_select, class: :arl_form_data_number_field
-            %td.arl_form_data_resource_value= i.text_field :infopage_group_order, size: 4, class: :arl_form_data_number_field
-            %td.arl_form_data_resource_remove= i.check_box :_destroy, class: :arl_form_data_checkbox_destroy
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headings
+            %th.test_form_data_joins_heading class
+            %th.test_form_data_joins_heading title
+            %th.test_form_data_joins_heading group
+            %th.test_form_data_joins_heading order
+            %th.test_form_data_joins_heading= icon_remove
+        %tbody
+          = f.fields_for :infopage_items do |i|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= i.object.type_of
+              %td.test_form_data_joins_value= infopageable_reference_admin_link(i.object)
+              %td.test_form_data_joins_value= i.select :infopage_group, @form_metadata.selectables.item_groups, { selected: i.object.infopage_group }, class: :test_form_data_attr_input_select
+              %td.test_form_data_joins_value= i.text_field :infopage_group_order, size: 4, class: :test_form_data_attr_input_text_field
+              %td.test_form_data_joins_value= i.check_box :_destroy, class: :test_form_data_attr_input_checkbox_destroy
     .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+      = f.submit 'Update Items', class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detatch any items with '#{icon_destroy}' box checked"
