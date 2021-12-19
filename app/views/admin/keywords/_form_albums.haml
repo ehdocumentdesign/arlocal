@@ -1,30 +1,28 @@
 .arl_form_title
   = keyword_statement_albums_count(keyword)
+
 - if keyword.does_have_albums
-  /= button_to 'unkeyword albums', admin_unkeyword_albums_path(keyword.id, pane: :albums), method: :delete, class: :arl_button_unkeyword
   = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :albums), local: true, method: :patch, class: :arl_form) do |f|
     .arl_form_data
-      %table.arl_form_data_attr.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading album title
-          %th.arl_form_data_resource_heading= icon_remove
-        = f.fields_for :album_keywords do |ak|
-          %tr
-            %td.arl_form_data_resource_value= album_reference_admin_link(ak.object.album)
-            %td.arl_form_data_resource_remove= ak.check_box :_destroy, class: :arl_form_data_checkbox
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headings
+            %th.test_form_data_joins_heading album title
+            %th.test_form_data_joins_heading= icon_remove
+        %tbody
+          = f.fields_for :album_keywords do |ak|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= album_reference_admin_link(ak.object.album)
+              %td.test_form_data_joins_value= ak.check_box :_destroy, class: :test_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation
         = "will detach any albums with the #{icon_remove} box checked."
 
--if selectable.does_have_events
-  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :albums), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
-    .arl_form_title
-      Keyword an album
-    .arl_form_data
-      = f.fields_for :album_keywords, keyword.album_keywords.build do |at|
-        .arl_form_data_attr.arl_form_layout_center
-          = at.label :album_keyword, 'Album', class: :arl_form_data_label
-          = at.collection_select :album_id, selectable.albums, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add to album
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = keyword_album_admin_button_to_new_join_single(keyword)

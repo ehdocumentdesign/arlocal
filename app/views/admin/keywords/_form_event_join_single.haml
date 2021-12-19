@@ -1,0 +1,10 @@
+.arl_form_title
+  Add keyword to event
+
+- if selectable.does_have_events
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :events), local: true, method: :patch, class: :arl_form) do |f|
+    .arl_form_data
+      = f.fields_for :event_keywords, keyword.event_keywords.build do |ek|
+        = render 'form_elements/collection_select', form: ek, attribute: :event_id, blank: true, collection: selectable.events, label: 'Title', text_method: :datetime_and_title
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit

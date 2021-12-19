@@ -80,10 +80,14 @@ namespace :admin do
 
 
   resources :keywords
-  delete    'keywords/:id/untag_albums',   to: 'keywords#untag_albums',   as: :untag_albums
-  delete    'keywords/:id/untag_audio',    to: 'keywords#untag_audio',    as: :untag_audio
-  delete    'keywords/:id/untag_events',   to: 'keywords#untag_events',   as: :untag_events
-  delete    'keywords/:id/untag_pictures', to: 'keywords#untag_pictures', as: :untag_pictures
+  delete    'keywords/:id/untag_albums',   to: 'keywords#untag_albums',               as: :untag_albums
+  delete    'keywords/:id/untag_audio',    to: 'keywords#untag_audio',                as: :untag_audio
+  delete    'keywords/:id/untag_events',   to: 'keywords#untag_events',               as: :untag_events
+  delete    'keywords/:id/untag_pictures', to: 'keywords#untag_pictures',             as: :untag_pictures
+  patch     'keywords/:id/audio_import',   to: 'keywords#audio_create_from_import',   as: :keyword_audio_create_from_import
+  patch     'keywords/:id/audio_upload',   to: 'keywords#audio_create_from_upload',   as: :keyword_audio_create_from_upload
+  patch     'keywords/:id/picture_import', to: 'keywords#picture_create_from_import', as: :keyword_picture_create_from_import
+  patch     'keywords/:id/picture_upload', to: 'keywords#picture_create_from_upload', as: :keyword_picture_create_from_upload
 
 
   resources :links

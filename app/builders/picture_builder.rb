@@ -108,6 +108,20 @@ class PictureBuilder
   end
 
 
+  def self.create_from_import_nested_within_keyword(keyword, params, **args)
+    picture_params = {
+      source_catalog_file_path: params['pictures_attributes']['0']['source_catalog_file_path'],
+      source_type: 'catalog'
+    }
+    self.build(**args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(picture_params)
+      b.assign_metadata
+      b.join_to_keyword(keyword)
+    end
+  end
+
+
   def self.create_from_import_nested_within_video(video, params, **args)
     picture_params = {
       source_catalog_file_path: params['picture']['source_catalog_file_path'],
@@ -180,6 +194,20 @@ class PictureBuilder
   end
 
 
+  def self.create_from_upload_nested_within_keyword(keyword, params, **args)
+    picture_params = {
+      source_attachment: params['pictures_attributes']['0']['source_attachment'],
+      source_type: 'attachment'
+    }
+    self.build(**args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(picture_params)
+      b.assign_metadata
+      b.join_to_keyword(keyword)
+    end
+  end
+
+
   def self.create_from_upload_nested_within_video(video, params, **args)
     picture_params = {
       source_attachment: params['video']['picture']['source_attachment'],
@@ -237,6 +265,12 @@ class PictureBuilder
   def join_to_event(event)
     event_id = event.id
     @picture.event_pictures.build(event_id: event_id)
+  end
+
+
+  def join_to_keyword(keyword)
+    keyword_id = keyword.id
+    @picture.album_pictures.build(keyword_id: keyword_id)
   end
 
 

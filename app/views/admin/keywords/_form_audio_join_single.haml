@@ -1,0 +1,14 @@
+.arl_form_title
+  Add audio
+
+- if selectable.does_have_audio
+  = form_with model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :audio), local: true, class: :arl_form, method: :patch do |f|
+    .arl_form_data
+      = f.fields_for :audio_keywords, keyword.audio_keywords.build do |ak|
+        = render 'form_elements/collection_select', form: ak, attribute: :audio_id, blank: true, collection: selectable.audio, label: 'Title', text_method: :full_title
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- else
+  .arl_form
+    .test_form_null No audio.

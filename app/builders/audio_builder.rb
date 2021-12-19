@@ -106,6 +106,20 @@ class AudioBuilder
   end
 
 
+  def self.create_from_import_nested_within_keyword(keyword, params, **args)
+    audio_params = {
+      source_catalog_file_path: params['audio_attributes']['0']['source_catalog_file_path'],
+      source_type: 'catalog'
+    }
+    self.build(**args) do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_metadata
+      b.join_to_keyword(keyword)
+    end
+  end
+
+
   def self.create_from_upload(audio_params, **args)
     self.build(**args) do |b|
       b.assign_default_attributes
@@ -166,6 +180,20 @@ class AudioBuilder
   end
 
 
+  def self.create_from_upload_nested_within_keyword(keyword, params, **args)
+    audio_params = {
+      source_attachment: params['audio_attributes']['0']['source_attachment'],
+      source_type: 'attachment'
+    }
+    self.build do |b|
+      b.assign_default_attributes
+      b.assign_given_attributes(audio_params)
+      b.assign_metadata
+      b.join_to_keyword(keyword)
+    end
+  end
+
+
   def self.refresh_id3(audio_params)
     audio = Audio.find(audio_params['id'])
     self.build(audio: audio) do |b|
@@ -217,6 +245,12 @@ class AudioBuilder
     event_id = event.id
     event_order = @metadata.general.track_position
     @audio.event_audio.build(event_id: event_id, event_order: event_order)
+  end
+
+
+  def join_to_keyword(keyword)
+    keyword_id = keyword.id
+    @audio.audio_keyword.build(keyword_id: keyword_id)
   end
 
 

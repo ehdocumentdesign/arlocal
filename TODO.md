@@ -3,15 +3,16 @@
 
 ## HIGH priority
 
+- review routes for actions/controllers made obsolete by `#edit?pane=[]`
+
 + CSS Grid for admin forms checkbox **In Progress**
 - TODO: Button spacing in admin forms **In Progress**
 
-- what is this:
+- what is this: in `app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2`
   > // TODO: figure out why this doesn't render border-bottom or border-top
   > // see .jp-type-playlist for border-bottom.
   > // see .arl_albums_show_player for border-top.
   >
-  > - app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2
 
 - give a title to nested_picture uploads/imports
 
@@ -19,7 +20,7 @@
   - HTML = Iframe
   - HTML P = simpleformat
   - HTML PRE = markdown
-- Only allow iframe in video embedding.
+- Only allow iframe in video embedding. **No, leave it as HTML embed for power admins.**
 
 - form_elements/picture_select: should it receive selectable or selectable.pictures?
 
@@ -38,11 +39,18 @@
 - Admin::ArlocalSettings?icon
   - purge_attachment has not been refactored into new grid css
 
-- Should auto_keyword be in the top part of a form?
+- Should auto_keyword be in the top part of a form? **I think so.**
 
 - review routes for semantic/logical cohesion
 
 ## Medium priority
+
+- EventVideo object
+
+- import/upload video via `keywords/_form_video_import`
+
+- Anti-pattern forming in `form_metadata`
+  - Make a object or hash that centralizes forms/panes and their properties instead of using `case` statements
 
 - 1_borders.scss
   - refactor mixins that are image

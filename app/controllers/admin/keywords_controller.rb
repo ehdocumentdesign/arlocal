@@ -1,6 +1,37 @@
 class Admin::KeywordsController < AdminController
 
 
+  def audio_create_from_import
+    @keyword = QueryKeywords.find_admin(params[:id])
+    @audio = AudioBuilder.create_from_import_nested_within_keyword(@keyword, params_keyword_permitted, arlocal_settings: @arlocal_settings)
+    if @audio.save
+      flash[:notice] = 'Audio was successfully imported.'
+      redirect_to edit_admin_keyword_path(@keyword.id_admin, pane: :audio)
+    else
+      @form_metadata = FormKeywordMetadata.new(pane: :audio_import, arlocal_settings: @arlocal_settings)
+      flash[:notice] = 'Audio could not be imported.'
+      render 'edit'
+    end
+  end
+
+
+  def audio_create_from_upload
+    @keyword = QueryKeywords.find_admin(params[:id])
+    @audio = AudioBuilder.create_from_upload_nested_within_keyword(@keyword, params_keyword_permitted, arlocal_settings: @arlocal_settings)
+    if @audio.save
+      flash[:notice] = 'Audio was successfully uploaded.'
+      redirect_to edit_admin_keyword_path(@keyword.id_admin, pane: :audio)
+    else
+      if @arlocal_settings.admin_forms_auto_keyword_enabled
+        @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
+      end
+      @form_metadata = FormKeywordMetadata.new(pane: :audio_import, arlocal_settings: @arlocal_settings)
+      flash[:notice] = 'Audio could not be uploaded.'
+      render 'edit'
+    end
+  end
+
+
   def create
     @keyword = KeywordBuilder.default_with(params_keyword_permitted)
     if @keyword.save
@@ -38,6 +69,39 @@ class Admin::KeywordsController < AdminController
     @keyword = KeywordBuilder.default
     @form_metadata = FormKeywordMetadata.new
   end
+
+
+  def picture_create_from_import
+    @keyword = QueryKeywords.find_admin(params[:id])
+    @picture = PictureBuilder.create_from_import_nested_within_keyword(@keyword, params_keyword_permitted)
+    if @picture.save
+      flash[:notice] = 'Picture was successfully imported.'
+      redirect_to edit_admin_keyword_path(@keyword.id_admin, pane: :pictures)
+    else
+      @form_metadata = FormKeywordMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
+      flash[:notice] = 'Picture could not be imported.'
+      render 'edit'
+    end
+  end
+
+
+  def picture_create_from_upload
+    @keyword = QueryKeywords.find_admin(params[:id])
+    @picture = PictureBuilder.create_from_upload_nested_within_keyword(@keyword, params_keyword_permitted)
+    if @picture.save
+      flash[:notice] = 'Picture was successfully uploaded.'
+      redirect_to edit_admin_keyword_path(@keyword.id_admin, pane: :pictures)
+    else
+      if @arlocal_settings.admin_forms_auto_keyword_enabled
+        @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)
+      end
+      @form_metadata = FormKeywordMetadata.new(pane: :picture_import, arlocal_settings: @arlocal_settings)
+      flash[:notice] = 'Picture could not be uploaded.'
+      render 'edit'
+    end
+  end
+
+
 
 
   def show
