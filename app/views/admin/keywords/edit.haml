@@ -5,16 +5,16 @@
   .arl_admin_resource_header_title= "#{@keyword.title}"
   .arl_admin_resource_header_buttons
     = keyword_admin_button_to_new
-    = keyword_admin_button_to_edit_previous(@keyword_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = keyword_admin_button_to_edit_previous(@keyword_neighbors.previous, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = keyword_admin_button_to_done_editing(@keyword)
-    = keyword_admin_button_to_edit_next(@keyword_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = keyword_admin_button_to_edit_next(@keyword_neighbors.next, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = keyword_admin_button_to_index
   = render '/admin/keywords/admin_keyword_stats', keyword: @keyword
-  = render '/admin/shared/form_errors', resource: @keyword  
+  = render '/admin/shared/form_errors', resource: @keyword
 
 %nav.arl_admin_resource_edit_nav
-  - @form_metadata.nav_categories.each do |category|
-    = keyword_admin_edit_nav_button(keyword: @keyword, category: category, current_pane: @form_metadata.tab_name)
-    
+  - @form_metadata.navbar_categories.each do |category|
+    = keyword_admin_edit_nav_button(keyword: @keyword, category: category, current_pane: @form_metadata.current_pane)
+
 .arl_keywords_edit
   = render @form_metadata.partial_name, keyword: @keyword, selectable: @form_metadata.selectables

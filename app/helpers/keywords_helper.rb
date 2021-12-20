@@ -11,9 +11,9 @@ module KeywordsHelper
   end
 
 
-  def keyword_admin_button_to_edit_next(keyword, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_keyword_path(keyword.id_admin, pane: target_pane)
+  def keyword_admin_button_to_edit_next(keyword, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_keyword_path(keyword.id_admin, pane: current_pane)
     else
       target_link = edit_admin_keyword_path(keyword.id_admin)
     end
@@ -21,9 +21,9 @@ module KeywordsHelper
   end
 
 
-  def keyword_admin_button_to_edit_previous(keyword, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_keyword_path(keyword.id_admin, pane: target_pane)
+  def keyword_admin_button_to_edit_previous(keyword, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_keyword_path(keyword.id_admin, pane: current_pane)
     else
       target_link = edit_admin_keyword_path(keyword.id_admin)
     end

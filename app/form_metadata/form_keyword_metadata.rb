@@ -88,7 +88,7 @@ class FormKeywordMetadata
   }
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
   def initialize(pane: :keyword, arlocal_settings: QueryArlocalSettings.get)
@@ -96,14 +96,16 @@ class FormKeywordMetadata
 
     if FormKeywordMetadata::DATA.has_key?(pane)
       form = FormKeywordMetadata::DATA[pane]
+      current_pane = pane
     else
       form = FormKeywordMetadata::DATA[:keyword]
+      current_pane = :keyword
     end
 
-    @nav_categories = FormKeywordMetadata.navbar_categories
+    @current_pane = current_pane
+    @navbar_categories = FormKeywordMetadata.navbar_categories
     @partial_name = form[:partial]
     @selectables = FormMetadataSelectable.new(form[:selectable], arlocal_settings)
-    @tab_name = form.keys[0].to_s
   end
 
 

@@ -22,6 +22,7 @@ module ButtonHelper
 
 
   def button_admin_to_edit_pane(current_pane: nil, target_link: nil, target_pane: nil)
+    puts "****************** #{current_pane} #{target_pane}"
     html_class = [:arl_active_link_container]
     if current_pane == target_pane
       html_class << :arl_admin_resource_edit_nav_item_current
