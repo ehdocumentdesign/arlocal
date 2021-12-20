@@ -47,7 +47,7 @@ class MarkupParser
       description: 'HTML embed',
       method_parse: lambda { |text| text.to_s },
       method_sanitize: lambda { |text| text.html_safe },
-      symbol: :html_iframe
+      symbol: :html_embed
     }
   ]
 
@@ -77,7 +77,7 @@ class MarkupParser
     if parser
       @id = parser[:id]
       @description = parser[:description]
-      @html_class = [ MarkupParser.html_class_prefix, parser[:symbol].to_s ].join('_')
+      @html_class = [MarkupParser.html_class_prefix, parser[:symbol].to_s].join('_')
       @method_parse = parser[:method_parse]
       @method_sanitize = parser[:method_sanitize]
       @symbol = parser[:symbol]

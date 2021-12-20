@@ -45,6 +45,9 @@
 
 ## Medium priority
 
+- FormMetadataSelectableUtils:65
+  - will relying on an Integer for @picture.id create a false negative?
+  
 - EventVideo object
 
 - import/upload video via `keywords/_form_video_import`
