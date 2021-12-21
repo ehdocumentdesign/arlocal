@@ -1,67 +1,41 @@
 class FormArticleMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
 
 
-  def initialize(pane: :article, settings: nil)
-    pane = ((pane == nil) ? :article : pane.to_sym.downcase)
-
-    @nav_categories = FormArticleMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables
-    @tab_name = determine_tab_name(pane)
-  end
-
-
-  protected
-
-
-  def self.categories
-    [
-      :article,
-      :destroy
-    ]
-  end
+  DATA = {
+    article: {
+      navbar: 0,
+      partial: 'form',
+      selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
 
 
-  private
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
-  def determine_partial_name(pane)
-    case pane
-    when :article
-      'form'
-    when :destroy
-      'form_destroy'
+  def initialize(pane: :article)
+    pane = pane.to_s.downcase.to_sym
+
+    if FormArticleMetadata::DATA.has_key?(pane)
+      form = FormArticleMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormArticleMetadata::DATA[:article]
+      current_pane = :article
     end
-  end
 
-
-  def determine_selectables
-    FormArticleMetadata::Selectables.new
-  end
-
-
-  def determine_tab_name(pane)
-    if FormArticleMetadata.categories.include?(pane)
-      pane
-    else
-      :article
-    end
-  end
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :markup_parsers
-    )
-    def initialize
-      @markup_parsers = MarkupParser.options_for_select
-    end
+    @current_pane = current_pane
+    @navbar_categories = FormArticleMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable])
   end
 
 

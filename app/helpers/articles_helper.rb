@@ -20,9 +20,9 @@ module ArticlesHelper
   end
 
 
-  def article_admin_button_to_edit_next(article, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_article_path(article.id_admin, pane: target_pane)
+  def article_admin_button_to_edit_next(article, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_article_path(article.id_admin, pane: current_pane)
     else
       target_link = edit_admin_article_path(article.id_admin)
     end
@@ -30,9 +30,9 @@ module ArticlesHelper
   end
 
 
-  def article_admin_button_to_edit_previous(article, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_article_path(article.id_admin, pane: target_pane)
+  def article_admin_button_to_edit_previous(article, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_article_path(article.id_admin, pane: current_pane)
     else
       target_link = edit_admin_article_path(article.id_admin)
     end
