@@ -1,7 +1,6 @@
 class FormMetadataSelectable
 
 
-  include FormMetadataSelectablesUtils
   attr_reader(
     :album_pictures_sorters,
     :albums,
