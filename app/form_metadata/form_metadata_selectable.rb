@@ -24,7 +24,7 @@ class FormMetadataSelectable
   )
 
 
-  def initialize(selectable, arlocal_settings)
+  def initialize(selectable, arlocal_settings=nil)
     selectable.each_pair do |k,v|
       instance_variable_set(k, v.call(arlocal_settings))
     end

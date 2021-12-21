@@ -7,7 +7,7 @@
 .test_form_data_attr {
   display: grid;
   grid-template-areas: 'checkbox label inline .' '. explanation explanation .' '. input input .' '. thumbnail thumbnail .';
-  grid-template-columns: 1.5rem auto auto 1.5rem;
+  grid-template-columns: 1.5rem auto min-content 1.5rem;
   // grid-template-areas: 'label inline' 'explanation explanation' 'input input' 'thumbnail thumbnail';
   // grid-template-columns: auto auto;
   margin: $arl-margin-wide 0;
