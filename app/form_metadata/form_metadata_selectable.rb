@@ -3,15 +3,24 @@ class FormMetadataSelectable
 
   include FormMetadataSelectablesUtils
   attr_reader(
+    :album_pictures_sorters,
     :albums,
+    :albums_index_sorters,
     :articles,
     :audio,
+    :audio_index_sorters,
+    :event_pictures_sorters,
     :events,
+    :events_index_sorters,
     :keywords,
     :links,
     :markup_parsers,
     :pictures,
-    :videos
+    :pictures_index_sorters,
+    :selectable_pictures_sorters,
+    :source_types,
+    :videos,
+    :videos_index_sorters
   )
 
 

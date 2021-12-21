@@ -5,16 +5,16 @@
   .arl_admin_resource_header_title= "#{@album.title}"
   .arl_admin_resource_header_buttons
     = album_admin_button_to_new
-    = album_admin_button_to_edit_previous(@album_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = album_admin_button_to_edit_previous(@album_neighbors.previous, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = album_admin_button_to_done_editing(@album)
-    = album_admin_button_to_edit_next(@album_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = album_admin_button_to_edit_next(@album_neighbors.next, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = album_admin_button_to_index
   = render '/admin/albums/admin_album_stats', album: @album
   = render '/admin/shared/form_errors', resource: @album
 
 %nav.arl_admin_resource_edit_nav
-  - @form_metadata.nav_categories.each do |category|
-    = album_admin_edit_nav_button(album: @album, category: category, current_pane: @form_metadata.tab_name)
+  - @form_metadata.navbar_categories.each do |category|
+    = album_admin_edit_nav_button(album: @album, category: category, current_pane: @form_metadata.current_pane)
 
 .arl_admin_albums_edit
   = render @form_metadata.partial_name, album: @album, selectable: @form_metadata.selectables

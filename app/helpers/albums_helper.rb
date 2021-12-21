@@ -11,9 +11,9 @@ module AlbumsHelper
   end
 
 
-  def album_admin_button_to_edit_next(album, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_album_path(album.id_admin, pane: target_pane)
+  def album_admin_button_to_edit_next(album, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_album_path(album.id_admin, pane: current_pane)
     else
       target_link = edit_admin_album_path(album.id_admin)
     end
@@ -21,9 +21,9 @@ module AlbumsHelper
   end
 
 
-  def album_admin_button_to_edit_previous(album, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_album_path(album.id_admin, pane: target_pane)
+  def album_admin_button_to_edit_previous(album, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_album_path(album.id_admin, pane: current_pane)
     else
       target_link = edit_admin_album_path(album.id_admin)
     end
