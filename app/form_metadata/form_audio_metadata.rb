@@ -1,120 +1,87 @@
 class FormAudioMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
+
+
+  DATA = {
+    audio: {
+      navbar: 0,
+      partial: 'form',
+      selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
+    },
+    album_join_single: {
+      navbar: nil,
+      partial: 'form_album_join_single',
+      selectable: { :@albums => proc { QueryAlbums.options_for_select_admin } }
+    },
+    albums: {
+      navbar: 1,
+      partial: 'form_albums',
+      selectable: {}
+    },
+    event_join_single: {
+      navbar: nil,
+      partial: 'form_event_join_single',
+      selectable: { :@events => proc { QueryEvents.options_for_select_admin } }
+    },
+    events: {
+      navbar: 1,
+      partial: 'form_events',
+      selectable: {}
+    },
+    keyword_join_single: {
+      navbar: nil,
+      partial: 'form_keyword_join_single',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+    },
+    keywords: {
+      navbar: 1,
+      partial: 'form_keywords',
+      selectable: {}
+    },
+    id3: {
+      navbar: 1,
+      partial: 'form_id3',
+      selectable: {}
+    },
+    source: {
+      navbar: 1,
+      partial: 'form_source',
+      selectable: { :@source_types => proc { Audio.source_type_options_for_select } }
+    },
+    source_attachment_purge: {
+      navbar: nil,
+      partial: 'form_source_attachment_purge',
+      selectable: {}
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
+
+
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
   def initialize(pane: :audio)
-    pane = (pane == nil ? :audio : pane).to_sym.downcase
+    pane = pane.to_s.downcase.to_sym
 
-    @nav_categories = FormAudioMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane)
-    @tab_name = determine_tab_name(pane)
-  end
-
-
-
-  protected
-
-
-  def self.categories
-    [
-      :audio,
-      :albums,
-      :events,
-      :keywords,
-      :id3,
-      :source,
-      :destroy
-    ]
-  end
-
-
-
-  private
-
-
-  def determine_partial_name(pane)
-    case pane
-    when :audio
-      'form'
-    when :album_join_single
-      'form_album_join_single'
-    when :albums
-      'form_albums'
-    when :event_join_single
-      'form_event_join_single'
-    when :events
-      'form_events'
-    when :keyword_join_single
-      'form_keyword_join_single'
-    when :keywords
-      'form_keywords'
-    when :id3
-      'form_id3'
-    when :source
-      'form_source'
-    when :source_attachment_purge
-      'form_source_attachment_purge'
-    when :destroy
-      'form_destroy'
+    if FormAudioMetadata::DATA.has_key?(pane)
+      form = FormAudioMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormAudioMetadata::DATA[:audio]
+      current_pane = :audio
     end
+
+    @current_pane = current_pane
+    @navbar_categories = FormAudioMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable])
   end
-
-
-  def determine_selectables(pane)
-    FormAudioMetadata::Selectables.new(pane)
-  end
-
-
-  def determine_tab_name(pane)
-    if FormAudioMetadata.categories.include?(pane)
-      pane
-    end
-  end
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :albums,
-      :events,
-      :keywords,
-      :markup_parsers,
-      :source_types
-    )
-    def initialize(pane)
-      case pane
-      when :album_join_single
-        @albums = QueryAlbums.options_for_select_admin
-      when :audio
-        @markup_parsers = MarkupParser.options_for_select
-      when :event_join_single
-        @events = QueryEvents.options_for_select_admin
-      when :keyword_join_single
-        @keywords = QueryKeywords.options_for_select_admin
-      when :source
-        @source_types = Audio.source_type_options_for_select
-      else
-        @markup_parsers = MarkupParser.options_for_select
-      end
-    end
-  end
-
-
-  # class Selectors
-  #   attr_reader(
-  #     :albums,
-  #     :keywords
-  #   )
-  #   def initialize
-  #     @albums = QueryAlbums.new.order_by_title_asc
-  #     @keywords = QueryKeywords.new.all_that_select_audio
-  #   end
-  # end
 
 
 end
