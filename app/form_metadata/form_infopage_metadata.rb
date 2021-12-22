@@ -1,117 +1,115 @@
 class FormInfopageMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
 
 
-  def initialize(pane: :infopage, arlocal_settings: nil)
-    pane = ((pane == nil) ? :infopage : pane.to_sym.downcase)
+  DATA = {
+    infopage: {
+      navbar: 0,
+      partial: 'form',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select }
+      }
+    },
+    article_join_single: {
+      navbar: nil,
+      partial: 'form_article_join_single',
+      selectable: {
+        :@articles => proc { Article.all },
+        :@item_groups => proc { InfopageItem.group_options_for_select }
+      }
+    },
+    articles: {
+      navbar: 1,
+      partial: 'form_articles',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select }
+      }
+    },
+    link_join_single: {
+      navbar: nil,
+      partial: 'form_link_join_single',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select },
+        :@links => proc { QueryLinks.options_for_select_admin }
 
-    @nav_categories = FormInfopageMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane, arlocal_settings)
-    @tab_name = determine_tab_name(pane)
-  end
+      }
+    },
+    links: {
+      navbar: 1,
+      partial: 'form_links',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select }
+
+      }
+    },
+    picture_import: {
+      navbar: nil,
+      partial: 'form_picture_import',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select }
+
+      }
+    },
+    picture_join_by_keyword: {
+      navbar: nil,
+      partial: 'form_picture_join_by_keyword',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select },
+        :@keywords => proc { QueryKeywords.options_for_select_admin }
+      }
+    },
+    picture_join_single: {
+      navbar: nil,
+      partial: 'form_picture_join_single',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select },
+        :@pictures => lambda { |arlocal_settings| QueryPictures.options_for_select_admin_with_nil(arlocal_settings) }
+
+      }
+    },
+    picture_upload: {
+      navbar: nil,
+      partial: 'form_picture_upload',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select }
+      }
+    },
+    pictures: {
+      navbar: 1,
+      partial: 'form_pictures',
+      selectable: {
+        :@item_groups => proc { InfopageItem.group_options_for_select }
+      }
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
 
 
-  protected
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
-  def self.categories
-    [
-      :infopage,
-      :articles,
-      :links,
-      :pictures,
-      :destroy
-    ]
-  end
+  def initialize(pane: :infopage, arlocal_settings: QueryArlocalSettings.get)
+    pane = pane.to_s.downcase.to_sym
 
-
-
-  private
-
-
-  def determine_partial_name(pane)
-    case pane
-    when :infopage
-      'form'
-    when :article_join_single
-      'form_article_join_single'
-    when :articles
-      'form_articles'
-    when :link_join_single
-      'form_link_join_single'
-    when :links
-      'form_links'
-    when :picture_import
-      'form_picture_import'
-    when :picture_upload
-      'form_picture_upload'
-    when :picture_join_by_keyword
-      'form_picture_join_by_keyword'
-    when :picture_join_single
-      'form_picture_join_single'
-    when :pictures
-      'form_pictures'
-    when :destroy
-      'form_destroy'
+    if FormInfopageMetadata::DATA.has_key?(pane)
+      form = FormInfopageMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormInfopageMetadata::DATA[:infopage]
+      current_pane = :infopage
     end
+
+    @current_pane = current_pane
+    @navbar_categories = FormInfopageMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable], arlocal_settings)
   end
-
-
-  def determine_selectables(pane, arlocal_settings)
-    FormInfopageMetadata::Selectables.new(pane, arlocal_settings)
-  end
-
-
-  def determine_tab_name(pane)
-    if FormInfopageMetadata.categories.include?(pane)
-      pane
-    end
-  end
-
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :articles,
-      :item_groups,
-      :keywords,
-      :links,
-      :pictures
-    )
-    def initialize(pane, arlocal_settings)
-      case pane
-      when :infopage
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-      when :article_join_single
-        @articles = Article.all
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-      when :articles
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-      when :link_join_single
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-        @links = QueryLinks.options_for_select_admin
-      when :links
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-      when :picture_join_by_keyword
-        @keywords = QueryKeywords.options_for_select_admin
-      when :picture_join_single
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
-      when :pictures
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-      else
-        @item_groups = InfopageItem.group_options.sort_by{ |o| o[:order] }.map { |o| [o[:position], o[:id]] }
-      end
-    end
-  end
-
-
 
 
 end

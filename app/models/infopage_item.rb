@@ -7,10 +7,16 @@ class InfopageItem < ApplicationRecord
 
   protected
 
+
   def self.group_options
     [{id: '0', order: '0', position: 'top'},
      {id: '1', order: '1', position: 'left'},
      {id: '2', order: '2', position: 'right'}]
+  end
+
+
+  def self.group_options_for_select
+    self.group_options.sort_by{ |o| o[:order] }.map{ |o| [o[:position], o[:id]] }
   end
 
 

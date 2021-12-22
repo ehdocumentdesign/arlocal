@@ -11,6 +11,7 @@ class FormMetadataSelectable
     :event_pictures_sorters,
     :events,
     :events_index_sorters,
+    :item_groups,
     :keywords,
     :links,
     :markup_parsers,
