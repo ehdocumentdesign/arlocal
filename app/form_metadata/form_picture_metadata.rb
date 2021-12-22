@@ -1,114 +1,72 @@
 class FormPictureMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
 
 
-  def initialize(pane: :picture)
-    pane = ((pane == nil) ? :picture : pane.to_sym.downcase)
+  DATA = {
+    picture: {
+      navbar: 0,
+      partial: 'form',
+      selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
+    },
+    albums: {
+      navbar: 1,
+      partial: 'form_albums',
+      selectable: { :@albums => proc { QueryAlbums.options_for_select_admin } }
+    },
+    datetime: {
+      navbar: 1,
+      partial: 'form_datetime',
+      selectable: {}
+    },
+    events: {
+      navbar: 1,
+      partial: 'form_events',
+      selectable: { :@events => proc { QueryEvents.options_for_select_admin } }
+    },
+    keywords: {
+      navbar: 1,
+      partial: 'form_keywords',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+    },
+    source: {
+      navbar: 1,
+      partial: 'form_source',
+      selectable: { :@source_types => proc { Picture.source_type_options_for_select } }
+    },
+    source_attachment_purge: {
+      navbar: nil,
+      partial: 'form_source_attachment_purge',
+      selectable: {}
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
 
-    @nav_categories = FormPictureMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane)
-    @tab_name = determine_tab_name(pane)
-  end
+
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
+  def initialize(pane: :picture, arlocal_settings: nil)
+    pane = pane.to_s.downcase.to_sym
 
-  protected
-
-
-  def self.categories
-    [
-      :picture,
-      :albums,
-      :datetime,
-      :events,
-      :keywords,
-      :source,
-      :destroy
-    ]
-  end
-
-
-
-  private
-
-
-  def determine_partial_name(pane)
-    case pane
-    when :picture
-      'form'
-    when :albums
-      'form_albums'
-    when :datetime
-      'form_datetime'
-    when :events
-      'form_events'
-    when :keywords
-      'form_keywords'
-    when :source
-      'form_source'
-    when :source_attachment_purge
-      'form_source_attachment_purge'
-    when :destroy
-      'form_destroy'
+    if FormPictureMetadata::DATA.has_key?(pane)
+      form = FormPictureMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormPictureMetadata::DATA[:picture]
+      current_pane = :picture
     end
+
+    @current_pane = current_pane
+    @navbar_categories = FormPictureMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable])
   end
-
-
-  def determine_selectables(pane)
-    FormPictureMetadata::Selectables.new(pane)
-  end
-
-
-  def determine_tab_name(pane)
-    if FormPictureMetadata.categories.include?(pane)
-      pane
-    end
-  end
-
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :albums,
-      :events,
-      :keywords,
-      :source_types,
-      :markup_parsers
-    )
-    def initialize(pane)
-      case pane
-      when :picture
-        @markup_parsers = MarkupParser.options_for_select
-      when :albums
-        @albums = QueryAlbums.options_for_select_admin
-      when :events
-        @events = QueryEvents.options_for_select_admin
-      when :keywords
-        @keywords = QueryKeywords.options_for_select_admin
-      when :source
-        @source_types = Picture.source_type_options_for_select
-      else
-        @markup_parsers = MarkupParser.options_for_select
-      end
-    end
-  end
-
-
-
-  # class Selectors
-  #   attr_reader(
-  #     :keywords
-  #   )
-  #   def initialize
-  #     @keywords = QueryKeywords.new.all_that_select_admin_pictures
-  #   end
-  # end
 
 
 end

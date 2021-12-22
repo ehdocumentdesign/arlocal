@@ -11,8 +11,8 @@
   = render '/admin/shared/form_errors', resource: @stream
 
 %nav.arl_admin_resource_edit_nav
-  - @form_metadata.nav_categories.each do |category|
-    = stream_admin_edit_nav_button(stream: @stream, category: category, current_pane: @form_metadata.tab_name)
-  
+  - @form_metadata.navbar_categories.each do |category|
+    = stream_admin_edit_nav_button(stream: @stream, category: category, current_pane: @form_metadata.current_pane)
+
 .arl_admin_links_edit
   = render @form_metadata.partial_name, stream: @stream, selectable: @form_metadata.selectables

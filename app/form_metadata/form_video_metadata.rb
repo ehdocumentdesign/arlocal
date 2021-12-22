@@ -1,103 +1,72 @@
 class FormVideoMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
 
 
-  @@default_pane = :video
+  DATA = {
+    video: {
+      navbar: 0,
+      partial: 'form',
+      selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
+    },
+    keywords: {
+      navbar: 1,
+      partial: 'form_keywords',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+    },
+    picture: {
+      navbar: 1,
+      partial: 'form_picture',
+      selectable: {}
+    },
+    picture_import: {
+      navbar: nil,
+      partial: 'form_picture_import',
+      selectable: {}
+    },
+    picture_upload: {
+      navbar: nil,
+      partial: 'form_picture_upload',
+      selectable: {}
+    },
+    picture_join_single: {
+      navbar: nil,
+      partial: 'form_picture_join_single',
+      selectable: { :@pictures => lambda { |arlocal_settings| QueryPictures.options_for_select_admin_with_nil(arlocal_settings) } }
+    },
+    source: {
+      navbar: 1,
+      partial: 'form_source',
+      selectable: { :@source_types => proc { Video.source_type_options_for_select } }
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
 
 
-  def initialize(pane: :video, arlocal_settings: nil)
-    pane = ((pane == nil) ? @@default_pane : pane.to_sym.downcase)
-
-    @nav_categories = FormVideoMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane, arlocal_settings)
-    @tab_name = determine_tab_name(pane)
-  end
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
-  protected
+  def initialize(pane: :video, arlocal_settings: QueryArlocalSettings.get)
+    pane = pane.to_s.downcase.to_sym
 
-
-  def self.categories
-    [
-      :video,
-      :keywords,
-      :source,
-      :picture,
-      :destroy
-    ]
-  end
-
-
-  private
-
-
-  def determine_partial_name(pane)
-    case pane
-    when :video
-      'form'
-    when :keywords
-      'form_keywords'
-    when :picture
-      'form_picture'
-    when :picture_import
-      'form_picture_import'
-    when :picture_upload
-      'form_picture_upload'
-    when :picture_join_single
-      'form_picture_join_single'
-    when :source
-      'form_source'
-    when :destroy
-      'form_destroy'
+    if FormVideoMetadata::DATA.has_key?(pane)
+      form = FormVideoMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormVideoMetadata::DATA[:video]
+      current_pane = :video
     end
+
+    @current_pane = current_pane
+    @navbar_categories = FormVideoMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable], arlocal_settings)
   end
-
-
-  def determine_selectables(pane, arlocal_settings)
-    FormVideoMetadata::Selectables.new(pane, arlocal_settings)
-  end
-
-
-  def determine_tab_name(pane)
-    if FormVideoMetadata.categories.include?(pane)
-      pane
-    else
-      :video
-    end
-  end
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :markup_parsers,
-      :keywords,
-      :pictures,
-      :source_types
-    )
-    def initialize(pane, arlocal_settings)
-      case pane
-      when :video
-        @markup_parsers = MarkupParser.options_for_select
-      when :keywords
-        @keywords = QueryKeywords.options_for_select_admin
-      when :picture
-        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
-      when :picture_join_single
-        @pictures = QueryPictures.options_for_select_admin(arlocal_settings)
-      when :source
-        @source_types = Video.source_type_options_for_select
-      else
-        @markup_parsers = MarkupParser.options_for_select
-      end
-    end
-  end
-
 
 
 end

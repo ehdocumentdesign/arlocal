@@ -11,15 +11,15 @@
   .arl_form_thumbnail
     = picture_preferred_tag(@picture, html_class: :arl_form_thumbnail_image)
   .arl_admin_resource_header_buttons
-    = picture_admin_button_to_edit_previous(@picture_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = picture_admin_button_to_edit_previous(@picture_neighbors.previous, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = picture_admin_button_to_done_editing(@picture)
-    = picture_admin_button_to_edit_next(@picture_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = picture_admin_button_to_edit_next(@picture_neighbors.next, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
   = render '/admin/pictures/admin_picture_stats', picture: @picture
   = render '/admin/shared/form_errors', resource: @picture
 
 .arl_admin_resource_edit_nav
-  - @form_metadata.nav_categories.each do |category|
-    = picture_admin_edit_nav_button(picture: @picture, category: category, current_pane: @form_metadata.tab_name)
+  - @form_metadata.navbar_categories.each do |category|
+    = picture_admin_edit_nav_button(picture: @picture, category: category, current_pane: @form_metadata.current_pane)
 
 .arl_admin_pictures_edit
   = render @form_metadata.partial_name, picture: @picture, selectable: @form_metadata.selectables

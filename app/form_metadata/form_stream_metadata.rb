@@ -1,72 +1,42 @@
 class FormStreamMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
 
 
-  def initialize(pane: :stream)
-    pane = ((pane == nil) ? :stream : pane.to_sym.downcase)
-
-    @nav_categories = FormStreamMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane)
-    @tab_name = determine_tab_name(pane)
-  end
-
-
-  protected
-
-
-  def self.categories
-    [
-      :stream,
-      :destroy
-    ]
-  end
+  DATA = {
+    stream: {
+      navbar: 0,
+      partial: 'form',
+      selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
 
 
-  private
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
-  def determine_partial_name(pane)
-    case pane
-    when :stream
-      'form'
-    when :destroy
-      'form_destroy'
+  def initialize(pane: :stream, arlocal_settings: nil)
+    pane = pane.to_s.downcase.to_sym
+
+    if FormStreamMetadata::DATA.has_key?(pane)
+      form = FormStreamMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormStreamMetadata::DATA[:stream]
+      current_pane = :stream
     end
+
+    @current_pane = current_pane
+    @navbar_categories = FormStreamMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable])
   end
-
-
-  def determine_selectables(pane)
-    FormStreamMetadata::Selectables.new(pane)
-  end
-
-
-  def determine_tab_name(pane)
-    if FormStreamMetadata.categories.include?(pane)
-      pane
-    else
-      :stream
-    end
-  end
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :markup_parsers
-    )
-    def initialize(pane)
-      case pane
-      when :stream
-        @markup_parsers = MarkupParser.options_for_select
-      end
-    end
-  end
-
 
 
 end
