@@ -5,16 +5,16 @@
   .arl_admin_resource_header_title= "#{@link.title}"
   .arl_admin_resource_header_buttons
     = link_admin_button_to_new
-    = link_admin_button_to_edit_previous(@link_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = link_admin_button_to_edit_previous(@link_neighbors.previous, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = link_admin_button_to_done_editing(@link)
-    = link_admin_button_to_edit_next(@link_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = link_admin_button_to_edit_next(@link_neighbors.next, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = link_admin_button_to_index
   = render '/admin/links/admin_link_stats', link: @link
   = render '/admin/shared/form_errors', resource: @link
 
 %nav.arl_admin_resource_edit_nav
-  - @form_metadata.nav_categories.each do |category|
-    = link_admin_edit_nav_button(link: @link, category: category, current_pane: @form_metadata.tab_name)
+  - @form_metadata.navbar_categories.each do |category|
+    = link_admin_edit_nav_button(link: @link, category: category, current_pane: @form_metadata.current_pane)
 
 .arl_admin_links_edit
   = render @form_metadata.partial_name, link: @link, selectable: @form_metadata.selectables

@@ -1,72 +1,42 @@
 class FormLinkMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
 
 
-  def initialize(pane: :link)
-    pane = ((pane == nil) ? :link : pane.to_sym.downcase)
-
-    @nav_categories = FormLinkMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane)
-    @tab_name = determine_tab_name(pane)
-  end
-
-
-  protected
-
-
-  def self.categories
-    [
-      :link,
-      :destroy
-    ]
-  end
+  DATA = {
+    link: {
+      navbar: 0,
+      partial: 'form',
+      selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
 
 
-  private
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
-  def determine_partial_name(pane)
-    case pane
-    when :link
-      'form'
-    when :destroy
-      'form_destroy'
+  def initialize(pane: :link, arlocal_settings: nil)
+    pane = pane.to_s.downcase.to_sym
+
+    if FormLinkMetadata::DATA.has_key?(pane)
+      form = FormLinkMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormLinkMetadata::DATA[:link]
+      current_pane = :link
     end
+
+    @current_pane = current_pane
+    @navbar_categories = FormLinkMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable])
   end
-
-
-  def determine_selectables(pane)
-    FormLinkMetadata::Selectables.new(pane)
-  end
-
-
-  def determine_tab_name(pane)
-    if FormLinkMetadata.categories.include?(pane)
-      pane
-    else
-      :link
-    end
-  end
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :markup_parsers
-    )
-    def initialize(pane)
-      case pane
-      when :link
-        @markup_parsers = MarkupParser.options_for_select
-      end
-    end
-  end
-
 
 
 end

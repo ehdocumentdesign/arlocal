@@ -14,9 +14,9 @@ module LinksHelper
   end
 
 
-  def link_admin_button_to_edit_next(link, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_link_path(link.id_admin, pane: target_pane)
+  def link_admin_button_to_edit_next(link, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_link_path(link.id_admin, pane: current_pane)
     else
       target_link = edit_admin_link_path(link.id_admin)
     end
@@ -24,9 +24,9 @@ module LinksHelper
   end
 
 
-  def link_admin_button_to_edit_previous(link, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_link_path(link.id_admin, pane: target_pane)
+  def link_admin_button_to_edit_previous(link, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_link_path(link.id_admin, pane: current_pane)
     else
       target_link = edit_admin_link_path(link.id_admin)
     end
