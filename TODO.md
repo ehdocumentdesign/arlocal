@@ -45,9 +45,11 @@
 
 ## Medium priority
 
+- event/form_audio does not have partial for _form_audio_join_by_keyword
+
 - FormMetadataSelectableUtils:65
   - will relying on an Integer for @picture.id create a false negative?
-  
+
 - EventVideo object
 
 - import/upload video via `keywords/_form_video_import`

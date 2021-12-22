@@ -6,16 +6,16 @@
   .arl_admin_resource_header_title= @event.title
   .arl_admin_resource_header_buttons
     = event_admin_button_to_new
-    = event_admin_button_to_edit_previous(@event_neighbors.previous, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = event_admin_button_to_edit_previous(@event_neighbors.previous, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = event_admin_button_to_done_editing(@event)
-    = event_admin_button_to_edit_next(@event_neighbors.next, arlocal_settings: @arlocal_settings, target_pane: @form_metadata.tab_name)
+    = event_admin_button_to_edit_next(@event_neighbors.next, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = event_admin_button_to_index
   = render '/admin/events/admin_event_stats', event: @event
   = render '/admin/shared/form_errors', resource: @event
 
 .arl_admin_resource_edit_nav
-  - @form_metadata.nav_categories.each do |category|
-    = event_admin_edit_nav_button(event: @event, category: category, current_pane: @form_metadata.tab_name)
+  - @form_metadata.navbar_categories.each do |category|
+    = event_admin_edit_nav_button(event: @event, category: category, current_pane: @form_metadata.current_pane)
 
 .arl_admin_event_edit
   = render @form_metadata.partial_name, event: @event, selectable: @form_metadata.selectables

@@ -11,9 +11,9 @@ module EventsHelper
   end
 
 
-  def event_admin_button_to_edit_next(event, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_event_path(event.id_admin, pane: target_pane)
+  def event_admin_button_to_edit_next(event, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_event_path(event.id_admin, pane: current_pane)
     else
       target_link = edit_admin_event_path(event.id_admin)
     end
@@ -21,9 +21,9 @@ module EventsHelper
   end
 
 
-  def event_admin_button_to_edit_previous(event, arlocal_settings: nil, target_pane: nil)
-    if routing_will_retain_edit_pane(arlocal_settings, target_pane)
-      target_link = edit_admin_event_path(event.id_admin, pane: target_pane)
+  def event_admin_button_to_edit_previous(event, arlocal_settings: nil, current_pane: nil)
+    if routing_will_retain_edit_pane(arlocal_settings, current_pane)
+      target_link = edit_admin_event_path(event.id_admin, pane: current_pane)
     else
       target_link = edit_admin_event_path(event.id_admin)
     end

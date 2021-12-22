@@ -1,119 +1,101 @@
 class FormEventMetadata
 
 
-  attr_reader :nav_categories, :partial_name, :selectables, :tab_name
+  extend FormMetadataUtils
 
 
-  def initialize(pane: :event, arlocal_settings: nil)
-    pane = ((pane == nil) ? :event : pane.to_sym.downcase)
+  DATA = {
+    event: {
+      navbar: 0,
+      partial: 'form',
+      selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
+    },
+    audio_import: {
+      navbar: nil,
+      partial: 'form_audio_import',
+      selectable: {}
+    },
+    audio_join_by_keyword: {
+      navbar: nil,
+      partial: 'form_audio_join_by_keyword',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+    },
+    audio_join_single: {
+      navbar: nil,
+      partial: 'form_audio_join_single',
+      selectable: { :@audio => proc { QueryAudio.options_for_select_admin } }
+    },
+    audio_upload: {
+      navbar: nil,
+      partial: 'form_audio_upload',
+      selectable: {}
+    },
+    audio: {
+      navbar: 1,
+      partial: 'form_audio',
+      selectable: {}
+    },
+    keyword_join_single: {
+      navbar: nil,
+      partial: 'form_keyword_join_single',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+    },
+    keywords: {
+      navbar: 1,
+      partial: 'form_keywords',
+      selectable: {}
+    },
+    picture_import: {
+      navbar: nil,
+      partial: 'form_picture_import',
+      selectable: {}
+    },
+    picture_join_by_keyword: {
+      navbar: nil,
+      partial: 'form_picture_join_by_keyword',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+    },
+    picture_join_single: {
+      navbar: nil,
+      partial: 'form_picture_join_single',
+      selectable: { :@pictures => lambda { |arlocal_settings| QueryPictures.options_for_select_admin_with_nil(arlocal_settings) } }
+    },
+    picture_upload: {
+      navbar: nil,
+      partial: 'form_picture_upload',
+      selectable: {}
+    },
+    pictures: {
+      navbar: 1,
+      partial: 'form_pictures',
+      selectable: { :@event_pictures_sorters => proc { SorterEventPictures.options_for_select } }
+    },
+    destroy: {
+      navbar: 2,
+      partial: 'form_destroy',
+      selectable: {}
+    }
+  }
 
-    @nav_categories = FormEventMetadata.categories
-    @partial_name = determine_partial_name(pane)
-    @selectables = determine_selectables(pane, arlocal_settings)
-    @tab_name = determine_tab_name(pane)
-  end
+
+  attr_reader :current_pane, :navbar_categories, :partial_name, :selectables
 
 
-  protected
+  def initialize(pane: :event, arlocal_settings: QueryArlocalSettings.get)
+    pane = pane.to_s.downcase.to_sym
 
-
-  def self.categories
-    [
-      :event,
-      :audio,
-      :keywords,
-      :pictures,
-      :destroy
-    ]
-  end
-
-
-  private
-
-
-  def determine_partial_name(pane)
-    case pane
-    when :event
-      'form'
-    when :audio
-      'form_audio'
-    when :audio_import
-      'form_audio_import'
-    when :audio_upload
-      'form_audio_upload'
-    when :audio_join_by_keyword
-      'form_audio_join_by_keyword'
-    when :audio_join_single
-      'form_audio_join_single'
-    when :keyword_join_single
-      'form_keyword_join_single'
-    when :keywords
-      'form_keywords'
-    when :picture_import
-      'form_picture_import'
-    when :picture_upload
-      'form_picture_upload'
-    when :picture_join_by_keyword
-      'form_picture_join_by_keyword'
-    when :picture_join_single
-      'form_picture_join_single'
-    when :pictures
-      'form_pictures'
-    when :destroy
-      'form_destroy'
+    if FormEventMetadata::DATA.has_key?(pane)
+      form = FormEventMetadata::DATA[pane]
+      current_pane = pane
     else
-      'form'
+      form = FormEventMetadata::DATA[:event]
+      current_pane = :event
     end
-  end
 
-
-  def determine_selectables(pane, arlocal_settings)
-    FormEventMetadata::Selectables.new(pane, arlocal_settings)
-  end
-
-
-  def determine_tab_name(pane)
-    if FormEventMetadata.categories.include?(pane)
-      pane
-    end
-  end
-
-
-
-  class Selectables
-    include FormMetadataSelectablesUtils
-    attr_reader(
-      :audio,
-      :event_pictures_sorters,
-      :keywords,
-      :markup_parsers,
-      :pictures
-    )
-    def initialize(pane, arlocal_settings)
-      case pane
-      when :event
-        @markup_parsers = MarkupParser.options_for_select
-      when :audio
-        @audio = QueryAudio.options_for_select_admin
-        @keywords = QueryKeywords.options_for_select_admin
-      when :audio_join_by_keyword
-        @keywords = QueryKeywords.options_for_select_admin
-      when :audio_join_single
-        @audio = QueryAudio.options_for_select_admin
-      when :keyword_join_single
-        @keywords = QueryKeywords.options_for_select_admin
-      when :picture_join_by_keyword
-        @keywords = QueryKeywords.options_for_select_admin
-      when :picture_join_single
-        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
-      when :pictures
-        @event_pictures_sorters = SorterEventPictures.options_for_select
-        @pictures = QueryPictures.options_for_select_admin_with_nil(arlocal_settings)
-        @keywords = QueryKeywords.options_for_select_admin
-      else
-        @markup_parsers = MarkupParser.options_for_select
-      end
-    end
+    @current_pane = current_pane
+    @navbar_categories = FormEventMetadata.navbar_categories
+    @partial_name = form[:partial]
+    @selectables = FormMetadataSelectable.new(form[:selectable], arlocal_settings)
   end
 
 
