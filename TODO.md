@@ -23,6 +23,7 @@
 - Only allow iframe in video embedding. **No, leave it as HTML embed for power admins.**
 
 - form_elements/picture_select: should it receive selectable or selectable.pictures?
+  - _Check this throughout. Might be best to start with seeing what variables each form_elements requires._
 
 - Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
 
