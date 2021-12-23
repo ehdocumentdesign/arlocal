@@ -1,5 +1,6 @@
 class Picture < ApplicationRecord
 
+
   extend FriendlyId
   extend MarkupParserUtils
   extend Neighborable
@@ -15,6 +16,15 @@ class Picture < ApplicationRecord
   validates :credits_parser_id, presence: true
   validates :description_parser_id, presence: true
   validates :title_parser_id, presence: true
+
+  validates :datetime_from_manual_entry_year,   allow_blank: true, numericality: { only_integer: true }
+  validates :datetime_from_manual_entry_month,  allow_blank: true, length: { maximum: 2 }, numericality: { only_integer: true }
+  validates :datetime_from_manual_entry_day,    allow_blank: true, length: { maximum: 2 }, numericality: { only_integer: true }
+  validates :datetime_from_manual_entry_hour,   allow_blank: true, length: { maximum: 2 }, numericality: { only_integer: true }
+  validates :datetime_from_manual_entry_minute, allow_blank: true, length: { maximum: 2 }, numericality: { only_integer: true }
+  validates :datetime_from_manual_entry_second, allow_blank: true, length: { maximum: 2 }, numericality: { only_integer: true }
+
+  validate :datetime_is_valid?
 
   has_many :album_pictures, dependent: :destroy
   has_many :albums, through: :album_pictures do
@@ -36,7 +46,6 @@ class Picture < ApplicationRecord
   has_many :video_pictures, dependent: :destroy
 
   has_one_attached :source_attachment
-
 
   accepts_nested_attributes_for :album_pictures, allow_destroy: true
   accepts_nested_attributes_for :event_pictures, allow_destroy: true
@@ -443,6 +452,17 @@ class Picture < ApplicationRecord
 
   def create_attr_title_without_markup
     self.title_without_markup = ApplicationController.helpers.parser_remove_markup(self.title_props)
+  end
+
+
+  def datetime_is_valid?
+    begin
+      if datetime_from_manual_entry_array_to_best_precision.any?
+        DateTime === DateTime.new(*self.datetime_from_manual_entry_array_to_best_precision)
+      end
+    rescue Date::Error
+      self.errors.add :base, :invalid_date, message: 'Invalid date.'
+    end
   end
 
 

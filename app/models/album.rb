@@ -252,6 +252,15 @@ class Album < ApplicationRecord
   end
 
 
+  ### duration_mins
+
+
+  ### duration_secs
+
+
+  ### duration_mils
+
+
   ### id
 
 

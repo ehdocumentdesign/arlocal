@@ -10,10 +10,15 @@ class FormPictureMetadata
       partial: 'form',
       selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
     },
+    album_join_single: {
+      navbar: nil,
+      form: 'form_album_join_single',
+      selectable: { :@albums => proc { QueryAlbums.options_for_select_admin } }
+    },
     albums: {
       navbar: 1,
       partial: 'form_albums',
-      selectable: { :@albums => proc { QueryAlbums.options_for_select_admin } }
+      selectable: {}
     },
     datetime: {
       navbar: 1,

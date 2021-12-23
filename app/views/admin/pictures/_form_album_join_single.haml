@@ -1,0 +1,14 @@
+.arl_form_title
+  Add picture to album
+
+- if selectable.does_have_albums
+  = form_with model: [:admin, picture], url: admin_picture_path(picture, pane: :albums), local: true, class: :arl_form, method: :patch do |f|
+    .arl_form_data
+      = f.fields_for :album_picture, picture.album_pictures.build do |ak|
+        = render 'form_elements/collection_select', form: ak, attribute: :album_id, blank: true, collection: selectable.albums, label: 'Title', text_method: :title
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- else
+  .arl_form
+    .test_form_null No albums.
