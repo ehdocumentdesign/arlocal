@@ -60,17 +60,22 @@ module VideosHelper
   end
 
 
-  def video_picture_button_to_new_import(video)
+  def video_keyword_admin_button_to_new_join_single(video)
+    button_admin_to_new_join_single edit_admin_video_path(video.id_admin, pane: :keyword_join_single)
+  end
+
+
+  def video_picture_admin_button_to_new_import(video)
     button_admin_to_new_import edit_admin_video_path(video.id_admin, pane: :picture_import)
   end
 
 
-  def video_picture_button_to_new_join_single(video)
+  def video_picture_admin_button_to_new_join_single(video)
     button_admin_to_new_join_single edit_admin_video_path(video.id_admin, pane: :picture_join_single)
   end
 
 
-  def video_picture_button_to_new_upload(video)
+  def video_picture_admin_button_to_new_upload(video)
     button_admin_to_new_upload edit_admin_video_path(video.id_admin, pane: :picture_upload)
   end
 

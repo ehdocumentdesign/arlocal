@@ -10,10 +10,15 @@ class FormVideoMetadata
       partial: 'form',
       selectable: { :@markup_parsers => proc { MarkupParser.options_for_select } }
     },
+    keyword_join_single: {
+      navbar: nil,
+      partial: 'form_keyword_join_single',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+    },
     keywords: {
       navbar: 1,
       partial: 'form_keywords',
-      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+      selectable: {}
     },
     picture: {
       navbar: 1,

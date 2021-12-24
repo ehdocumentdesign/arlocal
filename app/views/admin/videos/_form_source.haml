@@ -3,17 +3,11 @@
     .arl_form_title
       video source
     .arl_form_data
-      = render 'form_elements/source_select',    attribute: :source_type,               form: f, selectable: selectable
-      = render 'form_elements/file_field',       attribute: :recording,                 form: f
-      = render 'form_elements/text_field',       attribute: :source_catalog_file_path,  form: f
-      = render 'form_elements/text_area',       attribute: :source_embed,               form: f
-      = render 'form_elements/text_field',       attribute: :source_url,                form: f, aside_before: "#{catalog_path_prefix_url}/"
+      = render 'form_elements/source_select', attribute: :source_type,              form: f, selectable: selectable
+      = render 'form_elements/file_field',    attribute: :recording,                form: f
+      = render 'form_elements/text_field',    attribute: :source_catalog_file_path, form: f
+      = render 'form_elements/text_area',     attribute: :source_embed,             form: f
+      = render 'form_elements/text_field',    attribute: :source_url,               form: f, aside_before: "#{catalog_path_prefix_url}/"
     .arl_form_actions
       .arl_form_action_submit
         = f.submit class: :arl_button_form_submit
-
--# TODO: This needs a route/path
-= form_with(model: [:admin, @video], url: root_path(@video, pane: :source), local: true, class: :arl_form) do |f|
-  .arl_form_video
-    .arl_form_action_submit
-      = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }

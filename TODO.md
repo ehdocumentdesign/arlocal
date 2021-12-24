@@ -3,6 +3,8 @@
 
 ## HIGH priority
 
+- Video: include attribute for duration & read mediainfo?
+
 - review routes for actions/controllers made obsolete by `#edit?pane=[]`
 
 + CSS Grid for admin forms checkbox **In Progress**

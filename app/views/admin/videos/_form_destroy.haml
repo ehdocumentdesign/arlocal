@@ -2,14 +2,13 @@
   .arl_form_title
     Destroy video?
     .arl_form_data_label_destroy= tag.i video.title
-  .arl_form_data
-    .arl_form_data_attr.arl_form_data_blocks
-      %ul.arl_form_data_attr_destroy_explanation
-        %li.arl_form_data_attr_destroy_explanation_caveat Attached source will be destroyed.
-        %li.arl_form_data_attr_destroy_explanation_caveat Thumbnail picture will remain in database.
-        %li.arl_form_data_attr_destroy_explanation_caveat Catalog source files will remain in the filesystem.
-      %ul.arl_form_data_attr_destroy_explanation
-        %li.arl_form_data_attr_destroy_explanation_caveat This action can not be undone.
+
+  %ul.test_form_explanation
+    %li.test_form_explanation_caveat Attached source will be destroyed.
+    %li.test_form_explanation_caveat Thumbnail picture will remain in database.
+    %li.test_form_explanation_caveat Catalog source files will remain in the filesystem.
+  %ul.test_form_explanation
+    %li.test_form_explanation_warning This action can not be undone.
 
   .arl_form_actions
     = button_admin_submit_to_destroy admin_video_path(video.id), data: { confirm:  'Are you sure?' }
