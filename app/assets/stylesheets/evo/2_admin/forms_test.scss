@@ -3,7 +3,6 @@
 //  .       input input
 //
 
-
 .test_form_data_attr {
   display: grid;
   grid-template-areas: 'checkbox label inline .' '. explanation explanation .' '. input input .' '. thumbnail thumbnail .';
@@ -11,6 +10,10 @@
   // grid-template-areas: 'label inline' 'explanation explanation' 'input input' 'thumbnail thumbnail';
   // grid-template-columns: auto auto;
   margin: $arl-margin-wide 0;
+}
+.test_form_data_attr_attachment {
+  font-family: $font-family-admin-data-value;
+  grid-area: input;
 }
 .test_form_data_attr_explanation {
   font-family: $font-family-admin-data-label;

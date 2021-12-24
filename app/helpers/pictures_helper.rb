@@ -85,6 +85,16 @@ module PicturesHelper
   end
 
 
+  def picture_event_admin_button_to_new_join_single(picture)
+    button_admin_to_new_join_single edit_admin_picture_path(picture.id_admin, pane: :event_join_single)
+  end
+
+
+  def picture_keyword_admin_button_to_new_join_single(picture)
+    button_admin_to_new_join_single edit_admin_picture_path(picture.id_admin, pane: :keyword_join_single)
+  end
+
+
   def picture_datetime_cascade_value_statement(picture)
     picture_datetime = tag.span("#{picture.datetime_effective_value}")
     sanitize("#{picture_datetime}")

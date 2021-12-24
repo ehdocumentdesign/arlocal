@@ -1,0 +1,15 @@
+.arl_form_title
+  Add picture to event
+
+- if selectable.does_have_events
+  = form_with model: [:admin, picture], url: admin_picture_path(picture, pane: :events), local: true, class: :arl_form, method: :patch do |f|
+    .arl_form_data
+      = f.fields_for :event_pictures, picture.event_pictures.build do |ep|
+        = render 'form_elements/collection_select', form: ep, attribute: :event_id, blank: true, collection: selectable.events, label: 'Title', text_method: :datetime_and_title
+        -#= render 'form_elements/text_field_sized', form: aa, attribute: :event_order, label: 'Order', size: 4
+    .arl_form_actions
+      = f.submit class: :arl_button_form_submit
+
+- else
+  .arl_form
+    .test_form_null No events.

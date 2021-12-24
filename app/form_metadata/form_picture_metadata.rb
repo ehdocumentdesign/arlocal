@@ -25,15 +25,25 @@ class FormPictureMetadata
       partial: 'form_datetime',
       selectable: {}
     },
+    event_join_single: {
+      navbar: nil,
+      partial: 'form_event_join_single',
+      selectable: { :@events => proc { QueryEvents.options_for_select_admin } }
+    },
     events: {
       navbar: 1,
       partial: 'form_events',
-      selectable: { :@events => proc { QueryEvents.options_for_select_admin } }
+      selectable: {}
+    },
+    keyword_join_single: {
+      navbar: nil,
+      partial: 'form_keyword_join_single',
+      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
     },
     keywords: {
       navbar: 1,
       partial: 'form_keywords',
-      selectable: { :@keywords => proc { QueryKeywords.options_for_select_admin } }
+      selectable: {}
     },
     source: {
       navbar: 1,

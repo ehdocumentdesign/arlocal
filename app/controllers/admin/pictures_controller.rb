@@ -236,7 +236,6 @@ class Admin::PicturesController < AdminController
       flash[:notice] = 'Picture was successfully updated.'
       redirect_to edit_admin_picture_path(@picture.id_admin, pane: params[:pane])
     else
-      # @picture_neighbors = QueryPictures.new(arlocal_settings: @arlocal_settings).action_admin_show_neighborhood(@picture)
       @picture_neighbors = QueryPictures.neighborhood_admin(@picture, @arlocal_settings)
       @form_metadata = FormPictureMetadata.new(pane: params[:pane])
       flash[:notice] = 'Picture could not be updated.'

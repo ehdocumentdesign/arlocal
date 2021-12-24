@@ -1,28 +1,28 @@
 .arl_form_title
   = picture_statement_keywords_count(picture)
+
 - if picture.does_have_keywords
   = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :keywords), local: true, method: :patch, class: :arl_form) do |f|
     .arl_form_data
-      %table.arl_form_data_resource_table
-        %tr
-          %th.arl_form_data_resource_heading keyword title
-          %th.arl_form_data_resource_remove= icon_remove
-        = f.fields_for :picture_keywords do |pk|
-          %tr
-            %td.arl_form_data_resource_value= keyword_reference_admin_link(pk.object.keyword)
-            %td.arl_form_data_resource_remove= pk.check_box :_destroy
+      %table.test_form_data_joins
+        %thead
+          %tr.test_form_data_joins_headers
+            %th.test_form_data_joins_header keyword title
+            %th.test_form_data_joins_header= icon_remove
+        %tbody
+          = f.fields_for :picture_keywords do |pk|
+            %tr.test_form_data_joins_values
+              %td.test_form_data_joins_value= keyword_reference_admin_link(pk.object.keyword)
+              %td.test_form_data_joins_value= pk.check_box :_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation
         will also unjoin any keywords with 'remove' box checked
 
-- if selectable.does_have_keywords
-  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :keywords), local: true, method: :patch, class: [:arl_form, :arl_border_top]) do |f|
-    .arl_form_title
-      Add a keyword
-    = f.fields_for :picture_keywords, picture.picture_keywords.build do |pk|
-      .arl_form_data
-        .arl_form_data_attr.arl_form_layout_center
-          = pk.collection_select :keyword_id, selectable.keywords, :id, :title, {include_blank: true}, { class: :arl_form_data_select }
-    .arl_form_actions
-      = f.submit class: :arl_button_form_submit
+= render 'form_elements/spacer'
+
+.arl_form_title
+  Add to event
+.arl_form_actions
+  .arl_admin_resource_alt_buttons
+    = picture_keyword_admin_button_to_new_join_single(picture)
