@@ -25,12 +25,6 @@
   border-bottom: $border;
   width: 100%;
 }
-.arl_admin_resource_header_class {
-  display: block;
-  font-family: $font-family-admin-data-label;
-  margin: $arl-margin-narrow;
-  text-align: center;
-}
 .arl_admin_resource_header_buttons {
   @include layout-flex-row;
   margin-bottom: $arl-margin;
@@ -39,19 +33,25 @@
   margin-top: $arl-margin;
   max-width: 16rem;
 }
-.arl_admin_resource_header_picture_img {
-  @include border-rounded-img;
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
-  max-height: 5rem;
-  max-width: 5rem;
+.arl_admin_resource_header_class {
+  display: block;
+  font-family: $font-family-admin-data-label;
+  margin: $arl-margin-narrow;
+  text-align: center;
 }
 .arl_admin_resource_header_stats {
   font-family: $font-family-admin;
   font-size: 0.9em;
   margin: $arl-margin 0rem;
   text-align: center;
+}
+.arl_admin_resource_header_thumbnail_image {
+  @include border-rounded-img;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 8rem;
+  max-width: 8rem;
 }
 .arl_admin_resource_header_title {
   display: block;
@@ -61,6 +61,8 @@
   margin: $arl-margin-narrow;
   text-align: center;
 }
+
+
 .arl_admin_resource_edit_nav {
 }
 .arl_admin_resource_edit_nav_item {
@@ -79,6 +81,8 @@
   font-size: 0.9em;
   text-decoration: none;
 }
+
+
 .arl_admin_resource_joined {
   margin: $arl-margin-wide 0rem;
 }

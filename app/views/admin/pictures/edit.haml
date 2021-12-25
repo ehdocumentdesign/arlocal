@@ -8,8 +8,8 @@
     = picture_admin_button_to_new_upload
     = picture_admin_button_to_index
   .arl_admin_resource_header_title= "#{@picture.title}"
-  .arl_form_thumbnail
-    = picture_preferred_tag(@picture, html_class: :arl_form_thumbnail_image)
+  .arl_admin_resource_header_thumbnail
+    = picture_preferred_tag(@picture, html_class: :arl_admin_resource_header_thumbnail_image)
   .arl_admin_resource_header_buttons
     = picture_admin_button_to_edit_previous(@picture_neighbors.previous, arlocal_settings: @arlocal_settings, current_pane: @form_metadata.current_pane)
     = picture_admin_button_to_done_editing(@picture)
