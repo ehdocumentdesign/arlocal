@@ -5,31 +5,21 @@
 
 - Video: include attribute for duration & read mediainfo?
 
-- review routes for actions/controllers made obsolete by `#edit?pane=[]`
-
-+ CSS Grid for admin forms checkbox **In Progress**
-- TODO: Button spacing in admin forms **In Progress**
-
-- what is this: in `app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2`
-  > // TODO: figure out why this doesn't render border-bottom or border-top
-  > // see .jp-type-playlist for border-bottom.
-  > // see .arl_albums_show_player for border-top.
-  >
-
 - give a title to nested_picture uploads/imports
 
-- Which parsers are obsolete? **Seems right.**
-  - HTML = Iframe
-  - HTML P = simpleformat
-  - HTML PRE = markdown
-- Only allow iframe in video embedding. **No, leave it as HTML embed for power admins.**
+
+>        - Which parsers are obsolete? **Seems right.**
+>          - HTML = Iframe
+>          - HTML P = simpleformat
+>          - HTML PRE = markdown
+>        - Only allow iframe in video embedding. **No, leave it as HTML embed for power admins.**
+>        - This is OK to finalize.
+
 
 - form_elements/picture_select: should it receive selectable or selectable.pictures?
   - _Check this throughout. Might be best to start with seeing what variables each form_elements requires._
 
 - Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
-
-- Does audio view still use _form_attachment* ? **Probably not.**
 
 - eventshelper:158 why assign js empty?
 
@@ -45,10 +35,17 @@
 - Should auto_keyword be in the top part of a form? **I think so.**
 
 - review routes for semantic/logical cohesion
+  - obsolete routes are commented. I think all of them.
+  - some are not currently in use.
+
 
 ## Medium priority
 
-- event/form_audio does not have partial for _form_audio_join_by_keyword
+- what is this: in `app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2`
+> // TODO: figure out why this doesn't render border-bottom or border-top
+> // see .jp-type-playlist for border-bottom.
+> // see .arl_albums_show_player for border-top.
+>
 
 - FormMetadataSelectableUtils:65
   - will relying on an Integer for @picture.id create a false negative?
@@ -96,11 +93,20 @@
 
 ## Possibly fixed
 
+- Does audio view still use _form_attachment* ? **Probably not.**
+  **YES. it's a decision tree for upload/purge.**
+  **Resubmit as a UI/UX review.**
+
+- review routes for actions/controllers made obsolete by `#edit?pane=[]`
+- Video: Why doesn't picture import work? check all them for bugs. maybe the Video model.
 + video thumbnail upload/import
 - double-check source_attachment features
 
 
 ## Probably fixed
+
++ CSS Grid for admin forms checkbox **In Progress**
+- TODO: Button spacing in admin forms **In Progress**
 
 - Admin::Videos#Edit
   - add title across panes
@@ -117,3 +123,5 @@
 
   + stop differentiating "catalog_[resource]_xxxx" helper methods
   + model: strip_whitespace_edges?
+
+  - event/form_audio does not have partial for _form_audio_join_by_keyword

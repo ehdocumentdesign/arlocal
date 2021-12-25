@@ -23,7 +23,7 @@ class FormVideoMetadata
     picture: {
       navbar: 1,
       partial: 'form_picture',
-      selectable: {}
+      selectable: { :@pictures => lambda { |arlocal_settings| QueryPictures.options_for_select_admin_with_nil(arlocal_settings) } }
     },
     picture_import: {
       navbar: nil,

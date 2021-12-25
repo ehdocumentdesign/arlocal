@@ -128,7 +128,7 @@ module PicturesHelper
           picture.id,
           {'data-picture-src' => picture_preferred_url(picture)}
       ] },
-      selected_key = form.object.picture_id
+      selected: form.object.picture_id
     )
   end
 

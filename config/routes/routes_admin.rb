@@ -19,6 +19,7 @@ namespace :admin do
   patch     'arlocal_settings/update_from_resource', to: 'arlocal_settings#update_from_resource_and_return', as: :arlocal_settings_update_and_return
   patch     'arlocal_settings/purge_icon_image', to: 'arlocal_settings#purge_icon_image', as: :arlocal_settings_purge_icon_image
 
+
   resources :articles
 
 
@@ -27,7 +28,7 @@ namespace :admin do
   patch     'albums/:id/pictures_with_keyword', to: 'albums#add_pictures_by_keyword',    as: :album_add_pictures_by_keyword
   patch     'albums/:id/audio_import',          to: 'albums#audio_create_from_import',   as: :album_audio_create_from_import
   patch     'albums/:id/audio_upload',          to: 'albums#audio_create_from_upload',   as: :album_audio_create_from_upload
-  get       'albums/:id/audio_keyword_join',    to: 'albums#edit_audio_keyword_join',    as: :album_edit_audio_keyword_join
+  # get       'albums/:id/audio_keyword_join',    to: 'albums#edit_audio_keyword_join',    as: :album_edit_audio_keyword_join
   patch     'albums/:id/picture_import',        to: 'albums#picture_create_from_import', as: :album_picture_create_from_import
   patch     'albums/:id/picture_upload',        to: 'albums#picture_create_from_upload', as: :album_picture_create_from_upload
   # resources :albums do
@@ -37,7 +38,6 @@ namespace :admin do
 
 
   resources :audio
-  patch 'audio_refresh_id3/:id',      to: 'audio#refresh_id3',                  as: 'audio_refresh_id3'
   get   'audio_import_menu',          to: 'audio#new_import_menu',              as: 'audio_new_import_menu'
   get   'audio_import_single',        to: 'audio#new_import_single',            as: 'audio_new_import_single'
   post  'audio_import_single',        to: 'audio#create_from_import',           as: 'audio_create_from_import'
@@ -45,6 +45,7 @@ namespace :admin do
   post  'audio_import_to_album',      to: 'audio#create_from_import_to_album',  as: 'audio_create_from_import_to_album'
   get   'audio_import_to_event',      to: 'audio#new_import_to_event',          as: 'audio_new_import_to_event'
   post  'audio_import_to_event',      to: 'audio#create_from_import_to_event',  as: 'audio_create_from_import_to_event'
+  patch 'audio_refresh_id3/:id',      to: 'audio#refresh_id3',                  as: 'audio_refresh_id3'
   get   'audio_upload_menu',          to: 'audio#new_upload_menu',              as: 'audio_new_upload_menu'
   get   'audio_upload_single',        to: 'audio#new_upload_single',            as: 'audio_new_upload_single'
   post  'audio_upload_single',        to: 'audio#create_from_upload',           as: 'audio_create_from_upload'
@@ -64,7 +65,7 @@ namespace :admin do
   patch     'events/:id/pictures_with_keyword', to: 'events#add_pictures_by_keyword',    as: :event_add_pictures_by_keyword
   patch     'events/:id/audio_import',          to: 'events#audio_create_from_import',   as: :event_audio_create_from_import
   post      'events/:id/audio_upload',          to: 'events#audio_create_from_upload',   as: :event_audio_create_from_upload
-  get       'events/:id/audio_keyword_join',    to: 'events#edit_audio_keyword_join',    as: :event_edit_audio_keyword_join
+  # get       'events/:id/audio_keyword_join',    to: 'events#edit_audio_keyword_join',    as: :event_edit_audio_keyword_join
   patch     'events/:id/picture_import',        to: 'events#picture_create_from_import', as: :event_picture_create_from_import
   patch     'events/:id/picture_upload',        to: 'events#picture_create_from_upload', as: :event_picture_create_from_upload
 # resources :events do
