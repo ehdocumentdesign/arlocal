@@ -5,11 +5,11 @@
     .arl_form_title
       Remove attachment?
 
-    %ul.test_form_explanation
+    %ul.arl_form_explanation
       %li.arl_form_data_attr_destroy_explanation_caveat Attachment will be removed from picture entry.
       %li.arl_form_data_attr_destroy_explanation_caveat Picture entry will remain in the database.
-    %ul.test_form_explanation
-      %li.test_form_explanation_warning This action can not be undone.
+    %ul.arl_form_explanation
+      %li.arl_form_explanation_warning This action can not be undone.
 
     .arl_form_actions
       = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }

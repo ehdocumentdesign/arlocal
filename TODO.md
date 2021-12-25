@@ -3,6 +3,16 @@
 
 ## HIGH priority
 
+- CSS: Review `forms_test.scss` and remove obsolete classes from `forms.scss`
+  - Done, BUT:
+    - adminstrator forms including sign-on need updating
+    - admin_header picture lost its class
+    - resource `form_pictures` lost some data heading/value classes.
+      - album and keyword, probably event too (hopefully uses a partial in `form_elements`)
+      - font-face
+      - layout/grid/table for uniform alignment.
+
+
 - Video: include attribute for duration & read mediainfo?
 
 - give a title to nested_picture uploads/imports

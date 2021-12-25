@@ -4,18 +4,18 @@
 - if audio.does_have_albums
   = form_with model: [:admin, audio], url: admin_audio_path(audio, pane: :albums), local: true, class: :arl_form, method: :patch do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_joins_headings
-            %th.test_form_data_joins_heading album title
-            %th.test_form_data_joins_heading order
-            %th.test_form_data_joins_heading= icon_remove
+          %tr.arl_form_data_joins_headings
+            %th.arl_form_data_joins_heading album title
+            %th.arl_form_data_joins_heading order
+            %th.arl_form_data_joins_heading= icon_remove
         %tbody
           = f.fields_for :album_audio do |aa|
-            %tr.test_form_data_joins_values
-              %td.test_form_data_joins_value= album_reference_admin_link(aa.object.album)
-              %td.test_form_data_joins_value= aa.text_field :album_order, autocomplete: :off, size: 4, class: :test_form_data_attr_input_text_field_inline
-              %td.test_form_data_joins_value= aa.check_box :_destroy, class: :test_form_data_joins_value_destroy
+            %tr.arl_form_data_joins_values
+              %td.arl_form_data_joins_value= album_reference_admin_link(aa.object.album)
+              %td.arl_form_data_joins_value= aa.text_field :album_order, autocomplete: :off, size: 4, class: :arl_form_data_attr_input_text_field_inline
+              %td.arl_form_data_joins_value= aa.check_box :_destroy, class: :arl_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detach any albums with '#{icon_destroy}' box checked"

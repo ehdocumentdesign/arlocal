@@ -1,5 +1,5 @@
-.test_form_data_attr
-  = form.label attribute, ( local_assigns[:label] ? label : attribute ), class: :test_form_data_attr_label
-  = form.text_field attribute, size: size, class: :test_form_data_attr_input_text_field_inline
+.arl_form_data_attr
+  = form.label attribute, ( local_assigns[:label] ? label : attribute ), class: :arl_form_data_attr_label
+  = form.text_field attribute, size: size, class: :arl_form_data_attr_input_text_field_inline
   - if local_assigns[:aside]
-    %aside.test_form_data_attr_explanation= "#{aside}"
+    %aside.arl_form_data_attr_explanation= "#{aside}"

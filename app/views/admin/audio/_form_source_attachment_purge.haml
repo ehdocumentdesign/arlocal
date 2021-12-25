@@ -3,12 +3,12 @@
     Remove attachment?
     .arl_form_data_label_destroy= tag.i audio.source_attachment.filename
   .arl_form_data
-    .test_form_
-      %ul.test_form__explanation
-        %li.test_form__explanation_caveat Attachment will be removed from audio entry.
-        %li.test_form__explanation_caveat Audio entry will remain in the database.
-      %ul.test_form__explanation
-        %li.test_form__explanation_warning This action can not be undone.
+    .arl_form_
+      %ul.arl_form__explanation
+        %li.arl_form__explanation_caveat Attachment will be removed from audio entry.
+        %li.arl_form__explanation_caveat Audio entry will remain in the database.
+      %ul.arl_form__explanation
+        %li.arl_form__explanation_warning This action can not be undone.
 
   .arl_form_actions
     = f.submit 'Purge Attachment', class: :arl_button_form_submit_destroy, data: { confirm: 'Are you sure?' }

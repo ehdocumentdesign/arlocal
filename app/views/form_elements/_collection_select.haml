@@ -1,8 +1,8 @@
-.test_form_data_attr
+.arl_form_data_attr
   - if local_assigns[:label]
-    = form.label attribute, label, class: :test_form_data_attr_label
+    = form.label attribute, label, class: :arl_form_data_attr_label
   - else
-    = form.label attribute, class: :test_form_data_attr_label
-  = form.collection_select attribute, collection, :id, text_method, { include_blank: local_assigns[:blank], selected: form.object.public_send(attribute) }, { class: :test_form_data_attr_input_select }
+    = form.label attribute, class: :arl_form_data_attr_label
+  = form.collection_select attribute, collection, :id, text_method, { include_blank: local_assigns[:blank], selected: form.object.public_send(attribute) }, { class: :arl_form_data_attr_input_select }
   - if local_assigns[:aside]
-    %aside.test_form_data_attr_explanation= "#{aside}"
+    %aside.arl_form_data_attr_explanation= "#{aside}"

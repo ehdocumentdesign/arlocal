@@ -4,16 +4,16 @@
 - if picture.does_have_events
   = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :events), local: true, method: :patch, class: :arl_form) do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_joins_headings
-            %th.test_form_data_joins_heading event
-            %th.test_form_data_joins_heading= icon_remove
+          %tr.arl_form_data_joins_headings
+            %th.arl_form_data_joins_heading event
+            %th.arl_form_data_joins_heading= icon_remove
         %tbody
           = f.fields_for :event_pictures do |ep|
-            %tr.test_form_data_joins_values
-              %td.test_form_data_joins_value= event_reference_admin_link(ep.object.event)
-              %td.test_form_data_joins_value= ep.check_box :_destroy
+            %tr.arl_form_data_joins_values
+              %td.arl_form_data_joins_value= event_reference_admin_link(ep.object.event)
+              %td.arl_form_data_joins_value= ep.check_box :_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation

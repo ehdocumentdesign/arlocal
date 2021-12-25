@@ -3,8 +3,8 @@
     Destroy keyword?
     .arl_form_data_label_destroy= sanitize("<i>" + keyword.title + "</i>")
 
-  %ul.test_form_explanation
-    %li.test_form_explanation_warning This action can not be undone.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_warning This action can not be undone.
 
   .arl_form_actions
     = button_admin_submit_to_destroy admin_keyword_path(keyword.id), data: { confirm:  'Are you sure?' }, label: 'Destroy Keyword?'

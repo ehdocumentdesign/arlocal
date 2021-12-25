@@ -3,12 +3,12 @@
     Destroy album?
     .arl_form_data_label_destroy= tag.i album.title
 
-  %ul.test_form_explanation
-    %li.test_form_explanation_caveat Tracklist will be destroyed.
-    %li.test_form_explanation_caveat Audio entries will remain in the database.
-    %li.test_form_explanation_caveat Audio files will remain in the filesystem.
-  %ul.test_form_explanation
-    %li.test_form_explanation_warning This action can not be undone.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_caveat Tracklist will be destroyed.
+    %li.arl_form_explanation_caveat Audio entries will remain in the database.
+    %li.arl_form_explanation_caveat Audio files will remain in the filesystem.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_warning This action can not be undone.
 
   .arl_form_actions
     = button_admin_submit_to_destroy admin_album_path(album.id), data: { confirm:  'Are you sure?' }, label: 'Destroy Album'

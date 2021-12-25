@@ -4,18 +4,18 @@
 - if event.does_have_audio
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_joins_headings
-            %th.test_form_data_joins_heading title
-            %th.test_form_data_joins_heading order
-            %th.test_form_data_joins_heading= icon_remove
+          %tr.arl_form_data_joins_headings
+            %th.arl_form_data_joins_heading title
+            %th.arl_form_data_joins_heading order
+            %th.arl_form_data_joins_heading= icon_remove
         %tbody
           = f.fields_for :event_audio do |ea|
-            %tr.test_form_data_joins_values
-              %td.test_form_data_joins_value= audio_reference_admin_link(ea.object.audio)
-              %td.test_form_data_joins_value= ea.text_field :event_order, autocomplete: :off, size: 4, class: :test_form_data_attr_input_text_field
-              %td.test_form_data_joins_value= ea.check_box :_destroy, class: :test_form_data_joins_value_destroy
+            %tr.arl_form_data_joins_values
+              %td.arl_form_data_joins_value= audio_reference_admin_link(ea.object.audio)
+              %td.arl_form_data_joins_value= ea.text_field :event_order, autocomplete: :off, size: 4, class: :arl_form_data_attr_input_text_field
+              %td.arl_form_data_joins_value= ea.check_box :_destroy, class: :arl_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detach any audio with '#{icon_destroy}' box checked"

@@ -4,12 +4,12 @@
 - if event.does_have_pictures
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      .test_form_data_attr
-        = f.label :event_pictures_sorter_id, 'Sort pictures by:', class: :test_form_data_attr_label
-        = f.select :event_pictures_sorter_id, selectable.event_pictures_sorters, {selected: f.object.event_pictures_sorter_id}, {class: :test_form_data_attr_input_select}
-      .test_form_data_joins
+      .arl_form_data_attr
+        = f.label :event_pictures_sorter_id, 'Sort pictures by:', class: :arl_form_data_attr_label
+        = f.select :event_pictures_sorter_id, selectable.event_pictures_sorters, {selected: f.object.event_pictures_sorter_id}, {class: :arl_form_data_attr_input_select}
+      .arl_form_data_joins
         = f.fields_for :event_pictures do |ep|
-          .test_form_data_joins_picture
+          .arl_form_data_joins_picture
             = render 'form_elements/joins_picture_thumbnail', form: ep
             = render 'form_elements/joins_picture_title', form: ep
             = render 'form_elements/joins_picture_coverpicture', form: ep

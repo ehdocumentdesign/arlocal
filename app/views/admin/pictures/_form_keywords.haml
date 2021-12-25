@@ -4,16 +4,16 @@
 - if picture.does_have_keywords
   = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :keywords), local: true, method: :patch, class: :arl_form) do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_joins_headers
-            %th.test_form_data_joins_header keyword title
-            %th.test_form_data_joins_header= icon_remove
+          %tr.arl_form_data_joins_headers
+            %th.arl_form_data_joins_header keyword title
+            %th.arl_form_data_joins_header= icon_remove
         %tbody
           = f.fields_for :picture_keywords do |pk|
-            %tr.test_form_data_joins_values
-              %td.test_form_data_joins_value= keyword_reference_admin_link(pk.object.keyword)
-              %td.test_form_data_joins_value= pk.check_box :_destroy
+            %tr.arl_form_data_joins_values
+              %td.arl_form_data_joins_value= keyword_reference_admin_link(pk.object.keyword)
+              %td.arl_form_data_joins_value= pk.check_box :_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation

@@ -4,16 +4,16 @@
 - if keyword.does_have_albums
   = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :albums), local: true, method: :patch, class: :arl_form) do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_joins_headings
-            %th.test_form_data_joins_heading album title
-            %th.test_form_data_joins_heading= icon_remove
+          %tr.arl_form_data_joins_headings
+            %th.arl_form_data_joins_heading album title
+            %th.arl_form_data_joins_heading= icon_remove
         %tbody
           = f.fields_for :album_keywords do |ak|
-            %tr.test_form_data_joins_values
-              %td.test_form_data_joins_value= album_reference_admin_link(ak.object.album)
-              %td.test_form_data_joins_value= ak.check_box :_destroy, class: :test_form_data_joins_value_destroy
+            %tr.arl_form_data_joins_values
+              %td.arl_form_data_joins_value= album_reference_admin_link(ak.object.album)
+              %td.arl_form_data_joins_value= ak.check_box :_destroy, class: :arl_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation

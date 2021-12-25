@@ -3,12 +3,12 @@
     Destroy audio?
     .arl_form_data_label_destroy= tag.i audio.title
 
-  %ul.test_form_explanation
-    %li.test_form_explanation_caveat Audio will be removed from any album or event tracklists.
-    %li.test_form_explanation_caveat <em>Imported</em> audio files will remain in the file system.
-    %li.test_form_explanation_caveat <em>Uploaded</em> audio attachment(s) will be purged.
-  %ul.test_form_explanation
-    %li.test_form_explanation_warning This action can not be undone.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_caveat Audio will be removed from any album or event tracklists.
+    %li.arl_form_explanation_caveat <em>Imported</em> audio files will remain in the file system.
+    %li.arl_form_explanation_caveat <em>Uploaded</em> audio attachment(s) will be purged.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_warning This action can not be undone.
 
   .arl_form_actions
     = button_admin_submit_to_destroy admin_audio_path(audio.id), data: { confirm:  'Are you sure?' }, label: 'Destroy Audio'

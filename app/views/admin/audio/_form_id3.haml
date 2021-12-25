@@ -2,34 +2,34 @@
   .arl_form_title
     Audio ID3
 
-  %ul.test_form_explanation
-    %li.test_form_explanation_caveat Press "Update Auto" to replace the metadata in the database using those from the audio recording file.
-  %ul.test_form_explanation
-    %li.test_form_explanation_warning This cannot be undone.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_caveat Press "Update Auto" to replace the metadata in the database using those from the audio recording file.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_warning This cannot be undone.
 
   .arl_form_data
-    .test_form_explanation
-      .test_form_explanation_caveat Currently in database
-    .test_form_data_attr
-      .test_form_data_attr_label Title
-      .test_form_data_attr_value= audio.full_title
-    .test_form_data_attr
-      .test_form_data_attr_label Artist
-      .test_form_data_attr_value= audio.artist
-    .test_form_data_attr
-      .test_form_data_attr_label Date
-      .test_form_data_attr_value= audio.year
-    .test_form_data_attr
-      .test_form_data_attr_label Duration
-      .test_form_data_attr_value= audio.duration_as_text
+    .arl_form_explanation
+      .arl_form_explanation_caveat Currently in database
+    .arl_form_data_attr
+      .arl_form_data_attr_label Title
+      .arl_form_data_attr_value= audio.full_title
+    .arl_form_data_attr
+      .arl_form_data_attr_label Artist
+      .arl_form_data_attr_value= audio.artist
+    .arl_form_data_attr
+      .arl_form_data_attr_label Date
+      .arl_form_data_attr_value= audio.year
+    .arl_form_data_attr
+      .arl_form_data_attr_label Duration
+      .arl_form_data_attr_value= audio.duration_as_text
 
   .arl_form_data
-    .test_form_explanation
-      .test_form_explanation_caveat Stored from audio recording file
+    .arl_form_explanation
+      .arl_form_explanation_caveat Stored from audio recording file
     - audio_read_source_metadata(audio).each_pair do |key, value|
-      .test_form_data_attr
-        .test_form_data_attr_label= "#{key}"
-        .test_form_data_attr_value= "#{value}"
+      .arl_form_data_attr
+        .arl_form_data_attr_label= "#{key}"
+        .arl_form_data_attr_value= "#{value}"
 
   .arl_form_actions
     = f.submit class: :arl_button_form_submit

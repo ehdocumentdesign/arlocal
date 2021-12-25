@@ -4,16 +4,16 @@
 - if event.does_have_keywords
   = form_with(model: [:admin, event], url: admin_event_path(event, pane: :keywords), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_joins_headings
-            %th.test_form_data_joins_heading title
-            %th.test_form_data_joins_heading= icon_remove
+          %tr.arl_form_data_joins_headings
+            %th.arl_form_data_joins_heading title
+            %th.arl_form_data_joins_heading= icon_remove
         %tbody
           = f.fields_for :event_keywords do |ek|
-            %tr.test_form_data_joins_values
-              %td.test_form_data_joins_value= ek.label :keyword_title, keyword_reference_admin_link(ek.object.keyword)
-              %td.test_form_data_joins_value= ek.check_box :_destroy, class: :test_form_data_joins_value_destroy
+            %tr.arl_form_data_joins_values
+              %td.arl_form_data_joins_value= ek.label :keyword_title, keyword_reference_admin_link(ek.object.keyword)
+              %td.arl_form_data_joins_value= ek.check_box :_destroy, class: :arl_form_data_joins_value_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detatch any keywords with '#{icon_destroy}' box checked"

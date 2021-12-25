@@ -1,4 +1,4 @@
-.test_form_data_attr
-  = form.label attribute, class: :test_form_data_attr_label
-  = form.select attribute_parser_id(attribute), selectable.markup_parsers, { selected: form.object.public_send(attribute_parser_id(attribute)) }, { class: :test_form_data_attr_input_select_inline }
-  ~ form.text_area attribute_text_markup(attribute), class: :test_form_data_attr_input_text_area
+.arl_form_data_attr
+  = form.label attribute, class: :arl_form_data_attr_label
+  = form.select attribute_parser_id(attribute), selectable.markup_parsers, { selected: form.object.public_send(attribute_parser_id(attribute)) }, { class: :arl_form_data_attr_input_select_inline }
+  ~ form.text_area attribute_text_markup(attribute), class: :arl_form_data_attr_input_text_area

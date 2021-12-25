@@ -3,16 +3,16 @@
 - if video.does_have_keywords
   = form_with(model: [:admin, video], url: admin_video_path(video, pane: :keywords), local: true, method: :patch, class: :arl_form) do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_resource_headings
-            %th.test_form_data_resource_heading keyword title
-            %th.test_form_data_resource_heading= icon_remove
+          %tr.arl_form_data_resource_headings
+            %th.arl_form_data_resource_heading keyword title
+            %th.arl_form_data_resource_heading= icon_remove
         %tbody
           = f.fields_for :video_keywords do |vk|
-            %tr.test_form_data_resource_values
-              %td.test_form_data_resource_value= keyword_reference_admin_link(vk.object.keyword)
-              %td.test_form_data_resource_value= vk.check_box :_destroy
+            %tr.arl_form_data_resource_values
+              %td.arl_form_data_resource_value= keyword_reference_admin_link(vk.object.keyword)
+              %td.arl_form_data_resource_value= vk.check_box :_destroy
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
       %aside.arl_form_action_explanation

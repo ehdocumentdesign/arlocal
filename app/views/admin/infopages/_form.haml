@@ -11,22 +11,22 @@
   = render 'form_elements/spacer'
   = form_with(model: [:admin, infopage], url: admin_infopage_path(infopage, pane: :infopage), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      %table.test_form_data_joins
+      %table.arl_form_data_joins
         %thead
-          %tr.test_form_data_joins_headings
-            %th.test_form_data_joins_heading class
-            %th.test_form_data_joins_heading title
-            %th.test_form_data_joins_heading group
-            %th.test_form_data_joins_heading order
-            %th.test_form_data_joins_heading= icon_remove
+          %tr.arl_form_data_joins_headings
+            %th.arl_form_data_joins_heading class
+            %th.arl_form_data_joins_heading title
+            %th.arl_form_data_joins_heading group
+            %th.arl_form_data_joins_heading order
+            %th.arl_form_data_joins_heading= icon_remove
         %tbody
           = f.fields_for :infopage_items do |i|
-            %tr.test_form_data_joins_values
-              %td.test_form_data_joins_value= i.object.type_of
-              %td.test_form_data_joins_value= infopageable_reference_admin_link(i.object)
-              %td.test_form_data_joins_value= i.select :infopage_group, @form_metadata.selectables.item_groups, { selected: i.object.infopage_group }, class: :test_form_data_attr_input_select
-              %td.test_form_data_joins_value= i.text_field :infopage_group_order, size: 4, class: :test_form_data_attr_input_text_field
-              %td.test_form_data_joins_value= i.check_box :_destroy, class: :test_form_data_attr_input_checkbox_destroy
+            %tr.arl_form_data_joins_values
+              %td.arl_form_data_joins_value= i.object.type_of
+              %td.arl_form_data_joins_value= infopageable_reference_admin_link(i.object)
+              %td.arl_form_data_joins_value= i.select :infopage_group, @form_metadata.selectables.item_groups, { selected: i.object.infopage_group }, class: :arl_form_data_attr_input_select
+              %td.arl_form_data_joins_value= i.text_field :infopage_group_order, size: 4, class: :arl_form_data_attr_input_text_field
+              %td.arl_form_data_joins_value= i.check_box :_destroy, class: :arl_form_data_attr_input_checkbox_destroy
     .arl_form_actions
       = f.submit 'Update Items', class: :arl_button_form_submit
       %aside.arl_form_action_explanation= "will also detatch any items with '#{icon_destroy}' box checked"

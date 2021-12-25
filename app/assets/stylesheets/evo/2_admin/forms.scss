@@ -1,8 +1,3 @@
-// checkbox title inline
-//  .       explanation explanation
-//  .       input input
-//
-
 .field_with_errors {
   @include layout-flex-column-stretch;
   color: $color-fg-exciting;
@@ -11,8 +6,6 @@
 
 .arl_form {
 }
-
-
 .arl_form_actions {
   margin: $arl-spacing-wide 0em;
   text-align: center;
@@ -26,257 +19,215 @@
 .arl_form_data {
   @include layout-flex-column-stretch;
 }
-.arl_form_data_attached_active_storage {
-  font-family: $font-family-admin-data-value;
-}
 .arl_form_data_attr {
-  margin: $arl-spacing 0rem;
+  // checkbox title       inline      .
+  //  .       explanation explanation .
+  //  .       input       input       .
+  //
+  display: grid;
+  grid-template-areas: 'checkbox label inline .' '. explanation explanation .' '. input input .' '. thumbnail thumbnail .';
+  grid-template-columns: 1.5rem auto min-content 1.5rem;
+  // the following alternate grid places checkbox as inline and requires modidying the grid attribute on .arl_form_data_attr_input_checkbox
+  // grid-template-areas: 'label inline' 'explanation explanation' 'input input' 'thumbnail thumbnail';
+  // grid-template-columns: auto auto;
+  margin: $arl-margin-wide 0;
 }
-.arl_form_data_attr_destroy_explanation {
-  margin: $arl-margin 0rem;
-}
-.arl_form_data_attr_destroy_explanation_caveat {
+.arl_form_data_attr_attachment {
   font-family: $font-family-admin-data-value;
-  font-size: 0.875em;
-  list-style-type: none;
-  margin: 0;
-  text-align: center;
+  grid-area: input;
 }
 .arl_form_data_attr_explanation {
   font-family: $font-family-admin-data-label;
-  font-size: 0.75em;
-  list-style: none;
+  font-size: 0.875em;
+  grid-area: explanation;
 }
-.arl_form_data_attr_not_applicable {
-  opacity: 0.5;
+.arl_form_data_attr_input_checkbox {
+  align-self: center;
+  grid-area: checkbox;
+  justify-self: center;
 }
-
-
-.arl_form_data_checkbox {
-  width: 1.5rem;
-}
-.arl_form_data_checkbox_destroy {
-  border: $border-test;
-  margin-left: $arl-spacing-wide;
-}
-
-.arl_form_data_label {
-  font-color: inherit;
-  font-family: $font-family-admin-data-label;
-  font-weight: bold;
-}
-.arl_form_data_label_block {
-  font-family: $font-family-admin-data-label;
-  font-weight: bold;
-}
-.arl_form_data_label_destroy {
-  font-family: $font-family-admin-data-label;
-  font-weight: bold;
-  text-align: center;
-}
-.arl_form_data_label_dependent {
-  font-family: $font-family-admin-data-entry;
-  font-size: 0.9em;
-//  font-weight: bold;
-}
-.arl_form_data_label_inline {
-  font-family: $font-family-admin-data-label;
-  font-weight: bold;
-}
-.arl_form_data_label_margin_right {
-  font-family: $font-family-admin-data-label;
-  font-weight: bold;
-  margin-right: $arl_margin_narrow;
-}
-.arl_form_data_number_field {
-  border: $border-light;
-  font-size: 0.9em;
-  font-family: $font-family-admin-data-value;
-  margin: ($arl-margin-narrow / 2) $arl-margin-narrow;
-  padding: 0rem ($arl-margin-narrow /2);
-  text-align: right;
-  width: 2rem;
-}
-
-
-.arl_form_data_resource_gallery {
-}
-.arl_form_data_resource_gallery_data {
-  padding: $arl-margin $arl-margin-narrow;
-  text-align: left;
-  width: 100%;
-}
-.arl_form_data_resource_gallery_item {
-  margin: $arl-margin;
-}
-.arl_form_data_resource_gallery_thumbnail {
-  padding: $arl-margin $arl-margin-narrow;
-  vertical-align: center;
-}
-.arl_form_data_resource_gallery_thumbnail_image {
-  @include border-rounded-img;
-  border: $border-light;
-  margin-left: auto;
-  margin-right: auto;
-}
-.arl_form_data_resource_gallery_thumbnail_label {
-  font-family: $font-family-admin-data-label;
-  font-weight: bold;
-  height: 1.25em;
-  text-align: left;
-}
-
-
-.arl_form_data_resource_remove {
-  width: 1.5rem;
-  text-align: right;
-}
-.arl_form_data_resource_table {
-  margin-left: auto;
-  margin-right: auto;
-}
-.arl_form_data_resource_value {
-  font-family: $font-family-admin-data-label;
-}
-.arl_form_data_resource_heading {
-  font-family: $font-family-admin;
-  font-weight: bold;
-}
-
-
-.arl_form_data_select {
-  border: $border-light;
-  font-size: 0.9em;
-  font-family: $font-family-admin-data-value;
-}
-.arl_form_data_selector_pictures {
+.arl_form_data_attr_input_file_upload {
   @include layout-flex-column-center;
-  margin-left: auto;
-  margin-right: auto;
+  @include buttonize_file_upload;
+  font-family: $font-family-admin-data-button;
+  font-size: 1rem;
+  grid-area: input;
+  margin: 0;
 }
-.arl_form_data_select_thumbnail_image {
-  @include border-rounded-img;
-  margin-top: $arl-margin-narrow;
-  max-height: 8rem;
-  max-width: 8rem;
+.arl_form_data_attr_input_select {
+  grid-area: input;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
 }
-
-
-.arl_form_data_text_area {
+.arl_form_data_attr_input_select_small {
+  grid-area: input;
+  border: $border-light;
+  width: 10em;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+}
+.arl_form_data_attr_input_select_inline {
+  grid-area: inline;
+  justify-self: end;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+}
+.arl_form_data_attr_input_text_area {
+  grid-area: input;
   border: $border-light;
   font-size: 0.9em;
   font-family: $font-family-admin-data-value;
   min-height: 10rem;
   padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
 }
-.arl_form_data_text_area_shorter {
-  border: $border-light;
-  font-size: 0.9em;
-  font-family: $font-family-admin-data-value;
-  min-height: 4rem;
-  padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
-}
-
-.arl_form_data_text_field {
+.arl_form_data_attr_input_text_field {
+  grid-area: input;
   border: $border-light;
   font-size: 0.9em;
   font-family: $font-family-admin-data-value;
   padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
 }
-
-
-.arl_form_layout_blocks {
-  @include layout-flex-column-stretch;
+.arl_form_data_attr_input_text_field_inline {
+  grid-area: input;
+  justify-self: start;
+  border: $border-light;
+  font-size: 0.9em;
+  font-family: $font-family-admin-data-value;
+  // margin-left: $arl-margin;
+  padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
 }
-.arl_form_layout_blocks_wide {
-  @include layout-flex-column-stretch;
-  margin: $arl-spacing-wide 0rem;
+.arl_form_data_attr_label {
+  align-self: center;
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
+  grid-area: label;
 }
-.arl_form_layout_left {
-  display: block;
-}
-.arl_form_layout_center {
-  @include layout-flex-column-center;
-  margin-left: auto;
-  margin-right: auto;
-}
-.arl_form_layout_datetime_separator {
-  content: ' ';
-  margin: 0rem $arl-margin-wide;
-}
-.arl_form_layout_dependent {
-  margin-top: ($arl-margin-narrow / 2);
-}
-.arl_form_layout_dependent_attr {
-  align-items: center;
+.arl_form_data_attr_multi {
+  grid-area: input;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
-.arl_form_layout_hidden {
-  display: none;
+.arl_form_data_attr_multi_field {
+  display: grid;
+  grid-template-areas: 'label' 'input';
 }
-.arl_form_layout_inline {
-  @include layout-flex-row-left;
+.arl_form_data_attr_multi_label {
+  align-self: center;
+  font-family: $font-family-admin-data-value;
+  font-size: 0.9rem;
+  grid-area: label;
 }
-.arl_form_layout_inline_right {
-  @include layout-flex-row-right;
-}
-.arl_form_layout_datetime {
-  @include layout-flex-row-left;
-  flex-wrap: wrap;
-  padding: 0.5rem 1.5rem;
-}
-.arl_form_layout_inline_inset {
-  @include layout-flex-column-stretch;
-  margin: 0rem;
-  padding-left: 1.5rem;
-}
-.arl_form_layout_multifield {
-  @include layout-flex-row-left
-  margin: 0rem;
-}
-.arl_form_layout_time_separator {
+.arl_form_data_attr_multi_spacer {
   align-self: flex-end;
   font-family: $font-family-admin-data-value;
   font-weight: bold;
   margin: 0.111em ($arl-margin-narrow / 2);
 }
-.arl_form_layout_top {
-  vertical-align: top;
+.arl_form_data_attr_thumbnail_image {
+  @include border-rounded-img;
+  border: 1px purple solid;
+  align-self: center;
+  grid-area: thumbnail;
+  justify-self: center;
+  margin-top: $arl-margin-narrow;
+  max-height: 8rem;
+  max-width: 8rem;
+}
+.arl_form_data_attr_value {
+  grid-area: input;
+  font-family: $font-family-admin-data-value;
+}
+
+.arl_form_data_joins {
+  margin-left: auto;
+  margin-right: auto;
+}
+.arl_form_data_joins_heading {
+  font-family: $font-family-admin;
+  font-weight: bold;
+  padding: $arl-margin-narrow;
+}
+.arl_form_data_joins_picture {
+  display: grid;
+  grid-template-areas: 'thumbnail title remove' 'thumbnail coverpicture remove' 'thumbnail order remove' ' thumbnail . .';
+  grid-template-rows: 1.5em 1.5em 1.5em auto;
+  padding: $arl-margin-wide 0;
+}
+.arl_form_data_joins_picture_coverpicture {
+  grid-area: coverpicture;
+}
+.arl_form_data_joins_picture_order {
+  grid-area: order;
+}
+.arl_form_data_joins_picture_remove {
+  grid-area: remove;
+  align-self: center;
+  justify-self: center;
+  padding: 0 $arl-spacing;
+}
+.arl_form_data_joins_picture_thumbnail {
+  grid-area: thumbnail;
+  align-self: start;
+  justify-self: center;
+  padding: 0 $arl-margin;
+}
+.arl_form_data_joins_picture_thumbnail_image {
+  @include border-rounded-thumbnail;
+  display: block;
+  width: 128px;
+  height: 72px;
+}
+.arl_form_data_joins_picture_title {
+  grid-area: title;
+}
+.arl_form_data_joins_value {
+  font-family: $font-family-admin-data-label;
+  padding: $arl-margin-narrow;
 }
 
 
-
-.arl_form_links {
-  margin: $arl-margin-wide 0em;
-}
-
-
-.arl_form_margin_right {
-  margin-right: ($arl-margin-narrow);
-}
-.arl_form_margin_vertical {
+.arl_form_explanation {
   margin: $arl-margin 0rem;
 }
-.arl_form_padding_vertical {
-  padding: $arl-margin 0rem;
+.arl_form_explanation_caveat {
+  font-family: $font-family-admin-data-value;
+  font-size: 0.875em;
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
 }
-.arl_form_padding_vertical_nudge {
-  padding: $arl-margin-wide 0rem;
-}
-// OBSOLETE: (use _thumbnail)
-// .arl_form_picture {
-//   @include layout-flex-column-center;
-// }
-.arl_form_thumbnail {
-  @include layout-flex-column-center;
-}
-.arl_form_thumbnail_image{
-  max-height: 150px;
-  padding: $arl-margin 0rem;
+.arl_form_explanation_warning {
+  font-family: $font-family-admin-data-value;
+  font-weight: bold;
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
 }
 
+
+.arl_form_layout_hidden {
+  display: none;
+}
+
+
+.arl_form_null {
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
+  list-style-type: none;
+  margin: $arl-spacing;
+  text-align: center;
+}
+
+
+.arl_form_spacer {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $arl-margin-wide;
+  margin-bottom: $arl-margin-wide;
+}
 
 
 .arl_form_title {
@@ -293,28 +244,11 @@
     font-size: 0.925em;
     width: 20rem;
   }
-  .arl_form_narrow {
-    background-color: red;
-    font-size: 0.925em;
-    width: 20rem;
-  }
   .arl_form_data {
     margin: 1rem;
   }
-  .arl_form_data_resource_gallery {
-    font-size: 0.9em;
-  }
-  .arl_form_data_resource_gallery_thumbnail_image {
-    max-height: 5em;
-    max-width: 5em;
-  }
-  .arl_form_layout_morphable {
-    @include layout-flex-column-left;
-  }
-  .arl_form_links {
-    text-align: center;
-  }
 }
+
 
 @media #{$media-screen-2} {
   .arl_form {
@@ -322,33 +256,12 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .arl_form_data_resource_gallery {
-    font-size: 0.9em;
-  }
-  .arl_form_data_resource_gallery_thumbnail_image {
-    max-height: 7em;
-    max-width: 7em;
-  }
-  .arl_form_layout_morphable {
-    @include layout-flex-row-left;
-  }
-  .arl_form_links {
-    text-align: center;
-  }
 }
+
+
 
 @media #{$media-screen-3} {
   .arl_form {
     width: 30rem;
-  }
-  .arl_form_data_resource_gallery_thumbnail_image {
-    max-height: 7em;
-    max-width: 7em;
-  }
-  .arl_form_layout_morphable {
-    @include layout-flex-row-left;
-  }
-  .arl_form_links {
-    text-align: center;
   }
 }

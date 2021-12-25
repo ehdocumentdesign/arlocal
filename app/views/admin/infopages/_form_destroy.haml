@@ -3,10 +3,10 @@
     Destroy infopage?
     .arl_form_data_label_destroy= tag.i infopage.title
 
-  %ul.test_form_explanation
-    %li.test_form_explanation_caveat Attached articles, links, and pictures will remain in database and filesystem.
-  %ul.test_form_explanation
-    %li.test_form_explanation_warning This action can not be undone.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_caveat Attached articles, links, and pictures will remain in database and filesystem.
+  %ul.arl_form_explanation
+    %li.arl_form_explanation_warning This action can not be undone.
 
   .arl_form_actions
     = button_admin_submit_to_destroy admin_infopage_path(infopage.id), data: { confirm:  'Are you sure?' }, label: 'Destroy Infopage'

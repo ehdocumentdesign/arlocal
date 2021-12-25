@@ -3,10 +3,10 @@
 -# through its declaration in the `pictures_controller`
 
 - if local_assigns[:attribute]
-  .test_form_data_attr
-    = form.select attribute, picture_options_for_select(selectable.pictures, form), { include_blank: false }, { class: [:test_form_data_attr_input_select, :arl_listening] }
-    = picture_preferred_tag(form.object.picture, html_class: :test_form_data_attr_thumbnail_image)
+  .arl_form_data_attr
+    = form.select attribute, picture_options_for_select(selectable.pictures, form), { include_blank: false }, { class: [:arl_form_data_attr_input_select, :arl_listening] }
+    = picture_preferred_tag(form.object.picture, html_class: :arl_form_data_attr_thumbnail_image)
 - else
-  .test_form_data_attr
-    = form.select :picture_id, picture_options_for_select(selectable.pictures, form), { include_blank: false }, { class: [:test_form_data_attr_input_select, :arl_listening] }
-    = picture_preferred_tag(form.object.picture, html_class: :test_form_data_attr_thumbnail_image)
+  .arl_form_data_attr
+    = form.select :picture_id, picture_options_for_select(selectable.pictures, form), { include_blank: false }, { class: [:arl_form_data_attr_input_select, :arl_listening] }
+    = picture_preferred_tag(form.object.picture, html_class: :arl_form_data_attr_thumbnail_image)

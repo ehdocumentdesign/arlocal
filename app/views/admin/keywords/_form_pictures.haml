@@ -5,9 +5,9 @@
   /= button_to 'unkeyword pictures', admin_unkeyword_pictures_path(keyword.id, pane: :pictures), method: :delete, class: :arl_button_unkeyword
   = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
     .arl_form_data
-      .test_form_data_joins
+      .arl_form_data_joins
         = f.fields_for :picture_keywords do |pk|
-          .test_form_data_joins_picture
+          .arl_form_data_joins_picture
             = render 'form_elements/joins_picture_thumbnail', form: pk
             = render 'form_elements/joins_picture_title', form: pk
             = render 'form_elements/joins_picture_remove', form: pk
