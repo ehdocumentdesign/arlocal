@@ -5,8 +5,8 @@
 
 - CSS: Review `forms_test.scss` and remove obsolete classes from `forms.scss`
   - Done, BUT:
-    - adminstrator forms including sign-on need updating
-    - admin_header picture lost its class **fixed?**
+    - adminstrator forms including sign-on need updating **fixed**
+    - admin_header picture lost its class **fixed**
     - resource `form_pictures` lost some data heading/value classes.
       - album and keyword, probably event too (hopefully uses a partial in `form_elements`)
       - font-face
@@ -95,6 +95,9 @@
 
 
 ## Low Priority
+
+- administrators/sign_in
+  - Is it worth getting `devise::rememberable` to work correctly?
 
   - form buttons for "destroy" action-- should they be individualized like other resource admin action buttons?  **YES, probably.***
   - Audio index

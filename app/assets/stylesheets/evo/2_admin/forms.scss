@@ -46,6 +46,11 @@
   grid-area: checkbox;
   justify-self: center;
 }
+.arl_form_data_attr_input_checkbox_inline {
+  align-self: center;
+  grid-area: inline;
+  justify-self: center;
+}
 .arl_form_data_attr_input_file_upload {
   @include layout-flex-column-center;
   @include buttonize_file_upload;
