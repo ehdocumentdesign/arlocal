@@ -48,8 +48,6 @@
 
 ## Medium priority
 
-- Delete obsolete commented-out parser methods.
-
 - what is this: in `app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2`
 > // TODO: figure out why this doesn't render border-bottom or border-top
 > // see .jp-type-playlist for border-bottom.
@@ -174,3 +172,5 @@
   >        - This is OK to finalize.
   >
   >        - Check each model for default values.
+
+  - Delete obsolete commented-out parser methods.

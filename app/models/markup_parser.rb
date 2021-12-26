@@ -11,20 +11,6 @@ class MarkupParser
       method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
       symbol: :no_formatting
     },
-    # {
-    #   id: 1,
-    #   description: 'HTML Paragraph',
-    #   method_parse: lambda { |text| ApplicationController.helpers.tag.p(text.to_s) },
-    #   method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
-    #   symbol: :html_p
-    # },
-    # {
-    #   id: 2,
-    #   description: 'HTML Preformatted',
-    #   method_parse: lambda { |text| "<pre>\n" + text.to_s + "\n</pre>" },
-    #   method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
-    #   symbol: :html_pre
-    # },
     {
       id: 3,
       categories: [:admin, :public],
