@@ -1,4 +1,4 @@
-= form_with(model: [:admin, keyword], local: true, class: :arl_form) do |f|
+= form_with(model: [:admin, keyword], method: :destroy, local: true, class: :arl_form) do |f|
   .arl_form_title
     Destroy keyword?
     .arl_form_data_label_destroy= sanitize("<i>" + keyword.title + "</i>")
@@ -7,4 +7,4 @@
     %li.arl_form_explanation_warning This action can not be undone.
 
   .arl_form_actions
-    = button_admin_submit_to_destroy admin_keyword_path(keyword.id), data: { confirm:  'Are you sure?' }, label: 'Destroy Keyword?'
+    = f.submit 'Destroy Keyword', data: { confirm: 'Are you sure?' },  class: :arl_button_form_submit_destroy

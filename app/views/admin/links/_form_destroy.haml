@@ -1,4 +1,4 @@
-= form_with(model: [:admin, link], local: true, class: :arl_form) do |f|
+= form_with(model: [:admin, link], method: :destroy, local: true, class: :arl_form) do |f|
   .arl_form_title
     Destroy link?
     .arl_form_data_label_destroy= tag.i link.name
@@ -7,4 +7,4 @@
     %li.arl_form_explanation_warning This action can not be undone.
 
   .arl_form_actions
-    = button_admin_submit_to_destroy admin_link_path(link.id), data: { confirm:  'Are you sure?' }, label: 'Destroy Link'
+    = f.submit 'Destroy Link', data: { confirm: 'Are you sure?' },  class: :arl_button_form_submit_destroy

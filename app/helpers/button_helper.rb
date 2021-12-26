@@ -1,16 +1,6 @@
 module ButtonHelper
 
 
-  def button_admin_submit_to_destroy(path, data: nil, label: 'Destroy')
-    button_to label, path, class: :arl_button_form_submit_destroy, data: data, method: :delete, title: 'destroy'
-  end
-
-
-  def button_admin_submit_to_purge_attachment(path, data: nil)
-    button_to 'Purge Attachment', path, class: :arl_button_form_submit_destroy, data: data, method: :patch, title: 'destroy'
-  end
-
-
   def button_admin_to_done_editing(path)
     tag.div(tag.a(icon_done_editing, href: path, class: :arl_button_admin_resource, method: :get, title: 'done editing'), class: :arl_button_admin_resource_spacing)
   end

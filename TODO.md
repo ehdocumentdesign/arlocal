@@ -3,12 +3,6 @@
 
 ## HIGH priority
 
-- Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
-  - **DOES THIS CREATE A SECURITY RISK?** *Not if it uses `button_to`, but by not use the form builder?*
-  - check the API. `button_to` vs. `link_to`
-  - the `button_admit_submit_to_destroy _purge*` helpers invoke button_to instead of link_to. But why not use the form builder?
-  - **Conclusion:** Change them to f.submit. It's standard, and it's easier on the person reading the code.
-
 - Pictures without titles
   - (untitled) appears in joined_pictures. YAY!
   - how to make it appear in <select> options?
@@ -172,3 +166,9 @@
     - Make a object or hash that centralizes forms/panes and their properties instead of using `case` statements **DONE.**
 
 - form buttons for "destroy" action-- should they be individualized like other resource admin action buttons?  **YES, probably.***
+
+- Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
+  - **DOES THIS CREATE A SECURITY RISK?** *Not if it uses `button_to`, but by not use the form builder?*
+  - check the API. `button_to` vs. `link_to`
+  - the `button_admit_submit_to_destroy _purge*` helpers invoke button_to instead of link_to. But why not use the form builder?
+  - **Conclusion:** Change them to f.submit. It's standard, and it's easier on the person reading the code.
