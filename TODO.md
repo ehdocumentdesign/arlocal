@@ -28,15 +28,6 @@
 
 - give a title to nested_picture uploads/imports
 
->        - Which parsers are obsolete? **Seems right.**
->          - HTML = Iframe
->          - HTML P = simpleformat
->          - HTML PRE = markdown
->        - Only allow iframe in video embedding. **No, leave it as HTML embed for power admins.**
->        - This is OK to finalize.
->
->        - Check each model for default values.
-
 - form_elements/picture_select: should it receive selectable or selectable.pictures?
   - _Check this throughout. Might be best to start with seeing what variables each form_elements requires._
 
@@ -56,6 +47,8 @@
 
 
 ## Medium priority
+
+- Delete obsolete commented-out parser methods.
 
 - what is this: in `app/assets/stylesheets/evo/2_public/jplayer/1_jp_audio.scss :: 2`
 > // TODO: figure out why this doesn't render border-bottom or border-top
@@ -172,3 +165,12 @@
   - check the API. `button_to` vs. `link_to`
   - the `button_admit_submit_to_destroy _purge*` helpers invoke button_to instead of link_to. But why not use the form builder?
   - **Conclusion:** Change them to f.submit. It's standard, and it's easier on the person reading the code.
+
+  >        - Which parsers are obsolete? **Seems right.**
+  >          - HTML = Iframe
+  >          - HTML P = simpleformat
+  >          - HTML PRE = markdown
+  >        - Only allow iframe in video embedding. **No, leave it as HTML embed for power admins.**
+  >        - This is OK to finalize.
+  >
+  >        - Check each model for default values.

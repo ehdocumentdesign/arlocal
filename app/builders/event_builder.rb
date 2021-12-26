@@ -55,12 +55,12 @@ class EventBuilder
 
   def params_default
     {
-      details_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id,
+      details_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       event_pictures_sorter_id: SorterEventPictures.find_by_symbol(:cover_manual_asc).id,
       indexed: true,
       show_can_cycle_pictures: true,
       show_can_have_more_pictures_link: true,
-      title_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id,
+      title_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
       title_text_markup: ''
     }
   end

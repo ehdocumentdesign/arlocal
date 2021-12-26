@@ -55,7 +55,7 @@ class StreamBuilder
 
   def params_default
     {
-      description_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id
+      description_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id
     }
   end
 

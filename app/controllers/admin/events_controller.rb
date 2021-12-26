@@ -82,7 +82,7 @@ class Admin::EventsController < AdminController
 
 
   def new
-    @event = EventBuilder.build_default
+    @event = EventBuilder.build_with_defaults
     @form_metadata = FormEventMetadata.new
     if @arlocal_settings.admin_forms_auto_keyword_enabled
       @auto_keyword = AutoKeywordMetadata.new(@arlocal_settings)

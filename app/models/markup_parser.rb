@@ -28,7 +28,7 @@ class MarkupParser
     {
       id: 3,
       categories: [:admin, :public],
-      description: 'Markdown – Commonmarker',
+      description: 'Markdown (commonmarker)',
       method_parse: lambda { |text| CommonMarker.render_html(text.to_s) },
       method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
       symbol: :markdown_commonmarker
@@ -36,7 +36,7 @@ class MarkupParser
     {
       id: 4,
       categories: [:admin, :public],
-      description: 'Simple Format – Rails',
+      description: 'Simple Format (rails)',
       method_parse: lambda { |text| ApplicationController.helpers.simple_format(text.to_s) },
       method_sanitize: lambda { |text| ApplicationController.helpers.sanitize(text) },
       symbol: :simple_format_rails

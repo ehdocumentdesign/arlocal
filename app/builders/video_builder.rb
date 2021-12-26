@@ -7,7 +7,7 @@ class VideoBuilder
   include CatalogHelper
 
 
-attr_reader :video
+  attr_reader :video
 
 
   def initialize
@@ -106,9 +106,9 @@ attr_reader :video
   def params_default
     {
       copyright_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
-      description_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id,
+      description_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       indexed: true,
-      involved_people_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id,
+      involved_people_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       published: false
     }
   end

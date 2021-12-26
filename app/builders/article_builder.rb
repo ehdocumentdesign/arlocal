@@ -55,6 +55,7 @@ class ArticleBuilder
 
   def params_default
     {
+      copyright_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
       indexed: true,
       parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       published: false

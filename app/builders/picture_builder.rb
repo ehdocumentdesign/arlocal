@@ -336,15 +336,15 @@ class PictureBuilder
 
   def params_default
     {
-      credits_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
+      credits_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       credits_text_markup: '',
-      description_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
+      description_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       description_text_markup: '',
       indexed: true,
       published: false,
       show_can_display_title: true,
       source_catalog_file_path: '',
-      title_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id,
+      title_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
       title_text_markup: ''
     }
   end

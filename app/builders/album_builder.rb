@@ -61,8 +61,8 @@ class AlbumBuilder
       index_can_display_tracklist: true,
       index_tracklist_audio_includes_subtitles: true,
       indexed: true,
-      involved_people_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
-      musicians_parser_id: MarkupParser.find_by_symbol(:no_formatting).id,
+      involved_people_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
+      musicians_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       published: false,
       show_can_cycle_pictures: true,
     }
