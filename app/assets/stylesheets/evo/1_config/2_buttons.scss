@@ -26,7 +26,7 @@
   &:focus, &:active {
     border: $border;
     box-shadow: $shadow-button-nav-active;
-    outline: none;    
+    outline: none;
   }
 }
 
@@ -44,7 +44,7 @@
   &:focus, &:active {
     border: $border;
     box-shadow: $shadow-button-nav-active;
-    outline: none;    
+    outline: none;
   }
 }
 
@@ -110,6 +110,7 @@
   background-color: $color-bg-form-button;
   border-color: $color-fg;
   color: $color-fg-exciting;
+  cursor: pointer;
   font-family: $font-family-admin-data-button;
   font-size: 1em;
   font-weight: bold;
@@ -120,6 +121,7 @@
 .arl_button_form_submit {
   @include buttonize_submit;
   background-color: $color-bg-form-button;
+  cursor: pointer;
   font-family: $font-family-admin-data-button;
   font-size: 1em;
   padding: $arl-margin-narrow;

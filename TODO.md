@@ -3,6 +3,16 @@
 
 ## HIGH priority
 
+- Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
+  - **DOES THIS CREATE A SECURITY RISK?** *Not if it uses `button_to`, but by not use the form builder?*
+  - check the API. `button_to` vs. `link_to`
+  - the `button_admit_submit_to_destroy _purge*` helpers invoke button_to instead of link_to. But why not use the form builder?
+  - **Conclusion:** Change them to f.submit. It's standard, and it's easier on the person reading the code.
+
+- Pictures without titles
+  - (untitled) appears in joined_pictures. YAY!
+  - how to make it appear in <select> options?
+
 - datetime to text inputs instead of selects
   - why does `size: ` attribute result in larger-than-size fields? inherited from CSS maybe?
 
@@ -34,9 +44,6 @@
 
 - form_elements/picture_select: should it receive selectable or selectable.pictures?
   - _Check this throughout. Might be best to start with seeing what variables each form_elements requires._
-
-- Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
-  - **DOES THIS CREATE A SECURITY RISK?**
 
 - eventshelper:158 why assign js empty?
 
