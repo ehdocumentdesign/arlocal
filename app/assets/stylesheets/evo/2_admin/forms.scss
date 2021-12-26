@@ -156,27 +156,29 @@
 }
 .arl_form_data_joins_picture {
   display: grid;
-  grid-template-areas: 'thumbnail title remove' 'thumbnail coverpicture remove' 'thumbnail order remove' ' thumbnail . .';
-  grid-template-rows: 1.5em 1.5em 1.5em auto;
-  padding: $arl-margin-wide 0;
+  column-gap: 1rem;
+  grid-template-areas: 'thumbnail title remove' 'thumbnail coverpicture .' 'thumbnail order .' ' thumbnail . .';
+  grid-template-columns: 8rem 16rem auto;
+  grid-template-rows: 1.5em auto auto auto;
+  margin: $arl-spacing-wide 0;
 }
 .arl_form_data_joins_picture_coverpicture {
   grid-area: coverpicture;
+  font-family: $font-family-admin-data-label;
 }
 .arl_form_data_joins_picture_order {
   grid-area: order;
+  font-family: $font-family-admin-data-label;
 }
 .arl_form_data_joins_picture_remove {
   grid-area: remove;
   align-self: center;
   justify-self: center;
-  padding: 0 $arl-spacing;
 }
 .arl_form_data_joins_picture_thumbnail {
   grid-area: thumbnail;
   align-self: start;
   justify-self: center;
-  padding: 0 $arl-margin;
 }
 .arl_form_data_joins_picture_thumbnail_image {
   @include border-rounded-thumbnail;
@@ -186,6 +188,8 @@
 }
 .arl_form_data_joins_picture_title {
   grid-area: title;
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
 }
 .arl_form_data_joins_value {
   font-family: $font-family-admin-data-label;

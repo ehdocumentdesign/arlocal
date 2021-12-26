@@ -1,9 +1,9 @@
 - if form.object.is_coverpicture
   .arl_form_data_joins_picture_order.arl_form_data_attr_not_applicable
     = form.label 'order', class: :arl_form_data_resource_value
-    = form.text_field resource_order, class: :arl_form_data_number_field
+    = form.text_field resource_order, size: 2, class: :arl_form_data_attr_input_text_field_inline
 
 - else
   .arl_form_data_joins_picture_order
     = form.label 'order', class: :arl_form_data_resource_value
-    = form.text_field resource_order, class: :arl_form_data_number_field
+    = form.text_field resource_order, size: 2, class: :arl_form_data_attr_input_text_field_inline
