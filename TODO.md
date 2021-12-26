@@ -3,16 +3,26 @@
 
 ## HIGH priority
 
+- datetime to text inputs instead of selects
+
 - CSS: Review `forms_test.scss` and remove obsolete classes from `forms.scss`
   - Done, BUT:
     - adminstrator forms including sign-on need updating **fixed**
     - admin_header picture lost its class **fixed**
-    - resource `form_pictures` lost some data heading/value classes.
+    - resource `form_pictures` lost some data heading/value classes. **fixed** BUT visual "deactivation" of Order when Coverpicture==True seems to have broken.
       - album and keyword, probably event too (hopefully uses a partial in `form_elements`)
       - font-face
-      - layout/grid/table for uniform alignment.
+      - layout/grid/table for uniform alignment. **table works best. thumbnail; data; remove_checkbox**
+      - class: arl_form_data_joins, *_picture
+      >           = render 'form_elements/joins_picture_thumbnail', form: pk
+                  = render 'form_elements/joins_picture_title', form: pk
+                  = render 'form_elements/joins_picture_remove', form: pk
+
   - check these classes in `resource.scss`
     - line 86: `.arl_admin_resource_joined*`
+    - almost obsolete. used in views/admin/shared/_index_joined
+      - used in picture/_show_joined_resources
+      - **keep and reexamine w/ other audit of views**
 
 - Video: include attribute for duration & read mediainfo?
 
@@ -41,7 +51,7 @@
 - picture_selector in join_single
 
 - Admin::ArlocalSettings?icon
-  - purge_attachment has not been refactored into new grid css
+  - purge_attachment has not been refactored into new grid css **Fixed.**
 
 - Should auto_keyword be in the top part of a form? **I think so.**
 

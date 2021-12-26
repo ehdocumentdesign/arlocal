@@ -28,6 +28,11 @@ class FormArlocalSettingsMetadata
       partial: 'form_audio',
       selectable: {}
     },
+    icon_attachment_purge: {
+      navbar: nil,
+      partial: 'form_icon_attachment_purge',
+      selectable: {}
+    },
     icon: {
       navbar: 1,
       partial: 'form_icon',
