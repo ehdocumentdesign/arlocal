@@ -4,30 +4,25 @@
 ## HIGH priority
 
 - datetime to text inputs instead of selects
+  - why does `size: ` attribute result in larger-than-size fields? inherited from CSS maybe?
 
-- CSS: Review `forms_test.scss` and remove obsolete classes from `forms.scss`
-  - Done, BUT:
-    - adminstrator forms including sign-on need updating **fixed**
-    - admin_header picture lost its class **fixed**
-    - resource `form_pictures` lost some data heading/value classes. **fixed** BUT visual "deactivation" of Order when Coverpicture==True seems to have broken.
-      - album and keyword, probably event too (hopefully uses a partial in `form_elements`)
-      - font-face
-      - layout/grid/table for uniform alignment. **table works best. thumbnail; data; remove_checkbox**
-      - class: arl_form_data_joins, *_picture
-      >           = render 'form_elements/joins_picture_thumbnail', form: pk
-                  = render 'form_elements/joins_picture_title', form: pk
-                  = render 'form_elements/joins_picture_remove', form: pk
+- check various `form_pictures`
+  - coverpicture=true would slightly obscure the Order field
+  - is a javascript thing.
+  - also maybe `form_elements/join_picture_order` needs a class declaration
 
-  - check these classes in `resource.scss`
-    - line 86: `.arl_admin_resource_joined*`
-    - almost obsolete. used in views/admin/shared/_index_joined
-      - used in picture/_show_joined_resources
-      - **keep and reexamine w/ other audit of views**
+- views/admin/shared/_index_joined
+  - is this used beyond Picture
+  - previous plan was for shared partials showing joined resources
+  - is this still the plan, or should this be refactored into individual resource view partials?
+    - contrast with `_admin_[resource]_stats.haml`
 
-- Video: include attribute for duration & read mediainfo?
+- Video: include attribute for duration? read mediainfo?
+
+- Why does PictureKeyword have an `id_public` method? It's not even directly accessible.
+  - related: are the redundant join methods such as `PictureKeyword#picture_title #picture_id #picture_slug` still needed?
 
 - give a title to nested_picture uploads/imports
-
 
 >        - Which parsers are obsolete? **Seems right.**
 >          - HTML = Iframe
@@ -41,6 +36,7 @@
   - _Check this throughout. Might be best to start with seeing what variables each form_elements requires._
 
 - Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
+  - **DOES THIS CREATE A SECURITY RISK?**
 
 - eventshelper:158 why assign js empty?
 
@@ -49,9 +45,6 @@
   - if not, return a dummy html_class to guarantee minimal dimensions
 - form_pictures exerwhere
 - picture_selector in join_single
-
-- Admin::ArlocalSettings?icon
-  - purge_attachment has not been refactored into new grid css **Fixed.**
 
 - Should auto_keyword be in the top part of a form? **I think so.**
 
@@ -75,9 +68,6 @@
 
 - import/upload video via `keywords/_form_video_import`
 
-- Anti-pattern forming in `form_metadata`
-  - Make a object or hash that centralizes forms/panes and their properties instead of using `case` statements
-
 - 1_borders.scss
   - refactor mixins that are image
 
@@ -86,15 +76,14 @@
   - is audio_helper the best place for the method?
 
 - Admin::ArlocalSettings?admin
+- ***This might have been fixed in or negated by the FormMetadata refactor.***
   - options for select & selectable & form_elements/select form_elements_arls/select_sorter
   - The map method for the form builder is located within the lib/InactiveRecord module and FormMetadata::Selectable
   - For clarity, should it be refactored into the form builder or partial?
   - As things stand, it's not clear how the collection and value/text methods get delivered to the form
 
-- which partials can be refactored?
-  - especially `_admin_[resource]_stats.haml`
-
 + Note where the selectable value source_type comes from the model, not via FormMetadata::Selectable
+- ***This might have been fixed in or negated by the FormMetadata refactor.***
   - Controllers::Admin::Audio#new_[method_to_resource]
   - Controllers::Admin::Picture#new_[method_to_resource]
   - Helpers::AudioHelper#audio_admin_filter_select
@@ -109,7 +98,6 @@
 - administrators/sign_in
   - Is it worth getting `devise::rememberable` to work correctly?
 
-  - form buttons for "destroy" action-- should they be individualized like other resource admin action buttons?  **YES, probably.***
   - Audio index
   - about_arlocal
     - formatting for markup types, esp. for narrow width
@@ -149,3 +137,30 @@
   + model: strip_whitespace_edges?
 
   - event/form_audio does not have partial for _form_audio_join_by_keyword
+
+- CSS: Review `forms_test.scss` and remove obsolete classes from `forms.scss`
+  - Done, BUT:
+  - adminstrator forms including sign-on need updating **fixed**
+  - admin_header picture lost its class **fixed**
+  - resource `form_pictures` lost some data heading/value classes. **fixed** BUT visual "deactivation" of Order when Coverpicture==True seems to have broken.
+  - album and keyword, probably event too (hopefully uses a partial in `form_elements`)
+  - font-face
+  - layout/grid/table for uniform alignment. **table works best. thumbnail; data; remove_checkbox**
+  - class: arl_form_data_joins, *_picture
+  >           = render 'form_elements/joins_picture_thumbnail', form: pk
+  = render 'form_elements/joins_picture_title', form: pk
+  = render 'form_elements/joins_picture_remove', form: pk
+
+- check these classes in `resource.scss`
+  - line 86: `.arl_admin_resource_joined*`
+  - almost obsolete. used in views/admin/shared/_index_joined
+  - used in picture/_show_joined_resources
+  - **keep and reexamine w/ other audit of views**
+
+- Admin::ArlocalSettings?icon
+  - purge_attachment has not been refactored into new grid css **Fixed.**
+
+  - Anti-pattern forming in `form_metadata`
+    - Make a object or hash that centralizes forms/panes and their properties instead of using `case` statements **DONE.**
+
+- form buttons for "destroy" action-- should they be individualized like other resource admin action buttons?  **YES, probably.***
