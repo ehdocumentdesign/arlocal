@@ -53,7 +53,7 @@ class Keyword < ApplicationRecord
   accepts_nested_attributes_for :event_keywords, allow_destroy: true
   accepts_nested_attributes_for :picture_keywords, allow_destroy: true
   accepts_nested_attributes_for :video_keywords, allow_destroy: true
-  
+
 
   ### albums_count
 
@@ -118,6 +118,12 @@ class Keyword < ApplicationRecord
 
 
   ### pictures_count
+
+
+  def picture_keywords
+    unordered_pictures = super
+    unordered_pictures.sort_by { |kp| kp.picture.title_without_markup.downcase }
+  end
 
 
   def should_generate_new_friendly_id?
