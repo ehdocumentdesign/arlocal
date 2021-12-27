@@ -3,10 +3,6 @@
 
 ## HIGH priority
 
-- Pictures without titles
-  - (untitled) appears in joined_pictures. YAY!
-  - how to make it appear in <select> options?
-
 - datetime to text inputs instead of selects
   - why does `size: ` attribute result in larger-than-size fields? inherited from CSS maybe?
 
@@ -173,4 +169,17 @@
   >
   >        - Check each model for default values.
 
-  - Delete obsolete commented-out parser methods.
+- Delete obsolete commented-out parser methods.
+
+- Pictures without titles
+  - (untitled) appears in joined_pictures. YAY!
+  - how to make it appear in <select> options?
+    - start w/ `QueryPictures.options_for_select_admin_with_nil`
+      - `all_pictures.sort_by{ |p| p.title_without_markup.downcase }`
+    - `views/form_elements/picture_select`
+      - `picture_options_for_select(selectable.pictures, form)`
+    - helpers/picture_helper:127
+      -           picture.title_without_markup,
+      - **should be picture.title**
+      - Picture model had previously been retrofitted to allow this. Looks OK to change.
+      - but should the method be called `title_for_select`?

@@ -410,6 +410,11 @@ class Picture < ApplicationRecord
 
 
   def title
+    title_without_markup
+  end
+
+
+  def title_for_select
     if title_without_markup.to_s == ''
       '(untitled)'
     else
