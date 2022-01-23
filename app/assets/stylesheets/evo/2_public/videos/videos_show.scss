@@ -50,6 +50,10 @@
   }
   .arl_videos_show_text_title {
   }
+  .arl_video_embed iframe {
+    display: block;
+    max-width: 320px;
+  }
   .arl_video_player {
     width: 320px;
   }
@@ -77,6 +81,12 @@
   }
   .arl_videos_show_text_description {
     padding-top: $arl-margin;
+  }
+  .arl_video_embed iframe {
+    display: block;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .arl_video_player {
     width: 480px;
@@ -109,6 +119,12 @@
     padding-top: $arl-margin;
   }
 
+  .arl_video_embed iframe {
+    display: block;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .arl_video_player {
     width: 640px;
     box-shadow: $shadow-img;

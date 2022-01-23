@@ -57,6 +57,8 @@
 
 - import/upload video via `keywords/_form_video_import`
 
+- change the Calendar model from a module to a class
+
 - 1_borders.scss
   - refactor mixins that are image
 
