@@ -1,4 +1,4 @@
-= form_with(model: [:admin, event], method: :destroy, local: true, class: :arl_form) do |f|
+= form_with(model: [:admin, event], method: :delete, local: true, class: :arl_form) do |f|
   .arl_form_title
     Destroy event?
     .arl_form_data_label_destroy= "\"#{event.title}\""

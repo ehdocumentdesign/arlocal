@@ -1,4 +1,4 @@
-= form_with(model: [:admin, picture], method: :destroy, local: true, class: :arl_form) do |f|
+= form_with(model: [:admin, picture], method: :delete, local: true, class: :arl_form) do |f|
   .arl_form_title
     Destroy picture?
     .arl_form_data_label_destroy= tag.i picture.title

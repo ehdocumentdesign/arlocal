@@ -1,4 +1,4 @@
-= form_with(model: [:admin, keyword], method: :destroy, local: true, class: :arl_form) do |f|
+= form_with(model: [:admin, keyword], method: :delete, local: true, class: :arl_form) do |f|
   .arl_form_title
     Destroy keyword?
     .arl_form_data_label_destroy= sanitize("<i>" + keyword.title + "</i>")
