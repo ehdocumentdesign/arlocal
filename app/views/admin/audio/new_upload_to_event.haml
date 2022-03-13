@@ -9,19 +9,18 @@
     = audio_admin_button_to_index
 
 .arl_admin_audio_edit
-  = form_with(model: [:admin, Audio.new], local: true, method: :post, url: admin_audio_create_from_upload_to_event_path) do |f|
+  = form_with(model: [:admin, Audio.new], local: true, method: :post, url: admin_audio_create_from_upload_to_event_path, class: :arl_form) do |f|
 
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.file_field :source_attachment, multiple: false, direct_upload: true, class: :arl_button_file_upload
+    .arl_form_data
+      = render 'form_elements/file_field', attribute: :source_attachment, form: f
 
-    = f.fields_for :event_audio, f.object.event_audio.build do |ea|
-      .arl_form_data_attr.arl_form_layout_blocks
-        = ea.label :event_id, 'Event', class: :arl_form_data_label
-        = ea.collection_select :event_id, @events, :id, :datetime_and_title, {include_blank: true}, {class: :arl_form_data_select}
+      = f.fields_for :event_audio, f.object.event_audio.build do |ea|
+        = render 'form_elements/collection_select', form: ea, attribute: :event_id, blank: true, collection: @events, label: 'Event title', text_method: :datetime_and_title
+        = render 'form_elements/text_field_sized', form: ea, attribute: :event_order, label: 'Order', size: 4
 
-    - if @auto_keyword
-      = f.fields_for :audio_keywords, f.object.audio_keywords.build do |at|
-        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: at
+      - if @auto_keyword
+        = f.fields_for :audio_keywords, f.object.audio_keywords.build do |ak|
+          = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: ak
 
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
