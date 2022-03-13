@@ -121,7 +121,7 @@ def create
 
   def destroy
     @audio = QueryAudio.find_admin(params[:id])
-    @audio.recording.purge
+    @audio.source_attachment.purge
     @audio.destroy
     flash[:notice] = 'Audio was destroyed.'
     redirect_to action: :index

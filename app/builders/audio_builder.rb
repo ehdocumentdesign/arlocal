@@ -7,7 +7,7 @@ class AudioBuilder
   include CatalogHelper
 
 
-  attr_reader :audio
+  attr_reader :audio, :metadata
 
 
   def initialize(**args)
@@ -33,35 +33,37 @@ class AudioBuilder
 
   def self.build_with_defaults(**args)
     self.build(**args) do |b|
-      b.assign_default_attributes
+      b.attributes_default_assign
     end
   end
 
 
   def self.create(audio_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
     end
   end
 
 
   def self.create_from_import(audio_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_source_type('catalog')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.source_type_assign('catalog')
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
     end
   end
 
 
   def self.create_from_import_and_join_nested_album(audio_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_source_type('catalog')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.source_type_assign('catalog')
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.set_new_album_order
     end
   end
@@ -69,10 +71,11 @@ class AudioBuilder
 
   def self.create_from_import_and_join_nested_event(audio_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_source_type('catalog')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.source_type_assign('catalog')
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.set_new_event_order
     end
   end
@@ -84,9 +87,10 @@ class AudioBuilder
       source_type: 'catalog'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.join_to_album(album)
     end
   end
@@ -98,9 +102,10 @@ class AudioBuilder
       source_type: 'catalog'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.join_to_event(event)
     end
   end
@@ -112,9 +117,10 @@ class AudioBuilder
       source_type: 'catalog'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.join_to_keyword(keyword)
     end
   end
@@ -122,20 +128,22 @@ class AudioBuilder
 
   def self.create_from_upload(audio_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_source_type('attachment')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.source_type_assign('attachment')
+      b.metadata_read_from_tempfile(audio_params)
+      b.metadata_assign
     end
   end
 
 
   def self.create_from_upload_and_join_nested_album(audio_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_source_type('attachment')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.source_type_assign('attachment')
+      b.metadata_read_from_tempfile(audio_params)
+      b.metadata_assign
       b.set_new_album_order
     end
   end
@@ -143,10 +151,11 @@ class AudioBuilder
 
   def self.create_from_upload_and_join_nested_event(audio_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_source_type('attachment')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.source_type_assign('attachment')
+      b.metadata_read_from_tempfile(audio_params)
+      b.metadata_assign
       b.set_new_event_order
     end
   end
@@ -158,9 +167,10 @@ class AudioBuilder
       source_type: 'attachment'
     }
     self.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.metadata_read_from_tempfile(audio_params)
+      b.metadata_assign
       b.join_to_album(album)
     end
   end
@@ -172,9 +182,10 @@ class AudioBuilder
       source_type: 'attachment'
     }
     self.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.metadata_read_from_tempfile(audio_params)
+      b.metadata_assign
       b.join_to_event(event)
     end
   end
@@ -186,9 +197,10 @@ class AudioBuilder
       source_type: 'attachment'
     }
     self.build do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(audio_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(audio_params)
+      b.metadata_read_from_tempfile(audio_params)
+      b.metadata_assign
       b.join_to_keyword(keyword)
     end
   end
@@ -197,7 +209,8 @@ class AudioBuilder
   def self.refresh_id3(audio_params)
     audio = Audio.find(audio_params['id'])
     self.build(audio: audio) do |b|
-      b.assign_metadata
+      b.metadata_read
+      b.metadata_assign
     end
   end
 
@@ -206,34 +219,17 @@ class AudioBuilder
   public
 
 
-  def assign_default_attributes
+  def attributes_default_assign
     @audio.assign_attributes(params_default)
   end
 
 
-  def assign_given_attributes(audio_params)
+  def attributes_given_assign(audio_params)
     @audio.assign_attributes(audio_params)
   end
 
 
-  def assign_metadata
-    determine_metadata
-    @audio.audio_artist = "#{@metadata.general.performer}"
-    @audio.copyright_text_markup = "© #{@metadata.general.recorded_date}"
-    @audio.title = "#{@metadata.general.track}"
-    @audio.duration_mins = @metadata.general.duration.divmod(1000)[0].divmod(60)[0]
-    @audio.duration_secs = @metadata.general.duration.divmod(1000)[0].divmod(60)[1]
-    @audio.duration_mils = @metadata.general.duration.divmod(1000)[1]
-  end
-
-
-  def assign_source_type(source_type)
-    @audio.source_type = source_type
-  end
-
-
   def join_to_album(album)
-    determine_metadata
     album_id = album.id
     album_order = @metadata.general.track_position
     @audio.album_audio.build(album_id: album_id, album_order: album_order)
@@ -241,7 +237,6 @@ class AudioBuilder
 
 
   def join_to_event(event)
-    determine_metadata
     event_id = event.id
     event_order = @metadata.general.track_position
     @audio.event_audio.build(event_id: event_id, event_order: event_order)
@@ -254,6 +249,62 @@ class AudioBuilder
   end
 
 
+  def metadata_assign
+    @audio.audio_artist = "#{@metadata.general.performer}"
+    @audio.copyright_text_markup = "© #{@metadata.general.recorded_date}"
+    @audio.title = @metadata.general.track ? "#{@metadata.general.track}" : "#{@audio.source_file_path}"
+    @audio.duration_mins = @metadata.general.duration.divmod(1000)[0].divmod(60)[0]
+    @audio.duration_secs = @metadata.general.duration.divmod(1000)[0].divmod(60)[1]
+    @audio.duration_mils = @metadata.general.duration.divmod(1000)[1]
+  end
+
+
+  def metadata_is_assigned
+    MediaInfo::Tracks === @metadata
+  end
+
+
+  def metadata_is_not_assigned
+    metadata_is_assigned == false
+  end
+
+
+  def metadata_read
+    case @audio.source_type
+    when 'attachment'
+      metadata_read_from_attachment
+    when 'catalog'
+      metadata_read_from_catalog
+    when 'tempfile'
+      metadata_read_from_tempfile
+    end
+  end
+
+
+  def metadata_read_from_attachment
+    if @audio.source_attachment.attached?
+      @audio.source_attachment.open do |a|
+        @metadata = MediaInfo.from(a.path)
+      end
+    end
+  end
+
+
+  def metadata_read_from_catalog_file
+    if File.exists?(catalog_file_path(@audio))
+      @metadata = MediaInfo.from(catalog_file_path(@audio))
+    end
+  end
+
+
+  def metadata_read_from_tempfile(audio_params)
+    tf = audio_params['source_attachment'].tempfile
+    if File.exists?(tf.path)
+      @metadata = MediaInfo.from(tf.path)
+    end
+  end
+
+
   def set_new_album_order
     determine_metadata
     @audio.album_audio.first.album_order = @metadata.general.track_position
@@ -263,6 +314,11 @@ class AudioBuilder
   def set_new_event_order
     determine_metadata
     @audio.event_audio.first.event_order = @metadata.general.track_position
+  end
+
+
+  def source_type_assign(source_type)
+    @audio.source_type = source_type
   end
 
 
@@ -301,44 +357,6 @@ class AudioBuilder
 
 
   private
-
-
-  def determine_metadata
-    if metadata_is_not_assigned
-      case @audio.source_type
-      when 'attachment'
-        determine_metadata_from_attachment
-      when 'catalog'
-        determine_metadata_from_catalog
-      end
-    end
-  end
-
-
-  def determine_metadata_from_attachment
-    if @audio.source_attachment.attached?
-      @audio.source_attachment.open do |a|
-        @metadata = MediaInfo.from(a.path)
-      end
-    end
-  end
-
-
-  def determine_metadata_from_catalog
-    if File.exists?(catalog_file_path(@audio))
-      @metadata = MediaInfo.from(catalog_file_path(@audio))
-    end
-  end
-
-
-  def metadata_is_assigned
-    MediaInfo::Tracks === @metadata
-  end
-
-
-  def metadata_is_not_assigned
-    metadata_is_assigned == false
-  end
 
 
   def params_default
