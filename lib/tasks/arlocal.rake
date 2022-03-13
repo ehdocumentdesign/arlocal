@@ -155,7 +155,7 @@ end
 
 def arlocal_settings_initialize
   if ArlocalSettings.table_exists?
-    arls = QueryArlocalSettings.new.get
+    arls = QueryArlocalSettings.get
     if arls == nil
       arls = ArlocalSettingsBuilder.new.build_and_save_default
     end

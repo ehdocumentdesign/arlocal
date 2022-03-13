@@ -30,7 +30,7 @@ class ArlocalSettingsBuilder
       admin_index_videos_sorter_id: SorterIndexAdminVideos.find_by_symbol(:title_asc).id,
       artist_name: 'your name here',
       html_head_public_can_include_meta_description: true,
-      icon_source_catalog_filepath: '',
+      icon_source_catalog_file_path: '',
       icon_source_type: 'catalog',
       marquee_enabled: false,
       marquee_parser_id: MarkupParser.find_by_symbol(:markdown_commonmarker).id,
