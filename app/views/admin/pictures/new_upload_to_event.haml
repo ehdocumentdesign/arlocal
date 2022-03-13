@@ -9,19 +9,17 @@
     = picture_admin_button_to_index
 
 .arl_admin_picture_edit
-  = form_with(model: [:admin, Picture.new], local: true, method: :post, url: admin_picture_create_from_upload_to_event_path) do |f|
+  = form_with(model: [:admin, Picture.new], local: true, method: :post, url: admin_picture_create_from_upload_to_event_path, class: :arl_form) do |f|
 
-    .arl_form_data_attr.arl_form_layout_blocks
-      = f.file_field :source_attachment, multiple: false, direct_upload: true, class: :arl_button_file_upload
+    .arl_form_data
+      = render 'form_elements/file_field', attribute: :source_attachment, form: f
 
-    = f.fields_for :event_pictures, f.object.event_pictures.build do |ep|
-      .arl_form_data_attr.arl_form_layout_blocks
-        = ep.label :event_id, 'Event', class: :arl_form_data_label
-        = ep.collection_select :event_id, @events, :id, :datetime_and_title, {include_blank: true}, {class: :arl_form_data_select}
+      = f.fields_for :event_pictures, f.object.event_pictures.build do |ep|
+        = render 'form_elements/collection_select', form: ep, attribute: :event_id, blank: true, collection: @events, label: 'Event title', text_method: :datetime_and_title
 
-    - if @auto_keyword
-      = f.fields_for :picture_keywords, f.object.picture_keywords.build do |pk|
-        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: pk
+      - if @auto_keyword
+        = f.fields_for :picture_keywords, f.object.picture_keywords.build do |pk|
+          = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: pk
 
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
