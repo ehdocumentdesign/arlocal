@@ -32,7 +32,7 @@ class PictureBuilder
 
   def self.build_with_defaults(**args)
     self.build(**args) do |b|
-      b.assign_default_attributes
+      b.attributes_default_assign
     end
   end
 
@@ -44,38 +44,41 @@ class PictureBuilder
 
   def self.create(picture_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
     end
   end
 
 
   def self.create_from_import(params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(params)
-      b.assign_source_type('catalog')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(params)
+      b.source_type_assign('catalog')
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
     end
   end
 
 
   def self.create_from_import_and_join_nested_album(params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(params)
-      b.assign_source_type('catalog')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(params)
+      b.source_type_assign('catalog')
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
     end
   end
 
 
   def self.create_from_import_and_join_nested_event(params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(params)
-      b.assign_source_type('catalog')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(params)
+      b.source_type_assign('catalog')
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
     end
   end
 
@@ -86,9 +89,10 @@ class PictureBuilder
       source_type: 'catalog'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.join_to_album(album)
     end
   end
@@ -100,9 +104,10 @@ class PictureBuilder
       source_type: 'catalog'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.join_to_event(event)
     end
   end
@@ -114,9 +119,10 @@ class PictureBuilder
       source_type: 'catalog'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.join_to_keyword(keyword)
     end
   end
@@ -128,40 +134,44 @@ class PictureBuilder
       source_type: 'catalog'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_catalog_file
+      b.metadata_assign
       b.join_to_video(video)
     end
   end
 
 
-  def self.create_from_upload(params, **args)
+  def self.create_from_upload(picture_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(params)
-      b.assign_source_type('attachment')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.source_type_assign('attachment')
+      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_assign
     end
   end
 
 
-  def self.create_from_upload_and_join_nested_album(params, **args)
+  def self.create_from_upload_and_join_nested_album(picture_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(params)
-      b.assign_source_type('attachment')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.source_type_assign('attachment')
+      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_assign
     end
   end
 
 
-  def self.create_from_upload_and_join_nested_event(params, **args)
+  def self.create_from_upload_and_join_nested_event(picture_params, **args)
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(params)
-      b.assign_source_type('attachment')
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.source_type_assign('attachment')
+      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_assign
     end
   end
 
@@ -172,9 +182,10 @@ class PictureBuilder
       source_type: 'attachment'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_assign
       b.join_to_album(album)
     end
   end
@@ -186,9 +197,10 @@ class PictureBuilder
       source_type: 'attachment'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_assign
       b.join_to_event(event)
     end
   end
@@ -200,9 +212,10 @@ class PictureBuilder
       source_type: 'attachment'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_assign
       b.join_to_keyword(keyword)
     end
   end
@@ -214,9 +227,10 @@ class PictureBuilder
       source_type: 'attachment'
     }
     self.build(**args) do |b|
-      b.assign_default_attributes
-      b.assign_given_attributes(picture_params)
-      b.assign_metadata
+      b.attributes_default_assign
+      b.attributes_given_assign(picture_params)
+      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_assign
       b.join_to_video(video)
     end
   end
@@ -234,25 +248,13 @@ class PictureBuilder
   public
 
 
-  def assign_default_attributes
+  def attributes_default_assign
     @picture.assign_attributes(params_default)
   end
 
 
-  def assign_given_attributes(picture_params)
+  def attributes_given_assign(picture_params)
     @picture.assign_attributes(picture_params)
-  end
-
-
-  def assign_metadata
-    determine_metadata
-    @picture.datetime_from_exif = determine_time_from_exif_formatting(@metadata.raw[:date_time_original])
-    @picture.datetime_from_file = determine_time_from_exif_formatting(@metadata.raw[:file_modify_date])
-  end
-
-
-  def assign_source_type(source_type)
-    @picture.source_type = source_type
   end
 
 
@@ -280,22 +282,24 @@ class PictureBuilder
   end
 
 
-  private
-
-
-  def determine_metadata
-    if determine_metadata_is_not_assigned
-      case @picture.source_type
-      when 'attachment'
-        determine_metadata_from_attachment
-      when 'catalog'
-        determine_metadata_from_catalog
-      end
-    end
+  def metadata_assign
+    @picture.datetime_from_exif = determine_time_from_exif_formatting(@metadata.raw[:date_time_original])
+    @picture.datetime_from_file = determine_time_from_exif_formatting(@metadata.raw[:file_modify_date])
+    @picture.title_text_markup = @picture.source_file_basename
   end
 
 
-  def determine_metadata_from_attachment
+  def metadata_is_assigned
+    Exiftool === @metadata
+  end
+
+
+  def metadata_is_not_assigned
+    metadata_is_assigned == false
+  end
+
+
+  def metadata_read_from_attachment
     if @picture.source_attachment.attached?
       @picture.source_attachment.open do |i|
         @metadata = Exiftool.new(i.path)
@@ -304,21 +308,27 @@ class PictureBuilder
   end
 
 
-  def determine_metadata_from_catalog
+  def metadata_read_from_catalog_file
     if File.exists?(catalog_file_path(@picture))
       @metadata = Exiftool.new(catalog_file_path(@picture))
     end
   end
 
 
-  def determine_metadata_is_assigned
-    Exiftool === @metadata
+  def metadata_read_from_tempfile(picture_params)
+    tf = picture_params['source_attachment'].tempfile
+    if File.exists?(tf.path)
+      @metadata = Exiftool.new(tf.path)
+    end
   end
 
 
-  def determine_metadata_is_not_assigned
-    determine_metadata_is_assigned == false
+  def source_type_assign(source_type)
+    @picture.source_type = source_type
   end
+
+
+  private
 
 
   def determine_time_from_exif_formatting(time_string_exif)

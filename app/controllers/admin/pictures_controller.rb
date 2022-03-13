@@ -121,6 +121,7 @@ class Admin::PicturesController < AdminController
 
   def destroy
     @picture = QueryPictures.find_admin(params[:id])
+    @picture.source_attachment.purge
     @picture.destroy
     flash[:notice] = 'Picture record was destroyed.'
     redirect_to action: :index
