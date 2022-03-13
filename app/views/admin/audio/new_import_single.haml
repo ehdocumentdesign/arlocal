@@ -11,16 +11,13 @@
 
 .arl_admin_audio_edit
   = form_with(model: [:admin, @audio], local: true, method: :post, url: admin_audio_create_from_import_path, class: :arl_form) do |f|
+
     .arl_form_data
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :source_catalog_file_path, class: :arl_form_data_label
-        %aside.arl_form_data_attr_explanation
-          = "#{catalog_dirname(trailing_separator: true)}"
-        = f.text_field :source_catalog_file_path, class: :arl_form_data_text_field
+      = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: f, aside: "#{catalog_dirname(trailing_separator: true)}"
 
       - if @auto_keyword
-        = f.fields_for :audio_keywords, f.object.audio_keywords.build do |at|
-          = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: at
+        = f.fields_for :audio_keywords, f.object.audio_keywords.build do |ak|
+          = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: ak
 
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

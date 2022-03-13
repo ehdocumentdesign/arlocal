@@ -12,20 +12,15 @@
   = form_with(model: [:admin, Audio.new], local: true, method: :post, url: admin_audio_create_from_import_to_album_path, class: :arl_form) do |f|
 
     .arl_form_data
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :source_catalog_file_path, class: :arl_form_data_label
-        %aside.arl_form_data_attr_explanation
-          = "#{catalog_dirname(trailing_separator: true)}"
-        = f.text_field :source_catalog_file_path, class: :arl_form_data_text_field
+      = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: f, aside: "#{catalog_dirname(trailing_separator: true)}"
 
-    = f.fields_for :album_audio, f.object.album_audio.build do |aa|
-      .arl_form_data_attr.arl_form_layout_blocks
-        = aa.label :album_id, 'Album title', class: :arl_form_data_label
-        = aa.collection_select :album_id, @albums, :id, :title, {include_blank: true}, {class: :arl_form_data_select}
+      = f.fields_for :album_audio, f.object.album_audio.build do |aa|
+        = render 'form_elements/collection_select', form: aa, attribute: :album_id, blank: true, collection: @albums, label: 'Album title', text_method: :title
+        = render 'form_elements/text_field_sized', form: aa, attribute: :album_order, label: 'Order', size: 4
 
-    - if @auto_keyword
-      = f.fields_for :audio_keywords, f.object.audio_keywords.build do |at|
-        = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: at
+      - if @auto_keyword
+        = f.fields_for :audio_keywords, f.object.audio_keywords.build do |ak|
+          = render 'admin/shared/form_auto_keyword', auto_keyword: @auto_keyword, form: ak
 
     .arl_form_actions
       = f.submit class: :arl_button_form_submit

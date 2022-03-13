@@ -11,12 +11,9 @@
 
 .arl_admin_picture_edit
   = form_with(model: [:admin, @picture], local: true, method: :post, url: admin_picture_create_from_import_path, class: :arl_form) do |f|
+
     .arl_form_data
-      .arl_form_data_attr.arl_form_layout_blocks
-        = f.label :source_catalog_file_path, class: :arl_form_data_label
-        %aside.arl_form_data_attr_explanation
-          = "#{catalog_dirname(trailing_separator: true)}"
-        = f.text_field :source_catalog_file_path, class: :arl_form_data_text_field
+      = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: f, aside: "#{catalog_dirname(trailing_separator: true)}"
 
       - if @auto_keyword
         = f.fields_for :picture_keywords, f.object.picture_keywords.build do |pk|
