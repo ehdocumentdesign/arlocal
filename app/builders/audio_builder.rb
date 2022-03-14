@@ -306,13 +306,11 @@ class AudioBuilder
 
 
   def set_new_album_order
-    determine_metadata
     @audio.album_audio.first.album_order = @metadata.general.track_position
   end
 
 
   def set_new_event_order
-    determine_metadata
     @audio.event_audio.first.event_order = @metadata.general.track_position
   end
 
@@ -323,7 +321,6 @@ class AudioBuilder
 
 
   def update_joined_albums_order
-    determine_metadata
     if @audio.does_have_albums
       album = Album.find_by_title(@metadata.general.album)
       if album
