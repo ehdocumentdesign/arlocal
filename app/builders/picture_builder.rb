@@ -184,7 +184,7 @@ class PictureBuilder
     self.build(**args) do |b|
       b.attributes_default_assign
       b.attributes_given_assign(picture_params)
-      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_read_from_attachment
       b.metadata_assign
       b.join_to_album(album)
     end
@@ -199,7 +199,7 @@ class PictureBuilder
     self.build(**args) do |b|
       b.attributes_default_assign
       b.attributes_given_assign(picture_params)
-      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_read_from_attachment
       b.metadata_assign
       b.join_to_event(event)
     end
@@ -214,7 +214,7 @@ class PictureBuilder
     self.build(**args) do |b|
       b.attributes_default_assign
       b.attributes_given_assign(picture_params)
-      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_read_from_attachment
       b.metadata_assign
       b.join_to_keyword(keyword)
     end
@@ -229,7 +229,7 @@ class PictureBuilder
     self.build(**args) do |b|
       b.attributes_default_assign
       b.attributes_given_assign(picture_params)
-      b.metadata_read_from_tempfile(picture_params)
+      b.metadata_read_from_attachment
       b.metadata_assign
       b.join_to_video(video)
     end
