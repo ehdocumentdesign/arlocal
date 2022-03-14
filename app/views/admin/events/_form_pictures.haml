@@ -2,7 +2,7 @@
   = event_statement_pictures_count(event)
 
 - if event.does_have_pictures
-  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :pictures), local: true, class: :arl_form, method: :patch) do |f|
+  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :pictures), local: true, class: :arl_form) do |f|
     .arl_form_data
       .arl_form_data_attr
         = f.label :event_pictures_sorter_id, 'Sort pictures by:', class: :arl_form_data_attr_label

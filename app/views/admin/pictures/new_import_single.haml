@@ -10,7 +10,7 @@
   = render '/admin/shared/form_errors', resource: @picture
 
 .arl_admin_picture_edit
-  = form_with(model: [:admin, @picture], local: true, method: :post, url: admin_picture_create_from_import_path, class: :arl_form) do |f|
+  = form_with(model: [:admin, @picture], local: true, url: admin_picture_create_from_import_path, class: :arl_form) do |f|
 
     .arl_form_data
       = render 'form_elements/text_field', attribute: :source_catalog_file_path, form: f, aside: "#{catalog_dirname(trailing_separator: true)}"

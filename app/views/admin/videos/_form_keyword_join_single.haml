@@ -2,7 +2,7 @@
   Add video to keyword
 
 - if selectable.does_have_keywords
-  = form_with model: [:admin, video], url: admin_video_path(video, pane: :keywords), local: true, class: :arl_form, method: :patch do |f|
+  = form_with model: [:admin, video], url: admin_video_path(video, pane: :keywords), local: true, class: :arl_form do |f|
     .arl_form_data
       = f.fields_for :video_keywords, video.video_keywords.build do |vk|
         = render 'form_elements/collection_select', form: vk, attribute: :keyword_id, blank: true, collection: selectable.keywords, label: 'Title', text_method: :title

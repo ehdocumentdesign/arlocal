@@ -2,8 +2,7 @@
   = keyword_statement_videos_count(keyword)
 
 - if keyword.does_have_videos
-  /= button_to 'unkeyword videos', admin_unkeyword_videos_path(keyword.id, pane: :videos), method: :delete, class: :arl_button_unkeyword
-  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :videos), local: true, method: :patch, class: :arl_form) do |f|
+  = form_with(model: [:admin, keyword], url: admin_keyword_path(keyword, pane: :videos), local: true, class: :arl_form) do |f|
     .arl_form_data
       %table.arl_form_data_joins
         %thead

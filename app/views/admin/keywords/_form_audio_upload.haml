@@ -1,7 +1,7 @@
 .arl_form_title
   Upload audio
 
-= form_with model: [:admin, keyword], local: true, method: :post, url: admin_keyword_audio_create_from_upload_path(keyword), class: :arl_form do |f|
+= form_with model: [:admin, keyword], local: true, url: admin_keyword_audio_create_from_upload_path(keyword), class: :arl_form do |f|
   .arl_form_data
     = f.fields_for :audio, f.object.audio.build do |a|
       = render 'form_elements/file_upload', attribute: :source_attachment, form: a

@@ -2,7 +2,7 @@
   = picture_statement_albums_count(picture)
 
 - if picture.does_have_albums
-  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :albums), local: true, method: :patch, class: :arl_form) do |f|
+  = form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :albums), local: true, class: :arl_form) do |f|
     .arl_form_data
       %table.arl_form_data_joins
         %thead

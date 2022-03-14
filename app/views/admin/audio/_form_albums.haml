@@ -2,7 +2,7 @@
   = audio_statement_albums_count(audio)
 
 - if audio.does_have_albums
-  = form_with model: [:admin, audio], url: admin_audio_path(audio, pane: :albums), local: true, class: :arl_form, method: :patch do |f|
+  = form_with model: [:admin, audio], url: admin_audio_path(audio, pane: :albums), local: true, class: :arl_form do |f|
     .arl_form_data
       %table.arl_form_data_joins
         %thead

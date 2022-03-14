@@ -6,7 +6,7 @@
     %label.arl_form_data_attr_label Effective date/time:
     %div.arl_form_data_attr_value= "#{picture.datetime_effective_value} (#{picture.datetime_effective_method})"
 
-= form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :datetime), local: true, method: :patch, class: :arl_form) do |f|
+= form_with(model: [:admin, picture], url: admin_picture_path(picture, pane: :datetime), local: true, class: :arl_form) do |f|
   .arl_form_data
     .arl_form_data_attr
       %label.arl_form_data_attr_label Date/time from manual entry:

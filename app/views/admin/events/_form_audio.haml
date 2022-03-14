@@ -2,7 +2,7 @@
   = event_statement_audio_count(event)
 
 - if event.does_have_audio
-  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: :arl_form, method: :patch) do |f|
+  = form_with(model: [:admin, event], url: admin_event_path(event, pane: :audio), local: true, class: :arl_form) do |f|
     .arl_form_data
       %table.arl_form_data_joins
         %thead
