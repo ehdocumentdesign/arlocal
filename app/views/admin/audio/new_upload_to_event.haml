@@ -16,7 +16,7 @@
 
       = f.fields_for :event_audio, f.object.event_audio.build do |ea|
         = render 'form_elements/collection_select', form: ea, attribute: :event_id, blank: true, collection: @events, label: 'Event title', text_method: :datetime_and_title
-        = render 'form_elements/text_field_sized', form: ea, attribute: :event_order, label: 'Order', size: 4
+        = render 'form_elements/text_field_sized', form: ea, attribute: :event_order, autocomplete: false, label: 'Order', size: 4
 
       - if @auto_keyword
         = f.fields_for :audio_keywords, f.object.audio_keywords.build do |ak|

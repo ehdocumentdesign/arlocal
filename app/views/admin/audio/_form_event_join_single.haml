@@ -6,7 +6,7 @@
     .arl_form_data
       = f.fields_for :event_audio, audio.event_audio.build do |ea|
         = render 'form_elements/collection_select', form: ea, attribute: :event_id, blank: true, collection: selectable.events, label: 'Title', text_method: :datetime_and_title
-        = render 'form_elements/text_field_sized', form: ea, attribute: :event_order, label: 'Order', size: 4
+        = render 'form_elements/text_field_sized', form: ea, attribute: :event_order, autocomplete: false, label: 'Order', size: 4
     .arl_form_actions
       = f.submit class: :arl_button_form_submit
 
