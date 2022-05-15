@@ -76,6 +76,10 @@ class QueryVideos
       order_by_datetime_asc.where(indexed: true, published: true)
     when 'datetime_desc'
       order_by_datetime_desc.where(indexed: true, published: true)
+    when 'keyword_datetime_desc'
+      sort_by_keyword(order_by_datetime_desc.where(indexed: true, published: true))
+    when 'keyword_title_asc'
+      sort_by_keyword(order_by_title_asc.where(indexed: true, published: true))
     when 'title_asc'
       order_by_title_asc.where(indexed: true, published: true)
     when 'title_desc'
@@ -86,11 +90,6 @@ class QueryVideos
   end
 
 
-  def index_public
-    sort_by_keyword
-  end
-
-
   def neighborhood_admin(video, distance: 1)
     Video.neighborhood(video, collection: index_admin, distance: distance)
   end
@@ -98,20 +97,6 @@ class QueryVideos
 
   def neighborhood_public(video, distance: 1)
     Video.neighborhood(video, collection: index_public, distance: distance)
-  end
-
-
-  def sort_by_keyword
-    result = Hash.new
-
-    videos = Video.where(indexed: true, published: true).order(title: :asc)
-    keywords = Keyword.where(can_select_videos: true)
-    keywords.each do |keyword|
-      result[keyword.title] = videos.joins(:keywords).where(keywords: keyword)
-    end
-    result["more videos"] = videos.reject{ |vid| vid.keywords.map { |k| k.can_select_videos }.include?(true) }
-
-    result
   end
 
 
@@ -140,12 +125,23 @@ class QueryVideos
   end
 
 
+  def sort_by_keyword(collection)
+    result = Hash.new
+    collection.map
+    Keyword.where(can_select_videos: true).each do |keyword|
+      result[keyword.title] = collection.joins(:keywords).where(keywords: keyword)
+    end
+    result["more videos"] = collection.reject{ |vid| vid.keywords.map { |k| k.can_select_videos }.include?(true) }
+    result
+  end
+
+
 
   private
 
 
   def all_videos
-    Video.all.includes({picture: :source_attachment_attachment})
+    Video.all.includes(:keywords, {picture: :source_attachment_attachment})
   end
 
 

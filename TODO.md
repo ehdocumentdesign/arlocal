@@ -4,11 +4,12 @@
 ## HIGHEST priority
 
 - review video picture import-- does it still fail? Check upload too.
-- Video index sort by keyword
 - ISRC: report and validation across models
 
 
 ## HIGH priority
+
+- check forms for appropriate autocomplete attributes
 
 - datetime to text inputs instead of selects
   - why does `size: ` attribute result in larger-than-size fields? inherited from CSS maybe?
@@ -65,6 +66,7 @@
 - import/upload video via `keywords/_form_video_import`
 
 - change the Calendar model from a module to a class
+  - **Compare with video_group.** Maybe it's best as a query method?
 
 - 1_borders.scss
   - refactor mixins that are image
@@ -103,6 +105,7 @@
 
 ## Possibly fixed
 
+- Video index sort by keyword
 - Does audio view still use _form_attachment* ? **Probably not.**
   **YES. it's a decision tree for upload/purge.**
   **Resubmit as a UI/UX review.**
