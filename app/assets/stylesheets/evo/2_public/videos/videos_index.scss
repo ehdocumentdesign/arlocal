@@ -1,4 +1,12 @@
 .arl_videos_index {}
+.arl_videos_index_heading {
+  font-family: $font-family-video-heading;
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: bold;
+  padding-top: $arl-margin-wide;
+  text-align: left;
+}
 .arl_videos_index_video {
   cursor: pointer;
 }

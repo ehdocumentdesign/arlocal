@@ -102,13 +102,15 @@ class QueryVideos
 
 
   def sort_by_keyword
-    videos = Video.where(indexed: true, published: true)
-    keywords = Keyword.where(can_select_videos: true)
     result = Hash.new
+
+    videos = Video.where(indexed: true, published: true).order(title: :asc)
+    keywords = Keyword.where(can_select_videos: true)
     keywords.each do |keyword|
-      result[keyword.title] = (videos.joins(:keywords).where(keywords: keyword)).order(title: :asc)
+      result[keyword.title] = videos.joins(:keywords).where(keywords: keyword)
     end
-    result["{no keyword}"] = (videos.reject{ |vid| vid.keywords.map{|k| k.can_select_videos}.include?(true) }).sort{ |a,b| a.title <=> b.title }
+    result["more videos"] = videos.reject{ |vid| vid.keywords.map { |k| k.can_select_videos }.include?(true) }
+
     result
   end
 
@@ -126,11 +128,6 @@ class QueryVideos
   def order_by_datetime_desc
     all_videos.order(date_released: :desc)
   end
-
-
-  # def order_by_title_asc
-  #   Video.all.sort_by{ |v| v.title.downcase  }
-  # end
 
 
   def order_by_title_asc
