@@ -94,6 +94,7 @@ class Admin::VideosController < AdminController
       redirect_to edit_admin_video_path(@video.id_admin, pane: params[:pane])
     else
       @form_metadata = FormVideoMetadata.new(pane: params[:pane], arlocal_settings: @arlocal_settings)
+      @video_neighbors = QueryVideos.neighborhood_admin(@video, @arlocal_settings)
       flash[:notice] = 'Video could not be updated.'
       render 'edit'
     end
@@ -114,6 +115,10 @@ class Admin::VideosController < AdminController
       :indexed,
       :involved_people_parser_id,
       :involved_people_text_markup,
+      :isrc_country_code,
+      :isrc_designation_code,
+      :isrc_registrant_code,
+      :isrc_year_of_reference,
       :published,
       :slug,
       :source_attachment,

@@ -9,6 +9,13 @@ class Video < ApplicationRecord
 
   friendly_id :slug_candidates, use: :slugged
 
+  before_validation :strip_whitespace_edges_from_entered_text
+
+  validates :isrc_country_code, allow_blank: true, length: { is: 2 }
+  validates :isrc_designation_code, allow_blank: true, length: { is: 5 }, uniqueness: { scope: :isrc_year_of_reference }
+  validates :isrc_registrant_code, allow_blank: true, length: { is: 3 }
+  validates :isrc_year_of_reference, allow_blank: true, length: { is: 2 }
+
   has_many :video_keywords, dependent: :destroy
   has_many :keywords, through: :video_keywords
 
@@ -19,8 +26,6 @@ class Video < ApplicationRecord
 
   accepts_nested_attributes_for :video_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :video_picture, allow_destroy: true
-
-  before_validation :strip_whitespace_edges_from_entered_text
 
 
 
@@ -137,6 +142,28 @@ class Video < ApplicationRecord
 
 
   ### involved_people_text_markup
+
+
+  def isrc
+    [isrc_country_code, isrc_registrant_code, isrc_year_of_reference, isrc_designation_code].join
+  end
+
+
+  def isrc_hyphenated
+    [isrc_country_code, isrc_registrant_code, isrc_year_of_reference, isrc_designation_code].join('-')
+  end
+
+
+  ### isrc_country_code
+
+
+  ### isrc_designation_code
+
+
+  ### isrc_registrant_code
+
+
+  ### isrc_year_of_reference
 
 
   ### picture_id

@@ -39,7 +39,6 @@ class Audio < ApplicationRecord
 
   has_one_attached :source_attachment
 
-
   accepts_nested_attributes_for :album_audio, allow_destroy: true
   accepts_nested_attributes_for :audio_keywords, allow_destroy: true, reject_if: proc { |attributes| attributes['keyword_id'] == '0' }
   accepts_nested_attributes_for :event_audio, allow_destroy: true
@@ -89,7 +88,9 @@ class Audio < ApplicationRecord
   ### created_at
 
 
+
   ### date_released
+
 
 
   ### description_parser_id
@@ -229,7 +230,7 @@ class Audio < ApplicationRecord
 
 
   def isrc
-    isrc_country_code + isrc_registrant_code + isrc_year_of_reference + isrc_designation_code
+    [isrc_country_code, isrc_registrant_code, isrc_year_of_reference, isrc_designation_code].join
   end
 
 

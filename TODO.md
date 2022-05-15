@@ -1,6 +1,13 @@
 # A&R.Local To-Do List
 
 
+## HIGHEST priority
+
+- review video picture import-- does it still fail? Check upload too.
+- Video index sort by keyword
+- ISRC: report and validation across models
+
+
 ## HIGH priority
 
 - datetime to text inputs instead of selects
@@ -185,3 +192,5 @@
       - **should be picture.title**
       - Picture model had previously been retrofitted to allow this. Looks OK to change.
       - but should the method be called `title_for_select`?
+
+- ISRC on videos

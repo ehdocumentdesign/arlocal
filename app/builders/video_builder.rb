@@ -7,12 +7,16 @@ class VideoBuilder
   include CatalogHelper
 
 
-  attr_reader :video
+  attr_reader :metadata, :video
 
 
   def initialize
-    @mediainfo = nil
-    @video = Video.new
+    arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
+    video = (Video === args[:video]) ? args[:video] : Video.new
+
+    @arlocal_settings = arlocal_settings
+    @metadata = nil
+    @video = video
   end
 
 
@@ -56,51 +60,51 @@ class VideoBuilder
   end
 
 
-  def read_source_dimensions
-    determine_mediainfo
-    @video.source_dimension_height = @mediainfo.video.height
-    @video.source_dimension_width = @mediainfo.video.width
-  end
-
-
-
-  private
-
-
-  def determine_mediainfo
-    if mediainfo_is_not_assigned
+  def determine_metadata
+    if metadata_is_not_assigned
       case @video.source_type.to_sym
       when :attachment
-        determine_mediainfo_from_attachment
+        determine_metadata_from_attachment
       when :catalog
-        determine_mediainfo_from_catalog
+        determine_metadata_from_catalog
       end
     end
   end
 
 
-  def determine_mediainfo_from_attachment
+  def determine_metadata_from_attachment
     if @video.recording != nil
-      @mediainfo = MediaInfo.from(@video.recording.blob)
+      @metadata = MediaInfo.from(@video.recording.blob)
     end
   end
 
 
-  def determine_mediainfo_from_catalog
+  def determine_metadata_from_catalog
     if File.exists?(catalog_video_filesystem_path(@video))
-      @mediainfo = MediaInfo.from(catalog_video_filesystem_path(@video))
+      @metadata = MediaInfo.from(catalog_video_filesystem_path(@video))
     end
   end
 
 
-  def mediainfo_is_assigned
-    MediaInfo::Tracks === @mediainfo
+  def metadata_is_assigned
+    MediaInfo::Tracks === @metadata
   end
 
 
-  def mediainfo_is_not_assigned
-    mediainfo_is_assigned == false
+  def metadata_is_not_assigned
+    metadata_is_assigned == false
   end
+
+
+  def read_source_dimensions
+    determine_metadata
+    @video.source_dimension_height = @metadata.video.height
+    @video.source_dimension_width = @metadata.video.width
+  end
+
+
+
+  private
 
 
   def params_default
@@ -109,8 +113,24 @@ class VideoBuilder
       description_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
       indexed: true,
       involved_people_parser_id: MarkupParser.find_by_symbol(:simple_format_rails).id,
+      isrc_country_code: params_default_isrc_country_code,
+      isrc_registrant_code: params_default_isrc_registrant_code,
       published: false
     }
+  end
+
+
+  def params_default_isrc_country_code
+    if @arlocal_settings
+      @arlocal_settings.audio_default_isrc_country_code
+    end
+  end
+
+
+  def params_default_isrc_registrant_code
+    if @arlocal_settings
+      @arlocal_settings.audio_default_isrc_registrant_code
+    end
   end
 
 
