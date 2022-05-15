@@ -86,6 +86,11 @@ class QueryVideos
   end
 
 
+  def index_public
+    sort_by_keyword
+  end
+
+
   def neighborhood_admin(video, distance: 1)
     Video.neighborhood(video, collection: index_admin, distance: distance)
   end
@@ -93,6 +98,18 @@ class QueryVideos
 
   def neighborhood_public(video, distance: 1)
     Video.neighborhood(video, collection: index_public, distance: distance)
+  end
+
+
+  def sort_by_keyword
+    videos = Video.where(indexed: true, published: true)
+    keywords = Keyword.where(can_select_videos: true)
+    result = Hash.new
+    keywords.each do |keyword|
+      result[keyword.title] = (videos.joins(:keywords).where(keywords: keyword)).order(title: :asc)
+    end
+    result["{no keyword}"] = (videos.reject{ |vid| vid.keywords.map{|k| k.can_select_videos}.include?(true) }).sort{ |a,b| a.title <=> b.title }
+    result
   end
 
 
