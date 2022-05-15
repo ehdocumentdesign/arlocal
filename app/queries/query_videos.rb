@@ -128,7 +128,7 @@ class QueryVideos
   def sort_by_keyword(collection)
     result = Hash.new
     collection.map
-    Keyword.where(can_select_videos: true).each do |keyword|
+    Keyword.where(can_select_videos: true).order(order_selecting_videos: :asc).each do |keyword|
       result[keyword.title] = collection.joins(:keywords).where(keywords: keyword)
     end
     result["more videos"] = collection.reject{ |vid| vid.keywords.map { |k| k.can_select_videos }.include?(true) }

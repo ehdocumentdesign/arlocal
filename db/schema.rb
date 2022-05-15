@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_15_033659) do
+ActiveRecord::Schema.define(version: 2022_05_15_213754) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -326,6 +326,11 @@ ActiveRecord::Schema.define(version: 2022_05_15_033659) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "videos_count"
     t.boolean "can_select_videos"
+    t.boolean "can_select_events"
+    t.integer "order_selecting_albums"
+    t.integer "order_selecting_events"
+    t.integer "order_selecting_pictures"
+    t.integer "order_selecting_videos"
     t.index ["slug"], name: "index_keywords_on_slug"
   end
 

@@ -36,6 +36,24 @@
   font-family: $font-family-admin-data-value;
   grid-area: input;
 }
+.arl_form_data_attr_can_select_x {
+  display: grid;
+  grid-template-areas: 'checkbox label_a label_b input';
+  grid-template-columns: 1.5rem auto min-content 3em;
+  margin: $arl-margin-wide 0;
+}
+.arl_form_data_attr_can_select_x_label_a {
+  align-self: center;
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
+  grid-area: label_a;
+}
+.arl_form_data_attr_can_select_x_label_b {
+  align-self: center;
+  font-family: $font-family-admin-data-label;
+  font-weight: bold;
+  grid-area: label_b;
+}
 .arl_form_data_attr_explanation {
   font-family: $font-family-admin-data-label;
   font-size: 0.875em;

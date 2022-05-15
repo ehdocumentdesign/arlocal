@@ -130,8 +130,13 @@ class Admin::KeywordsController < AdminController
   def params_keyword_permitted
     params.require(:keyword).permit(
       :can_select_albums,
+      :can_select_events,
       :can_select_pictures,
       :can_select_videos,
+      :order_selecting_albums,
+      :order_selecting_events,
+      :order_selecting_pictures,
+      :order_selecting_videos,
       :title,
       :slug,
       album_keywords_attributes: [

@@ -73,6 +73,9 @@ class Keyword < ApplicationRecord
   ### can_select_albums
 
 
+  ### can_select_events
+
+
   ### can_select_pictures
 
 
@@ -82,6 +85,8 @@ class Keyword < ApplicationRecord
   def can_select(resource_type)
     case resource_type.to_s.downcase.pluralize
     when 'albums'
+      can_select_albums
+    when 'events'
       can_select_albums
     when 'pictures'
       can_select_pictures
@@ -131,6 +136,18 @@ class Keyword < ApplicationRecord
   def id_public
     friendly_id
   end
+
+
+  ### order_selecting_albums
+
+
+  ### order_selecting_events
+
+
+  ### order_selecting_pictures
+
+
+  ### order_selecting_videos
 
 
   ### pictures_count
