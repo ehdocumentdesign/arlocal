@@ -129,8 +129,9 @@ class Admin::KeywordsController < AdminController
 
   def params_keyword_permitted
     params.require(:keyword).permit(
-      :can_select_public_albums,
+      :can_select_albums,
       :can_select_pictures,
+      :can_select_videos,
       :title,
       :slug,
       album_keywords_attributes: [

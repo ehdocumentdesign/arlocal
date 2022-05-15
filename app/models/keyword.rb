@@ -5,11 +5,13 @@ class Keyword < ApplicationRecord
   extend Neighborable
   include Seedable
 
+
   friendly_id :slug_candidates, use: :slugged
 
   before_validation :strip_whitespace_edges_from_entered_text
 
   validates :title, presence: true, uniqueness: true
+
 
   has_many :album_keywords, dependent: :destroy
   has_many :albums, through: :album_keywords do
@@ -55,6 +57,10 @@ class Keyword < ApplicationRecord
   accepts_nested_attributes_for :video_keywords, allow_destroy: true
 
 
+
+  public
+
+
   ### albums_count
 
 
@@ -64,13 +70,23 @@ class Keyword < ApplicationRecord
   ### events_count
 
 
+  ### can_select_albums
+
+
   ### can_select_pictures
 
 
-  def can_select(resource_type: nil)
-    case resource_type.to_s.downcase.singularize
-    when 'picture'
+  ### can_select_videos
+
+
+  def can_select(resource_type)
+    case resource_type.to_s.downcase.pluralize
+    when 'albums'
+      can_select_albums
+    when 'pictures'
       can_select_pictures
+    when 'videos'
+      can_select_videos
     end
   end
 
