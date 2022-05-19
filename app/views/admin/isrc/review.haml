@@ -1,0 +1,18 @@
+= html_head_title_extend! "ISRC"
+
+.arl_admin_resource_header
+  .arl_admin_resource_header_class= "Audio and Video"
+  .arl_admin_resource_header_title= "ISRC data"
+
+.arl_admin_isrc_bulk
+  %table.arl_form_bulk
+    - @resources.each do |resource|
+      = form_with model: [:admin, resource], local: true, url: admin_isrc_update_path(resource), class: :arl_form_bulk_item do |f|
+        %tr.arl_form_bulk_item_data
+          %td.arl_form_bulk_item_data_attr= f.object.class
+          %td.arl_form_bulk_item_data_attr= f.object.full_title
+          %td.arl_form_bulk_item_data_attr_multi= f.text_field :isrc_country_code, autocomplete: :off, size: 2, class: :arl_form_bulk_item_data_text_field
+          %td.arl_form_bulk_item_data_attr_multi= f.text_field :isrc_registrant_code, autocomplete: :off, size: 3, class: :arl_form_bulk_item_data_text_field
+          %td.arl_form_bulk_item_data_attr_multi= f.text_field :isrc_year_of_reference, autocomplete: :off, size: 2, class: :arl_form_bulk_item_data_text_field
+          %td.arl_form_bulk_item_data_attr_multi= f.text_field :isrc_designation_code, autocomplete: :off, size: 5, class: :arl_form_bulk_item_data_text_field
+          %td.arl_form_bulk_item_data_attr= f.submit class: :arl_form_bulk_item_button_submit

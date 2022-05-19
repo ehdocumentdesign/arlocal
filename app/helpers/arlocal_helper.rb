@@ -27,6 +27,8 @@ module ArlocalHelper
       arlocal_admin_nav_link_events(html_class)
     when :info
       arlocal_admin_nav_link_info(html_class)
+    when :isrc
+      arlocal_admin_nav_link_isrc(html_class)
     when :keywords
       arlocal_admin_nav_link_keywords(html_class)
     when :links
@@ -73,6 +75,11 @@ module ArlocalHelper
 
   def arlocal_admin_nav_link_info(html_class)
     link_to 'info', admin_infopages_path, class: html_class
+  end
+
+
+  def arlocal_admin_nav_link_isrc(html_class)
+    link_to 'isrc', admin_isrc_review_path, class: html_class
   end
 
 

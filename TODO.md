@@ -4,8 +4,27 @@
 ## HIGHEST priority
 
 - review video picture import-- does it still fail? Check upload too.
-- ISRC: report and validation across models
 
+- ISRC: report and validation across models
+  * admin menu header/link
+    * routing
+      * index = edit?
+    * layout
+      * table
+      * type, name, isrc, [submit]
+  - controller
+    * reports_controller
+    * query resources from audio and video
+    - update
+  * views
+    * sort by isrc
+    * form for each item
+  - admin_isrc_review_sort_order
+    - sort by title?
+    - sort by resource?
+    - model
+    - helpers
+    - controller etc.
 
 ## HIGH priority
 
@@ -126,60 +145,6 @@
   - check for pane stickiness with neighbors
 
 - Finish import file verification (Controllers)
-
-- Clean up PicturesHelper
-
-- PicturesHelper::picture_datetime_cascade_value_statement
-  - find calls
-  - rename to effective_datetime
-  - make sure it works
-
-  + stop differentiating "catalog_[resource]_xxxx" helper methods
-  + model: strip_whitespace_edges?
-
-  - event/form_audio does not have partial for _form_audio_join_by_keyword
-
-- CSS: Review `forms_test.scss` and remove obsolete classes from `forms.scss`
-  - Done, BUT:
-  - adminstrator forms including sign-on need updating **fixed**
-  - admin_header picture lost its class **fixed**
-  - resource `form_pictures` lost some data heading/value classes. **fixed** BUT visual "deactivation" of Order when Coverpicture==True seems to have broken.
-  - album and keyword, probably event too (hopefully uses a partial in `form_elements`)
-  - font-face
-  - layout/grid/table for uniform alignment. **table works best. thumbnail; data; remove_checkbox**
-  - class: arl_form_data_joins, *_picture
-  >           = render 'form_elements/joins_picture_thumbnail', form: pk
-  = render 'form_elements/joins_picture_title', form: pk
-  = render 'form_elements/joins_picture_remove', form: pk
-
-- check these classes in `resource.scss`
-  - line 86: `.arl_admin_resource_joined*`
-  - almost obsolete. used in views/admin/shared/_index_joined
-  - used in picture/_show_joined_resources
-  - **keep and reexamine w/ other audit of views**
-
-- Admin::ArlocalSettings?icon
-  - purge_attachment has not been refactored into new grid css **Fixed.**
-
-  - Anti-pattern forming in `form_metadata`
-    - Make a object or hash that centralizes forms/panes and their properties instead of using `case` statements **DONE.**
-
-- form buttons for "destroy" action-- should they be individualized like other resource admin action buttons?  **YES, probably.***
-
-- Why are some delete/purge buttons made with a proper form helper, but others are through button_helper?
-  - **DOES THIS CREATE A SECURITY RISK?** *Not if it uses `button_to`, but by not use the form builder?*
-  - check the API. `button_to` vs. `link_to`
-  - the `button_admit_submit_to_destroy _purge*` helpers invoke button_to instead of link_to. But why not use the form builder?
-  - **Conclusion:** Change them to f.submit. It's standard, and it's easier on the person reading the code.
-
-  >        - Which parsers are obsolete? **Seems right.**
-  >          - HTML = Iframe
-  >          - HTML P = simpleformat
-  >          - HTML PRE = markdown
-  >        - Only allow iframe in video embedding. **No, leave it as HTML embed for power admins.**
-  >        - This is OK to finalize.
-  >
-  >        - Check each model for default values.
 
 - Delete obsolete commented-out parser methods.
 

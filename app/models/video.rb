@@ -117,6 +117,11 @@ class Video < ApplicationRecord
   end
 
 
+  def full_title
+    title
+  end
+
+  
   ### id
 
 

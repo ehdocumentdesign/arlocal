@@ -15,6 +15,36 @@
   font-size: 0.8em;
 }
 
+.arl_form_bulk {
+
+}
+.arl_form_bulk_item {
+
+}
+.arl_form_bulk_item_data {}
+.arl_form_bulk_item_data_attr {
+  font-family: $font-family-admin-data-value;
+  padding: $arl-margin $arl-margin-narrow;
+}
+.arl_form_bulk_item_data_attr_multi {
+  font-family: $font-family-admin-data-value;
+  padding: $arl-margin 0;
+}
+.arl_form_bulk_item_data_attr_nulti:first-child {
+  padding-left: $arl-margin-narrow;
+}
+.arl_form_bulk_item_data_attr_nulti:last-child {
+  padding-right: $arl-margin-narrow;
+}
+.arl_form_bulk_item_data_text_field {
+  box-shadow: $shadow-img;
+  font-family: $font-family-admin-data-value;
+  font-size: 1em;
+}
+.arl_form_bulk_item_button_submit {
+  box-shadow: $shadow-img;
+  padding: $arl-margin-narrow;
+}
 
 .arl_form_data {
   @include layout-flex-column-stretch;
