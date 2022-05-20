@@ -2,8 +2,9 @@ class Admin::IsrcController < AdminController
 
 
   def review
-    @resources = (Audio.all.map { |a| a }) + (Video.all.map { |v| v })
-    @resources.sort_by!{ |a| a.isrc }
+    # @resources = (Audio.all.map { |a| a }) + (Video.all.map { |v| v })
+    # @resources.sort_by!{ |a| a.isrc }
+    @resources = QueryIsrc.review_all(@arlocal_settings, params)
   end
 
 

@@ -25,9 +25,6 @@ class ArlocalSettings < ApplicationRecord
   public
 
 
-  ### admin_index_audio_sorter_id
-
-
   ### admin_forms_auto_keyword_enabled
 
 
@@ -46,7 +43,13 @@ class ArlocalSettings < ApplicationRecord
   ### admin_forms_selectable_pictures_sorter_id
 
 
+  ### admin_index_audio_sorter_id
+
+
   ### admin_index_pictures_sorter_id
+
+
+  ### admin_review_isrc_sorter_id
 
 
   ### artist_content_copyright_year_earliest

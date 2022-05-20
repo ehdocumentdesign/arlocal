@@ -80,8 +80,8 @@ namespace :admin do
   patch     'info/:id/pictures_with_keyword', to: 'infopages#add_pictures_by_keyword',    as: :infopage_add_pictures_by_keyword
 
 
-  get   'isrc/review', to: 'isrc#review', as: :isrc_review
-  patch 'isrc/update', to: 'isrc#update', as: :isrc_update
+  get   'isrc/review',     to: 'isrc#review', as: :isrc_review
+  patch 'isrc/update/:id', to: 'isrc#update', as: :isrc_update
 
   resources :keywords
   delete    'keywords/:id/untag_albums',   to: 'keywords#untag_albums',               as: :untag_albums

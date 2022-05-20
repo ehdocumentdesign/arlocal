@@ -5,29 +5,6 @@
 
 - review video picture import-- does it still fail? Check upload too.
 
-- ISRC: report and validation across models
-  * admin menu header/link
-    - **routing**
-      - **What's with the extended URL syntax on this? see update.[format??]**
-      - **And what's with the format param equal to the title?**
-      * index = edit?
-    * layout
-      * table
-      * type, name, isrc, [submit]
-  - **controller**
-    * reports_controller
-    * query resources from audio and video
-    * update
-    - **reject ID from params**
-  * views
-    * sort by isrc
-    * form for each item
-  - admin_isrc_review_sort_order
-    - sort by title?
-    - sort by resource?
-    - model
-    - helpers
-    - controller etc.
 
 ## HIGH priority
 
@@ -165,3 +142,27 @@
       - but should the method be called `title_for_select`?
 
 - ISRC on videos
+
+- ISRC: report and validation across models
+  * admin menu header/link
+    - **routing**
+      - **What's with the extended URL syntax on this? see update.[format??]**
+      - **And what's with the format param equal to the title?**
+      * index = edit?
+    * layout
+      * table
+      * type, name, isrc, [submit]
+  - **controller**
+    * reports_controller
+    * query resources from audio and video
+    * update
+    - **reject ID from params?**
+  * views
+    * sort by isrc
+    * form for each item
+  - admin_isrc_review_sort_order
+    - sort by title?
+    - sort by resource?
+    - model
+    - helpers
+    - controller etc.

@@ -28,6 +28,7 @@ class ArlocalSettingsBuilder
       admin_index_events_sorter_id: SorterIndexAdminEvents.find_by_symbol(:datetime_asc).id,
       admin_index_pictures_sorter_id: SorterIndexAdminPictures.find_by_symbol(:filepath_asc).id,
       admin_index_videos_sorter_id: SorterIndexAdminVideos.find_by_symbol(:title_asc).id,
+      admin_review_isrc_sorter_id: SorterReviewAdminIsrc.find_by_symbol(:isrc_asc).id,
       artist_name: 'your name here',
       html_head_public_can_include_meta_description: true,
       icon_source_catalog_file_path: '',

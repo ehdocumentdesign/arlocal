@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_15_213754) do
+ActiveRecord::Schema.define(version: 2022_05_20_030451) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_213754) do
     t.integer "public_index_videos_sorter_id"
     t.boolean "public_nav_can_include_videos"
     t.string "icon_source_type"
+    t.integer "admin_review_isrc_sorter_id"
   end
 
   create_table "articles", force: :cascade do |t|
