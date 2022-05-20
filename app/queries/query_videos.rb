@@ -132,7 +132,7 @@ class QueryVideos
       result[keyword.title] = collection.joins(:keywords).where(keywords: keyword)
     end
     result["more videos"] = collection.reject{ |vid| vid.keywords.map { |k| k.can_select_videos }.include?(true) }
-    result
+    result.delete_if { |k,v| v == [] }
   end
 
 
