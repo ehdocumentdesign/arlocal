@@ -35,12 +35,12 @@ class QueryIsrc
 
 
   def order_by_isrc_asc
-    all_isrcable.sort_by { |i| i.isrc }
+    order_by_title_asc.sort_by { |i| i.isrc }
   end
 
 
   def order_by_isrc_desc
-    all_isrcable.sort_by { |i| i.isrc }.reverse
+    order_by_title_asc.sort_by { |i| i.isrc }.reverse
   end
 
 

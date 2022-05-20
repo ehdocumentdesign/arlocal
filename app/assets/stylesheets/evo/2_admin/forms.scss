@@ -15,11 +15,14 @@
   font-size: 0.8em;
 }
 
+
 .arl_form_bulk {
-
+  margin: $arl-spacing;
 }
-.arl_form_bulk_item {
-
+.arl_form_bulk_item {}
+.arl_form_bulk_item_action {
+  font-family: $font-family-admin-data-value;
+  padding: $arl-margin $arl-margin-narrow;
 }
 .arl_form_bulk_item_data {}
 .arl_form_bulk_item_data_attr {
@@ -148,7 +151,6 @@
   border: $border-light;
   font-size: 0.9em;
   font-family: $font-family-admin-data-value;
-  // margin-left: $arl-margin;
   padding: ($arl-margin-narrow / 2) $arl-margin-narrow;
 }
 .arl_form_data_attr_label {
