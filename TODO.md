@@ -3,10 +3,18 @@
 
 ## HIGHEST priority
 
-- review video picture import-- does it still fail? Check upload too.
-
 
 ## HIGH priority
+
+- review video picture import-- does it still fail? Check upload too.
+- Fixed, BUT:
+  - Video :has_one picture as a thumbnail
+  -   by comparison,
+  - Event :has_many pictures as a collection
+  -   therefore
+  - The supplementary methods for importing will look different.
+  - Should this remain, or should Video-Picture be a :has_many relationship?
+  - **Probably should be a :has_many relationship for consistency.**
 
 - check forms for appropriate autocomplete attributes
 
@@ -54,9 +62,6 @@
 > // see .jp-type-playlist for border-bottom.
 > // see .arl_albums_show_player for border-top.
 >
-
-- FormMetadataSelectableUtils:65
-  - will relying on an Integer for @picture.id create a false negative?
 
 - EventVideo object
 
@@ -168,3 +173,7 @@
 
 
     - Should auto_keyword be in the top part of a form? **I think so.**
+
+    - **This looks like an outdated refermce to obsolete code.**
+      - FormMetadataSelectableUtils:65
+      - will relying on an Integer for @picture.id create a false negative?

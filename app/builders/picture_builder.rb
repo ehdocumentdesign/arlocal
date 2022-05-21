@@ -130,7 +130,7 @@ class PictureBuilder
 
   def self.create_from_import_nested_within_video(video, params, **args)
     picture_params = {
-      source_catalog_file_path: params['picture']['source_catalog_file_path'],
+      source_catalog_file_path: params['video']['picture']['source_catalog_file_path'],
       source_type: 'catalog'
     }
     self.build(**args) do |b|

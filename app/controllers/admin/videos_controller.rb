@@ -52,7 +52,7 @@ class Admin::VideosController < AdminController
 
   def picture_create_from_import
     @video = QueryVideos.find_admin(params[:id])
-    @picture = PictureBuilder.create_from_import_nested_within_video(@video, params_video_permitted)
+    @picture = PictureBuilder.create_from_import_nested_within_video(@video, params)
     if @picture.save
       flash[:notice] = 'Picture was successfully imported.'
       redirect_to edit_admin_video_path(@video.id_admin, pane: :picture)
@@ -156,7 +156,8 @@ class Admin::VideosController < AdminController
 
 
   def verify_nested_picture_file_exists
-    filename = helpers.catalog_file_path(params_video_permitted['pictures_attributes']['0']['source_catalog_file_path'])
+    # filename = helpers.catalog_file_path(params_video_permitted['pictures_attributes']['0']['source_catalog_file_path'])
+    filename = helpers.catalog_file_path(params['video']['picture']['source_catalog_file_path'])
     verify_file(filename)
   end
 
