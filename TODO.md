@@ -74,20 +74,14 @@
   - columns
   - is audio_helper the best place for the method?
 
-- Admin::ArlocalSettings?admin
-- ***This might have been fixed in or negated by the FormMetadata refactor.***
-  - options for select & selectable & form_elements/select form_elements_arls/select_sorter
-  - The map method for the form builder is located within the lib/InactiveRecord module and FormMetadata::Selectable
-  - For clarity, should it be refactored into the form builder or partial?
-  - As things stand, it's not clear how the collection and value/text methods get delivered to the form
-
 + Note where the selectable value source_type comes from the model, not via FormMetadata::Selectable
-- ***This might have been fixed in or negated by the FormMetadata refactor.***
-  - Controllers::Admin::Audio#new_[method_to_resource]
-  - Controllers::Admin::Picture#new_[method_to_resource]
-  - Helpers::AudioHelper#audio_admin_filter_select
-  - Helpers::EventsHelper#event_public_filter_select
-  - Helpers::PicturesHelper#picture_admin_filter_select
+  - ***Refactoring these has low priority because there is only one @selectable item.***
+    - Controllers::Admin::Audio#new_[method_to_resource]
+    - Controllers::Admin::Picture#new_[method_to_resource]
+  - ***Refactoring these requires deciding whether to assign SorterIndexAdmin[].options_for_select to @selectable into the controller and passing it all the way through.***
+    - Helpers::AudioHelper#audio_admin_filter_select
+    - Helpers::EventsHelper#event_public_filter_select
+    - Helpers::PicturesHelper#picture_admin_filter_select
 
 + Albums#Show: section/div nesting doesn't make sense. **CSS Grid will fix this**
 
@@ -104,7 +98,6 @@
 
 ## Possibly fixed
 
-- Video index sort by keyword
 - Does audio view still use _form_attachment* ? **Probably not.**
   **YES. it's a decision tree for upload/purge.**
   **Resubmit as a UI/UX review.**
@@ -117,6 +110,7 @@
 
 ## Probably fixed
 
+- Video index sort by keyword
 + CSS Grid for admin forms checkbox **In Progress**
 - TODO: Button spacing in admin forms **In Progress**
 
@@ -166,3 +160,10 @@
     - model
     - helpers
     - controller etc.
+
+  - Admin::ArlocalSettings?admin
+    - ***This might have been fixed in or negated by the FormMetadata refactor.***
+    - options for select & selectable & form_elements/select form_elements_arls/select_sorter
+    - The map method for the form builder is located within the lib/InactiveRecord module and FormMetadata::Selectable
+    - For clarity, should it be refactored into the form builder or partial?
+    - As things stand, it's not clear how the collection and value/text methods get delivered to the form
