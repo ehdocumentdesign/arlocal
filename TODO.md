@@ -42,8 +42,6 @@
 - form_pictures exerwhere
 - picture_selector in join_single
 
-- Should auto_keyword be in the top part of a form? **I think so.**
-
 - review routes for semantic/logical cohesion
   - obsolete routes are commented. I think all of them.
   - some are not currently in use.
@@ -167,3 +165,6 @@
     - The map method for the form builder is located within the lib/InactiveRecord module and FormMetadata::Selectable
     - For clarity, should it be refactored into the form builder or partial?
     - As things stand, it's not clear how the collection and value/text methods get delivered to the form
+
+
+    - Should auto_keyword be in the top part of a form? **I think so.**

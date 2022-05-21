@@ -6,6 +6,7 @@
     = render 'form_elements/datetime_zone',   attribute: :datetime,                 form: f
     = render 'form_elements/check_box',       attribute: :published,                form: f
     = render 'form_elements/check_box',       attribute: :indexed,                  form: f
+    = render 'form_elements/auto_keyword',    attribute: :event_keywords,           form: f, auto_keyword: @auto_keyword
     = render 'form_elements/spacer'
     -# = render 'form_elements/slug_field',      attribute: :slug,                     form: f, arlocal_settings: @arlocal_settings
     = render 'form_elements/text_field',      attribute: :alert,                    form: f
@@ -16,6 +17,5 @@
     -# render 'form_elements/check_box',       attribute: :show_can_have_more_pictures_link, form: f
     = render 'form_elements/text_field',      attribute: :venue,                    form: f
     = render 'form_elements/text_field',      attribute: :venue_url,                form: f
-    = render 'form_elements/auto_keyword',    attribute: :event_keywords,           form: f, auto_keyword: @auto_keyword
   .arl_form_actions
     = f.submit class: :arl_button_form_submit
