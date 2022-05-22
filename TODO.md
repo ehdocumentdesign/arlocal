@@ -6,6 +6,8 @@
 
 ## HIGH priority
 
+- make a more meaningful keywords index
+
 - review video picture import-- does it still fail? Check upload too.
 - Fixed, BUT:
   - Video :has_one picture as a thumbnail
