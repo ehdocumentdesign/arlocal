@@ -16,8 +16,6 @@
   - Should this remain, or should Video-Picture be a :has_many relationship?
   - **Probably should be a :has_many relationship for consistency.**
 
-- check forms for appropriate autocomplete attributes
-
 - datetime to text inputs instead of selects
   - why does `size: ` attribute result in larger-than-size fields? inherited from CSS maybe?
 
@@ -110,3 +108,5 @@
 
 
 ## Probably fixed
+
+- check forms for appropriate autocomplete attributes
