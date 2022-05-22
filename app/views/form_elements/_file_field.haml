@@ -2,7 +2,7 @@
   = form.label (local_assigns[:label] ? label : attribute), class: :arl_form_data_attr_label
 
   - if form.object.does_not_have_attached(attribute)
-    = form.file_field attribute, class: :arl_form_data_attr_input_file_upload
+    = form.file_field attribute, autocomplete: :off, class: :arl_form_data_attr_input_file_upload
 
   - if form.object.does_have_attached(attribute)
     .arl_form_data_attr_attachment

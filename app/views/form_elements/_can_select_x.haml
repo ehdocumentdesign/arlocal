@@ -2,4 +2,4 @@
   = form.check_box "can_select_#{attribute}", class: :arl_form_data_attr_input_checkbox
   = form.label "can_select_#{attribute}", class: :arl_form_data_attr_can_select_x_label_a
   = form.label "order:", class: :arl_form_data_attr_can_select_x_label_b
-  = form.text_field "order_selecting_#{attribute}", class: :arl_form_data_attr_input_text_field, size: 3
+  = form.text_field "order_selecting_#{attribute}", autocomplete: :off, class: :arl_form_data_attr_input_text_field, size: 3

@@ -3,16 +3,16 @@
   .arl_form_data_attr_multi
     .arl_form_data_attr_multi_field
       = form.label :duration_hrs, 'hrs', class: :arl_form_data_attr_multi_label
-      = form.text_field :duration_hrs, size: 3, class: :arl_form_data_attr_input_text_field
+      = form.text_field :duration_hrs, autocomplete: :off, size: 3, class: :arl_form_data_attr_input_text_field
     .arl_form_data_attr_multi_spacer= ':'
     .arl_form_data_attr_multi_field
       = form.label :duration_mins, 'mins', class: :arl_form_data_attr_multi_label
-      = form.text_field :duration_mins, size: 3, maxlength: 2, class: :arl_form_data_attr_input_text_field
+      = form.text_field :duration_mins, autocomplete: :off, size: 3, maxlength: 2, class: :arl_form_data_attr_input_text_field
     .arl_form_data_attr_multi_spacer= ':'
     .arl_form_data_attr_multi_field
       = form.label :duration_secs, 'secs', class: :arl_form_data_attr_multi_label
-      = form.text_field :duration_secs, size: 3, maxlength: 2, class: :arl_form_data_attr_input_text_field
+      = form.text_field :duration_secs, autocomplete: :off, size: 3, maxlength: 2, class: :arl_form_data_attr_input_text_field
     .arl_form_data_attr_multi_spacer= '.'
     .arl_form_data_attr_multi_field
       = form.label :duration_mils, 'mils', class: :arl_form_data_attr_multi_label
-      = form.text_field :duration_mils, size: 3, maxlength: 3, class: :arl_form_data_attr_input_text_field
+      = form.text_field :duration_mils, autocomplete: :off, size: 3, maxlength: 3, class: :arl_form_data_attr_input_text_field

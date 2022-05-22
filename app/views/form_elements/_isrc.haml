@@ -1,7 +1,7 @@
 .arl_form_data_attr
   %label.arl_form_data_attr_label ISRC
   .arl_form_data_attr_multi
-    = form.text_field :isrc_country_code, size: 3, maxlength: 2, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]
-    = form.text_field :isrc_registrant_code, size: 4, maxlength: 3, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]
-    = form.text_field :isrc_year_of_reference, size: 3, maxlength: 2, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]
-    = form.text_field :isrc_designation_code, size: 6, maxlength: 5, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]
+    = form.text_field :isrc_country_code, autocomplete: :off, size: 3, maxlength: 2, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]
+    = form.text_field :isrc_registrant_code, autocomplete: :off, size: 4, maxlength: 3, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]
+    = form.text_field :isrc_year_of_reference, autocomplete: :off, size: 3, maxlength: 2, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]
+    = form.text_field :isrc_designation_code, autocomplete: :off, size: 6, maxlength: 5, class: [:arl_form_data_attr_input_text_field, :arl_form_margin_right]

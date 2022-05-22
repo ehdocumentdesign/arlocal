@@ -3,4 +3,4 @@
   - if local_assigns[:aside]
     - [aside].flatten.each do |a|
       %aside.arl_form_data_attr_explanation= "#{a}"
-  = form.text_field attribute, class: :arl_form_data_attr_input_text_field
+  = form.text_field attribute, autocomplete: :off, class: :arl_form_data_attr_input_text_field

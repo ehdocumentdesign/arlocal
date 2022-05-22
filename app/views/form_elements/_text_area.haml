@@ -2,4 +2,4 @@
   = form.label attribute, class: :arl_form_data_attr_label
   - if local_assigns[:aside]
     %aside.arl_form_data_attr_explanation= "#{aside}"
-  = form.text_area attribute, class: :arl_form_data_attr_input_text_area
+  = form.text_area attribute, autocomplete: :off, class: :arl_form_data_attr_input_text_area
