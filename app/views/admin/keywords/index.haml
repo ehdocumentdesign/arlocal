@@ -4,8 +4,8 @@
   .arl_admin_resource_header_class= 'keywords index'
   .arl_admin_resource_header_buttons
     = keyword_admin_button_to_new
-  
+
 .arl_keywords_index
   - @keywords.each do |keyword|
     .arl_keywords_index_keyword
-      = render 'index_details', keyword: keyword
+      = render 'index_details_inline', keyword: keyword

@@ -6,7 +6,14 @@
 
 ## HIGH priority
 
-- make a more meaningful keywords index
+- keywords#index look for abandoned partials
+
+- keyword.title_with_[rsource]_count
+  - are these still being used?
+  - I think so, check the view partial. Should be a helper if so. **NO. The views use a helper.**
+  - If not there, check in form_selectable somewhere.
+    - pretty sure it's in form_selectables and the SELECT element as _text_method_
+
 
 - review video picture import-- does it still fail? Check upload too.
 - Fixed, BUT:
@@ -17,6 +24,7 @@
   - The supplementary methods for importing will look different.
   - Should this remain, or should Video-Picture be a :has_many relationship?
   - **Probably should be a :has_many relationship for consistency.**
+  - ***Is that certain? Video only needs a thumbnail.***
 
 - datetime to text inputs instead of selects
   - why does `size: ` attribute result in larger-than-size fields? inherited from CSS maybe?
@@ -25,6 +33,7 @@
   - coverpicture=true would slightly obscure the Order field
   - is a javascript thing.
   - also maybe `form_elements/join_picture_order` needs a class declaration
+  - _quickly becomes a tangential UI/UX issue: reimagining the admin UI_
 
 - views/admin/shared/_index_joined
   - is this used beyond Picture
@@ -112,3 +121,10 @@
 ## Probably fixed
 
 - check forms for appropriate autocomplete attributes
+
+- make a more meaningful keywords index
+  - all joins _are_ included
+  - what could be improved?
+    - too vertical
+    - too empty
+    - collapseable tree view?

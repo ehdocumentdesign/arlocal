@@ -1,5 +1,6 @@
 .arl_keywords_index {
   margin: $arl-margin-wide 0rem;
+  max-width: 40rem;
 }
 .arl_keywords_index_keyword {
   margin: $arl-margin-wide 0rem;
@@ -10,6 +11,6 @@
 }
 .arl_keywords_index_keyword_title_link {
   color: $color-fg-link;
-  font-family: $font-family-admin-data-label; 
+  font-family: $font-family-admin-data-label;
   font-weight: bold;
 }

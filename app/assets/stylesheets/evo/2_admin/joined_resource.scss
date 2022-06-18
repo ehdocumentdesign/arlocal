@@ -1,0 +1,16 @@
+.arl_joined_resource {
+
+}
+.arl_joined_resource_heading {
+  display: inline;
+  font-weight: bold;
+}
+.arl_joined_resource_data {
+  display: inline;
+  &::after {
+    content: ' / '
+  }
+}
+.arl_joined_resource_data:last-child::after {
+  content: ''
+}

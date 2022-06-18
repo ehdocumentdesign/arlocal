@@ -24,6 +24,7 @@ class Keyword < ApplicationRecord
   has_many :audio, through: :audio_keywords do
     def order_by_title_asc
       order(Audio.arel_table[:title].lower.asc)
+      sort_by { |a| a.full_title }
     end
   end
 
@@ -61,13 +62,20 @@ class Keyword < ApplicationRecord
   public
 
 
+  def albums_by_title
+    albums.sort_by{ |a| a.title }
+  end
+
+
   ### albums_count
 
 
+  def audio_by_title
+    audio.sort_by{ |a| a.full_title }
+  end
+
+
   ### audio_count
-
-
-  ### events_count
 
 
   ### can_select_albums
@@ -124,6 +132,14 @@ class Keyword < ApplicationRecord
   end
 
 
+  def events_by_title
+    events.sort_by{ |a| a.title }
+  end
+
+
+  ### events_count
+
+
   # unique index id for database
   ### id
 
@@ -148,6 +164,11 @@ class Keyword < ApplicationRecord
 
 
   ### order_selecting_videos
+
+
+  def pictures_by_title
+    pictures.sort_by{ |a| a.title }
+  end
 
 
   ### pictures_count
@@ -209,6 +230,14 @@ class Keyword < ApplicationRecord
   ### updated_at
 
 
+  def videos_by_title
+    videos.sort_by{ |a| a.title }
+  end
+
+
+  ### videos_count
+
+
   def will_select_public_pictures
     can_select_pictures && does_have_pictures
   end
@@ -222,12 +251,12 @@ class Keyword < ApplicationRecord
   end
 
 
+
   private
 
 
   def strip_whitespace_edges_from_entered_text
-    [ self.title
-    ].each { |a| a.to_s.strip! }
+    [ self.title ].each { |a| a.to_s.strip! }
   end
 
 

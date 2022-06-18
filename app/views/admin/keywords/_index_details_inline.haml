@@ -1,0 +1,20 @@
+.arl_keywords_index_keyword_title
+  = link_to keyword.title, admin_keyword_path(keyword.id_public), class: :arl_keywords_index_keyword_title_link
+
+.arl_keywords_index_keyword_joined
+  %dl.arl_keywords_index_keyword_joined_resource
+    %dh.arl_joined_resource_heading= keyword_statement_albums_count(keyword, punctuated: true)
+    - keyword.albums_by_title.each do |a|
+      %dd.arl_joined_resource_data= a.title
+    %dh.arl_joined_resource_heading= keyword_statement_audio_count(keyword, punctuated: true)
+    - keyword.audio_by_title.each do |a|
+      %dd.arl_joined_resource_data= a.full_title
+    %dh.arl_joined_resource_heading= keyword_statement_events_count(keyword, punctuated: true)
+    - keyword.events_by_title.each do |a|
+      %dd.arl_joined_resource_data= a.title
+    %dh.arl_joined_resource_heading= keyword_statement_pictures_count(keyword, punctuated: true)
+    - keyword.pictures_by_title.each do |a|
+      %dd.arl_joined_resource_data= a.title
+    %dh.arl_joined_resource_heading= keyword_statement_videos_count(keyword, punctuated: true)
+    - keyword.videos_by_title.each do |a|
+      %dd.arl_joined_resource_data= a.title

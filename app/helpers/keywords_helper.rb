@@ -110,28 +110,52 @@ module KeywordsHelper
   end
 
 
-  def keyword_statement_albums_count(keyword)
-    pluralize keyword.albums_count.to_i, 'album'
+  def keyword_statement_albums_count(keyword, punctuated: false)
+    count = keyword.albums_count.to_i
+    result = pluralize count, 'album'
+    if punctuated && (count > 0)
+      result = "#{result}:"
+    end
+    result
+  end
+
+  def keyword_statement_audio_count(keyword, punctuated: false)
+    count = keyword.audio_count.to_i
+    result = pluralize count, 'audio'
+    if punctuated && (count > 0)
+      result = "#{result}:"
+    end
+    result
   end
 
 
-  def keyword_statement_audio_count(keyword)
-    pluralize keyword.audio_count.to_i, 'audio'
+  def keyword_statement_events_count(keyword, punctuated: false)
+    count = keyword.events_count.to_i
+    result = pluralize count, 'event'
+    if punctuated && (count > 0)
+      result = "#{result}:"
+    end
+    result
   end
 
 
-  def keyword_statement_events_count(keyword)
-    pluralize keyword.events_count.to_i, 'event'
+  def keyword_statement_pictures_count(keyword, punctuated: false)
+    count = keyword.pictures_count.to_i
+    result = pluralize count, 'picture'
+    if punctuated && (count > 0)
+      result = "#{result}:"
+    end
+    result
   end
 
 
-  def keyword_statement_pictures_count(keyword)
-    pluralize keyword.pictures_count.to_i, 'picture'
-  end
-
-
-  def keyword_statement_videos_count(keyword)
-    pluralize keyword.videos_count.to_i, 'video'
+  def keyword_statement_videos_count(keyword, punctuated: false)
+    count = keyword.videos_count.to_i
+    result = pluralize count, 'video'
+    if punctuated && (count > 0)
+      result = "#{result}:"
+    end
+    result
   end
 
 
