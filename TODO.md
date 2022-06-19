@@ -6,14 +6,7 @@
 
 ## HIGH priority
 
-- keywords#index look for abandoned partials
-
-- keyword.title_with_[rsource]_count
-  - are these still being used?
-  - I think so, check the view partial. Should be a helper if so. **NO. The views use a helper.**
-  - If not there, check in form_selectable somewhere.
-    - pretty sure it's in form_selectables and the SELECT element as _text_method_
-
+- Consider ActionText (sp?) for text_markup fields.
 
 - review video picture import-- does it still fail? Check upload too.
 - Fixed, BUT:
@@ -108,7 +101,7 @@
     - formatting for markup types, esp. for narrow width
 
 
-## Possibly fixed
+## Possibly finished
 
 - Does audio view still use _form_attachment* ? **Probably not.**
   **YES. it's a decision tree for upload/purge.**
@@ -118,7 +111,7 @@
 - double-check source_attachment features
 
 
-## Probably fixed
+## Probably finished
 
 - check forms for appropriate autocomplete attributes
 
@@ -128,3 +121,6 @@
     - too vertical
     - too empty
     - collapseable tree view?
+
+- keyword.title_with_[rsource]_count
+  - are these still being used? **Yes. in `_form_[]_join_by_keyword`**
