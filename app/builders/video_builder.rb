@@ -10,7 +10,7 @@ class VideoBuilder
   attr_reader :metadata, :video
 
 
-  def initialize
+  def initialize(**args)
     arlocal_settings = (ArlocalSettings === args[:arlocal_settings]) ? args[:arlocal_settings] : nil
     video = (Video === args[:video]) ? args[:video] : Video.new
 
